@@ -1,5 +1,5 @@
 {
-  "name": "wanderset-design",
+  "name": "wanderset",
   "version": "0.0.1",
   "main": "lib/daemon",
   "engines": {
@@ -28,6 +28,6 @@
   , "basic-auth": "*"
   , "its-thinking": "*"
   , "basecmd": "*"
-  , "basic-auth": "*"
+  , "wanderset-design": "git+ssh://git@github.com/tinkerpartners/wanderset-design.git#master"
   }
 }
