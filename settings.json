@@ -1,0 +1,29 @@
+{
+  "basecmd": {
+    "server": "./node_modules/basecmd/lib/server.js"
+  , "daemon": "./node_modules/basecmd/scripts/daemon.js"
+  , "views": [
+      "./node_modules/basecmd/lib/views"
+    , "./node_modules/wanderset-design/html"
+    ]
+  , "public": [
+      "./node_modules/wanderset-design/asset"
+    , "./node_modules/wanderset-design/css"
+    , "./node_modules/wanderset-design/font"
+    , "./node_modules/wanderset-design/js"
+    , "./bower_components"
+    ]
+  , "controllers": [
+      "./lib/controller"
+    , "./node_modules/basecmd/lib/controllers"
+    ]
+  , "helpers": [
+      "./lib/helpers"
+    , "./node_modules/basecmd/lib/helpers"
+    ]
+  , "models": [
+      "./lib/models"
+    , "./node_modules/basecmd/lib/models"
+    ]
+  }
+}

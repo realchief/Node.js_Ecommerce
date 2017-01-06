@@ -1,0 +1,55 @@
+{
+  "env": {
+    "development": {
+      "host": "http://localhost:8849"
+    , "domain": "localhost:8849"
+    , "express": {
+        "port": 8849
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "dev.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "dev_wanderset"
+      }
+    }
+  , "staging": {
+      "host": "https://staging.wanderset.com"
+    , "domain": "staging.wanderset.com"
+    , "express": {
+        "port": 8850
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "staging.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "staging_wanderset"
+      }
+    }
+  , "production": {
+      "host": "https://wanderset.com"
+    , "domain": ".wanderset.com"
+    , "express": {
+        "port": 8850
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "wanderset"
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "wanderset-design",
+  "version": "0.0.1",
+  "main": "lib/daemon",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt": "~0.4.5"
+  },
+  "keywords": []
+, "dependencies": {
+    "async": "*"
+  , "less": "*"
+  , "underscore": "*"
+  , "underscore.string": "*"
+  , "jsbelt": "*"
+  , "optionall": "*"
+  , "moment": "*"
+  , "moment-timezone": "*"
+  , "winston": "*"
+  , "basic-auth": "*"
+  , "its-thinking": "*"
+  , "basecmd": "*"
+  , "basic-auth": "*"
+  }
+}
