@@ -1,0 +1,1 @@
+../node_modules/basecmd/scripts/daemon.js
