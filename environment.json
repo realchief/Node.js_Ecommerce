@@ -16,6 +16,15 @@
       , "port": 27017
       , "db": "dev_wanderset"
       }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      }
+    , "email": {
+        "from": "DEVELOPMENT Wanderset <development-no-reply@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "development.assets.wanderset.com"
+      }
     }
   , "staging": {
       "host": "https://staging.wanderset.com"
@@ -33,6 +42,16 @@
       , "port": 27017
       , "db": "staging_wanderset"
       }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "error": "https://2po.st/0oSILZHvI0OA"
+      }
+    , "email": {
+        "from": "STAGING Wanderset <staging-no-reply@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
     }
   , "production": {
       "host": "https://wanderset.com"
@@ -49,6 +68,16 @@
         "host": "127.0.0.1"
       , "port": 27017
       , "db": "wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/j0zYIQ6VlseH"
+      , "error": "https://2po.st/5L6HfIxZmJVx"
+      }
+    , "email": {
+        "from": "Wanderset <no-reply@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "assets.wanderset.com"
       }
     }
   }

@@ -1,1 +1,1 @@
-../node_modules/basecmd/scripts/daemon.js
+/mnt/F/Dropbox/code/wanderset/node_modules/basecmd/scripts/daemon.js

@@ -5,6 +5,7 @@
   , "views": [
       "./node_modules/basecmd/lib/views"
     , "./node_modules/wanderset-design/html"
+    , "./lib/views"
     ]
   , "public": [
       "./node_modules/wanderset-design/asset"
