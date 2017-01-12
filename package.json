@@ -28,6 +28,7 @@
   , "basic-auth": "*"
   , "its-thinking": "*"
   , "aws-sdk": "*"
+  , "stripe": "*"
   , "basecmd": "git+ssh://git@github.com/sackio/basecmd.git#master"
   , "wanderset-design": "git+ssh://git@github.com/tinkerpartners/wanderset-design.git#master"
   }
