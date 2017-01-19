@@ -13,13 +13,22 @@
           <div class="container-fluid">
             <% if (operation === 'list'){ %>
               <%= Render('admin_table', Locals) %>
+            <% } else { %>
+              <script type="text/javascript" charset="utf-8">
+                GB['_id'] = '<%= Request.params._id %>';
+              </script>
+              <%= Render('admin_' + model.name + '_' + operation, Locals) %>
             <% } %>
           </div>
         </div>
       </div>
     </div>
 
-    <%= Render('javascript', Locals) %>
+    <%= Render('javascript', _.extend({}, Locals, {
+      'js_files': [
+        '/public/js/admin/' + model.name + '_' + operation + '.js'
+      ]
+    })) %>
     <%= Render('admin_javascript', Locals) %>
   </body>
 

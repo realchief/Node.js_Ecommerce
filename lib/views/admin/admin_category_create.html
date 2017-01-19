@@ -1,0 +1,36 @@
+<div id="container" class="row" data-set="self" data-get="_id" data-get-method="attr('data-id')">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <input name="name" type="text" class="form-control" placeholder="category name" data-set="name" data-set-method="val" data-get="name" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              <textarea name="description" type="text" class="form-control" placeholder="description of category" data-set="description" data-set-method="val" data-get="description" data-get-method="val()"></textarea>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Subcategories</label>
+            <div class="col-sm-10">
+              <input name="subcategories" class="tagsinput form-control" data-set="subcategories" data-get="subcategories" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <button class="btn btn-primary" type="submit">Create</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
