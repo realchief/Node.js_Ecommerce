@@ -3,9 +3,9 @@
     "server": "./node_modules/basecmd/lib/server.js"
   , "daemon": "./node_modules/basecmd/scripts/daemon.js"
   , "views": [
-      "./node_modules/basecmd/lib/views"
-    , "./node_modules/wanderset-design/html"
+      "./node_modules/wanderset-design/html"
     , "./lib/views"
+    , "./lib/views/admin"
     ]
   , "public": [
       "./node_modules/wanderset-design/asset"
@@ -13,6 +13,7 @@
     , "./node_modules/wanderset-design/font"
     , "./node_modules/wanderset-design/js"
     , "./bower_components"
+    , "./public"
     ]
   , "controllers": [
       "./lib/controller"

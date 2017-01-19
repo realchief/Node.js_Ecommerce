@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= Render('admin_head', Locals) %>
+  </head>
+
+  <body class="top-navigation">
+    <div id="wrapper">
+      <div id="page-wrapper" class="gray-bg">
+        <%= Render('admin_nav', Locals) %>
+
+        <div class="wrapper wrapper-content">
+          <div class="container-fluid">
+            <% if (operation === 'list'){ %>
+              <%= Render('admin_table', Locals) %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= Render('javascript', Locals) %>
+    <%= Render('admin_javascript', Locals) %>
+  </body>
+
+</html>
