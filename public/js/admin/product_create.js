@@ -41,6 +41,11 @@ var View = function(options, callback){
           'categories': this.get('categories')
         });
       }
+    , 'change [name="new_category"]': function(e){
+        var val = $(e.target).val();
+        if (!val) this.$el.find('[name="new_subcategory"]').val('').trigger('change');
+        this.$el.find('[name="new_subcategory"]').prop('disabled', val ? false : true);
+      }
     }
   , 'transformers': {
       'get:colors': function(val){
@@ -138,12 +143,49 @@ var View = function(options, callback){
           };
         });
 
+        items.push({
+          'id': ''
+        , 'text': ''
+        });
+
         return {
           'results': items
         };
       }
     }
   });
+
+  gb.view.$el.find('[name="new_subcategory"]').select2({
+    'ajax': {
+      'url': function(d){
+        return '/category/list.json'
+      }
+    , 'data': function(d){
+        return {
+          'query': {
+            'name': gb.view.$el.find('[name="new_category"]').val()
+          }
+        };
+      }
+    , 'processResults': function(res){
+        var items = _.map(Belt.get(res, 'data.0.subcategories') || [], function(v){
+          return {
+            'id': v.name
+          , 'text': v.name
+          };
+        });
+
+        items.push({
+          'id': ''
+        , 'text': ''
+        });
+
+        return {
+          'results': items
+        };
+      }
+    }
+  }).prop('disabled', true);
 
   gb.view.emit('load');
 
