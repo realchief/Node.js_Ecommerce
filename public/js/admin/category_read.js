@@ -73,6 +73,18 @@ $(document).ready(function(){
       'data': GB.data
     });
 
+    Socket.emit('room:join', {
+      'room': GB.model.name + ':' + GB._id
+    });
+
+    Socket.on(GB.model.name + ':' + GB._id + ':update', function(data){
+      GB.view.set(data);
+    });
+
+    Socket.on(GB.model.name + ':' + GB._id + ':delete', function(data){
+      return document.location = '/admin/' + GB.model.name + '/list';
+    });
+
     GB.view.set(GB.data);
   });
 });

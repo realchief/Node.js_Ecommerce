@@ -22,7 +22,6 @@ var View = function(options, callback){
           Delete(self.get(), function(err, doc){
             if (err) return bootbox.alert(err.message);
 
-            return document.location = '/admin/' + GB.model.name + '/list';
           });
         });
       }
@@ -68,6 +67,19 @@ var LoadView = function(options, callback){
         GB.container.append(gb.view.$el);
       }
 
+      Socket.emit('room:join', {
+        'room': GB.model.name + ':' + a.o.data._id
+      });
+
+      Socket.on(GB.model.name + ':' + a.o.data._id + ':update', function(data){
+        gb.view.set(data);
+      });
+
+      Socket.on(GB.model.name + ':' + a.o.data._id + ':delete', function(data){
+        Belt.get(gb, 'view.$el.remove()');
+        delete gb.view;
+      });
+
       gb.view.set(a.o.data);
 
       return cb();
@@ -76,6 +88,16 @@ var LoadView = function(options, callback){
     return a.cb(err);
   });
 };
+
+Socket.emit('room:join', {
+  'room': GB.model.name + ':list'
+});
+
+Socket.on(GB.model.name + ':create', function(data){
+  LoadView({
+    'data': data
+  });
+});
 
 $(document).ready(function(){
   List(function(err, docs){
