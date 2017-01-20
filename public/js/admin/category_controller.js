@@ -1,4 +1,6 @@
-var List = function(options, callback){
+Controllers[GB.model.name] = {};
+
+Controllers[GB.model.name]['List'] = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};
@@ -21,7 +23,7 @@ var List = function(options, callback){
   });
 };
 
-var Create = function(options, callback){
+Controllers[GB.model.name]['Create'] = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};
@@ -48,7 +50,7 @@ var Create = function(options, callback){
   });
 };
 
-var Read = function(options, callback){
+Controllers[GB.model.name].Read = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};
@@ -72,7 +74,7 @@ var Read = function(options, callback){
   });
 };
 
-var Update = function(options, callback){
+Controllers[GB.model.name]['Update'] = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};
@@ -110,7 +112,7 @@ var Update = function(options, callback){
   });
 };
 
-var Delete = function(options, callback){
+Controllers[GB.model.name]['Delete'] = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};

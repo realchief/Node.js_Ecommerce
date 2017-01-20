@@ -11,7 +11,7 @@ var View = function(options, callback){
     , 'click [name="submit"]': function(e){
         e.preventDefault();
 
-        Create(this.get(), function(err, doc){
+        Controllers[GB.model.name].Create(this.get(), function(err, doc){
           if (err) return bootbox.alert(err.message);
 
           document.location = '/admin/' + GB.model.name + '/' + doc._id + '/read';

@@ -19,7 +19,7 @@ var View = function(options, callback){
         , function(conf){
           if (!conf) return;
 
-          Delete(self.get(), function(err, doc){
+          Controllers[GB.model.name].Delete(self.get(), function(err, doc){
             if (err) return bootbox.alert(err.message);
 
           });
@@ -100,7 +100,7 @@ Socket.on(GB.model.name + ':create', function(data){
 });
 
 $(document).ready(function(){
-  List(function(err, docs){
+  Controllers[GB.model.name].List(function(err, docs){
     GB['data'] = docs;
 
     Async.eachSeries(GB.data, function(d, cb){

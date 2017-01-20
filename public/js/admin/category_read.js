@@ -13,10 +13,8 @@ var View = function(options, callback){
 
         var self = this;
 
-        Update(self.get(), function(err, doc){
+        Controllers[GB.model.name].Update(self.get(), function(err, doc){
           if (err) return bootbox.alert(err.message);
-
-          self.set(doc);
         });
       }
     , 'click [name="delete"]': function(e){
@@ -28,7 +26,7 @@ var View = function(options, callback){
         , function(conf){
           if (!conf) return;
 
-          Delete(self.get(), function(err, doc){
+          Controllers[GB.model.name].Delete(self.get(), function(err, doc){
             if (err) return bootbox.alert(err.message);
 
             return document.location = '/admin/' + GB.model.name + '/list';
@@ -64,7 +62,7 @@ var View = function(options, callback){
 };
 
 $(document).ready(function(){
-  Read({'_id': GB._id}, function(err, doc){
+  Controllers[GB.model.name].Read({'_id': GB._id}, function(err, doc){
     GB['data'] = doc;
 
     if (err || !GB.data) return document.location = '/admin/' + GB.model.name + '/list';
