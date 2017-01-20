@@ -1,4 +1,4 @@
-<div id="container" class="row">
+<div id="container" class="row" data-set="self" data-get="_id" data-get-method="attr('data-id')">
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
       <div class="ibox-content">
@@ -6,14 +6,34 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-              <input name="name" type="text" class="form-control" placeholder="product name" data-get="name" data-get-method="val()">
+              <input name="name" type="text" class="form-control" placeholder="product name" data-set="name" data-set-method="val" data-get="name" data-get-method="val()">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
-              <textarea name="description" type="text" class="form-control" placeholder="description of product" data-get="description" data-get-method="val()"></textarea>
+              <textarea name="description" type="text" class="form-control" placeholder="description of product" data-set="description" data-set-method="val" data-get="description" data-get-method="val()"></textarea>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Media</label>
+            <div data-set="media" data-set-method="html" data-get="media">
+            </div>
+            <div class="col-sm-10 new-media-column">
+              <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <div class="form-control" data-trigger="fileinput">
+                  <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                  <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-addon btn btn-default btn-file">
+                  <span class="fileinput-new">Select file</span>
+                  <span class="fileinput-exists">Change</span>
+                  <input type="file" name="new_media"/>
+                </span>
+                <a href="#" name="upload_new_media" class="input-group-addon btn btn-primary fileinput-exists"><i class="fa fa-upload"></i> Upload</a>
+              </div>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -44,7 +64,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Gender</label>
             <div class="col-sm-10">
-              <select class="form-control m-b" name="gender" data-get="gender" data-get-method="val()">
+              <select class="form-control m-b" name="gender" data-set="gender" data-set-method="val" data-get="gender" data-get-method="val()">
                 <option value="female">Female</option>
                 <option value="male">Male</option>
                 <option value="unisex">Unisex</option>
@@ -55,7 +75,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Season</label>
             <div class="col-sm-10">
-              <select class="form-control m-b" name="season" data-get="season" data-get-method="val()">
+              <select class="form-control m-b" name="season" data-set="season" data-set-method="val" data-get="season" data-get-method="val()">
                 <option value="spring">Spring</option>
                 <option value="summer">Summer</option>
                 <option value="fall">Fall</option>
@@ -68,49 +88,95 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Colors</label>
             <div class="col-sm-10">
-              <input name="colors" class="tagsinput form-control" data-get="colors" data-get-method="val()">
+              <input name="colors" class="tagsinput form-control" data-set="colors" data-get="colors" data-get-method="val()">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Sizes</label>
             <div class="col-sm-10">
-              <input name="sizes" class="tagsinput form-control" data-get="sizes" data-get-method="val()">
+              <input name="sizes" class="tagsinput form-control" data-set="sizes" data-get="sizes" data-get-method="val()">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Materials</label>
             <div class="col-sm-10">
-              <input name="materials" class="tagsinput form-control" data-get="materials" data-get-method="val()">
+              <input name="materials" class="tagsinput form-control" data-set="materials" data-get="materials" data-get-method="val()">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Models</label>
             <div class="col-sm-10">
-              <input name="models" class="tagsinput form-control" data-get="models" data-get-method="val()">
+              <input name="models" class="tagsinput form-control" data-set="models" data-get="models" data-get-method="val()">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Brands</label>
             <div class="col-sm-10">
-              <input name="brands" class="tagsinput form-control" data-get="brands" data-get-method="val()">
+              <input name="brands" class="tagsinput form-control" data-set="brands" data-get="brands" data-get-method="val()">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Limited Edition</label>
             <div class="col-sm-10">
-              <div class="i-checks"><input name="limited_edition" type="checkbox" data-get="limited_edition" data-get-method="isChecked()"></div>
+              <div class="i-checks"><input name="limited_edition" type="checkbox" data-set="limited_edition" data-set-method="makeChecked" data-get="limited_edition" data-get-method="isChecked()"></div>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Collaboration</label>
             <div class="col-sm-10">
-              <div class="i-checks"><input name="collaboration" type="checkbox" data-get="collaboration" data-get-method="isChecked()"></div>
+              <div class="i-checks"><input name="collaboration" type="checkbox" data-set="collaboration" data-set-method="makeChecked" data-get="collaboration" data-get-method="isChecked()"></div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Stocks</label>
+            <div data-set="stocks" data-set-method="html">
+            </div>
+            <div class="col-sm-3 new-stock-column">
+              <span class="help-block">Color</span>
+              <select class="form-control m-b" name="new_stock_color">
+                <option value=""></option>
+                <option value="category">color</option>
+              </select>
+            </div>
+            <div class="col-sm-3 new-stock-column">
+              <span class="help-block">Size</span>
+              <select class="form-control m-b" name="new_stock_color">
+                <option value=""></option>
+                <option value="category">size</option>
+              </select>
+            </div>
+            <div class="col-sm-3 new-stock-column">
+              <span class="help-block">Material</span>
+              <select class="form-control m-b" name="new_stock_color">
+                <option value=""></option>
+                <option value="category">material</option>
+              </select>
+            </div>
+            <div class="col-sm-3 col-sm-offset-2 new-stock-column">
+              <span class="help-block">Model</span>
+              <select class="form-control m-b" name="new_stock_color">
+                <option value=""></option>
+                <option value="category">model</option>
+              </select>
+            </div>
+            <div class="col-sm-2 new-stock-column">
+              <span class="help-block">Quantity</span>
+              <input name="quantity" class="form-control">
+            </div>
+            <div class="col-sm-3 new-stock-column">
+              <span class="help-block">Fulfillment Notes</span>
+              <textarea name="quantity" class="form-control"></textarea>
+            </div>
+            <div class="col-sm-1">
+              <span class="help-block"></span>
+              <a name="add_new_stock" class="btn btn-default"><i class="fa fa-plus"></i></a>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -118,7 +184,8 @@
         <form class="form-horizontal">
           <div class="form-group">
             <div class="col-sm-4 col-sm-offset-2">
-              <button name="submit" class="btn btn-primary" type="submit">Create</button>
+              <button name="delete" class="btn btn-white" type="submit">Delete</button>
+              <button name="submit" class="btn btn-primary" type="submit">Save</button>
             </div>
           </div>
         </form>

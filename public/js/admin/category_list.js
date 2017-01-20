@@ -35,7 +35,7 @@ var View = function(options, callback){
       }
     , 'renderActions': function(val){
         return Templates.admin_list_row_actions({
-          'model': 'category'
+          'model': GB.model.name
         , '_id': val
         });
       }
