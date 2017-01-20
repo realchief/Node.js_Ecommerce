@@ -16,7 +16,7 @@
     , "./public"
     ]
   , "controllers": [
-      "./lib/controller"
+      "./lib/controllers"
     , "./node_modules/basecmd/lib/controllers"
     ]
   , "helpers": [

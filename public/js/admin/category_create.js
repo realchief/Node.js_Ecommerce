@@ -8,10 +8,19 @@ var View = function(options, callback){
       'submit form': function(e){
         e.preventDefault();
       }
+    , 'click [name="submit"]': function(e){
+        e.preventDefault();
+
+        Create(this.get(), function(err, doc){
+          if (err) return bootbox.alert(err.message);
+
+          document.location = '/admin/' + GB.model.name + '/' + doc._id + '/read';
+        });
+      }
     }
   , 'transformers': {
       'get:subcategories': function(val){
-        return _.map(val.split(','), function(v){
+        return _.map(Belt.arrayDefalse(val.split(',')), function(v){
           return {
             'name': v
           };
@@ -21,6 +30,10 @@ var View = function(options, callback){
   });
 
   gb['view'] = new Bh.View(a.o);
+
+  gb.view.$el.find('[data-get="subcategories"]').tagsinput({
+    'tagClass': 'label label-primary'
+  });
 
   gb.view.emit('load');
 

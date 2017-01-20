@@ -8,6 +8,33 @@ var View = function(options, callback){
       'submit form': function(e){
         e.preventDefault();
       }
+    , 'click [name="submit"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        Update(self.get(), function(err, doc){
+          if (err) return bootbox.alert(err.message);
+
+          self.set(doc);
+        });
+      }
+    , 'click [name="delete"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        bootbox.confirm('Are you sure you want to delete this ' + GB.model.name + '?'
+        , function(conf){
+          if (!conf) return;
+
+          Delete(self.get(), function(err, doc){
+            if (err) return bootbox.alert(err.message);
+
+            return document.location = '/admin/' + GB.model.name + '/list';
+          });
+        });
+      }
     }
   , 'transformers': {
       'set:subcategories': function(val, $el){
@@ -20,7 +47,7 @@ var View = function(options, callback){
         $el.attr('data-id', this.data._id);
       }
     , 'get:subcategories': function(val){
-        return _.map(val.split(','), function(v){
+        return _.map(Belt.arrayDefalse(val.split(',')), function(v){
           return {
             'name': v
           };
@@ -37,8 +64,10 @@ var View = function(options, callback){
 };
 
 $(document).ready(function(){
-  $.get('/fixture/category/' + GB._id + '/read.json', function(res){
-    GB['data'] = Belt.get(res, 'data');
+  Read({'_id': GB._id}, function(err, doc){
+    GB['data'] = doc;
+
+    if (err || !GB.data) return document.location = '/admin/' + GB.model.name + '/list';
 
     GB['view'] = View({
       'data': GB.data

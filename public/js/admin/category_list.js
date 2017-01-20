@@ -10,11 +10,29 @@ var View = function(options, callback){
   a.o = _.defaults(a.o, {
     'template': Templates.admin_category_list_row
   , 'triggers': {
+      'click [name="delete"]': function(e){
+        e.preventDefault();
 
+        var self = this;
+
+        bootbox.confirm('Are you sure you want to delete this ' + GB.model.name + '?'
+        , function(conf){
+          if (!conf) return;
+
+          Delete(self.get(), function(err, doc){
+            if (err) return bootbox.alert(err.message);
+
+            return document.location = '/admin/' + GB.model.name + '/list';
+          });
+        });
+      }
     }
   , 'transformers': {
       'set:subcategories': function(val){
         return _.pluck(val || [], 'name').join(', ');
+      }
+    , 'set:self': function(val, $el){
+        $el.attr('data-id', val._id);
       }
     , 'renderActions': function(val){
         return Templates.admin_list_row_actions({
@@ -60,8 +78,8 @@ var LoadView = function(options, callback){
 };
 
 $(document).ready(function(){
-  $.get('/fixture/category/list.json', function(res){
-    GB['data'] = Belt.get(res, 'data');
+  List(function(err, docs){
+    GB['data'] = docs;
 
     Async.eachSeries(GB.data, function(d, cb){
       return LoadView({
