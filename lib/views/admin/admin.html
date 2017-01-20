@@ -25,10 +25,11 @@
     </div>
 
     <%= Render('javascript', _.extend({}, Locals, {
-      'js_files': [
-        '/public/js/admin/' + model.name + '_controller.js'
-      , '/public/js/admin/' + model.name + '_' + operation + '.js'
-      ]
+      'js_files': _.map(models, function(m){
+        return '/public/js/admin/' + m.name + '_controller.js'
+      }).concat([
+        '/public/js/admin/' + model.name + '_' + operation + '.js'
+      ])
     })) %>
     <%= Render('admin_javascript', Locals) %>
   </body>

@@ -1,0 +1,128 @@
+<div id="container" class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <input name="name" type="text" class="form-control" placeholder="product name" data-get="name" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              <textarea name="description" type="text" class="form-control" placeholder="description of product" data-get="description" data-get-method="val()"></textarea>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Categories</label>
+            <div data-set="categories" data-set-method="html" data-get="categories">
+            </div>
+            <div class="col-sm-5 new-category-column">
+              <span class="help-block">Category</span>
+              <select class="form-control m-b" name="new_category">
+                <option value=""></option>
+                <option value="category">category</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <span class="help-block">Subcategory</span>
+              <select class="form-control m-b" name="new_subcategory">
+                <option value=""></option>
+                <option value="subcategory">subcategory</option>
+              </select>
+            </div>
+            <div class="col-sm-1">
+              <span class="help-block"></span>
+              <a name="add_new_category" class="btn btn-default"><i class="fa fa-plus"></i></a>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Gender</label>
+            <div class="col-sm-10">
+              <select class="form-control m-b" name="gender" data-get="gender" data-get-method="val()">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="unisex">Unisex</option>
+              </select>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Season</label>
+            <div class="col-sm-10">
+              <select class="form-control m-b" name="season" data-get="season" data-get-method="val()">
+                <option value="spring">Spring</option>
+                <option value="summer">Summer</option>
+                <option value="fall">Fall</option>
+                <option value="winter">Winter</option>
+                <option value="year-round">Year-Round</option>
+              </select>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Colors</label>
+            <div class="col-sm-10">
+              <input name="colors" class="tagsinput form-control" data-get="colors" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Sizes</label>
+            <div class="col-sm-10">
+              <input name="sizes" class="tagsinput form-control" data-get="sizes" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Materials</label>
+            <div class="col-sm-10">
+              <input name="materials" class="tagsinput form-control" data-get="materials" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Models</label>
+            <div class="col-sm-10">
+              <input name="models" class="tagsinput form-control" data-get="models" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Brands</label>
+            <div class="col-sm-10">
+              <input name="brands" class="tagsinput form-control" data-get="brands" data-get-method="val()">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Limited Edition</label>
+            <div class="col-sm-10">
+              <div class="i-checks"><input name="limited_edition" type="checkbox" data-get="limited_edition" data-get-method="isChecked()"></div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Collaboration</label>
+            <div class="col-sm-10">
+              <div class="i-checks"><input name="collaboration" type="checkbox" data-get="collaboration" data-get-method="isChecked()"></div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+        </form>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+              <button name="submit" class="btn btn-primary" type="submit">Create</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="col-sm-10">
+  <div class="list-group">
+    <% _.each(categories, function(c){ %>
+      <%= Render('admin_product_category_list_item', c) %>
+    <% }) %>
+  </div>
+</div>
