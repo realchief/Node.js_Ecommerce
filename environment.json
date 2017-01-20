@@ -57,7 +57,7 @@
       "host": "https://wanderset.com"
     , "domain": ".wanderset.com"
     , "express": {
-        "port": 8850
+        "port": 8851
       }
     , "redis": {
         "host": "127.0.0.1"
