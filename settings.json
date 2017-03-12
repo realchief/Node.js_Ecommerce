@@ -28,4 +28,18 @@
     , "./node_modules/basecmd/lib/models"
     ]
   }
+, "mongodb": {
+    "collections": [
+      "categories"
+    , "localities"
+    , "media"
+    , "orders"
+    , "products"
+    , "sets"
+    , "setmembers"
+    , "stocks"
+    , "users"
+    , "vendors"
+    ]
+  }
 }

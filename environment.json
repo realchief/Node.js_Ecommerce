@@ -25,6 +25,7 @@
     , "s3": {
         "bucket": "development.assets.wanderset.com"
       }
+    , "create_rest_routes": true
     }
   , "staging": {
       "host": "https://staging.wanderset.com"
@@ -52,6 +53,7 @@
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
       }
+    , "create_rest_routes": true
     }
   , "production": {
       "host": "https://wanderset.com"
