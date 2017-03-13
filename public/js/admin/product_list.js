@@ -35,8 +35,24 @@ var View = function(options, callback){
     , 'set:brands': function(val){
         return _.pluck(val || [], 'name').join(', ');
       }
-    , 'set:colors': function(val){
-        return (val || []).join(', ');
+    , 'set:label': function(val){
+        return Belt.get(val, 'us');
+      }
+    , 'set:description': function(val){
+        return '<div>' + Belt.get(val, 'us') + '</div>';
+      }
+    , 'set:vendor': function(val){
+        return Belt.get(val, 'name') || '';
+      }
+    , 'set:media': function(val){
+        return _.map(val, function(v){
+          return [
+            '<div class="thumbnail">'
+          , '  <a href="' + v.url + '" target="_blank"><img src="' + v.url + '"></a>'
+          , Belt.get(v, 'label.us') ? '<div class="caption"><p>' + v.label.us + '</p></div>' : ''
+          , '</div>'
+          ].join('\n')
+        }).join('\n');
       }
     , 'set:sizes': function(val){
         return (val || []).join(', ');

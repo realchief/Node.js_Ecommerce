@@ -5,7 +5,7 @@ Controllers[GB.model.name]['List'] = function(options, callback){
     , self = this
     , gb = {};
   a.o = _.defaults(a.o, {
-
+    'populate': 'vendor'
   });
 
   return Async.waterfall([
