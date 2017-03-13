@@ -84,6 +84,7 @@ Async.waterfall([
 , function(cb){
     Async.eachSeries(GB.products, function(e, cb2){
       e['populate'] = 'vendor';
+      e['vendor'] = GB.vendor;
 
       Request({
         'url': O.host + '/product/create.json'
