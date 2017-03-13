@@ -1,0 +1,20 @@
+[
+  {
+    "label": {
+      "us": "United Way Logo"
+    }
+  , "description": {
+      "us": "This is the logo for United Way"
+    }
+  , "local_path": "./test/fixtures/image-3.png"
+  }
+, {
+    "label": {
+      "us": "Boss Dog"
+    }
+  , "description": {
+      "us": "This is a random picture of a dog"
+    }
+  , "local_url": "http://i.imgur.com/eFXfP1C.jpg"
+  }
+]
