@@ -1,0 +1,55 @@
+[
+  {
+    "name": "Homer Simpson"
+  , "email": "homer@simpsons.org"
+  , "locality": {
+      "name": "us"
+    , "long_name": "United States"
+    , "language": "en"
+    }
+  , "addresses": [
+      {
+        "name": "Home"
+      , "contact": "Simpson Family"
+      , "street": "742 Evergreen Terrace"
+      , "locality": "Springfield"
+      , "region": "KY"
+      , "country": "US"
+      , "postal_code": "55512"
+      , "phone": "555-123-5433"
+      }
+    , {
+        "name": "Work"
+      , "contact": "Springfield Nuclear Plant c/o Mr. Burns"
+      , "street": "100 Industrial Way"
+      , "street_b": "Sector 7G"
+      , "locality": "Springfield"
+      , "region": "KY"
+      , "country": "US"
+      , "postal_code": "55512"
+      , "phone": "555-124-9192"
+      }
+    ]
+  , "roles": {
+      "customer": true
+    , "setmember": false
+    , "admin": false
+    }
+  , "payment_methods": [
+      {
+        "id": "card_19fv2Q2eZvKYlo2CXOnFdTJO"
+      , "brand": "Visa"
+      , "exp_month": 2
+      , "exp_year": 2022
+      , "last4": "9645"
+      }
+    , {
+        "id": "card_234sdfk4a7fsx6642478"
+      , "brand": "Amex"
+      , "exp_month": 1
+      , "exp_year": 2029
+      , "last4": "1111"
+      }
+    ]
+  }
+]
