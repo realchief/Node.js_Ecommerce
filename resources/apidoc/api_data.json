@@ -538,6 +538,21 @@
     "groupTitle": "Media"
   },
   {
+    "type": "put",
+    "url": "/set/:_id/setmember/create.json",
+    "title": "Add Setmember to Set",
+    "name": "CreateSetSetmember",
+    "group": "Media",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Media"
+  },
+  {
     "type": "post",
     "url": "/media/create.json",
     "title": "Create Media",
@@ -1357,6 +1372,111 @@
     "url": "/set/create.json",
     "title": "Create Set",
     "name": "CreateSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "put",
+    "url": "/set/:_id/product/create.json",
+    "title": "Add Product to Set",
+    "name": "CreateSetProduct",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "delete",
+    "url": "/set/:_id/delete.json",
+    "title": "Delete Set",
+    "name": "DeleteSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "delete",
+    "url": "/set/:_id/product/:product/delete.json",
+    "title": "Delete Product from Set",
+    "name": "DeleteSetProduct",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "delete",
+    "url": "/set/:_id/setmember/:setmember/delete.json",
+    "title": "Delete Setmember from Set",
+    "name": "DeleteSetSetmember",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "get",
+    "url": "/set/list.json",
+    "title": "List Sets",
+    "name": "ListSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "get",
+    "url": "/set/:_id/read.json",
+    "title": "Read Set",
+    "name": "ReadSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "put",
+    "url": "/set/:_id/update.json",
+    "title": "Update Set",
+    "name": "UpdateSet",
     "group": "Set",
     "permission": [
       {
