@@ -30,6 +30,21 @@ define({ "api": [
     "groupTitle": "Cart"
   },
   {
+    "type": "post",
+    "url": "/cart/product/create.json",
+    "title": "Add Product to Current Session's Cart",
+    "name": "CreateCurrentCartProduct",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
     "type": "delete",
     "url": "/cart/:_id/delete.json",
     "title": "Delete Cart",
@@ -53,6 +68,36 @@ define({ "api": [
     "permission": [
       {
         "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "delete",
+    "url": "/cart/delete.json",
+    "title": "Delete Current Session's Cart",
+    "name": "DeleteCurrentCart",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "delete",
+    "url": "/cart/product/:_id/delete.json",
+    "title": "Delete Product in Current Session's Cart",
+    "name": "DeleteCurrentCartProduct",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "current user"
       }
     ],
     "version": "0.0.0",
@@ -90,6 +135,21 @@ define({ "api": [
     "groupTitle": "Cart"
   },
   {
+    "type": "get",
+    "url": "/cart/read.json",
+    "title": "Read Current Session's Cart",
+    "name": "ReadCurrentCart",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
     "type": "put",
     "url": "/cart/:_id/update.json",
     "title": "Update Cart",
@@ -113,6 +173,36 @@ define({ "api": [
     "permission": [
       {
         "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "put",
+    "url": "/cart/update.json",
+    "title": "Update Current Session's Cart",
+    "name": "UpdateCurrentCart",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "put",
+    "url": "/cart/product/:_id/update.json",
+    "title": "Update Product in Current Session's Cart",
+    "name": "UpdateCurrentCartProduct",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "current user"
       }
     ],
     "version": "0.0.0",
@@ -538,21 +628,6 @@ define({ "api": [
     "groupTitle": "Media"
   },
   {
-    "type": "put",
-    "url": "/set/:_id/setmember/create.json",
-    "title": "Add Setmember to Set",
-    "name": "CreateSetSetmember",
-    "group": "Media",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Media"
-  },
-  {
     "type": "post",
     "url": "/media/create.json",
     "title": "Create Media",
@@ -946,6 +1021,36 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/order/:_id/cancel.json",
+    "title": "Cancel and Refund Order",
+    "name": "CancelOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/transaction/:transaction/cancel.json",
+    "title": "Cancel / Refund Transaction from Order",
+    "name": "CancelOrderTransaction",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
     "url": "/order/create.json",
     "title": "Create Order",
     "name": "CreateOrder",
@@ -958,6 +1063,336 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "lib/controllers/order.js",
     "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/order/:_id/line_item/create.json",
+    "title": "Add Line Item to Order",
+    "name": "CreateOrderLineItem",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/order/:_id/message/create.json",
+    "title": "Add Message to Order",
+    "name": "CreateOrderMessage",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/order/:_id/product/create.json",
+    "title": "Add Product to Order",
+    "name": "CreateOrderProduct",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/order/:_id/shipment/create.json",
+    "title": "Add Shipment to Order",
+    "name": "CreateOrderShipment",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/order/:_id/transaction/create.json",
+    "title": "Create Transaction for Order",
+    "name": "CreateOrderTransaction",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/delete.json",
+    "title": "Delete Order",
+    "name": "DeleteOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/line_item/:line_item/delete.json",
+    "title": "Delete Line Item from Order",
+    "name": "DeleteOrderLineItem",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/message/:message/delete.json",
+    "title": "Delete Message from Order",
+    "name": "DeleteOrderMessage",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/product/:product/delete.json",
+    "title": "Delete Product from Order",
+    "name": "DeleteOrderProduct",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/shipment/:shipment/delete.json",
+    "title": "Delete Shipment from Order",
+    "name": "DeleteOrderShipment",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "get",
+    "url": "/order/list.json",
+    "title": "List Orders",
+    "name": "ListOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "get",
+    "url": "/order/:_id/read.json",
+    "title": "Read Order",
+    "name": "ReadOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "put",
+    "url": "/order/:_id/update.json",
+    "title": "Update Order",
+    "name": "UpdateOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "put",
+    "url": "/order/:_id/line_item/:line_item/update.json",
+    "title": "Update Line Item in Order",
+    "name": "UpdateOrderLineItem",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "put",
+    "url": "/order/:_id/message/:message/update.json",
+    "title": "Update Message in Order",
+    "name": "UpdateOrderMessage",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "put",
+    "url": "/order/:_id/product/:product/update.json",
+    "title": "Update Product in Order",
+    "name": "UpdateOrderProduct",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "put",
+    "url": "/order/:_id/shipment/:shipment/update.json",
+    "title": "Update Shipment in Order",
+    "name": "UpdateOrderShipment",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/product/:_id/brand/create.json",
+    "title": "Create Product Brand",
+    "name": "CreateProductBrand",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "post",
+    "url": "/product/:_id/category/create.json",
+    "title": "Create Product Category",
+    "name": "CreateProductCategory",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "post",
+    "url": "/product/:_id/media/create.json",
+    "title": "Create Product Media",
+    "name": "CreateProductMedia",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "post",
+    "url": "/product/:_id/option/:option/create.json",
+    "title": "Create Product Option Value",
+    "name": "CreateProductOptionValue",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "post",
+    "url": "/product/:_id/vendor/create.json",
+    "title": "Create Product Vendor",
+    "name": "CreateProductVendor",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
   },
   {
     "type": "post",
@@ -1368,10 +1803,280 @@ define({ "api": [
     "groupTitle": "Product"
   },
   {
+    "type": "delete",
+    "url": "/product/:_id/delete.json",
+    "title": "Delete Product",
+    "name": "DeleteProduct",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "delete",
+    "url": "/product/:_id/brand/:brand/delete.json",
+    "title": "Delete Product Brand",
+    "name": "DeleteProductBrand",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "delete",
+    "url": "/product/:_id/category/:category/delete.json",
+    "title": "Delete Product Category",
+    "name": "DeleteProductCategory",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "delete",
+    "url": "/product/:_id/media/:media/delete.json",
+    "title": "Delete Product Media",
+    "name": "DeleteProductMedia",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "delete",
+    "url": "/product/:_id/option/:option/value/:value/delete.json",
+    "title": "Delete Product Option Value",
+    "name": "DeleteProductOptionValue",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "delete",
+    "url": "/product/:_id/stock/:stock/delete.json",
+    "title": "Delete Product Stock",
+    "name": "DeleteProductStock",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "delete",
+    "url": "/product/:_id/vendor/:vendor/delete.json",
+    "title": "Delete Product Vendor",
+    "name": "DeleteProductVendor",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "get",
+    "url": "/product/availability/read.json",
+    "title": "Get Product Availability for Options",
+    "name": "GetProductAvailability",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "get",
+    "url": "/product/list.json",
+    "title": "List Products",
+    "name": "ListProduct",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "get",
+    "url": "/product/:_id/read.json",
+    "title": "Read Product",
+    "name": "ReadProduct",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "put",
+    "url": "/product/:_id/update.json",
+    "title": "Update Product",
+    "name": "UpdateProduct",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "put",
+    "url": "/product/:_id/brand/:brand/update.json",
+    "title": "Update Product Brand",
+    "name": "UpdateProductBrand",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "put",
+    "url": "/product/:_id/category/:category/update.json",
+    "title": "Update Product Category",
+    "name": "UpdateProductCategory",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "put",
+    "url": "/product/:_id/media/:media/update.json",
+    "title": "Update Product Media",
+    "name": "UpdateProductMedia",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "put",
+    "url": "/product/:_id/stock/:stock/update.json",
+    "title": "Update Product Stock",
+    "name": "UpdateProductStock",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "put",
+    "url": "/product/:_id/vendor/:vendor/update.json",
+    "title": "Update Product Vendor",
+    "name": "UpdateProductVendor",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
     "type": "post",
     "url": "/set/create.json",
     "title": "Create Set",
     "name": "CreateSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "put",
+    "url": "/set/:_id/featured_media/create.json",
+    "title": "Add Featured Media to Set",
+    "name": "CreateSetFeaturedMedia",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "put",
+    "url": "/set/:_id/media/create.json",
+    "title": "Add Media to Set",
+    "name": "CreateSetMedia",
     "group": "Set",
     "permission": [
       {
@@ -1398,10 +2103,55 @@ define({ "api": [
     "groupTitle": "Set"
   },
   {
+    "type": "put",
+    "url": "/set/:_id/setmember/create.json",
+    "title": "Add Setmember to Set",
+    "name": "CreateSetSetmember",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
     "type": "delete",
     "url": "/set/:_id/delete.json",
     "title": "Delete Set",
     "name": "DeleteSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "delete",
+    "url": "/set/:_id/featured_media/delete.json",
+    "title": "Delete Featured Media from Set",
+    "name": "DeleteSetFeaturedMedia",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
+    "type": "delete",
+    "url": "/set/:_id/media/:media/delete.json",
+    "title": "Delete Media from Set",
+    "name": "DeleteSetMedia",
     "group": "Set",
     "permission": [
       {
@@ -1750,6 +2500,66 @@ define({ "api": [
         }
       ]
     },
+    "version": "0.0.0",
+    "filename": "lib/controllers/setmember.js",
+    "groupTitle": "Setmember"
+  },
+  {
+    "type": "delete",
+    "url": "/setmember/:_id/delete.json",
+    "title": "Delete Setmember",
+    "name": "DeleteSetmember",
+    "group": "Setmember",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/setmember.js",
+    "groupTitle": "Setmember"
+  },
+  {
+    "type": "get",
+    "url": "/setmember/list.json",
+    "title": "List Setmembers",
+    "name": "ListSetmember",
+    "group": "Setmember",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/setmember.js",
+    "groupTitle": "Setmember"
+  },
+  {
+    "type": "get",
+    "url": "/setmember/:_id/read.json",
+    "title": "Read Setmember",
+    "name": "ReadSetmember",
+    "group": "Setmember",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/setmember.js",
+    "groupTitle": "Setmember"
+  },
+  {
+    "type": "put",
+    "url": "/setmember/:_id/update.json",
+    "title": "Update Setmember",
+    "name": "UpdateSetmember",
+    "group": "Setmember",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
     "version": "0.0.0",
     "filename": "lib/controllers/setmember.js",
     "groupTitle": "Setmember"
@@ -5034,6 +5844,66 @@ define({ "api": [
         }
       ]
     },
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "delete",
+    "url": "/vendor/:_id/delete.json",
+    "title": "Delete Vendor",
+    "name": "DeleteVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "get",
+    "url": "/vendor/list.json",
+    "title": "List Vendors",
+    "name": "ListVendors",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "get",
+    "url": "/vendor/:_id/read.json",
+    "title": "Read Vendor",
+    "name": "ReadVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "put",
+    "url": "/vendor/:_id/update.json",
+    "title": "Update Vendor",
+    "name": "UpdateVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
     "version": "0.0.0",
     "filename": "lib/controllers/vendor.js",
     "groupTitle": "Vendor"
