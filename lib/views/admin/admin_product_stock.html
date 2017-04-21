@@ -1,0 +1,52 @@
+<div name="stock" data-index="<%= index %>" class="panel panel-default">
+  <div class="panel-heading">
+    <div class="text-right">
+      <button name="delete" class="btn btn-danger">Remove</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">vendor</label>
+          <div class="col-sm-10">
+            <input name="<%= path_prefix %>vendor" type="text" class="form-control" placeholder="vendor"  data-set="<%= path_prefix %>vendor" data-set-method="val()" data-get="<%= path_prefix %>vendor" data-get-method="val()">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">sku</label>
+          <div class="col-sm-10">
+            <input name="<%= path_prefix %>sku" type="text" class="form-control" placeholder="sku" data-set="<%= path_prefix %>sku" data-set-method="val" data-get="<%= path_prefix %>sku" data-get-method="val()">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">price</label>
+          <div class="col-sm-10">
+            <input name="<%= path_prefix %>price" type="text" class="form-control" placeholder="price" data-get="<%= path_prefix %>price" data-get-method="val()" data-get-transformer="to_number" data-set="<%= path_prefix %>price" data-set-method="val">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="col-sm-5 control-label">available_quantity</label>
+          <div class="col-sm-7">
+            <input name="<%= path_prefix %>available_quantity" type="text" class="form-control" placeholder="available quantity" data-get="<%= path_prefix %>available_quantity" data-get-method="val()"  data-get-transformer="to_number" data-set="<%= path_prefix %>available_quantity" data-set-method="val">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="col-sm-5 control-label">reserve_quantity</label>
+          <div class="col-sm-7">
+            <input name="<%= path_prefix %>reserve_quantity" type="text" class="form-control" placeholder="reserve quantity" data-get="<%= path_prefix %>reserve_quantity" data-get-method="val()" data-get-transformer="to_number" data-set="<%= path_prefix %>reserve_quantity" data-set-method="val">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div name="stock_options"></div>
+  </div>
+</div>

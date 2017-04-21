@@ -1,0 +1,101 @@
+<div id="container" class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <h1>Create product</h1>
+        <div class="hr-line-dashed"></div>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Name</label>
+            <div class="col-sm-11">
+              <input name="name" type="text" class="form-control" placeholder="name" data-get="name" data-get-method="val()" data-set="name" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Label</legend>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">US</label>
+              <div class="col-sm-11">
+                <input name="label.us" type="text" class="form-control" placeholder="label.us" data-get="label.us" data-get-method="val()" data-set="label.us" data-set-method="val">
+              </div>
+            </div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Description</legend>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">US</label>
+              <div class="col-sm-11">
+                <textarea name="description.us" type="text" class="form-control" placeholder="description.us" data-get="description.us" data-get-method="val()" data-set="description.us" data-set-method="val" rows="3"></textarea>
+              </div>
+            </div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Options <button name="option_create" class="btn btn-default">Add New</button></legend>
+            <div name="options" data-set="options" data-set-method="html"></div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">vendors</label>
+            <div class="col-sm-11">
+              <textarea name="vendors" type="text" class="form-control" placeholder="vendors" data-get="vendors" data-get-method="val()" data-get-transformer="split_lines" data-set="vendors" data-set-method="val" rows="5"></textarea>
+              <span class="help-block m-b-none">One vendor per line</span>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">brands</label>
+            <div class="col-sm-11">
+              <textarea name="brands" type="text" class="form-control" placeholder="brands" data-get="brands" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="brands" data-set-method="val"></textarea>
+              <span class="help-block m-b-none">One brand per line</span>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">categories</label>
+            <div class="col-sm-11">
+              <textarea name="categories" type="text" class="form-control" placeholder="categories" data-get="categories" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="categories" data-set-method="val"></textarea>
+              <span class="help-block m-b-none">One category per line</span>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Stocks <button name="stock_create" class="btn btn-default">Add New</button></legend>
+            <div name="stocks" data-set="stocks" data-set-method="html"></div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Media</legend>
+            <div class="form-group">
+              <div name="media_files" class="col-sm-10 col-sm-offset-1 dropzone">
+                <div class="fallback">
+                  <input type="file" multiple />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">or import from urls</label>
+              <div class="col-sm-10">
+                <textarea name="media_urls" type="text" class="form-control" placeholder="URLs to media files" rows="5"></textarea>
+                <span class="help-block m-b-none">One URL per line</span>
+              </div>
+            </div>
+            <button name="media_create" class="btn btn-default">Add Media</button>
+            <div class="hr-line-dashed"></div>
+            <div name="medias" data-set="media" data-set-method="html"></div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+        </form>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-6">
+              <button name="submit" class="btn btn-primary btn-block" type="submit">Create</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

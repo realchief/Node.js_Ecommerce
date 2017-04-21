@@ -3,7 +3,6 @@
   <head>
     <%= Render('admin_head', Locals) %>
   </head>
-
   <body class="top-navigation">
     <div id="wrapper">
       <div id="page-wrapper" class="gray-bg">
@@ -11,27 +10,15 @@
 
         <div class="wrapper wrapper-content">
           <div class="container-fluid">
-            <% if (operation === 'list'){ %>
-              <%= Render('admin_table', Locals) %>
-            <% } else { %>
-              <script type="text/javascript" charset="utf-8">
-                GB['_id'] = '<%= Request.params._id %>';
-              </script>
-              <%= Render('admin_' + model.name + '_' + operation, Locals) %>
-            <% } %>
+            <%= Render(view, Locals) %>
           </div>
         </div>
       </div>
     </div>
 
     <%= Render('javascript', _.extend({}, Locals, {
-      'js_files': _.map(models, function(m){
-        return '/public/js/admin/' + m.name + '_controller.js'
-      }).concat([
-        '/public/js/admin/' + model.name + '_' + operation + '.js'
-      ])
+
     })) %>
     <%= Render('admin_javascript', Locals) %>
   </body>
-
 </html>

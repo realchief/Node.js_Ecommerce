@@ -361,6 +361,19 @@
         "name": "admin"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of category</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/category.js",
     "groupTitle": "Category"
@@ -376,6 +389,40 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "query",
+            "description": "<p>query criteria of setmembers</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "skip",
+            "description": "<p>skip to this record number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>limit to this number of records returned</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>sort criteria of setmembers</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/category.js",
     "groupTitle": "Category"
@@ -391,6 +438,19 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of category</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/category.js",
     "groupTitle": "Category"
@@ -406,6 +466,53 @@
         "name": "admin"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of category</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>unique name of category</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "label",
+            "description": "<p>localized label (e.g. name) of category</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "label.us",
+            "description": "<p>label (e.g. name) of category in US locality</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "parent_category",
+            "description": "<p>parent category of category (if applicable)</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/category.js",
     "groupTitle": "Category"
@@ -548,6 +655,19 @@
         "name": "admin"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of category</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/locality.js",
     "groupTitle": "Locality"
@@ -563,6 +683,40 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "query",
+            "description": "<p>query criteria of vendors</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "skip",
+            "description": "<p>skip to this record number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>limit to this number of records returned</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>sort criteria of vendors</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/locality.js",
     "groupTitle": "Locality"
@@ -578,6 +732,19 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of category</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/locality.js",
     "groupTitle": "Locality"
@@ -593,6 +760,40 @@
         "name": "admin"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of category</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>name of locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "long_name",
+            "description": "<p>full name of locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "language",
+            "description": "<p>ISO code for language in locality</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/locality.js",
     "groupTitle": "Locality"
@@ -1417,24 +1618,10 @@
           },
           {
             "group": "Parameter",
-            "type": "LocalizationObject",
-            "optional": false,
-            "field": "label",
-            "description": "<p>localized label (e.g. name) of product</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "label.us",
             "description": "<p>label (e.g. name) of product in US locality</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "LocalizationObject",
-            "optional": false,
-            "field": "description",
-            "description": "<p>localized description of product</p>"
           },
           {
             "group": "Parameter",
@@ -1452,24 +1639,17 @@
           },
           {
             "group": "Parameter",
-            "type": "LocalizationObject[]",
+            "type": "String",
             "optional": false,
-            "field": "options.value",
-            "description": "<p>array of localization objects for each configuration option value (e.g. options[&quot;size&quot;] = [{&quot;us&quot;: &quot;large&quot;}, {&quot;us&quot;: &quot;small&quot;}])</p>"
+            "field": "options.label.us",
+            "description": "<p>name values for option in US locality</p>"
           },
           {
             "group": "Parameter",
-            "type": "Object",
+            "type": "String[]",
             "optional": false,
-            "field": "option_labels",
-            "description": "<p>labels for configuration options of product (e.g. localized names of size, color)</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "LocalizationObject",
-            "optional": false,
-            "field": "option_labels.value",
-            "description": "<p>localization object for each configuration option value (e.g. option_labels[&quot;size&quot;] = {&quot;us&quot;: &quot;size&quot;, &quot;fr&quot;: &quot;taille&quot;})</p>"
+            "field": "options.values.us",
+            "description": "<p>array values for option in US locality</p>"
           },
           {
             "group": "Parameter",
@@ -1496,115 +1676,6 @@
       }
     },
     "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "_id",
-            "description": "<p>unique identifier of category</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>name of product</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "LocalizationObject",
-            "optional": false,
-            "field": "label",
-            "description": "<p>localized label (e.g. name) of product</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "label.us",
-            "description": "<p>label (e.g. name) of product in US locality</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "LocalizationObject",
-            "optional": false,
-            "field": "description",
-            "description": "<p>localized description of product</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "description.us",
-            "description": "<p>description of product in US locality</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "options",
-            "description": "<p>configuration options of product (e.g. size, color)</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "LocalizationObject[]",
-            "optional": false,
-            "field": "options.value",
-            "description": "<p>array of localization objects for each configuration option value (e.g. options[&quot;size&quot;] = [{&quot;us&quot;: &quot;large&quot;}, {&quot;us&quot;: &quot;small&quot;}])</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "option_labels",
-            "description": "<p>labels for configuration options of product (e.g. localized names of size, color)</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "LocalizationObject",
-            "optional": false,
-            "field": "option_labels.value",
-            "description": "<p>localization object for each configuration option value (e.g. option_labels[&quot;size&quot;] = {&quot;us&quot;: &quot;size&quot;, &quot;fr&quot;: &quot;taille&quot;})</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String[]",
-            "optional": false,
-            "field": "categories",
-            "description": "<p>categories of product</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String[]",
-            "optional": false,
-            "field": "brands",
-            "description": "<p>brands of product</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String[]",
-            "optional": false,
-            "field": "vendors",
-            "description": "<p>vendors of product</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "created_at",
-            "description": "<p>epoch timestamp of when user was created</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "updated_at",
-            "description": "<p>epoch timestamp of when user account was last updated</p>"
-          }
-        ]
-      },
       "examples": [
         {
           "title": "Success-Response:",
@@ -2203,6 +2274,40 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "query",
+            "description": "<p>query criteria of vendors</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "skip",
+            "description": "<p>skip to this record number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>limit to this number of records returned</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>sort criteria of vendors</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/set.js",
     "groupTitle": "Set"
@@ -2236,6 +2341,41 @@
     "version": "0.0.0",
     "filename": "lib/controllers/set.js",
     "groupTitle": "Set"
+  },
+  {
+    "type": "post",
+    "url": "/setmember/:_id/user/create.json",
+    "title": "Create Setmember User",
+    "name": "CreateSetmemberUser",
+    "group": "Setmember",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>unique _id of user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "lib/controllers/setmember.js",
+    "groupTitle": "Setmember"
   },
   {
     "type": "post",
@@ -2353,7 +2493,7 @@
             "type": "String",
             "optional": false,
             "field": "_id",
-            "description": "<p>unique identifier of user</p>"
+            "description": "<p>unique identifier of setmember</p>"
           },
           {
             "group": "Success 200",
@@ -2451,14 +2591,14 @@
             "type": "Number",
             "optional": false,
             "field": "created_at",
-            "description": "<p>epoch timestamp of when user was created</p>"
+            "description": "<p>epoch timestamp of when setmember was created</p>"
           },
           {
             "group": "Success 200",
             "type": "Number",
             "optional": false,
             "field": "updated_at",
-            "description": "<p>epoch timestamp of when user account was last updated</p>"
+            "description": "<p>epoch timestamp of when setmember account was last updated</p>"
           }
         ]
       },
@@ -2515,6 +2655,54 @@
         "name": "admin, current setmember user"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of setmember</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "lib/controllers/setmember.js",
+    "groupTitle": "Setmember"
+  },
+  {
+    "type": "delete",
+    "url": "/setmember/:_id/user/:user/delete.json",
+    "title": "Delete Setmember User",
+    "name": "DeleteSetmemberUser",
+    "group": "Setmember",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>unique _id of user</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/setmember.js",
     "groupTitle": "Setmember"
@@ -2530,6 +2718,40 @@
         "name": "admin"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "query",
+            "description": "<p>query criteria of setmembers</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "skip",
+            "description": "<p>skip to this record number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>limit to this number of records returned</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>sort criteria of setmembers</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/setmember.js",
     "groupTitle": "Setmember"
@@ -2545,6 +2767,19 @@
         "name": "admin, current setmember user"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of setmember</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/setmember.js",
     "groupTitle": "Setmember"
@@ -2560,6 +2795,103 @@
         "name": "admin, current setmember user"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>unique name of setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "label",
+            "description": "<p>localized label (e.g. name) of setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "label.us",
+            "description": "<p>label (e.g. name) of setmember in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "description",
+            "description": "<p>localized description of setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description.us",
+            "description": "<p>description of setmember in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "identities",
+            "description": "<p>social media accounts for setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "identities.facebook",
+            "description": "<p>Facebook account for setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "identities.twitter",
+            "description": "<p>Twitter account for setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "identities.instagram",
+            "description": "<p>Instagram account for setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "identities.youtube",
+            "description": "<p>Youtube account for setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "identities.snapchat",
+            "description": "<p>Snapchat account for setmember</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "identities.pinterest",
+            "description": "<p>Pinterest account for setmember</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/setmember.js",
     "groupTitle": "Setmember"
@@ -5725,7 +6057,7 @@
             "type": "String",
             "optional": false,
             "field": "_id",
-            "description": "<p>unique identifier of user</p>"
+            "description": "<p>unique identifier of vendor</p>"
           },
           {
             "group": "Success 200",
@@ -5849,6 +6181,41 @@
     "groupTitle": "Vendor"
   },
   {
+    "type": "post",
+    "url": "/vendor/:_id/setmember/create.json",
+    "title": "Create Vendor Setmember",
+    "name": "CreateVendorSetmember",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "setmember",
+            "description": "<p>unique _id of setmember</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
     "type": "delete",
     "url": "/vendor/:_id/delete.json",
     "title": "Delete Vendor",
@@ -5859,6 +6226,54 @@
         "name": "admin, current setmember user"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "delete",
+    "url": "/vendor/:_id/setmember/:setmember/delete.json",
+    "title": "Delete Vendor Setmember",
+    "name": "DeleteVendorSetmember",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "setmember",
+            "description": "<p>unique _id of setmember</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/vendor.js",
     "groupTitle": "Vendor"
@@ -5874,6 +6289,40 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "query",
+            "description": "<p>query criteria of vendors</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "skip",
+            "description": "<p>skip to this record number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "limit",
+            "description": "<p>limit to this number of records returned</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "sort",
+            "description": "<p>sort criteria of vendors</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/vendor.js",
     "groupTitle": "Vendor"
@@ -5889,6 +6338,135 @@
         "name": "public"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>unique name of vendor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "label",
+            "description": "<p>localized label (e.g. name) of vendor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "label.us",
+            "description": "<p>label (e.g. name) of vendor in US locality</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "description",
+            "description": "<p>localized description of vendor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "description.us",
+            "description": "<p>description of vendor in US locality</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "shipping_description",
+            "description": "<p>localized description of vendor's shipping policies</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "shipping_description.us",
+            "description": "<p>description of vendor's shipping policies in US locality</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "returns_description",
+            "description": "<p>localized description of vendor's returns policies</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "setmembers",
+            "description": "<p>setmembers connected to this vendor</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "created_at",
+            "description": "<p>epoch timestamp of when user was created</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "updated_at",
+            "description": "<p>epoch timestamp of when user account was last updated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"data\":   {\n    \"_id\": \"1234bCad\"\n  , \"name\": \"Acme\"\n  , \"label\": {\n      \"us\": \"Acme Products\"\n    }\n  , \"description\": {\n      \"us\": \"Creators of fine and non-generic products\"\n    }\n  , \"shipping_description\": {\n      \"us\": \"Free two-day shipping\"\n    }\n  , \"returns_description\": {\n      \"us\": \"Return for any reason with 30-days\"\n    }\n  , \"setmembers\": [\n    ]\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Error",
+            "description": "<p>Error messages vary. Errors are returned for various data validation, missing field, and duplicate value issues</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "ExampleError:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"error\": \"ExampleError\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/vendor.js",
     "groupTitle": "Vendor"
@@ -5904,6 +6482,173 @@
         "name": "admin, current setmember user"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>unique name of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "label",
+            "description": "<p>localized label (e.g. name) of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "label.us",
+            "description": "<p>label (e.g. name) of vendor in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "description",
+            "description": "<p>localized description of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description.us",
+            "description": "<p>description of vendor in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "shipping_description",
+            "description": "<p>localized description of vendor's shipping policies</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "shipping_description.us",
+            "description": "<p>description of vendor's shipping policies in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "returns_description",
+            "description": "<p>localized description of vendor's returns policies</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "returns_description.us",
+            "description": "<p>description of vendor's returns policies in US locality</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "put",
+    "url": "/vendor/:_id/update.json",
+    "title": "Update Vendor",
+    "name": "UpdateVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin, current setmember user"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "_id",
+            "description": "<p>unique identifier of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>unique name of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "label",
+            "description": "<p>localized label (e.g. name) of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "label.us",
+            "description": "<p>label (e.g. name) of vendor in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "description",
+            "description": "<p>localized description of vendor</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "description.us",
+            "description": "<p>description of vendor in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "shipping_description",
+            "description": "<p>localized description of vendor's shipping policies</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "shipping_description.us",
+            "description": "<p>description of vendor's shipping policies in US locality</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "LocalizationObject",
+            "optional": false,
+            "field": "returns_description",
+            "description": "<p>localized description of vendor's returns policies</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "returns_description.us",
+            "description": "<p>description of vendor's returns policies in US locality</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "lib/controllers/vendor.js",
     "groupTitle": "Vendor"

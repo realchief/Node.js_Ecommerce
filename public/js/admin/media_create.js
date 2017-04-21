@@ -5,96 +5,29 @@ var View = function(options, callback){
   a.o = _.defaults(a.o, {
     'el': $('#container')
   , 'triggers': {
-      'click [name="option_create"]': function(e){
-        e.preventDefault();
-
-        var index = this.$el.find('[name="options"] [name="option"]').length || 0;
-
-        var view = Templates.admin_product_option({
-          'option': ''
-        , 'path_prefix': 'options.' + index + '.'
-        , 'index': index
-        });
-
-        this.$el.find('[name="options"]').append(view);
-        this.throttledUpdateOptions();
-      }
-    , 'keyup [name="option"] *': function(e){
-        this.throttledUpdateOptions();
-      }
-    , 'click [name="option"] [name="delete"]': function(e){
-        e.preventDefault();
-        var self = this;
-
-        bootbox.confirm('Are you sure?', function(yes){
-          if (!yes) return;
-
-          $(e.currentTarget).parents('[name="option"]').remove();
-          self.throttledUpdateOptions();
-        });
-      }
-    , 'click [name="stock_create"]': function(e){
-        e.preventDefault();
-
-        var self = this;
-
-        var index = this.$el.find('[name="stocks"] [name="stock"]').length || 0;
-
-        var view = Templates.admin_product_stock({
-          'option': ''
-        , 'path_prefix': 'stocks.' + index + '.'
-        , 'index': index
-        });
-
-        self.$el.find('[name="stocks"]').append(view);
-        self.throttledUpdateOptions();
-      }
-    , 'click [name="stock"] [name="delete"]': function(e){
-        e.preventDefault();
-        var self = this;
-
-        bootbox.confirm('Are you sure?', function(yes){
-          if (!yes) return;
-
-          $(e.currentTarget).parents('[name="stock"]').remove();
-        });
-      }
-    , 'click [name="media_create"]': function(e){
+      'click [name="media_create"]': function(e){
         e.preventDefault();
 
         this.loadMedia();
         this.throttledUpdateOptions();
-      }
-    , 'click [name="media"] [name="delete"]': function(e){
-        e.preventDefault();
-        var self = this;
-
-        bootbox.confirm('Are you sure?', function(yes){
-          if (!yes) return;
-
-          $(e.currentTarget).parents('[name="media"]').remove();
-          self.throttledUpdateMedia();
-        });
       }
     }
   , 'transformers': {
       'split_lines': function(val){
         return (val || '').split(/\n+/g);
       }
-    , 'to_number': function(val){
-        return Belt.cast(val || 0, 'number');
-      }
     }
   });
 
   gb['view'] = new Bh.View(a.o);
 
-  gb.view['media_dropzone'] = new Dropzone('[name="media_files"]', {
+  gb.view['media_dropzone'] = new Dropzone('[name="media_file"]', {
     'url': '#'
   , 'method': 'post'
   , 'acceptedFiles': 'image/*,video/*'
-  , 'dictDefaultMessage': 'Add product images'
+  , 'dictDefaultMessage': 'Add image'
   , 'addRemoveLinks': true
+  , 'maxFiles': 1
   });
 
   gb.view['updateOptions'] = function(){
@@ -152,7 +85,7 @@ var View = function(options, callback){
       $e.find('[name="stock_options"]').append(_.map(_.omit(options, old_opts), function(v, k){
         return Templates.admin_product_stock_option({
           'option': k
-        , 'path_prefix': prefix
+        , 'path_prefix': prefix + k
         });
       }).join('\n'));
     });
@@ -178,7 +111,7 @@ var View = function(options, callback){
       $e.find('[name="media_options"]').append(_.map(_.omit(options, old_opts), function(v, k){
         return Templates.admin_product_media_option({
           'option': k
-        , 'path_prefix': prefix
+        , 'path_prefix': prefix + k
         });
       }).join('\n'));
     });

@@ -1,0 +1,15 @@
+[
+  {
+    "options": {
+      "color": "red"
+    , "size": "xlarge"
+    }
+  , "option_aliases": {
+      "color": "shade"
+    , "size": "fit"
+    }
+  , "price": 15.99
+  , "available_quantity": 100
+  , "reserve_quantity": 12
+  }
+]

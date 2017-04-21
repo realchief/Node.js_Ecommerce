@@ -9,16 +9,17 @@
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="nav navbar-nav">
         <li class="active">
-          <a aria-expanded="false" role="button" href="/admin/<%= model.name %>/<%= operation %>"><%= title %></a>
+          <a aria-expanded="false" role="button" href="<%= route %>"><%= title %></a>
         </li>
       </ul>
       <ul class="nav navbar-top-links navbar-right">
-        <% _.each(models, function(m){ %>
+        <% _.each(sections, function(v, k){ %>
           <li class="dropdown">
-            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= m.name.toUpperCase() %> <span class="caret"></span></a>
+            <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= k.toUpperCase() %> <span class="caret"></span></a>
             <ul role="menu" class="dropdown-menu">
-              <li><a href="/admin/<%= m.name %>/list">View All</a></li>
-              <li><a href="/admin/<%= m.name %>/create">Create New <%= Str.capitalize(m.name) %></a></li>
+              <% _.each(v.pages, function(p){ %>
+                <li><a href="<%= p.route %>"><%= p.title %></a></li>
+              <% }) %>
             </ul>
           </li>
         <% }) %>

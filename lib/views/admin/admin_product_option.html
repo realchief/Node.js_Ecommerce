@@ -1,0 +1,34 @@
+<div name="option" data-index="<%= index %>" class="panel panel-default">
+  <div class="panel-heading">
+    <div class="text-right">
+      <button name="delete" class="btn btn-danger">Remove</button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="col-sm-1 control-label">name</label>
+          <div class="col-sm-11">
+            <input name="<%= path_prefix %>name" type="text" class="form-control" placeholder="name" data-get="<%= path_prefix %>name" data-get-method="val()" data-set="<%= path_prefix %>name" data-set-method="val">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-1 control-label">label.us</label>
+          <div class="col-sm-11">
+            <input name="<%= path_prefix %>label.us" type="text" class="form-control" placeholder="label" data-get="<%= path_prefix %>label.us" data-get-method="val()" data-set="<%= path_prefix %>label.us" data-set-method="val">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">values.us</label>
+          <div class="col-sm-10">
+            <textarea name="<%= path_prefix %>values.us" type="text" class="form-control" placeholder="values" data-get="<%= path_prefix %>values.us" data-get-method="val()" data-get-transformer="split_lines" data-set="<%= path_prefix %>values.us" data-set-method="val" rows="3"></textarea>
+            <span class="help-block m-b-none">One value per line</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

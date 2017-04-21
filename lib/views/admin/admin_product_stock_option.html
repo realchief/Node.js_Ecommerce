@@ -1,0 +1,24 @@
+<div name="stock_option" data-option="<%= option %>">
+  <div class="hr-line-dashed"></div>
+  <div class="row">
+    <div class="col-sm-2">
+      <h3><%= option %></h3>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="col-sm-1 control-label">alias</label>
+        <div class="col-sm-11">
+          <input name="<%= path_prefix %><%= option %>.alias" type="text" class="form-control" placeholder="alias for <%= option %>" data-set="<%= path_prefix %><%= option %>.alias" data-set-method="val" data-get="<%= path_prefix %><%= option %>.alias" data-get-method="val()">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label class="col-sm-1 control-label">value</label>
+        <div class="col-sm-11">
+          <input name="<%= path_prefix %><%= option %>.value" type="text" class="form-control" placeholder="<%= option %> of stock" data-set="<%= path_prefix %><%= option %>.value" data-set-method="val" data-get="<%= path_prefix %><%= option %>.value" data-get-method="val()">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
