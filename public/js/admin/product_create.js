@@ -76,13 +76,45 @@ var View = function(options, callback){
           self.throttledUpdateMedia();
         });
       }
+    , 'submit form': function(e){
+        e.preventDefault();
+      }
+    , 'click [name="submit"]': function(e){
+        e.preventDefault();
+
+        this.create(function(err, gb){
+          if (err) return bootbox.alert(err.message);
+
+          console.log(gb);
+        });
+      }
     }
   , 'transformers': {
       'split_lines': function(val){
-        return (val || '').split(/\n+/g);
+        return Belt.arrayDefalse((val || '').split(/\n+/g));
       }
     , 'to_number': function(val){
         return Belt.cast(val || 0, 'number');
+      }
+    , 'to_blob': function(val){
+        var bs;
+
+        if (val.split(',')[0].indexOf('base64') >= 0){
+          bs = atob(val.split(',')[1]);
+        } else {
+          bs = unescape(val.split(',')[1]);
+        }
+
+        var ms = ms.split(',')[0].split(':')[1].split(';')[0]
+          , ia = new Uint8Array(bs.length);
+
+        for (var i = 0; i < bs.length; i++){
+          ia[i] = bs.charCodeAt(i);
+        }
+
+        return new Blob([ia], {
+          'type': ms
+        });
       }
     }
   });
@@ -285,6 +317,66 @@ var View = function(options, callback){
       }
     ], function(err){
       a.cb(err);
+    });
+  };
+
+  gb.view['create'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'data': self.get()
+    });
+
+    return Async.waterfall([
+      function(cb){
+        gb['initial_doc'] = _.pick(a.o.data, [
+          'name'
+        , 'label'
+        , 'description'
+        , 'brands'
+        , 'categories'
+        , 'vendors'
+        ]);
+
+        gb.initial_doc['options'] = self.getOptions();
+
+        $.post('/product/create.json', gb.initial_doc, function(json){
+          if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+          gb['doc'] = Belt.get(json, 'data');
+
+          cb();
+        });
+      }
+    , function(cb){
+        Async.eachSeries(a.o.data.stocks, function(e, cb2){
+          $.post('/product/' + gb.doc._id + '/stock/create.json', e, function(json){
+            if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+            gb['doc'] = Belt.get(json, 'data');
+
+            cb2();
+          });
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Async.eachSeries(a.o.data.media, function(e, cb2){
+          if (e.local_url){
+            $.post('/product/' + gb.doc._id + '/media/create.json', e, function(json){
+              if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+              gb['doc'] = Belt.get(json, 'data');
+
+              cb2();
+            });
+          } else {
+
+          }
+        }, Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err, gb);
     });
   };
 
