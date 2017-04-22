@@ -1,16 +1,15 @@
-<div class="row">
+<div id="container" class="row">
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
-      <div class="ibox-title">
-        <h5><%= title %></h5>
-      </div>
       <div class="ibox-content">
+        <h1>Products</h1>
+        <div class="hr-line-dashed"></div>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-                <% _.each(model.list.fields, function(l){ %>
-                  <td><strong><%= l.toUpperCase() %></strong></td>
+                <% _.each(data.fields, function(f){ %>
+                  <td><strong><%= f.toUpperCase() %></strong></td>
                 <% }) %>
               </tr>
             </thead>

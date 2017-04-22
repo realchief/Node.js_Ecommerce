@@ -105,7 +105,7 @@ var View = function(options, callback){
           bs = unescape(val.split(',')[1]);
         }
 
-        var ms = ms.split(',')[0].split(':')[1].split(';')[0]
+        var ms = val.split(',')[0].split(':')[1].split(';')[0]
           , ia = new Uint8Array(bs.length);
 
         for (var i = 0; i < bs.length; i++){
@@ -279,6 +279,7 @@ var View = function(options, callback){
         , function(u){
           return {
             'url': u
+          , 'filename': u.split('/').pop()
           };
         });
 
@@ -291,6 +292,7 @@ var View = function(options, callback){
           fr.onload = function(){
             ocb2(null, {
               'data': fr.result
+            , 'filename': f.name
             });
           };
           fr.onerror = ocb2;
@@ -352,7 +354,7 @@ var View = function(options, callback){
     , function(cb){
         Async.eachSeries(a.o.data.stocks, function(e, cb2){
           $.post('/product/' + gb.doc._id + '/stock/create.json', e, function(json){
-            if (Belt.get(json, 'error')) return cb(new Error(json.error));
+            if (Belt.get(json, 'error')) return cb2(new Error(json.error));
 
             gb['doc'] = Belt.get(json, 'data');
 
@@ -362,16 +364,39 @@ var View = function(options, callback){
       }
     , function(cb){
         Async.eachSeries(a.o.data.media, function(e, cb2){
-          if (e.local_url){
+          if (e.remote_url){
             $.post('/product/' + gb.doc._id + '/media/create.json', e, function(json){
-              if (Belt.get(json, 'error')) return cb(new Error(json.error));
+              if (Belt.get(json, 'error')) return cb2(new Error(json.error));
 
               gb['doc'] = Belt.get(json, 'data');
 
               cb2();
             });
-          } else {
+          } else if (e.file) {
+            var fd = new FormData()
+              , ocb2 = _.once(cb2);
 
+            fd.append('json', JSON.stringify(_.omit(e, [
+              'file'
+            ])));
+            fd.append('file', e.file, e.filename);
+
+            $.ajax({
+              'url': '/product/' + gb.doc._id + '/media/create.json'
+            , 'type': 'POST'
+            , 'data': fd
+            , 'cache': false
+            , 'dataType': 'json'
+            , 'processData': false
+            , 'contentType': false
+            , 'success': function(json){
+                if (Belt.get(json, 'error')) return ocb2(new Error(json.error));
+
+                gb['doc'] = Belt.get(json, 'data');
+
+                ocb2();
+              }
+            });
           }
         }, Belt.cw(cb, 0));
       }

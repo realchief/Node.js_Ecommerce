@@ -1,0 +1,26 @@
+<tr class="product" data-id="<%= _id %>">
+  <td><%= _id %></td>
+  <td><%= name %></td>
+  <td style="width:200px !important;">
+    <strong name="label.us"><%= label.us %></strong><br>
+    <span name="description.us"><%= description.us %></span>
+  </td>
+  <td name="vendors"><%= (vendors || []).join(', ') %></td>
+  <td name="brands"><%= (brands || []).join(', ') %></td>
+  <td name="categories"><%= (categories || []).join(', ') %></td>
+  <td name="options"></td>
+  <td name="stocks"></td>
+  <td name="media">
+    <div class="row">
+      <% _.each(media, function(m){ %>
+        <div class="col-xs-2">
+          <a href="<%= m.url %>" target="_blank"><img src="<%= m.url %>" class="img-responsive"></a>
+        </div>
+      <% }) %>
+    </div>
+  </td>
+  <td data-set="actions" data-set-method="html">
+    <a href="/product/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <button name="delete" class="btn btn-danger">Delete</a>
+  </td>
+</tr>

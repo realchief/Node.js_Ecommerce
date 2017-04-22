@@ -1,145 +1,32 @@
-_.extend(GB, {
-  'views': {}
-, 'container': $('tbody')
-});
-
-var View = function(options, callback){
+var LoadProducts = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};
   a.o = _.defaults(a.o, {
-    'template': Templates.admin_product_list_row
-  , 'triggers': {
-      'click [name="delete"]': function(e){
-        e.preventDefault();
-
-        var self = this;
-
-        bootbox.confirm('Are you sure you want to delete this ' + GB.model.name + '?'
-        , function(conf){
-          if (!conf) return;
-
-          Controllers[GB.model.name].Delete(self.get(), function(err, doc){
-            if (err) return bootbox.alert(err.message);
-
-          });
-        });
-      }
-    }
-  , 'transformers': {
-      'set:categories': function(val){
-        return _.map(val, function(v){
-          return v.category + (v.subcategory ? ' (' + v.subcategory + ')' : '');
-        }).join(', ') || '';
-      }
-    , 'set:brands': function(val){
-        return _.pluck(val || [], 'name').join(', ');
-      }
-    , 'set:label': function(val){
-        return Belt.get(val, 'us');
-      }
-    , 'set:description': function(val){
-        return '<div>' + Belt.get(val, 'us') + '</div>';
-      }
-    , 'set:vendor': function(val){
-        return Belt.get(val, 'name') || '';
-      }
-    , 'set:media': function(val){
-        return _.map(val, function(v){
-          return [
-            '<div class="thumbnail">'
-          , '  <a href="' + v.url + '" target="_blank"><img src="' + v.url + '"></a>'
-          , Belt.get(v, 'label.us') ? '<div class="caption"><p>' + v.label.us + '</p></div>' : ''
-          , '</div>'
-          ].join('\n')
-        }).join('\n');
-      }
-    , 'set:sizes': function(val){
-        return (val || []).join(', ');
-      }
-    , 'set:materials': function(val){
-        return (val || []).join(', ');
-      }
-    , 'set:models': function(val){
-        return (val || []).join(', ');
-      }
-    , 'set:self': function(val, $el){
-        $el.attr('data-id', val._id);
-      }
-    , 'renderActions': function(val){
-        return Templates.admin_list_row_actions({
-          'model': GB.model.name
-        , '_id': val
-        });
-      }
-    }
-  });
-
-  gb['view'] = new Bh.View(a.o);
-
-  gb.view.emit('load');
-
-  return gb.view;
-};
-
-var LoadView = function(options, callback){
-  var a = Belt.argulint(arguments)
-    , self = this
-    , gb = {};
-  a.o = _.defaults(a.o, {
-    //data
+    'skip': 0
+  , 'limit': 100
   });
 
   return Async.waterfall([
     function(cb){
-      if (GB.views[a.o.data._id]){
-        gb['view'] = GB.views[a.o.data._id];
-      } else {
-        gb['view'] = View(a.o);
-        gb.view.setEl(gb.view.template(a.o.data));
-        GB.container.append(gb.view.$el);
-      }
+      $.post('/product/list.json', a.o, function(json){
+        if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
-      Socket.emit('room:join', {
-        'room': GB.model.name + ':' + a.o.data._id
+        gb['docs'] = Belt.get(json, 'data');
+        cb();
       });
-
-      Socket.on(GB.model.name + ':' + a.o.data._id + ':update', function(data){
-        gb.view.set(data);
-      });
-
-      Socket.on(GB.model.name + ':' + a.o.data._id + ':delete', function(data){
-        Belt.get(gb, 'view.$el.remove()');
-        delete gb.view;
-      });
-
-      gb.view.set(a.o.data);
-
-      return cb();
     }
   ], function(err){
-    return a.cb(err);
+    a.cb(err, gb.docs);
   });
 };
 
-Socket.emit('room:join', {
-  'room': GB.model.name + ':list'
-});
-
-Socket.on(GB.model.name + ':create', function(data){
-  LoadView({
-    'data': data
-  });
-});
-
 $(document).ready(function(){
-  Controllers[GB.model.name].List(function(err, docs){
-    GB['data'] = docs;
+  LoadProducts(function(err, docs){
+    if (err) return bootbox.alert(err.message);
 
-    Async.eachSeries(GB.data, function(d, cb){
-      return LoadView({
-        'data': d
-      }, cb);
-    }, Belt.np);
+    $('tbody').html(_.map(docs, function(d){
+      return Templates.admin_product_list_row(d);
+    }).join('\n'));
   });
 });

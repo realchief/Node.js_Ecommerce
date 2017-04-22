@@ -1521,6 +1521,21 @@ define({ "api": [
     "groupTitle": "Order"
   },
   {
+    "type": "get",
+    "url": "/product/count.json",
+    "title": "Count Products",
+    "name": "CountProduct",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
     "type": "post",
     "url": "/product/:_id/media/create.json",
     "title": "Create Product Media",
