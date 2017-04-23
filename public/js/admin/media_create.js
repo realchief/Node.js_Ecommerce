@@ -9,7 +9,44 @@ var View = function(options, callback){
         e.preventDefault();
 
         this.loadMedia();
-        this.throttledUpdateOptions();
+      }
+    , 'click canvas': function(e){
+        e.preventDefault();
+
+        var index = this.$el.find('[name="products"] [name="product"]').length || 0
+          , coords = this.getCoordinatesOfCanvasClick({
+            'event': e
+          });
+
+        this.$el.find('[name="products"]').append(Templates.admin_media_product({
+          'index': index
+        , 'path_prefix': 'products.' + index + '.'
+        }));
+
+        this.set(_.object([
+          'products.' + index + '.label'
+        , 'products.' + index + '.x_coordinate'
+        , 'products.' + index + '.y_coordinate'
+        ], [
+          index
+        , coords.x
+        , coords.y
+        ]));
+
+        this.throttledRenderCanvas();
+      }
+    , 'click [name="product"] [name="delete"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        bootbox.confirm('Are you sure?', function(yes){
+          if (!yes) return;
+
+          $(e.currentTarget).parents('[name="product"]').remove();
+
+          self.throttledRenderCanvas();
+        });
       }
     }
   , 'transformers': {
@@ -30,189 +67,52 @@ var View = function(options, callback){
   , 'maxFiles': 1
   });
 
-  gb.view['updateOptions'] = function(){
-    var self = gb.view;
-
-    self.$el.find('[name="options"] [name="option"]').each(function(i, e){
-      var $e = $(e)
-        , opt = $e.find('[data-get="name"]').val();
-
-      $e.attr('data-index', i);
-      $e.attr('data-option', opt);
-
-      $e.find('[name^="options."]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , attr = $e2.attr('name').replace(/^options\.\d+\./, '');
-
-        $e2.attr('name', 'options.' + i + '.' + attr);
-      });
-
-      $e.find('[data-get^="options."]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , attr = $e2.attr('data-get').replace(/^options\.\d+\./, '');
-
-        $e2.attr('data-get', 'options.' + i + '.' + attr);
-      });
-
-      $e.find('[data-set^="options."]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , attr = $e2.attr('data-set').replace(/^options\.\d+\./, '');
-
-        $e2.attr('data-set', 'options.' + i + '.' + attr);
-      });
-    });
-
-    var options = self.getOptions();
-
-    self.$el.find('[name="stocks"] [name="stock"]').each(function(i, e){
-      var $e = $(e)
-        , index = $e.attr('data-index')
-        , prefix = 'stocks.' + index + '.options.';
-
-      var old_opts = [];
-
-      $e.find('[name="stock_option"]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , o = $e2.attr('data-option');
-
-        if (!options[o]){
-          $e2.remove();
-        } else {
-          old_opts.push(o);
-        }
-      });
-
-      $e.find('[name="stock_options"]').append(_.map(_.omit(options, old_opts), function(v, k){
-        return Templates.admin_product_stock_option({
-          'option': k
-        , 'path_prefix': prefix + k
-        });
-      }).join('\n'));
-    });
-
-    self.$el.find('[name="medias"] [name="media"]').each(function(i, e){
-      var $e = $(e)
-        , index = $e.attr('data-index')
-        , prefix = 'media.' + index + '.options.';
-
-      var old_opts = [];
-
-      $e.find('[name="media_option"]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , o = $e2.attr('data-option');
-
-        if (!options[o]){
-          $e2.remove();
-        } else {
-          old_opts.push(o);
-        }
-      });
-
-      $e.find('[name="media_options"]').append(_.map(_.omit(options, old_opts), function(v, k){
-        return Templates.admin_product_media_option({
-          'option': k
-        , 'path_prefix': prefix + k
-        });
-      }).join('\n'));
-    });
-  };
-
-  gb.view['updateMedia'] = function(){
-    var self = gb.view;
-
-    self.$el.find('[name="medias"] [name="media"]').each(function(i, e){
-      var $e = $(e);
-
-      $e.attr('data-index', i);
-
-      $e.find('[name^="media."]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , attr = $e2.attr('name').replace(/^media\.\d+\./, '');
-
-        $e2.attr('name', 'media.' + i + '.' + attr);
-      });
-
-      $e.find('[data-get^="media."]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , attr = $e2.attr('data-get').replace(/^options\.\d+\./, '');
-
-        $e2.attr('data-get', 'media.' + i + '.' + attr);
-      });
-
-      $e.find('[data-set^="media."]').each(function(i2, e2){
-        var $e2 = $(e2)
-          , attr = $e2.attr('data-set').replace(/^options\.\d+\./, '');
-
-        $e2.attr('data-set', 'media.' + i + '.' + attr);
-      });
-    });
-  };
-
-  gb.view['throttledUpdateOptions'] = _.throttle(gb.view.updateOptions, 250, {
-    'leading': false
-  , 'trailing': true
-  });
-
-  gb.view['throttledUpdateMedia'] = _.throttle(gb.view.updateMedia, 250, {
-    'leading': false
-  , 'trailing': true
-  });
-
-  gb.view['getOptions'] = function(){
-    var opts = (this.get().options || []);
-    opts = _.filter(opts, function(v, k){ return v.name; });
-    return _.object(_.pluck(opts, ['name']), opts);
-  };
-
   gb.view['loadMedia'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-      'index': self.$el.find('[name="media"]').length
+
     });
 
     return Async.waterfall([
       function(cb){
-        if (_.any(a.o.media)) return cb();
-
-        a.o.media = _.map(Belt.arrayDefalse((self.$el.find('[name="media_urls"]').val() || '').split(/\n+/))
-        , function(u){
-          return {
-            'url': u
+        if (self.$el.find('[name="media_url"]').val()){
+          gb['image'] = new Image();
+          gb.image.onload = function(){
+            cb();
           };
-        });
+          gb.image.src = self.$el.find('[name="media_url"]').val();
 
-        self.$el.find('[name="media_urls"]').val('');
-
-        Async.map(self.media_dropzone.files, function(f, cb2){
+        } else if (Belt.get(self, 'media_dropzone.files.0')){
           var fr = new FileReader()
-            , ocb2 = _.once(cb2);
-          fr.readAsDataURL(f);
+            , ocb = _.once(cb);
+
+          fr.readAsDataURL(self.media_dropzone.files[0]);
           fr.onload = function(){
-            ocb2(null, {
-              'data': fr.result
-            });
+            gb['image'] = new Image();
+            gb.image.onload = function(){
+              ocb();
+            };
+            gb.image.src = fr.result;
           };
-          fr.onerror = ocb2;
-        }, Belt.cs(cb, gb, 'media', 1, 0));
+          fr.onerror = ocb;
+
+        } else {
+          cb(new Error('No media selected'));
+        }
       }
     , function(cb){
-        if (!_.any(gb.media)) return cb();
-
-        a.o.media = (a.o.media || []).concat(gb.media);
-
         self.media_dropzone.removeAllFiles();
+        self.$el.find('[name="media_url"]').val('');
 
-        cb();
-      }
-    , function(cb){
-        self.$el.find('[name="medias"]').append(_.map(a.o.media, function(m){
-          return Templates.admin_product_media(_.extend({}, m, {
-            'path_prefix': 'media.' + a.o.index + '.'
-          , 'index': a.o.index++
-          }));
-        }).join('\n'));
+        self['file'] = gb.image;
+
+        self.$el.find('[name="products"]').html('');
+
+        self.setCanvasBackgroundImage({
+          'image': self.file
+        });
 
         cb();
       }
@@ -220,6 +120,107 @@ var View = function(options, callback){
       a.cb(err);
     });
   };
+
+  gb.view['setCanvasBackgroundImage'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'canvas_container': self.$el.find('[name="canvas"]')
+    , 'max_width': self.$el.find('.ibox-content').width()
+      //image
+    });
+
+    a.o.canvas_container.html('<canvas></canvas>');
+    gb['canvas'] = a.o.canvas_container.find('canvas')[0];
+
+    gb.canvas.width = _.min([a.o.image.width, a.o.max_width]);
+    gb.canvas.height = (a.o.image.height * gb.canvas.width) / a.o.image.width;
+
+    gb['context'] = gb.canvas.getContext('2d');
+    gb.context.drawImage(a.o.image, 0, 0, gb.canvas.width, gb.canvas.height);
+
+    a.o.canvas_container.css({
+      'display': 'block'
+    });
+  };
+
+  gb.view['getCoordinatesOfCanvasClick'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //event
+      'canvas': self.$el.find('canvas')
+    });
+
+    var coff = a.o.canvas.offset();
+    return {
+      'x': a.o.event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - coff.left
+    , 'y': a.o.event.clientY + document.body.scrollTop + document.documentElement.scrollTop - coff.top + 1
+    };
+  };
+
+  gb.view['drawCanvasTarget'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //coordinates
+      //label
+      'color': Please.make_color()[0]
+    , 'canvas': self.$el.find('canvas')[0]
+    });
+
+    gb['context'] = a.o.canvas.getContext('2d');
+    gb.context.beginPath();
+    gb.context.arc(a.o.coordinates.x, a.o.coordinates.y, 10, 0, 2 * Math.PI);
+    gb.context.fillStyle = a.o.color;
+    gb.context.fill();
+
+    gb['context'] = a.o.canvas.getContext('2d');
+    gb.context.beginPath();
+    gb.context.arc(a.o.coordinates.x, a.o.coordinates.y, 16, 0, 2 * Math.PI);
+    gb.context.lineWidth = 2;
+    gb.context.strokeStyle = a.o.color;
+    gb.context.stroke();
+
+    gb['context'] = a.o.canvas.getContext('2d');
+    gb.context.fillStyle = 'black';
+    gb.context.strokeStyle = 'black';
+    gb.context.font = '20px Arial';
+    gb.context.fillText(a.o.label, a.o.coordinates.x - 5, a.o.coordinates.y);
+  };
+
+  gb.view['renderCanvas'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    self.setCanvasBackgroundImage({
+      'image': self.file
+    });
+
+    gb['targets'] = Belt.get(self.get(), 'products');
+
+    _.each(gb.targets, function(t){
+      self.drawCanvasTarget({
+        'label': t.label
+      , 'coordinates': {
+          'x': t.x_coordinate
+        , 'y': t.y_coordinate
+        }
+      });
+    });
+  };
+
+  gb.view['throttledRenderCanvas'] = _.throttle(gb.view.renderCanvas, 500, {
+    'trailing': true
+  , 'leading': false
+  });
 
   gb.view.emit('load');
 

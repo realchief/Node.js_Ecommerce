@@ -8,12 +8,20 @@
   <td name="vendors"><%= (vendors || []).join(', ') %></td>
   <td name="brands"><%= (brands || []).join(', ') %></td>
   <td name="categories"><%= (categories || []).join(', ') %></td>
-  <td name="options"></td>
-  <td name="stocks"></td>
+  <td style="width:150px !important;">
+    <% _.each(options, function(v, k){ %>
+      <p><strong><%= k %></strong> - <%= (Belt.get(v, 'values.us') || []).join(', ') %>
+    <% }) %>
+  </td>
+  <td style="width:150px !important;">
+    <% _.each(stocks, function(v, k){ %>
+      <p>vendor: <strong><%= v.vendor %></strong>, sku: <%= v.sku %></p>
+    <% }) %>
+  </td>
   <td name="media">
     <div class="row">
       <% _.each(media, function(m){ %>
-        <div class="col-xs-2">
+        <div class="col-xs-6">
           <a href="<%= m.url %>" target="_blank"><img src="<%= m.url %>" class="img-responsive"></a>
         </div>
       <% }) %>

@@ -22,10 +22,33 @@ var LoadProducts = function(options, callback){
 };
 
 $(document).ready(function(){
+  $(document).on('click', '.product [name="delete"]', function(e){
+    e.preventDefault();
+
+    var $prod = $(this).parents('.product')
+      , id = $prod.attr('data-id');
+
+    bootbox.confirm('Are you sure you want to delete this product?', function(yes){
+      if (!yes) return;
+
+      $.ajax({
+        'url': '/product/' + id + '/delete.json'
+      , 'type': 'DELETE'
+      , 'dataType': 'json'
+      , 'success': function(json){
+          if (Belt.get(json, 'error')) return bootbox.alert(json.error);
+
+          $prod.remove();
+        }
+      })
+    });
+  });
+
   LoadProducts(function(err, docs){
     if (err) return bootbox.alert(err.message);
 
     $('tbody').html(_.map(docs, function(d){
+      d.options = d.options || {};
       return Templates.admin_product_list_row(d);
     }).join('\n'));
   });
