@@ -18,6 +18,7 @@
             <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= k.toUpperCase() %> <span class="caret"></span></a>
             <ul role="menu" class="dropdown-menu">
               <% _.each(v.pages, function(p){ %>
+                <% if (p.hide_menu) return %>
                 <li><a href="<%= p.route %>"><%= p.title %></a></li>
               <% }) %>
             </ul>

@@ -47,6 +47,13 @@
         </div>
       </div>
     </div>
-    <div name="stock_options"></div>
+    <div name="stock_options">
+      <% if (typeof options !== 'undefined') _.each(options, function(v, k){ %>
+        <%= Render('admin_product_stock_option', {
+          'path_prefix': path_prefix + 'options.'
+        , 'option': k
+        }) %>
+      <% }) %>
+    </div>
   </div>
 </div>

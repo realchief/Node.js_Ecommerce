@@ -24,7 +24,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">values.us</label>
           <div class="col-sm-10">
-            <textarea name="<%= path_prefix %>values.us" type="text" class="form-control" placeholder="values" data-get="<%= path_prefix %>values.us" data-get-method="val()" data-get-transformer="split_lines" data-set="<%= path_prefix %>values.us" data-set-method="val" rows="3"></textarea>
+            <textarea name="<%= path_prefix %>values.us" type="text" class="form-control" placeholder="values" data-get="<%= path_prefix %>values.us" data-get-method="val()" data-get-transformer="split_lines" data-set="<%= path_prefix %>values.us" data-set-method="val" data-set-transformer="join_lines" rows="3"></textarea>
             <span class="help-block m-b-none">One value per line</span>
           </div>
         </div>

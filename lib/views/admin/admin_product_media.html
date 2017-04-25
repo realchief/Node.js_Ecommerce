@@ -31,6 +31,13 @@
         </div>
       </div>
     </div>
-    <div name="media_options"></div>
+    <div name="media_options">
+      <% if (typeof options !== 'undefined') _.each(options, function(v, k){ %>
+        <%= Render('admin_product_media_option', {
+          'path_prefix': path_prefix + 'options.'
+        , 'option': k
+        }) %>
+      <% }) %>
+    </div>
   </div>
 </div>

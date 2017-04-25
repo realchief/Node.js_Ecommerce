@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
       <div class="ibox-content">
-        <h1>Create product</h1>
+        <h1><%= title %></h1>
         <div class="hr-line-dashed"></div>
         <form class="form-horizontal">
           <div class="form-group">
@@ -40,7 +40,7 @@
           <div class="form-group">
             <label class="col-sm-1 control-label">vendors</label>
             <div class="col-sm-11">
-              <textarea name="vendors" type="text" class="form-control" placeholder="vendors" data-get="vendors" data-get-method="val()" data-get-transformer="split_lines" data-set="vendors" data-set-method="val" rows="5"></textarea>
+              <textarea name="vendors" type="text" class="form-control" placeholder="vendors" data-get="vendors" data-get-method="val()" data-get-transformer="split_lines" data-set="vendors" data-set-method="val" data-set-transformer="join_lines" rows="5"></textarea>
               <span class="help-block m-b-none">One vendor per line</span>
             </div>
           </div>
@@ -48,7 +48,7 @@
           <div class="form-group">
             <label class="col-sm-1 control-label">brands</label>
             <div class="col-sm-11">
-              <textarea name="brands" type="text" class="form-control" placeholder="brands" data-get="brands" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="brands" data-set-method="val"></textarea>
+              <textarea name="brands" type="text" class="form-control" placeholder="brands" data-get="brands" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="brands" data-set-method="val" data-set-transformer="join_lines"></textarea>
               <span class="help-block m-b-none">One brand per line</span>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <div class="form-group">
             <label class="col-sm-1 control-label">categories</label>
             <div class="col-sm-11">
-              <textarea name="categories" type="text" class="form-control" placeholder="categories" data-get="categories" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="categories" data-set-method="val"></textarea>
+              <textarea name="categories" type="text" class="form-control" placeholder="categories" data-get="categories" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="categories" data-set-method="val" data-set-transformer="join_lines"></textarea>
               <span class="help-block m-b-none">One category per line</span>
             </div>
           </div>
