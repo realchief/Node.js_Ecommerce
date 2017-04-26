@@ -3,14 +3,22 @@
     <div class="ibox float-e-margins">
       <div class="ibox-content">
         <h1>Products</h1>
+        <p name="count"></p>
         <div class="hr-line-dashed"></div>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-                <% _.each(data.fields, function(f){ %>
-                  <td><strong><%= f.toUpperCase() %></strong></td>
-                <% }) %>
+                <td><strong>SKU</strong></td>
+                <td><strong>NAME</strong></td>
+                <td><strong>CONTENT</strong></td>
+                <td><strong>VENDORS</strong></td>
+                <td><strong>BRANDS</strong></td>
+                <td><strong>CATEGORIES</strong></td>
+                <td><strong>OPTIONS</strong></td>
+                <td><strong>STOCKS</strong></td>
+                <td><strong>MEDIA</strong></td>
+                <td><strong>ACTIONS</strong></td>
               </tr>
             </thead>
             <tbody>

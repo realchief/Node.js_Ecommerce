@@ -9,6 +9,14 @@ var LoadProducts = function(options, callback){
 
   return Async.waterfall([
     function(cb){
+      $.post('/product/count.json', a.o, function(json){
+        if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+        gb['count'] = Belt.get(json, 'data');
+        cb();
+      });
+    }
+  , function(cb){
       $.post('/product/list.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
@@ -17,11 +25,21 @@ var LoadProducts = function(options, callback){
       });
     }
   ], function(err){
-    a.cb(err, gb.docs);
+    a.cb(err, gb);
   });
 };
 
 $(document).ready(function(){
+  GB['criteria'] = _.defaults(queryObject.get() || {}, {
+    'limit': 500
+  , 'skip': 0
+  , 'query': '{}'
+  , 'sort': '{"_id": 1}'
+  });
+
+  GB.criteria.query = JSON.parse(GB.criteria.query);
+  GB.criteria.sort = JSON.parse(GB.criteria.sort);
+
   $(document).on('click', '.product [name="delete"]', function(e){
     e.preventDefault();
 
@@ -44,10 +62,10 @@ $(document).ready(function(){
     });
   });
 
-  LoadProducts(function(err, docs){
+  LoadProducts(GB.criteria, function(err, res){
     if (err) return bootbox.alert(err.message);
 
-    $('tbody').html(_.map(docs, function(d){
+    $('tbody').html(_.map(res.docs, function(d){
       d.options = d.options || {};
       return Templates.admin_product_list_row(d);
     }).join('\n'));
