@@ -2,6 +2,7 @@
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
       <div class="ibox-content">
+        <div name="pagination" class="pull-right"></div>
         <h1>Products</h1>
         <p name="count"></p>
         <div class="hr-line-dashed"></div>
@@ -9,13 +10,146 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <td><strong>SKU</strong></td>
-                <td><strong>NAME</strong></td>
-                <td><strong>CONTENT</strong></td>
-                <td><strong>VENDORS</strong></td>
-                <td><strong>BRANDS</strong></td>
-                <td><strong>CATEGORIES</strong></td>
-                <td><strong>OPTIONS</strong></td>
+                <td name="_id">
+                  <strong>SKU
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td name="name">
+                  <strong>NAME
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td name="content">
+                  <strong>CONTENT
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td name="vendors">
+                  <strong>VENDORS
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td name="brands">
+                  <strong>BRANDS
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td name="categories">
+                  <strong>CATEGORIES
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
+                <td name="options">
+                  <strong>OPTIONS
+                    <div class="btn-group" style="display:none;">
+                      <button name="sort-asc" class="btn btn-default">
+                        <i class="fa fa-sort-asc"></i>
+                      </button>
+                      <button name="sort-desc" class="btn btn-default">
+                        <i class="fa fa-sort-desc"></i>
+                      </button>
+                    </div>
+                  </strong>
+                  <div class="input-group" style="display:none;">
+                    <input name="filter" type="text" class="form-control">
+                    <span class="input-group-btn">
+                      <button name="apply_filter" type="button" class="btn btn-default">
+                        <i class="fa fa-filter"></i>
+                      </button>
+                    </span>
+                  </div>
+                </td>
                 <td><strong>STOCKS</strong></td>
                 <td><strong>MEDIA</strong></td>
                 <td><strong>ACTIONS</strong></td>
