@@ -33,8 +33,8 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  //html_path
-  'vendors': [
+  'html_path': Path.join(O.__dirname, './test/feeds/bombclothing-feed.html')
+, 'vendors': [
     'Bomb Clothing'
   ]
 , 'brands': [
@@ -102,7 +102,11 @@ Async.waterfall([
       GB.products[name]['options'] = GB.products[name].options || {};
 
       if (color){
-        opts['color'] = color;
+        opts['color'] = {
+          'alias': 'color'
+        , 'value': color
+        };
+
         GB.products[name].options.color = GB.products[name].options.color || {
           'label': {
             'us': 'color'
@@ -117,7 +121,11 @@ Async.waterfall([
       }
 
       if (size){
-        opts['size'] = size;
+        opts['size'] = {
+          'alias': 'size'
+        , 'value': size
+        };
+
         GB.products[name].options.size = GB.products[name].options.size || {
           'label': {
             'us': 'size'
@@ -183,7 +191,6 @@ Async.waterfall([
         }
       , function(cb3){
           Async.eachSeries(e.stocks, function(s, cb4){
-console.log(s);
             Request({
               'url': O.host + '/product/' + gb.doc._id + '/stock/create.json'
             , 'method': 'post'

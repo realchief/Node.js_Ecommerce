@@ -32,8 +32,8 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  //csv_path
-  'vendors': [
+  'csv_path': Path.join(O.__dirname, './test/feeds/profound-aesthetic.csv')
+, 'vendors': [
     'Profound Aesthetic'
   ]
 , 'brands': [
@@ -91,7 +91,10 @@ Async.waterfall([
 
             GB.products[d.Handle].opts[o + ' Name'] = d[o + ' Name'];
 
-            opts[d[o + ' Name']] = d[o + ' Value'];
+            opts[d[o + ' Name']] = {
+              'alias': d[o + ' Name']
+            , 'value': d[o + ' Value']
+            };
 
             GB.products[d.Handle].options[d[o + ' Name']] = GB.products[d.Handle].options[d[o + ' Name']] || {
               'name': d[o + ' Name']
@@ -121,7 +124,6 @@ Async.waterfall([
             , 'options': opts
             });
           }
-
 
           GB.products[d.Handle]['media'] = GB['products'][d.Handle].media || [];
 

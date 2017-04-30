@@ -1,0 +1,102 @@
+Handle,Title,Vendor,Type,Tags,Published,Option1 Name,Option1 Value,Option2 Name,Option2 Value,Option3 Name,Option3 Value,Variant SKU,Variant Grams,Variant Inventory Tracker,Variant Inventory Qty,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Compare At Price,Variant Requires Shipping,Variant Taxable,Variant Barcode,Product Page URL
+tradition-tee-shirt,Tradition T-Shirt,Alps & Meters,T-Shirt,,TRUE,Size,Small,,,,,100017SLSM,113,shopify,15,deny,manual,48,,TRUE,FALSE,,https://www.alpsandmeters.com/collections/all-products/products/tradition-tee-shirt
+tradition-tee-shirt,,,,,,,Medium,,,,,100017SLMD,113,shopify,33,deny,manual,48,,TRUE,FALSE,,https://www.alpsandmeters.com/collections/all-products/products/tradition-tee-shirt
+tradition-tee-shirt,,,,,,,Large,,,,,100017SLLG,113,shopify,28,deny,manual,48,,TRUE,FALSE,,https://www.alpsandmeters.com/collections/all-products/products/tradition-tee-shirt
+tradition-tee-shirt,,,,,,,Extra Large,,,,,100017SLXL,113,shopify,14,deny,manual,48,,TRUE,FALSE,,https://www.alpsandmeters.com/collections/all-products/products/tradition-tee-shirt
+alpine-sports-cap,Alpine Sports Cap,Alps & Meters,Sports Cap,,TRUE,Color,Navy,Size,One Size Fits All,,,200003NVOS,227,shopify,118,deny,manual,60,,TRUE,FALSE,816223020608,https://www.alpsandmeters.com/collections/all-products/products/alpine-sports-cap
+alpine-sports-cap,,,,,,,Charcoal,,One Size Fits All,,,200003CHOS,227,shopify,132,deny,manual,60,,TRUE,FALSE,816223020615,https://www.alpsandmeters.com/collections/all-products/products/alpine-sports-cap
+alpine-sports-cap,,,,,,,Ice Blue,,One Size Fits All,,,200003IVOS,227,shopify,140,deny,manual,60,,TRUE,FALSE,816223020639,https://www.alpsandmeters.com/collections/all-products/products/alpine-sports-cap
+alpine-sports-cap,,,,,,,,,,,,,,,,,,,,,,,https://www.alpsandmeters.com/collections/all-products/products/alpine-sports-cap
+alpine-sports-cap,,,,,,,,,,,,,,,,,,,,,,,https://www.alpsandmeters.com/collections/all-products/products/alpine-sports-cap
+classic-waffle,Classic Waffle,Alps & Meters,Sweater,,TRUE,Color,Navy,Size,S,,,100008NVSM,907,shopify,1,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Navy,,M,,,100008NVMD,907,shopify,0,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Navy,,L,,,100008NVLG,907,shopify,3,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Navy,,XL,,,100008NVXL,907,shopify,0,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Fatigue,,S,,,100008FTSM,907,shopify,2,deny,manual,150,250,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Fatigue,,M,,,100008FTMD,907,shopify,1,deny,manual,150,250,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Fatigue,,L,,,100008FTLG,907,shopify,10,deny,manual,150,250,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Fatigue,,XL,,,100008FTXL,907,shopify,0,deny,manual,150,250,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Heather Grey,,S,,,100008HGSM,907,shopify,6,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Heather Grey,,M,,,100008HGMD,907,shopify,0,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Heather Grey,,L,,,100008HGLG,907,shopify,6,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Heather Grey,,XL,,,100008HGXL,907,shopify,4,deny,manual,250,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Ivory,,S,,,100008IVSM,907,shopify,4,deny,manual,175,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Ivory,,M,,,100008IVMD,907,shopify,0,deny,manual,175,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Ivory,,L,,,100008IVLG,907,shopify,7,deny,manual,175,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+classic-waffle,,,,,,,Ivory,,XL,,,100008IVXL,907,shopify,5,deny,manual,175,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/classic-waffle
+alpine-hooded-vest,Alpine Hooded Vest,Alps & Meters,Vest,,TRUE,Color,Heather Grey,Size,S,,,100006HGSM,1179,shopify,17,deny,manual,395,525,TRUE,TRUE,816223020844,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Navy,,S,,,100006NVSM,1179,shopify,18,deny,manual,395,525,TRUE,TRUE,816223020882,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Forest Green,,S,,,100006FGSM,1179,shopify,8,deny,manual,270,450,TRUE,TRUE,816223020929,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Heather Grey,,M,,,100006HGMD,1179,shopify,26,deny,manual,395,525,TRUE,TRUE,816223020851,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Navy,,M,,,100006NVMD,1179,shopify,32,deny,manual,395,525,TRUE,TRUE,816223020899,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Forest Green,,M,,,100006FGMD,1179,shopify,26,deny,manual,270,450,TRUE,TRUE,816223020936,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Heather Grey,,L,,,100006HGLG,1179,shopify,36,deny,manual,395,525,TRUE,TRUE,816223020868,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Navy,,L,,,100006NVLG,1179,shopify,36,deny,manual,395,525,TRUE,TRUE,816223020905,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Forest Green,,L,,,100006FGLG,1179,shopify,25,deny,manual,270,450,TRUE,TRUE,816223020943,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Heather Grey,,XL,,,100006HGXL,1179,shopify,17,deny,manual,395,525,TRUE,TRUE,816223020875,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Navy,,XL,,,100006NVXL,1179,shopify,23,deny,manual,395,525,TRUE,TRUE,816223020912,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+alpine-hooded-vest,,,,,,,Forest Green,,XL,,,100006FGXL,1179,shopify,14,deny,manual,270,450,TRUE,TRUE,816223020950,https://www.alpsandmeters.com/collections/all-products/products/alpine-hooded-vest
+classic-shell-jacket,Classic Shell Jacket,Alps & Meters,Shell,,TRUE,Color,Navy Plaid,Size,S,,,100007NVSM,1451,shopify,18,deny,manual,595,,TRUE,TRUE,816223020769,https://www.alpsandmeters.com/collections/all-products/products/classic-shell-jacket
+classic-shell-jacket,,,,,,,Navy Plaid,,M,,,100007NVMD,1451,shopify,28,deny,manual,595,,TRUE,TRUE,816223020776,https://www.alpsandmeters.com/collections/all-products/products/classic-shell-jacket
+classic-shell-jacket,,,,,,,Navy Plaid,,L,,,100007NVLG,1451,shopify,32,deny,manual,595,,TRUE,TRUE,816223020783,https://www.alpsandmeters.com/collections/all-products/products/classic-shell-jacket
+classic-shell-jacket,,,,,,,Navy Plaid,,XL,,,100007NVXL,1451,shopify,9,deny,manual,595,,TRUE,TRUE,816223020790,https://www.alpsandmeters.com/collections/all-products/products/classic-shell-jacket
+alpine-winter-trouser,Alpine Winter Trouser,Alps & Meters,Trousers,,TRUE,Color,Charcoal,Size,S,,,100003CLSM,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Charcoal,,M,,,100003CLMD,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Charcoal,,L,,,100003CLLG,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Charcoal,,XL,,,100003CLXL,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Chocolate,,S,,,100003CHSM,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Chocolate,,M,,,100003CHMD,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Chocolate,,L,,,100003CHLG,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-winter-trouser,,,,,,,Chocolate,,XL,,,100003CHXL,1814,shopify,0,deny,manual,725,,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-trouser
+alpine-anorak,Alpine Anorak,Alps & Meters,Anorak,,TRUE,Color,Fatigue,Size,S,,,100004FTSM,1451,shopify,2,deny,manual,695,,TRUE,TRUE,816223020646,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Navy,,S,,,100004NVSM,1451,shopify,1,deny,manual,695,,TRUE,TRUE,816223020684,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Fatigue,,M,,,100004FTMD,1451,shopify,5,deny,manual,695,,TRUE,TRUE,816223020653,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Navy,,M,,,100004NVMD,1451,shopify,2,deny,manual,695,,TRUE,TRUE,816223020691,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Fatigue,,L,,,100004FTLG,1451,shopify,0,deny,manual,695,,TRUE,TRUE,816223020660,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Navy,,L,,,100004NVLG,1451,shopify,0,deny,manual,695,,TRUE,TRUE,816223020707,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Fatigue,,XL,,,100004FTXL,1497,shopify,0,deny,manual,695,,TRUE,TRUE,816223020677,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Navy,,XL,,,100004NVXL,1497,shopify,0,deny,manual,695,,TRUE,TRUE,816223020714,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Forest,,S,,,100004FGSM,1451,shopify,4,deny,manual,695,695,TRUE,TRUE,816223020721,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Forest,,M,,,100004FGMD,1451,shopify,0,deny,manual,695,695,TRUE,TRUE,816223020738,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Forest,,L,,,100004FGLG,1451,shopify,2,deny,manual,695,695,TRUE,TRUE,816223020745,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-anorak,,,,,,,Forest,,XL,,,100004FGXL,1497,shopify,1,deny,manual,695,,TRUE,TRUE,816223020752,https://www.alpsandmeters.com/collections/all-products/products/alpine-anorak
+alpine-guide-sweater,Alpine Guide Sweater,Alps & Meters,Sweater,"Forged Performance, Lambswool, Ski Sweater, Sweater",TRUE,Color,Grey,Size,S,,,100005GRSM,680,shopify,12,deny,manual,325,,TRUE,TRUE,816223020165,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Grey,,M,,,100005GRMD,680,shopify,8,deny,manual,325,,TRUE,TRUE,816223020172,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Grey,,L,,,100005GRLG,680,shopify,3,deny,manual,325,,TRUE,TRUE,816223020189,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Grey,,XL,,,100005GRXL,680,shopify,0,deny,manual,325,,TRUE,TRUE,816223020158,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Faded Blue,,S,,,100005FBSM,680,shopify,0,deny,manual,325,,TRUE,TRUE,816223020202,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Faded Blue,,M,,,100005FBMD,680,shopify,0,deny,manual,325,,TRUE,TRUE,816223020219,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Faded Blue,,L,,,100005FBLG,680,shopify,4,deny,manual,325,,TRUE,TRUE,816223020226,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Faded Blue,,XL,,,100005FBXL,680,shopify,0,deny,manual,325,,TRUE,TRUE,816223020233,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Forest Green,,S,,,100005FGSM,680,shopify,3,deny,manual,195,325,TRUE,TRUE,816223020288,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Forest Green,,XL,,,100005FGXL,680,shopify,0,deny,manual,195,325,TRUE,TRUE,816223020318,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Forest Green,,L,,,100005FGLG,680,shopify,8,deny,manual,195,325,TRUE,TRUE,816223020301,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Forest Green,,M,,,100005FGMD,680,shopify,2,deny,manual,195,325,TRUE,TRUE,816223020295,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Orange,,S,,,100005ORSM,680,shopify,3,deny,manual,195,325,TRUE,TRUE,816223020240,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Orange,,M,,,100005ORMD,680,shopify,4,deny,manual,195,325,TRUE,TRUE,816223020257,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Orange,,L,,,100005ORLG,680,shopify,8,deny,manual,195,325,TRUE,TRUE,816223020264,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Orange,,XL,,,100005ORXL,680,shopify,0,deny,manual,195,325,TRUE,TRUE,816223020271,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Ivory,,S,,,100005IVSM,680,shopify,18,deny,manual,195,325,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Ivory,,M,,,100005IVMD,680,shopify,35,deny,manual,195,325,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Ivory,,XL,,,100005IVXL,680,shopify,37,deny,manual,195,325,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-guide-sweater,,,,,,,Ivory,,L,,,100005IVLG,680,shopify,13,deny,manual,195,325,TRUE,TRUE,,https://www.alpsandmeters.com/collections/all-products/products/alpine-guide-sweater
+alpine-winter-collar,Alpine Winter Collar,Alps & Meters,Collar,,TRUE,Color,Navy,Size,One Size Fits All,,,200002NVOS,91,shopify,5,deny,manual,75,0,TRUE,FALSE,816223020578,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-collar
+alpine-winter-collar,,,,,,,Light Grey,,One Size Fits All,,,200002LGOS,91,shopify,1,deny,manual,75,0,TRUE,FALSE,816223020554,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-collar
+alpine-winter-collar,,,,,,,Orange,,One Size Fits All,,,200002OROS,91,shopify,13,deny,manual,75,0,TRUE,FALSE,816223020592,https://www.alpsandmeters.com/collections/all-products/products/alpine-winter-collar
+classic-alpine-pom-hat,Classic Pom Hat,Alps & Meters,Hat,,TRUE,Color,Light Grey,Size,One Size Fits All,,,200001LGOS,136,shopify,0,deny,manual,85,0,TRUE,FALSE,816223020486,https://www.alpsandmeters.com/collections/all-products/products/classic-alpine-pom-hat
+classic-alpine-pom-hat,,,,,,,Navy,,One Size Fits All,,,200001NVOS,136,shopify,1,deny,manual,85,0,TRUE,FALSE,816223020509,https://www.alpsandmeters.com/collections/all-products/products/classic-alpine-pom-hat
+classic-alpine-pom-hat,,,,,,,Orange,,One Size Fits All,,,200001OROS,136,shopify,30,deny,manual,85,0,TRUE,FALSE,816223020530,https://www.alpsandmeters.com/collections/all-products/products/classic-alpine-pom-hat
+classic-alpine-pom-hat,,,,,,,Faded Blue,,One Size Fits All,,,200001FBOS,136,shopify,28,deny,manual,40,0,TRUE,FALSE,816223020547,https://www.alpsandmeters.com/collections/all-products/products/classic-alpine-pom-hat
+classic-alpine-pom-hat,,,,,,,,,,,,,,,,,,,,,,,https://www.alpsandmeters.com/collections/all-products/products/classic-alpine-pom-hat
+shawl-collar-jacket,Shawl Collar Jacket,Alps & Meters,Shawl Collar Jacket,,TRUE,Color,Navy,Size,S,,,100001NVSM,1724,shopify,1,deny,manual,1095,,TRUE,TRUE,816223020004,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Forest Green,,S,,,100001FGSM,1724,shopify,1,deny,manual,650,,TRUE,TRUE,816223020042,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Navy,,M,,,100001NVMD,1724,shopify,2,deny,manual,1095,,TRUE,TRUE,816223020011,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Forest Green,,M,,,100001FGMD,1724,shopify,2,deny,manual,650,,TRUE,TRUE,816223020059,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Navy,,L,,,100001NVLG,1724,shopify,3,deny,manual,1095,,TRUE,TRUE,816223020028,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Forest Green,,L,,,100001FGLG,1724,shopify,2,deny,manual,650,,TRUE,TRUE,816223020066,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Navy,,XL,,,100001NVXL,1724,shopify,1,deny,manual,1095,,TRUE,TRUE,816223020035,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Forest Green,,XL,,,100001FGXL,1724,shopify,1,deny,manual,650,,TRUE,TRUE,816223020073,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Grey,,S,,,100001HGSM,1724,shopify,1,deny,manual,1095,,TRUE,TRUE,816223020080,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Grey,,M,,,100001HGMD,1724,shopify,2,deny,manual,1095,,TRUE,TRUE,816223020097,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Grey,,XL,,,100001HGXL,1724,shopify,1,deny,manual,1095,,TRUE,TRUE,816223020110,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket
+shawl-collar-jacket,,,,,,,Grey,,L,,,100001HGLG,1724,shopify,3,deny,manual,1095,,TRUE,TRUE,816223020103,https://www.alpsandmeters.com/collections/all-products/products/shawl-collar-jacket

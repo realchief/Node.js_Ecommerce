@@ -1,4 +1,4 @@
-<div name="media" data-index="<%= index %>" class="panel panel-default">
+<div name="media" data-index="<%= index %>" class="panel panel-default" <% if (typeof _id !== 'undefined'){ %>data-id="<%= _id %>" data-get="<%= path_prefix %>_id" data-get-method="attr('data-id')"<% } %>>
   <div class="panel-heading">
     <div class="text-right">
       <button name="delete" class="btn btn-danger">Remove</button>

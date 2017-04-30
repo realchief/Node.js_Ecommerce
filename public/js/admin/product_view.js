@@ -57,6 +57,7 @@ var ProductView = function(options, callback){
           if (!yes) return;
 
           $(e.currentTarget).parents('[name="stock"]').remove();
+          self.throttledUpdateStocks();
         });
       }
     , 'click [name="media_create"]': function(e){
@@ -82,11 +83,23 @@ var ProductView = function(options, callback){
     , 'click [name="submit"]': function(e){
         e.preventDefault();
 
-        this.create(function(err, gb){
-          if (err) return bootbox.alert(err.message);
+        var self = this;
 
-          console.log(gb);
-        });
+        if (self.method === 'update'){
+          self.update(function(err, gb){
+            if (err) return bootbox.alert(err.message);
+
+            self.loadDoc({
+              'doc': gb.doc
+            });
+          });
+        } else {
+          self.create(function(err, gb){
+            if (err) return bootbox.alert(err.message);
+
+            document.location = '/product/' + gb.doc._id + '/read';
+          });
+        }
       }
     }
   , 'transformers': {
@@ -120,11 +133,12 @@ var ProductView = function(options, callback){
         });
       }
     , 'set:options': function(val){
+        var count = 0;
         return _.map(val, function(v, k){
           return Templates.admin_product_option({
             'option': k
           , 'path_prefix': 'options.' + k + '.'
-          , 'index': k
+          , 'index': count++
           });
         });
       }
@@ -133,6 +147,7 @@ var ProductView = function(options, callback){
           return Templates.admin_product_stock({
             'path_prefix': 'stocks.' + k + '.'
           , 'index': k
+          , '_id': v._id
           , 'options': v.options
           });
         });
@@ -142,6 +157,7 @@ var ProductView = function(options, callback){
           return Templates.admin_product_media({
             'path_prefix': 'media.' + k + '.'
           , 'index': k
+          , '_id': v._id
           , 'url': v.url
           , 'filename': ''
           , 'options': v.options
@@ -173,21 +189,21 @@ var ProductView = function(options, callback){
 
       $e.find('[name^="options."]').each(function(i2, e2){
         var $e2 = $(e2)
-          , attr = $e2.attr('name').replace(/^options\.\d+\./, '');
+          , attr = $e2.attr('name').replace(/^options\.[^\.]+\./, '');
 
         $e2.attr('name', 'options.' + i + '.' + attr);
       });
 
       $e.find('[data-get^="options."]').each(function(i2, e2){
         var $e2 = $(e2)
-          , attr = $e2.attr('data-get').replace(/^options\.\d+\./, '');
+          , attr = $e2.attr('data-get').replace(/^options\.[^\.]+\./, '');
 
         $e2.attr('data-get', 'options.' + i + '.' + attr);
       });
 
       $e.find('[data-set^="options."]').each(function(i2, e2){
         var $e2 = $(e2)
-          , attr = $e2.attr('data-set').replace(/^options\.\d+\./, '');
+          , attr = $e2.attr('data-set').replace(/^options\.[^\.]+\./, '');
 
         $e2.attr('data-set', 'options.' + i + '.' + attr);
       });
@@ -248,6 +264,38 @@ var ProductView = function(options, callback){
     });
   };
 
+  gb.view['updateStocks'] = function(){
+    var self = gb.view;
+
+    self.$el.find('[name="stocks"] [name="stock"]').each(function(i, e){
+      var $e = $(e);
+
+      $e.attr('data-index', i);
+      if ($e.attr('data-get')) $e.attr('data-get', 'stocks.' + i + '._id');
+
+      $e.find('[name^="stocks."]').each(function(i2, e2){
+        var $e2 = $(e2)
+          , attr = $e2.attr('name').replace(/^stocks\.[^\.]+\./, '');
+
+        $e2.attr('name', 'stocks.' + i + '.' + attr);
+      });
+
+      $e.find('[data-get^="stocks."]').each(function(i2, e2){
+        var $e2 = $(e2)
+          , attr = $e2.attr('data-get').replace(/^stocks\.[^\.]+\./, '');
+
+        $e2.attr('data-get', 'stocks.' + i + '.' + attr);
+      });
+
+      $e.find('[data-set^="stocks."]').each(function(i2, e2){
+        var $e2 = $(e2)
+          , attr = $e2.attr('data-set').replace(/^stocks\.[^\.]+\./, '');
+
+        $e2.attr('data-set', 'stocks.' + i + '.' + attr);
+      });
+    });
+  };
+
   gb.view['updateMedia'] = function(){
     var self = gb.view;
 
@@ -255,24 +303,25 @@ var ProductView = function(options, callback){
       var $e = $(e);
 
       $e.attr('data-index', i);
+      if ($e.attr('data-get')) $e.attr('data-get', 'media.' + i + '._id');
 
       $e.find('[name^="media."]').each(function(i2, e2){
         var $e2 = $(e2)
-          , attr = $e2.attr('name').replace(/^media\.\d+\./, '');
+          , attr = $e2.attr('name').replace(/^media\.[^\.]+\./, '');
 
         $e2.attr('name', 'media.' + i + '.' + attr);
       });
 
       $e.find('[data-get^="media."]').each(function(i2, e2){
         var $e2 = $(e2)
-          , attr = $e2.attr('data-get').replace(/^options\.\d+\./, '');
+          , attr = $e2.attr('data-get').replace(/^media\.[^\.]+\./, '');
 
         $e2.attr('data-get', 'media.' + i + '.' + attr);
       });
 
       $e.find('[data-set^="media."]').each(function(i2, e2){
         var $e2 = $(e2)
-          , attr = $e2.attr('data-set').replace(/^options\.\d+\./, '');
+          , attr = $e2.attr('data-set').replace(/^media\.[^\.]+\./, '');
 
         $e2.attr('data-set', 'media.' + i + '.' + attr);
       });
@@ -280,6 +329,11 @@ var ProductView = function(options, callback){
   };
 
   gb.view['throttledUpdateOptions'] = _.throttle(gb.view.updateOptions, 250, {
+    'leading': false
+  , 'trailing': true
+  });
+
+  gb.view['throttledUpdateStocks'] = _.throttle(gb.view.updateStocks, 250, {
     'leading': false
   , 'trailing': true
   });
@@ -436,6 +490,239 @@ var ProductView = function(options, callback){
       a.cb(err, gb);
     });
   };
+
+  gb.view['loadDoc'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //doc
+    });
+
+    self.set(Belt.objFlatten(a.o.doc));
+    self.throttledUpdateOptions();
+    self.throttledUpdateStocks();
+    self.throttledUpdateMedia();
+    self['doc'] = a.o.doc;
+  };
+
+  gb.view['update'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    gb['data'] = self.get();
+
+    gb['update'] = _.pick(gb.data, [
+      'name'
+    , 'label'
+    , 'description'
+    , 'vendors'
+    , 'brands'
+    , 'categories'
+    ]);
+    gb.update['options'] = self.getOptions();
+
+    gb.update = _.omit(gb.update, function(v, k){
+      return Belt.equal(v, self.doc[k]);
+    });
+
+    gb['new_stocks'] = _.filter(gb.data.stocks, function(s){
+      return !s._id;
+    });
+
+    gb['update_stocks'] = _.chain(gb.data.stocks)
+                           .filter(function(s){
+                             return s._id;
+                           })
+                           .filter(function(s){
+                             var ex_stock = _.find(self.doc.stocks, function(s2){
+                               return s2._id === s._id;
+                             });
+
+                             return !Belt.equal(s, _.pick(ex_stock, _.keys(s)));
+                           })
+                           .value();
+
+    gb['delete_stocks'] = _.chain(self.doc.stocks)
+                           .filter(function(s){
+                             return !_.some(gb.data.stocks, function(s2){
+                               return s2._id === s._id
+                             });
+                           })
+                           .pluck('_id')
+                           .value();
+
+    gb['new_media'] = _.filter(gb.data.media, function(s){
+      return !s._id;
+    });
+
+    gb['update_media'] = _.chain(gb.data.media)
+                          .filter(function(s){
+                            return s._id;
+                          })
+                          .map(function(s){
+                            return _.omit(s, [
+                              'remote_url'
+                            , 'filename'
+                            , 'file'
+                            ]);
+                          })
+                          .filter(function(s){
+                            var ex = _.find(self.doc.media, function(s2){
+                              return s2._id === s._id;
+                            });
+
+                            return !Belt.equal(s, _.pick(ex, _.keys(s)));
+                          })
+                          .value();
+
+    gb['delete_media'] = _.chain(self.doc.media)
+                          .filter(function(s){
+                            return !_.some(gb.data.media, function(s2){
+                              return s2._id === s._id
+                            });
+                          })
+                          .pluck('_id')
+                          .value();
+
+    Async.waterfall([
+      function(cb){
+        $.post('/product/' + self._id + '/update.json', gb.update, function(json){
+          if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+          gb['doc'] = Belt.get(json, 'data');
+
+          cb();
+        });
+      }
+    , function(cb){
+        Async.eachSeries(gb.delete_stocks, function(e, cb2){
+          var ocb2 = _.once(cb2);
+
+          $.ajax({
+            'url': '/product/' + gb.doc._id + '/stock/' + e + '/delete.json'
+          , 'type': 'DELETE'
+          , 'cache': false
+          , 'dataType': 'json'
+          , 'processData': false
+          , 'contentType': false
+          , 'success': function(json){
+              if (Belt.get(json, 'error')) return ocb2(new Error(json.error));
+
+              gb['doc'] = Belt.get(json, 'data');
+
+              ocb2();
+            }
+          });
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.update_stocks, function(e, cb2){
+          $.post('/product/' + gb.doc._id + '/stock/' + e._id + '/update.json', _.omit(e, [
+            '_id'
+          ]), function(json){
+            if (Belt.get(json, 'error')) return cb2(new Error(json.error));
+
+            gb['doc'] = Belt.get(json, 'data');
+
+            cb2();
+          });
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.new_stocks, function(e, cb2){
+          $.post('/product/' + gb.doc._id + '/stock/create.json', e, function(json){
+            if (Belt.get(json, 'error')) return cb2(new Error(json.error));
+
+            gb['doc'] = Belt.get(json, 'data');
+
+            cb2();
+          });
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.delete_media, function(e, cb2){
+          var ocb2 = _.once(cb2);
+
+          $.ajax({
+            'url': '/product/' + gb.doc._id + '/media/' + e + '/delete.json'
+          , 'type': 'DELETE'
+          , 'cache': false
+          , 'dataType': 'json'
+          , 'processData': false
+          , 'contentType': false
+          , 'success': function(json){
+              if (Belt.get(json, 'error')) return ocb2(new Error(json.error));
+
+              gb['doc'] = Belt.get(json, 'data');
+
+              ocb2();
+            }
+          });
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.update_media, function(e, cb2){
+          $.post('/product/' + gb.doc._id + '/media/' + e._id + '/update.json', _.omit(e, [
+            '_id'
+          ]), function(json){
+            if (Belt.get(json, 'error')) return cb2(new Error(json.error));
+
+            gb['doc'] = Belt.get(json, 'data');
+
+            cb2();
+          });
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.new_media, function(e, cb2){
+          if (e.remote_url){
+            $.post('/product/' + gb.doc._id + '/media/create.json', e, function(json){
+              if (Belt.get(json, 'error')) return cb2(new Error(json.error));
+
+              gb['doc'] = Belt.get(json, 'data');
+
+              cb2();
+            });
+          } else if (e.file) {
+            var fd = new FormData()
+              , ocb2 = _.once(cb2);
+
+            fd.append('json', JSON.stringify(_.omit(e, [
+              'file'
+            ])));
+            fd.append('file', e.file, e.filename);
+
+            $.ajax({
+              'url': '/product/' + gb.doc._id + '/media/create.json'
+            , 'type': 'POST'
+            , 'data': fd
+            , 'cache': false
+            , 'dataType': 'json'
+            , 'processData': false
+            , 'contentType': false
+            , 'success': function(json){
+                if (Belt.get(json, 'error')) return ocb2(new Error(json.error));
+
+                gb['doc'] = Belt.get(json, 'data');
+
+                ocb2();
+              }
+            });
+          }
+        }, Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err, gb);
+    });
+  };
+
+  gb.view['method'] = a.o.method;
+  gb.view['_id'] = a.o._id;
 
   gb.view.emit('load');
 

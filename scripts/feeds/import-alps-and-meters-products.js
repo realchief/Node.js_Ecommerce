@@ -33,8 +33,8 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  //csv_path
-  'vendors': [
+  'csv_path': Path.join(O.__dirname, './test/feeds/alps-and-meters.csv')
+, 'vendors': [
     'Alps & Meters'
   ]
 , 'brands': [
@@ -92,7 +92,10 @@ Async.waterfall([
 
             GB.products[d.Handle].opts[o + ' Name'] = d[o + ' Name'];
 
-            opts[d[o + ' Name']] = d[o + ' Value'];
+            opts[d[o + ' Name']] = {
+              'alias': d[o + ' Name']
+            , 'value': d[o + ' Value']
+            };
 
             GB.products[d.Handle].options[d[o + ' Name']] = GB.products[d.Handle].options[d[o + ' Name']] || {
               'name': d[o + ' Name']
@@ -154,7 +157,10 @@ Async.waterfall([
             ])
           }, function(err, res, json){
             err = err || Belt.get(json, 'error');
-            if (err) return cb3(new Error(err));
+            if (err){
+              console.error(err);
+              return cb3();
+            }
 
             console.log(Belt.stringify(json.data));
 
@@ -171,7 +177,10 @@ Async.waterfall([
             , 'json': s
             }, function(err, res, json){
               err = err || Belt.get(json, 'error');
-              if (err) return cb4(new Error(err));
+              if (err){
+                console.error(err);
+                return cb4();
+              }
 
               console.log(Belt.stringify(json.data));
               cb4();
@@ -188,7 +197,10 @@ Async.waterfall([
                 'User-Agent': 'curl/7.47.0'
               }
             }, function(err, res, html){
-              if (err) return cb4();
+              if (err){
+                console.error(err);
+                return cb4();
+              }
 
               var $ = Cheerio.load(html)
                 , images = [];
@@ -201,7 +213,7 @@ Async.waterfall([
               cb4(null, images);
             });
           }, function(err, images){
-            e.media = _.map(_.flatten(images), function(i){
+            e.media = _.map(_.flatten(images || []), function(i){
               return {
                 'remote_url': i
               };
@@ -217,7 +229,10 @@ Async.waterfall([
             , 'json': s
             }, function(err, res, json){
               err = err || Belt.get(json, 'error');
-              if (err) return cb4(new Error(err));
+              if (err){
+                console.error(err);
+                return cb4();
+              }
 
               console.log(Belt.stringify(json.data));
               setTimeout(cb4, 500);

@@ -1,13 +1,14 @@
 $(document).ready(function(){
   GB['view'] = ProductView({
-
+    'method': 'update'
+  , '_id': document.location.pathname.split('/')[3]
   });
 
-  GB['product_id'] = document.location.pathname.split('/')[3];
-
-  $.getJSON('/product/' + GB.product_id + '/read.json', function(json){
+  $.getJSON('/product/' + GB.view._id + '/read.json', function(json){
     if (Belt.get(json, 'error')) return bootbox.alert(json.error);
 
-    GB.view.set(Belt.objFlatten(json.data));
+    GB.view.loadDoc({
+      'doc': json.data
+    });
   });
 });

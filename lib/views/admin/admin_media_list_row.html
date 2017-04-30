@@ -1,0 +1,27 @@
+<tr class="media" data-id="<%= _id %>">
+  <td><%= _id %></td>
+  <td name="media" style="width:200px !important;">
+    <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="img-responsive"></a>
+  </td>
+  <td style="width:200px !important;">
+    <strong name="label.us"><%= label.us %></strong><br>
+    <% if (typeof description !== 'undefined'){ %>
+      <span name="description.us"><%= description.us %></span>
+    <% } %>
+  </td>
+  <td style="width:150px !important;">
+    <% _.each(products, function(p){ %>
+      <p>SKU: <strong><%= p.product._id %></strong></p>
+      <p>Name: <strong><%= p.product.name %></strong></p>
+      <% if (Belt.get(p, 'product.media.0')){ %>
+        <p>
+          <img src="<%= p.product.media[0].url %>" class="img-responsive">
+        </p>
+      <% } %>
+    <% }) %>
+  </td>
+  <td data-set="actions" data-set-method="html">
+    <a href="/admin/media/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <button name="delete" class="btn btn-danger">Delete</a>
+  </td>
+</tr>

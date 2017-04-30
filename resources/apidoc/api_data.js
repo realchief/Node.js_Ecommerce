@@ -799,6 +799,21 @@ define({ "api": [
     "groupTitle": "Locality"
   },
   {
+    "type": "get",
+    "url": "/media/count.json",
+    "title": "Count Media",
+    "name": "CountMedia",
+    "group": "Media",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/media.js",
+    "groupTitle": "Media"
+  },
+  {
     "type": "put",
     "url": "/media/:_id/product/create.json",
     "title": "Add Product to Media",
@@ -865,7 +880,7 @@ define({ "api": [
     "group": "Media",
     "permission": [
       {
-        "name": "admin, current setmember user"
+        "name": "admin"
       }
     ],
     "version": "0.0.0",
@@ -910,7 +925,7 @@ define({ "api": [
     "group": "Media",
     "permission": [
       {
-        "name": "public"
+        "name": "admin, public"
       }
     ],
     "version": "0.0.0",

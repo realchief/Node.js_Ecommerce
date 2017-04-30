@@ -48,6 +48,18 @@ var MediaView = function(options, callback){
           self.throttledRenderCanvas();
         });
       }
+    , 'submit form': function(e){
+        e.preventDefault();
+      }
+    , 'click [name="submit"]': function(e){
+        e.preventDefault();
+
+        this.create(function(err, gb){
+          if (err) return bootbox.alert(err.message);
+
+          console.log(gb);
+        });
+      }
     }
   , 'transformers': {
       'split_lines': function(val){
@@ -103,7 +115,6 @@ var MediaView = function(options, callback){
             cb();
           };
           gb.image.src = self.$el.find('[name="media_url"]').val();
-
         } else if (Belt.get(self, 'media_dropzone.files.0')){
           var fr = new FileReader()
             , ocb = _.once(cb);
@@ -115,6 +126,7 @@ var MediaView = function(options, callback){
               ocb();
             };
             gb.image.src = fr.result;
+            self['filename'] = self.media_dropzone.files[0].name;
           };
           fr.onerror = ocb;
 
@@ -123,11 +135,11 @@ var MediaView = function(options, callback){
         }
       }
     , function(cb){
+        self['file'] = gb.image;
+        self['filename'] = Belt.get(self, 'media_dropzone.files.0.name');
+
         self.media_dropzone.removeAllFiles();
         self.$el.find('[name="media_url"]').val('');
-
-        self['file'] = gb.image;
-
         self.$el.find('[name="products"]').html('');
 
         self.setCanvasBackgroundImage({
@@ -196,7 +208,7 @@ var MediaView = function(options, callback){
 
     return {
       'x': (a.o.x * self.file.width) / self.canvas.width
-    , 'y': (a.o.x * self.file.height) / self.canvas.height
+    , 'y': (a.o.y * self.file.height) / self.canvas.height
     };
   };
 
@@ -213,7 +225,7 @@ var MediaView = function(options, callback){
 
     return {
       'x': (a.o.x * self.canvas.width) / self.image.width
-    , 'y': (a.o.x * self.canvas.height) / self.image.height
+    , 'y': (a.o.y * self.canvas.height) / self.image.height
     };
   };
 
@@ -307,10 +319,63 @@ var MediaView = function(options, callback){
     if (!self.file) return obj;
 
     if (self.file.src.match(/^http/)){
-
+      obj['remote_url'] = self.file.src;
     } else {
-      //obj['file']
+      obj['file'] = self.transformers.to_blob(self.file.src);
+      obj['filename'] = self.filename;
     }
+
+    return obj;
+  };
+
+  gb.view['create'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'data': self.getSelf()
+    });
+
+    return Async.waterfall([
+      function(cb){
+        if (a.o.data.remote_url){
+          $.post('/media/create.json', a.o.data, function(json){
+            if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+            gb['doc'] = Belt.get(json, 'data');
+
+            cb();
+          });
+        } else if (a.o.data.file) {
+          var fd = new FormData()
+            , ocb = _.once(cb);
+
+          fd.append('json', JSON.stringify(_.omit(a.o.data, [
+            'file'
+          ])));
+          fd.append('file', a.o.data.file, a.o.data.filename);
+
+          $.ajax({
+            'url': '/media/create.json'
+          , 'type': 'POST'
+          , 'data': fd
+          , 'cache': false
+          , 'dataType': 'json'
+          , 'processData': false
+          , 'contentType': false
+          , 'success': function(json){
+              if (Belt.get(json, 'error')) return ocb(new Error(json.error));
+
+              gb['doc'] = Belt.get(json, 'data');
+
+              ocb();
+            }
+          });
+        }
+      }
+    ], function(err){
+      a.cb(err, gb);
+    });
   };
 
   gb.view.emit('load');
