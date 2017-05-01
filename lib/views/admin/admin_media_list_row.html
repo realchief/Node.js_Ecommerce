@@ -4,7 +4,9 @@
     <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="img-responsive"></a>
   </td>
   <td style="width:200px !important;">
-    <strong name="label.us"><%= label.us %></strong><br>
+    <% if (typeof label !== 'undefined'){ %>
+      <strong name="label.us"><%= label.us %></strong><br>
+    <% } %>
     <% if (typeof description !== 'undefined'){ %>
       <span name="description.us"><%= description.us %></span>
     <% } %>

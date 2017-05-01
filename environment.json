@@ -14,7 +14,7 @@
     , "mongodb": {
         "host": "127.0.0.1"
       , "port": 27017
-      , "db": "dev_wanderset"
+      , "db": "staging_wanderset"
       }
     , "notifications": {
         "coming_soon": "https://2po.st/oySQBPndO5PX"
@@ -23,7 +23,7 @@
         "from": "DEVELOPMENT Wanderset <development-no-reply@wanderset.com>"
       }
     , "s3": {
-        "bucket": "development.assets.wanderset.com"
+        "bucket": "staging.assets.wanderset.com"
       }
     , "create_rest_routes": false
     }
