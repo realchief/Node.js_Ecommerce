@@ -814,36 +814,6 @@ define({ "api": [
     "groupTitle": "Media"
   },
   {
-    "type": "put",
-    "url": "/media/:_id/product/create.json",
-    "title": "Add Product to Media",
-    "name": "CreateMediaProduct",
-    "group": "Media",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/media.js",
-    "groupTitle": "Media"
-  },
-  {
-    "type": "put",
-    "url": "/media/:_id/setmember/create.json",
-    "title": "Add Setmember to Media",
-    "name": "CreateMediaSetmember",
-    "group": "Media",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/media.js",
-    "groupTitle": "Media"
-  },
-  {
     "type": "post",
     "url": "/media/create.json",
     "title": "Create Media",
@@ -881,36 +851,6 @@ define({ "api": [
     "permission": [
       {
         "name": "admin"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/media.js",
-    "groupTitle": "Media"
-  },
-  {
-    "type": "delete",
-    "url": "/media/:_id/product/:product/delete.json",
-    "title": "Delete Product from Media",
-    "name": "DeleteMediaProduct",
-    "group": "Media",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/media.js",
-    "groupTitle": "Media"
-  },
-  {
-    "type": "delete",
-    "url": "/media/:_id/setmember/:setmember/delete.json",
-    "title": "Delete Setmember from Media",
-    "name": "DeleteMediaSetmember",
-    "group": "Media",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
       }
     ],
     "version": "0.0.0",
@@ -1458,70 +1398,25 @@ define({ "api": [
     "groupTitle": "Product"
   },
   {
+    "type": "get",
+    "url": "/set/count.json",
+    "title": "Count Set",
+    "name": "CountSet",
+    "group": "Set",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/set.js",
+    "groupTitle": "Set"
+  },
+  {
     "type": "post",
     "url": "/set/create.json",
     "title": "Create Set",
     "name": "CreateSet",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "put",
-    "url": "/set/:_id/featured_media/create.json",
-    "title": "Add Featured Media to Set",
-    "name": "CreateSetFeaturedMedia",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "put",
-    "url": "/set/:_id/media/create.json",
-    "title": "Add Media to Set",
-    "name": "CreateSetMedia",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "put",
-    "url": "/set/:_id/product/create.json",
-    "title": "Add Product to Set",
-    "name": "CreateSetProduct",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "put",
-    "url": "/set/:_id/setmember/create.json",
-    "title": "Add Setmember to Set",
-    "name": "CreateSetSetmember",
     "group": "Set",
     "permission": [
       {
@@ -1548,66 +1443,6 @@ define({ "api": [
     "groupTitle": "Set"
   },
   {
-    "type": "delete",
-    "url": "/set/:_id/featured_media/delete.json",
-    "title": "Delete Featured Media from Set",
-    "name": "DeleteSetFeaturedMedia",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "delete",
-    "url": "/set/:_id/media/:media/delete.json",
-    "title": "Delete Media from Set",
-    "name": "DeleteSetMedia",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "delete",
-    "url": "/set/:_id/product/:product/delete.json",
-    "title": "Delete Product from Set",
-    "name": "DeleteSetProduct",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
-    "type": "delete",
-    "url": "/set/:_id/setmember/:setmember/delete.json",
-    "title": "Delete Setmember from Set",
-    "name": "DeleteSetSetmember",
-    "group": "Set",
-    "permission": [
-      {
-        "name": "admin, current setmember user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/set.js",
-    "groupTitle": "Set"
-  },
-  {
     "type": "get",
     "url": "/set/list.json",
     "title": "List Sets",
@@ -1615,43 +1450,9 @@ define({ "api": [
     "group": "Set",
     "permission": [
       {
-        "name": "public"
+        "name": "admin, public"
       }
     ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Object",
-            "optional": false,
-            "field": "query",
-            "description": "<p>query criteria of vendors</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "skip",
-            "description": "<p>skip to this record number</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "limit",
-            "description": "<p>limit to this number of records returned</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Object",
-            "optional": false,
-            "field": "sort",
-            "description": "<p>sort criteria of vendors</p>"
-          }
-        ]
-      }
-    },
     "version": "0.0.0",
     "filename": "lib/controllers/set.js",
     "groupTitle": "Set"

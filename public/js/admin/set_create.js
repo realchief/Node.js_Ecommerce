@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  GB['view'] = MediaView({
+  GB['view'] = SetView({
     'method': 'create'
   });
 });

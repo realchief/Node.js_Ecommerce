@@ -48,17 +48,36 @@ var MediaView = function(options, callback){
           self.throttledRenderCanvas();
         });
       }
+    , 'change [placeholder="product"]': function(e){
+        this.loadProductPreview({
+          'el': e.currentTarget
+        });
+      }
+    , 'change [data-get*="_coordinate"]': function(e){
+        this.throttledRenderCanvas();
+      }
     , 'submit form': function(e){
         e.preventDefault();
       }
     , 'click [name="submit"]': function(e){
         e.preventDefault();
+        var self = this;
 
-        this.create(function(err, gb){
-          if (err) return bootbox.alert(err.message);
+        if (self.method === 'update'){
+          self.update(function(err, gb){
+            if (err) return bootbox.alert(err.message);
 
-          console.log(gb);
-        });
+            self.loadDoc({
+              'doc': gb.doc
+            });
+          });
+        } else {
+          self.create(function(err, gb){
+            if (err) return bootbox.alert(err.message);
+
+            document.location = '/admin/media/' + gb.doc._id + '/read';
+          });
+        }
       }
     }
   , 'transformers': {
@@ -83,6 +102,17 @@ var MediaView = function(options, callback){
 
         return new Blob([ia], {
           'type': ms
+        });
+      }
+    , 'set:products': function(val){
+        var count = 0;
+        return _.map(val, function(v, k){
+          return Templates.admin_media_product({
+            'option': k
+          , 'path_prefix': 'products.' + k + '.'
+          , 'index': count++
+          , '_id': v._id
+          });
         });
       }
     }
@@ -153,6 +183,25 @@ var MediaView = function(options, callback){
     });
   };
 
+  gb.view['loadImage'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //url
+    });
+
+    gb['image'] = new Image();
+    gb.image.onload = function(){
+      self['file'] = gb.image;
+      self.setCanvasBackgroundImage({
+        'image': self.file
+      });
+      a.cb();
+    };
+    gb.image.src = a.o.url;
+  };
+
   gb.view['setCanvasBackgroundImage'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -207,8 +256,8 @@ var MediaView = function(options, callback){
     });
 
     return {
-      'x': (a.o.x * self.file.width) / self.canvas.width
-    , 'y': (a.o.y * self.file.height) / self.canvas.height
+      'x': (a.o.x * a.o.image.width) / a.o.canvas.width
+    , 'y': (a.o.y * a.o.image.height) / a.o.canvas.height
     };
   };
 
@@ -224,8 +273,8 @@ var MediaView = function(options, callback){
     });
 
     return {
-      'x': (a.o.x * self.canvas.width) / self.image.width
-    , 'y': (a.o.y * self.canvas.height) / self.image.height
+      'x': (a.o.x * a.o.canvas.width) / a.o.image.width
+    , 'y': (a.o.y * a.o.canvas.height) / a.o.image.height
     };
   };
 
@@ -377,6 +426,110 @@ var MediaView = function(options, callback){
       a.cb(err, gb);
     });
   };
+
+  gb.view['loadDoc'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //doc
+    });
+
+    self.loadImage({
+      'url': a.o.doc.url
+    }, function(){
+      self.$el.find('[name="media_new"]').hide('');
+
+      _.each(a.o.doc.products, function(d){
+        var coords = self.getCanvasCoordinatesFromImage({
+          'x': Belt.cast(d.x_coordinate, 'number')
+        , 'y': Belt.cast(d.y_coordinate, 'number')
+        });
+
+        d.x_coordinate = coords.x;
+        d.y_coordinate = coords.y;
+      });
+
+      self.set(Belt.objFlatten(a.o.doc));
+
+      self.$el.find('[name="product"] [placeholder="product"]').each(function(i, e){
+        self.loadProductPreview({
+          'el': e
+        });
+      });
+
+      self.renderCanvas();
+
+      self['doc'] = a.o.doc;
+    });
+  };
+
+  gb.view['loadProductPreview'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //el
+    });
+
+    var $el = $(a.o.el)
+      , val = $el.val();
+
+    $.getJSON('/product/' + val + '/read.json', function(res){
+      if (!Belt.get(res, 'data._id')){
+        $el.val('')
+        $el.parents('[name="product"]').find('[name="product_preview"]').html(
+          '<div class="alert alert-warning">Product SKU not found</div>'
+        );
+      } else {
+        $el.parents('[name="product"]').find('[name="product_preview"]').html(
+          Templates.admin_product_preview(res.data)
+        );
+      }
+    });
+  };
+
+  gb.view['update'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    gb['data'] = self.get();
+
+    gb['update'] = _.pick(gb.data, [
+      'label'
+    , 'description'
+    , 'products'
+    ]);
+
+    gb.update.products = _.filter(gb.update.products, function(s){
+      return s.product;
+    });
+
+    gb.update = _.omit(gb.update, function(v, k){
+      return Belt.equal(v, self.doc[k]);
+    });
+
+    Async.waterfall([
+      function(cb){
+        $.post('/media/' + self._id + '/update.json', gb.update, function(json){
+          if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+          gb['doc'] = Belt.get(json, 'data');
+
+          cb();
+        });
+      }
+    ], function(err){
+      a.cb(err, gb);
+    });
+  };
+
+  gb.view['method'] = a.o.method;
+  gb.view['_id'] = a.o._id;
 
   gb.view.emit('load');
 

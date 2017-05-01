@@ -15,6 +15,7 @@
   , "bootheel": "git+ssh://git@github.com/sackio/bootheel.git#master"
   , "query-object": "*"
   , "pleasejs": "*"
+  , "Sortable": "*"
   },
   "ignore": [
     "test",

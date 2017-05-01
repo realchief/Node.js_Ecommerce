@@ -11,13 +11,7 @@
   </td>
   <td style="width:150px !important;">
     <% _.each(products, function(p){ %>
-      <p>SKU: <strong><%= p.product._id %></strong></p>
-      <p>Name: <strong><%= p.product.name %></strong></p>
-      <% if (Belt.get(p, 'product.media.0')){ %>
-        <p>
-          <img src="<%= p.product.media[0].url %>" class="img-responsive">
-        </p>
-      <% } %>
+      <%= Render('admin_product_preview', p.product) %>
     <% }) %>
   </td>
   <td data-set="actions" data-set-method="html">

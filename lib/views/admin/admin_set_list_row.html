@@ -1,0 +1,19 @@
+<tr class="set" data-id="<%= _id %>">
+  <td><%= _id %></td>
+  <td style="width:500px !important;"><%= name %></td>
+  <td style="width:200px !important;">
+    <strong name="label.us"><%= label.us %></strong><br>
+    <% if (typeof description !== 'undefined'){ %>
+      <span name="description.us"><%= description.us %></span>
+    <% } %>
+  </td>
+  <td name="featured_media">
+    <% if (typeof featured_media !== 'undefined'){ %>
+      <a href="<%= featured_media.url %>" target="_blank"><img src="<%= featured_media.url %>" class="img-responsive"></a>
+    <% } %>
+  </td>
+  <td data-set="actions" data-set-method="html">
+    <a href="/admin/set/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <button name="delete" class="btn btn-danger">Delete</a>
+  </td>
+</tr>

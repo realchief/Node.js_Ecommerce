@@ -97,7 +97,7 @@ var ProductView = function(options, callback){
           self.create(function(err, gb){
             if (err) return bootbox.alert(err.message);
 
-            document.location = '/product/' + gb.doc._id + '/read';
+            document.location = '/admin/product/' + gb.doc._id + '/read';
           });
         }
       }
