@@ -1,6 +1,31 @@
-<script>
-  var GB = {};
+<script src="/socket.io/socket.io.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/jsbelt/lib/belt.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/underscore.string/dist/underscore.string.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/jsbelt/lib/belt.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/async/dist/async.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/moment/min/moment.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/query-object/query-object.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/moment-timezone/builds/moment-timezone-with-data.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  var Async = async
+    , Moment = moment
+    , Str = s
+    , Socket = io('/')
+    , GB = {};
 </script>
+
+<script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/admin/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/bootbox/bootbox.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/js/util.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates.js" type="text/javascript" charset="utf-8"></script>
+<% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
+  <script src="<%= e %>" type="text/javascript" charset="utf-8"></script>
+<% }) %>
 
 <script src="/public/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/public/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>

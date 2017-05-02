@@ -513,6 +513,8 @@ var MediaView = function(options, callback){
       return Belt.equal(v, self.doc[k]);
     });
 
+    if (Belt.equal(gb.update.products, [])) gb.update.products = [''];
+
     Async.waterfall([
       function(cb){
         $.post('/media/' + self._id + '/update.json', gb.update, function(json){

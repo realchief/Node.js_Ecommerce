@@ -35,5 +35,6 @@
   , "wanderset-design": "git+ssh://git@github.com/tinkerpartners/wanderset-design.git#master"
   , "fast-csv": "*"
   , "cheerio": "*"
+  , "grimoire": "*"
   }
 }

@@ -9,7 +9,7 @@
   , "jquery": "*"
   , "async": "*"
   , "backbone": "*"
-  , "bootstrap": "*"
+  , "bootstrap": "4.*"
   , "bootbox": "*"
   , "fontawesome": "*"
   , "bootheel": "git+ssh://git@github.com/sackio/bootheel.git#master"

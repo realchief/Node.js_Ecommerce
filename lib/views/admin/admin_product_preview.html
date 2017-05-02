@@ -3,7 +3,7 @@
   <p>Name: <strong><%= name %></strong></p>
   <% if (Belt.get(media, '0')){ %>
     <p>
-      <img src="<%= media[0].url %>" class="img-responsive">
+      <img src="<%= media[0].url %>" class="img-responsive" style="max-height:100px;">
     </p>
   <% } %>
 </div>

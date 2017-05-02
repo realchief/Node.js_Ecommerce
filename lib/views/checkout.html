@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+  <title>Checkout page</title>
+  <link rel="stylesheet" href="assets/stylesheets/main.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="header__inner">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-sm-4 col-2">
+            <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="wanderset-icon-menu header__icon"></i>
+            </button>
+            <p class="hidden-sm-down">Sell on wanderset</p>
+          </div><!-- col -->
+  
+          <div class="col-sm-4 col-8 text-center">
+            <a href="#" class="logo">wander<span class="logo__span">set</span></a>
+          </div><!-- col -->
+  
+          <div class="col-sm-4 col-2">
+            <ul class="nav nav--header justify-content-end">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="wanderset-icon-search header__icon"></i>
+                </a>
+              </li>
+  
+              <li class="nav-item hidden-sm-down">
+                <a href="#" class="nav-link">sign in</a>
+              </li>
+  
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link nav-link--product-qty dropdown-toggle" id="dropdownCheckout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="hidden-sm-down">bag <span>(2)</span></span>
+                  <span class="header__icon header__product-qty hidden-md-up">
+                    22
+                  </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu--checkout dropdown-menu--has-arrow dropdown-menu-right" aria-labelledby="dropdownCheckout">
+                  <h4 class="dropdown-menu--checkout__title">1 ITEM ADDED TO BAG</h4>
+                  <p class="dropdown-menu--checkout__info">(you have 3 items in your shopping bag)</p>
+                  <div class="box-sm">
+                    <div class="row">
+                      <div class="col-sm-6 col-5">
+                        <img src="assets/images/temp/product-img-1.png" class="img-fluid" alt="">
+                      </div><!-- col -->
+  
+                      <div class="col-sm-6 col-7">
+                        <div class="goods__info">
+                          <p class="goods__info-name">Product TT</p>
+                          <p class="goods__info-description">Sm Caption</p>
+                        </div><!-- goods__info -->
+  
+                        <ul class="goods__details">
+                          <li class="goods__details__item">
+                            <span>qty:</span> <span>1</span>
+                          </li>
+                          <li class="goods__details__item">
+                            <span>SIZE:</span> <span>L</span>
+                          </li>
+                          <li class="goods__details__item">
+                            <span>COLOR:</span> <span>GREY</span>
+                          </li>
+                          <li class="goods__details__item">
+                            <span>cost:</span> <span>$200</span>
+                          </li>
+                        </ul><!-- goods__details -->
+                      </div><!-- col -->
+                    </div><!-- row -->
+                  </div><!-- box -->
+                  <form action="">
+                    <button type="" class="btn btn-primary btn-block">checkout</button>
+                  </form>
+                </div><!-- dropdown-menu -->
+              </div><!-- dropdown -->
+              </li>
+            </ul><!-- nav -->
+          </div><!-- col -->
+        </div><!-- row -->
+  
+      </div><!-- container -->
+    </div><!-- header__inner -->
+  
+  </header><!-- header -->
+
+
+  <main class="main">
+
+    <section class="section section--pt-0">
+      <div class="container">
+        <ul class="tabs tabs--centered tabs--has-dotted negative-side-margin-xs">
+          <li class="nav-item tabs__item">
+            <a class="tabs__link active" data-toggle="tab" href="#shipping-tab" role="tab">SHIPPING</a>
+          </li>
+          <li class="nav-item tabs__item">
+            <a class="tabs__link" data-toggle="tab" href="#billing-tab" role="tab">BILLING</a>
+          </li>
+          <li class="nav-item tabs__item">
+            <a class="tabs__link" data-toggle="tab" href="#review-tab" role="tab">REVIEW</a>
+          </li>
+        </ul><!-- tabs -->
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="shipping-tab" role="tabpanel">
+            <div class="row">
+              <div class="col-xl-9 col-lg-8 col-md-8 push-md-down">
+                <h4 class="title-medium text-center-sm">SHIPPING ADDRESS</h4>
+                <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+                <form action="">
+                  <fieldset class="side-paddings--sm-visible-sm">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="filed-country" class="hidden-sm-down">COUNTRY</label>
+                          <select name="" id="filed-country" class="form-control">
+                            <option value="">UNITED STATES</option>
+                            <option value="">Ukraine</option>
+                          </select>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 push-xs-down">
+                          <label for="filed-first-name" class="hidden-sm-down">FIRST NAME</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-first-name" placeholder="first name">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6">
+                          <label for="filed-last-name" class="hidden-sm-down">last NAME</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-last-name" placeholder="last name">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 push-xs-down">
+                          <label for="filed-address" class="hidden-sm-down">ADDRESS 1</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-address" placeholder="ADDRESS 1">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6">
+                          <label for="filed-address-2" class="hidden-sm-down">ADDRESS 2 (OPTIONAL)</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="filed-city" class="hidden-sm-down">CITY</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-city" placeholder="city">
+                        </div><!-- col -->
+
+                        <div class="col-6 hidden-sm-down">
+                          <label for="filed-state" class="hidden-sm-down">STATE</label>
+                          <select name="" id="filed-state" class="form-control">
+                            <option value="">SELECT A STATE</option>
+                            <option value="">Ukraine</option>
+                          </select>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6 push-xs-down hidden-sm-up">
+                          <label for="filed-state" class="hidden-sm-down">STATE</label>
+                          <select name="" id="filed-state" class="form-control">
+                            <option value="">SELECT A STATE</option>
+                            <option value="">Ukraine</option>
+                          </select>
+                        </div><!-- col -->
+
+                        <div class="col-6 push-xs-down">
+                          <label for="filed-zip" class="hidden-sm-down">ZIP CODE</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-zip" placeholder="ZIP CODE">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6">
+                          <label for="filed-shipping-telephone" class="hidden-sm-down">SHIPPING TELEPHONE</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" placeholder="SHIPPING TELEPHONE" id="filed-shipping-telephone">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+                  </fieldset>
+
+                  <div class="divider divider--sm divider--dark hidden-md-up"></div>
+
+                  <fieldset>
+                    <h4 class="title-medium text-center-sm">SHIPPING OPTIONS</h4>
+                    <div class="card-options">
+                      <a href="#" class="card-options__item active">
+                        GROUND
+                      </a><!-- card-options__item -->
+
+                      <a href="#" class="card-options__item">
+                        2-3<br>BUSINESS<br>DAYS
+                      </a><!-- card-options__item -->
+
+                      <a href="#" class="card-options__item">
+                        NEXT<br>BUSINESS<br>DAY
+                      </a><!-- card-options__item -->
+                    </div><!-- card-options -->
+
+                    <div class="checkbox-holder side-paddings--sm-visible-sm">
+                      <label>
+                        <input type="checkbox">
+                        <span class="label">SATURDAY DELIVERY</span>
+                      </label>
+                    </div><!-- checkbox-holder -->
+
+                    <div class="checkbox-holder side-paddings--sm-visible-sm">
+                      <label>
+                        <input type="checkbox">
+                        <span class="label"><span class="hidden-sm-down">REQUIRE A SIGNATURE TO DELIVER MY PACKAGE</span> <span class="hidden-md-up">SIGNATURE REQUIRED</span></span>
+                      </label>
+                    </div><!-- checkbox-holder -->
+                  </fieldset>
+                </form>
+              </div><!-- col -->
+
+              <div class="col-xl-3 col-lg-4 col-md-4">
+                <aside class="aside">
+                  <button class="btn btn-primary btn-lg btn-block mb20 mt10-sm">NEXT</button>
+
+                  <div class="checkout side-paddings--sm-visible-sm checkout--without-border-b-sm hidden-sm-down">
+                    <dl class="dl-aligned">
+                      <dt>subtotal</dt>
+                      <dd>$900</dd>
+
+                      <dt>shipping</dt>
+                      <dd>free</dd>
+
+                      <dt>estimated tex</dt>
+                      <dd>tbd</dd>
+
+                      <div class="divider"></div>
+
+                      <dt>estimated total</dt>
+                      <dd>$825</dd>
+
+                      <div class="divider mt35 mb30"></div>
+
+                      <dt>YOUR ORDER</dt>
+                      <dd>4 items</dd>
+                    </dl>
+
+                    <ul class="list-goods">
+                      <li class="list-goods__item">
+                        <div class="flex">
+                          <img src="assets/images/temp/product-img-2.png" class="aside__produt-img" alt="">
+
+                          <div>
+                            <div class="goods__info">
+                              <p class="goods__info-name">Product TT</p>
+                              <p class="goods__info-description">Sm Caption</p>
+                            </div><!-- goods__info -->
+                            <ul class="table__goods__details goods__details mb10">
+                              <li class="goods__details__item">
+                                <span>QTY:</span> <span>1</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>SIZE:</span> <span>L</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>COLOR:</span> <span>GREY</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>cost:</span> <span>$200</span>
+                              </li>
+                            </ul><!-- goods__details -->
+                          </div>
+                        </div><!-- flex -->
+                      </li><!-- list-goods__item -->
+
+
+                      <li class="list-goods__item">
+                        <div class="flex">
+                          <img src="assets/images/temp/product-img-2.png" class="aside__produt-img" alt="">
+
+                          <div>
+                            <div class="goods__info">
+                              <p class="goods__info-name">Product TT</p>
+                              <p class="goods__info-description">Sm Caption</p>
+                            </div><!-- goods__info -->
+                            <ul class="table__goods__details goods__details mb10">
+                              <li class="goods__details__item">
+                                <span>QTY:</span> <span>1</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>SIZE:</span> <span>L</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>COLOR:</span> <span>GREY</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>cost:</span> <span>$200</span>
+                              </li>
+                            </ul><!-- goods__details -->
+                          </div>
+                        </div><!-- flex -->
+                      </li><!-- list-goods__item -->
+
+
+                      <li class="list-goods__item">
+                        <div class="flex">
+                          <img src="assets/images/temp/product-img-2.png" class="aside__produt-img" alt="">
+
+                          <div>
+                            <div class="goods__info">
+                              <p class="goods__info-name">Product TT</p>
+                              <p class="goods__info-description">Sm Caption</p>
+                            </div><!-- goods__info -->
+                            <ul class="table__goods__details goods__details mb10">
+                              <li class="goods__details__item">
+                                <span>QTY:</span> <span>1</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>SIZE:</span> <span>L</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>COLOR:</span> <span>GREY</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>cost:</span> <span>$200</span>
+                              </li>
+                            </ul><!-- goods__details -->
+                          </div>
+                        </div><!-- flex -->
+                      </li><!-- list-goods__item -->
+                    </ul><!-- list-goods -->
+                  </div><!-- checkout -->
+
+                  <button class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+
+                </aside>
+              </div><!-- col -->
+            </div><!-- row -->
+          </div><!-- tab-pane -->
+
+          <div class="tab-pane" id="billing-tab" role="tabpanel">
+            <div class="row">
+              <div class="col-xl-9 col-lg-8 col-md-8">
+                <h4 class="title-medium text-center-sm">PAYMENT METHOD</h4>
+                <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+                <form action="">
+                  <fieldset class="side-paddings--sm-visible-sm">
+                    <div class="form-group hidden-md-up d-flex justify-content-between mb0">
+                      <div class="form-check form-check-inline">
+                       <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> <img src="assets/images/elements/visa.svg" class="list-credit-card__icon" alt="">
+                       </label>
+                      </div><!-- form-check -->
+
+                      <div class="form-check form-check-inline">
+                       <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> <img src="assets/images/elements/mastercard.svg" class="list-credit-card__icon" alt="">
+                       </label>
+                      </div><!-- form-check -->
+
+                      <div class="form-check form-check-inline">
+                       <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> <img src="assets/images/elements/amex.svg" class="list-credit-card__icon" alt="">
+                       </label>
+                      </div><!-- form-check -->
+
+                      <div class="form-check form-check-inline">
+                       <label class="form-check-label">
+                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> <img src="assets/images/elements/discover.svg" class="list-credit-card__icon" alt="">
+                       </label>
+                      </div><!-- form-check -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="filed-cardholder-name">CARDHOLDER’S NAME</label>
+                          <input type="text" class="form-control" id="filed-cardholder-name">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <label for="filed-card-number">CARD NUMBER</label>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" id="filed-card-number">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6 hidden-sm-down">
+                          <ul class="list-credit-card mt7">
+                            <li class="list-credit-card__item">
+                              <img src="assets/images/elements/visa.svg" class="list-credit-card__icon" alt="">
+                            </li>
+                            <li class="list-credit-card__item">
+                              <img src="assets/images/elements/mastercard.svg" class="list-credit-card__icon" alt="">
+                            </li>
+                            <li class="list-credit-card__item">
+                              <img src="assets/images/elements/amex.svg" class="list-credit-card__icon" alt="">
+                            </li>
+                            <li class="list-credit-card__item">
+                              <img src="assets/images/elements/discover.svg" class="list-credit-card__icon" alt="">
+                            </li>
+                          </ul><!-- list-credit-card -->
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <label for="">EXPIRATION DATE</label>
+                      <div class="row">
+                        <div class="col-lg-3 col-md-5 col-7">
+                          <select name="" id="" class="form-control">
+                            <option value="">1 - JANUARY</option>
+                            <option value="">3 - JANUARY</option>
+                          </select>
+                        </div><!-- col -->
+
+                        <div class="col-lg-2 col-sm-3 col-5">
+                          <select name="" id="" class="form-control">
+                            <option value="">2017</option>
+                            <option value="">2018</option>
+                          </select>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group mb0">
+                      <label for="filed-security-code">SECURITY CODE</label>
+                      <div class="row">
+                        <div class="col-lg-1 col-sm-3 col-4">
+                          <input type="text" class="form-control" id="filed-security-code">
+                        </div><!-- col -->
+
+                        <div class="col-lg-5 col-sm-9 col-8">
+                          <p class="form-control-static">
+                            <a href="#" class="underline fs8">WHAT'S THIS?</a>
+                          </p>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+                  </fieldset>
+
+                  <div class="divider divider--sm divider--dark hidden-md-up"></div>
+
+                  <fieldset>
+                    <h4 class="title-medium text-center-sm">BILLING ADDRESS</h4>
+
+                    <div class="checkbox-holder">
+                      <label>
+                        <input type="checkbox">
+                        <span class="label">SAME AS SHIPPING ADDRESS</span>
+                      </label>
+                    </div><!-- checkbox-holder -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="billing-filed-country" class="hidden-sm-down">COUNTRY</label>
+                          <select name="" id="billing-filed-country" class="form-control">
+                            <option value="">UNITED STATES</option>
+                            <option value="">Ukraine</option>
+                          </select>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 push-xs-down">
+                          <label for="billing-filed-first-name" class="hidden-sm-down">FIRST NAME</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-first-name" placeholder="FIRST NAME">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6">
+                          <label for="billing-filed-last-name" class="hidden-sm-down">last NAME</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-last-name" placeholder="last NAME">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 push-xs-down">
+                          <label for="billing-filed-address" class="hidden-sm-down">ADDRESS 1</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billingfiled-address" placeholder="ADDRESS 1">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6">
+                          <label for="billing-filed-address-2" class="hidden-sm-down">ADDRESS 2 (OPTIONAL)</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label for="billing-filed-city" class="hidden-sm-down">CITY</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-city" placeholder="city">
+                        </div><!-- col -->
+
+                        <div class="col-6 hidden-sm-down">
+                          <label for="billing-filed-state" class="hidden-sm-down">STATE</label>
+                          <select name="" id="billing-filed-state" class="form-control">
+                            <option value="">SELECT A STATE</option>
+                            <option value="">Ukraine</option>
+                          </select>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6 hidden-sm-up">
+                          <label for="billing-filed-state-2" class="hidden-sm-down">STATE</label>
+                          <select name="" id="billing-filed-state-2" class="form-control">
+                            <option value="">STATE</option>
+                            <option value="">Ukraine</option>
+                          </select>
+                        </div><!-- col -->
+
+                        <div class="col-6">
+                          <label for="billing-filed-zip" class="hidden-sm-down">ZIP CODE</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-zip" placeholder="zip code">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6 hidden-sm-down">
+                          <label for="billing-filed-bipping-telephone">BILLING TELEPHONE</label>
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-bipping-telephone" placeholder="billing telephone">
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group hidden-sm-up">
+                      <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-bipping-telephone-2" placeholder="billing telephone">
+                    </div><!-- form-group -->
+
+                    <div class="form-group">
+                      <label for="billing-billing-email" class="hidden-sm-down">BILLING EMAIL</label>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-billing-email" placeholder="BILLING EMAIL">
+                        </div><!-- col -->
+
+                        <div class="col-sm-6 hidden-sm-down">
+                          <p class="text-uppercase fs11 text-gray">THIS IS HOW WE’LL COMMUNICATE WITH YOU ABOUT YOUR ORDER</p>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="checkbox-holder side-paddings--sm-visible-sm hidden-sm-down">
+                      <label>
+                        <input type="checkbox">
+                        <span class="label">PLEASE ADD ME TO WANDERSET’S EMAIL LIST</span>
+                      </label>
+                    </div><!-- checkbox-holder -->
+                  </fieldset>
+
+                  <div class="divider divider--sm divider--dark hidden-sm-up"></div>
+
+                  <fieldset>
+                    <div class="form-group">
+                      <label for="billing-promo-code" class="hidden-sm-down">ENTER A PROMO CODE</label>
+                      <div class="row">
+                        <div class="col-lg-5 col-sm-12 push-md-down">
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-promo-code" placeholder="ENTER A PROMO CODE">
+                        </div><!-- col -->
+
+                        <div class="col-lg-7 col-sm-12">
+                          <button class="btn btn-blueberry btn-field btn-narrow btn-block-xs">APPLY</button>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+
+                    <div class="form-group mb0">
+                      <label for="billing-gift-card" class="hidden-sm-down">REDEEM A GIFT CARD</label>
+                      <div class="row">
+                        <div class="col-lg-5 col-sm-12 push-md-down">
+                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-gift-card" placeholder="REDEEM A GIFT CARD">
+                        </div><!-- col -->
+
+                        <div class="col-lg-7 col-sm-12">
+                          <button class="btn btn-blueberry btn-field btn-narrow btn-block-xs mb10-xs">APPLY</button>
+                          <button class="btn btn-blueberry btn-field btn-narrow btn-block-xs">CHECK BALANCE</button>
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </div><!-- form-group -->
+                  </fieldset>
+                  <div class="divider divider--sm divider--dark hidden-md-up"></div>
+                </form>
+              </div><!-- col -->
+
+              <div class="col-xl-3 col-lg-4 col-md-4">
+                <aside class="aside">
+                  <button class="btn btn-primary btn-lg btn-block mb20 mt10-sm">NEXT</button>
+
+                  <div class="checkout side-paddings--sm-visible-sm checkout--without-border-b-sm hidden-sm-down">
+                    <dl class="dl-aligned">
+                      <dt>subtotal</dt>
+                      <dd>$900</dd>
+
+                      <dt>shipping</dt>
+                      <dd>free</dd>
+
+                      <dt>estimated tex</dt>
+                      <dd>tbd</dd>
+
+                      <div class="divider"></div>
+
+                      <dt>estimated total</dt>
+                      <dd>$825</dd>
+
+                      <div class="divider mt35 mb30"></div>
+
+                      <dt>YOUR ORDER</dt>
+                      <dd>4 items</dd>
+                    </dl>
+
+                    <ul class="list-goods">
+                      <li class="list-goods__item">
+                        <div class="flex">
+                          <img src="assets/images/temp/product-img-2.png" class="aside__produt-img" alt="">
+
+                          <div>
+                            <div class="goods__info">
+                              <p class="goods__info-name">Product TT</p>
+                              <p class="goods__info-description">Sm Caption</p>
+                            </div><!-- goods__info -->
+                            <ul class="table__goods__details goods__details mb10">
+                              <li class="goods__details__item">
+                                <span>QTY:</span> <span>1</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>SIZE:</span> <span>L</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>COLOR:</span> <span>GREY</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>cost:</span> <span>$200</span>
+                              </li>
+                            </ul><!-- goods__details -->
+                          </div>
+                        </div><!-- flex -->
+                      </li><!-- list-goods__item -->
+
+
+                      <li class="list-goods__item">
+                        <div class="flex">
+                          <img src="assets/images/temp/product-img-2.png" class="aside__produt-img" alt="">
+
+                          <div>
+                            <div class="goods__info">
+                              <p class="goods__info-name">Product TT</p>
+                              <p class="goods__info-description">Sm Caption</p>
+                            </div><!-- goods__info -->
+                            <ul class="table__goods__details goods__details mb10">
+                              <li class="goods__details__item">
+                                <span>QTY:</span> <span>1</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>SIZE:</span> <span>L</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>COLOR:</span> <span>GREY</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>cost:</span> <span>$200</span>
+                              </li>
+                            </ul><!-- goods__details -->
+                          </div>
+                        </div><!-- flex -->
+                      </li><!-- list-goods__item -->
+
+
+                      <li class="list-goods__item">
+                        <div class="flex">
+                          <img src="assets/images/temp/product-img-2.png" class="aside__produt-img" alt="">
+
+                          <div>
+                            <div class="goods__info">
+                              <p class="goods__info-name">Product TT</p>
+                              <p class="goods__info-description">Sm Caption</p>
+                            </div><!-- goods__info -->
+                            <ul class="table__goods__details goods__details mb10">
+                              <li class="goods__details__item">
+                                <span>QTY:</span> <span>1</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>SIZE:</span> <span>L</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>COLOR:</span> <span>GREY</span>
+                              </li>
+                              <li class="goods__details__item">
+                                <span>cost:</span> <span>$200</span>
+                              </li>
+                            </ul><!-- goods__details -->
+                          </div>
+                        </div><!-- flex -->
+                      </li><!-- list-goods__item -->
+                    </ul><!-- list-goods -->
+                  </div><!-- checkout -->
+
+                  <button class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+
+                </aside>
+              </div><!-- col -->
+            </div><!-- row -->
+          </div><!-- tab-pane -->
+
+          <div class="tab-pane" id="review-tab" role="tabpanel">
+            <div class="row">
+              <div class="col-xl-9 col-lg-8 col-md-8">
+                <div class="side-paddings--sm-visible-sm">
+                  <button class="btn btn-primary btn-lg btn-block hidden-md-up">PLACE ORDER</button>
+                </div><!-- side-paddings--sm-visible-sm -->
+
+                <div class="divider divider--sm divider--dark hidden-md-up"></div>
+
+                <h4 class="title-medium text-center-sm">REVIEW YOUR ORDER</h4>
+
+                <div class="divider divider--sm divider--dark"></div>
+                <div class="row">
+                  <div class="col-lg-4 flex flex-column">
+                    <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
+                      <span class="address__item address__title">SHIPPING ADDRESS</span>
+                      <span class="address__item">Drew McCarver</span>
+                      <span class="address__item">30 Ridgecrest Road</span>
+                      <span class="address__item">Wallingford, CT 06492</span>
+                      <span class="address__item">United States</span>
+                      <span class="address__item">860-857-2037</span>
+                      <a href="#" class="address__item address__edit">EDIT</a>
+                    </address>
+                  </div><!-- col -->
+
+                  <div class="side-paddings--md-visible-xs hidden-lg-up">
+                    <div class="divider divider--sm divider--dark"></div>
+                  </div>
+
+                  <div class="col-lg-4 flex flex-column">
+                    <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
+                      <span class="address__item address__title">BILLING ADDRESS</span>
+                      <span class="address__item">Drew McCarver</span>
+                      <span class="address__item">30 Ridgecrest Road</span>
+                      <span class="address__item">Wallingford, CT 06492</span>
+                      <span class="address__item">United States</span>
+                      <span class="address__item">860-857-2037</span>
+                      <span class="address__item">Drewdesigns@gmail.com</span>
+                      <a href="#" class="address__item address__edit">EDIT</a>
+                    </address>
+                  </div><!-- col -->
+
+                  <div class="side-paddings--md-visible-xs hidden-lg-up">
+                    <div class="divider divider--sm divider--dark"></div>
+                  </div>
+
+                  <div class="col-lg-4 flex flex-column">
+                    <address class="flex flex-column flex-1 mb0-sm flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
+                      <span class="address__item address__title">PAYMENT DETAILS</span>
+                      <span class="address__item">Drew McCarver</span>
+                      <span class="address__item">VISA</span>
+                      <span class="address__item">XXXX-XXXX-XXXX-1234</span>
+                      <span class="address__item">Exp. January 2017</span>
+                      <a href="#" class="address__item address__edit">EDIT</a>
+                    </address>
+                  </div><!-- col -->
+
+                  <div class="side-paddings--md-visible-xs hidden-lg-up">
+                    <div class="divider divider--sm divider--dark"></div>
+                  </div>
+                </div><!-- row -->
+
+
+
+                <div class="divider divider--md divider--dark hidden-sm-down"></div>
+
+                <form action="" class="hidden-sm-down">
+                  <div class="checkbox-holder side-paddings--sm-visible-sm">
+                    <label>
+                      <input type="checkbox">
+                      <span class="label">SAVE YOUR PURCHASE DETAILS FOR A FASTER CHECKOUT NEXT TIME</span>
+                    </label>
+                  </div><!-- checkbox-holder -->
+                </form>
+
+                <div class="divider divider--md divider--dark hidden-sm-down"></div>
+
+                <h4 class="title-medium text-center-sm mb35 hidden-sm-down">YOUR ORDER</h4>
+
+                <div class="table-responsive hidden-sm-down">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>ITEM</th>
+                        <th>ITEM DETAILS</th>
+                        <th>QUANTITY</th>
+                        <th>COST</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img src="assets/images/temp/product-img-2.png" class="table__img" alt="">
+                        </td>
+                        <td>
+                          <div class="table__goods__info goods__info">
+                            <p class="goods__info-name">Product TT</p>
+                            <p class="goods__info-description">Sm Caption</p>
+                          </div><!-- goods__info -->
+
+                          <ul class="table__goods__details goods__details">
+                            <li class="goods__details__item">
+                              <span>SIZE:</span> <span>L</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>COLOR:</span> <span>GREY</span>
+                            </li>
+                          </ul><!-- goods__details -->
+
+                          <div class="goods__link-group">
+                            <a href="#" class="goods__link-group__item">REMOVE</a>
+                            <a href="#" class="goods__link-group__item">save</a>
+                          </div><!-- goods__link-group -->
+                        </td>
+                        <td>
+                          <div class="table__divider"></div>
+                          <span class="goods__quantity goods__quantity--has-border">1</span>
+                        </td>
+                        <td>
+                          <div class="table__divider"></div>
+                          <p class="table__cost">$200</p>
+                          <p class="table__cost table__cost--sm">(2 X $275)</p>
+                        </td>
+                      </tr>
+
+
+                      <tr>
+                        <td>
+                          <img src="assets/images/temp/product-img-2.png" class="table__img" alt="">
+                        </td>
+                        <td>
+                          <div class="table__goods__info goods__info">
+                            <p class="goods__info-name">Product TT</p>
+                            <p class="goods__info-description">Sm Caption</p>
+                          </div><!-- goods__info -->
+
+                          <ul class="table__goods__details goods__details">
+                            <li class="goods__details__item">
+                              <span>SIZE:</span> <span>L</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>COLOR:</span> <span>GREY</span>
+                            </li>
+                          </ul><!-- goods__details -->
+
+                          <div class="goods__link-group">
+                            <a href="#" class="goods__link-group__item">REMOVE</a>
+                            <a href="#" class="goods__link-group__item">save</a>
+                          </div><!-- goods__link-group -->
+                        </td>
+                        <td>
+                          <div class="table__divider"></div>
+                          <span class="goods__quantity goods__quantity--has-border">1</span>
+                        </td>
+                        <td>
+                          <div class="table__divider"></div>
+                          <p class="table__cost">$200</p>
+                          <p class="table__cost table__cost--sm">(2 X $275)</p>
+                        </td>
+                      </tr>
+
+
+                      <tr>
+                        <td>
+                          <img src="assets/images/temp/product-img-2.png" class="table__img" alt="">
+                        </td>
+                        <td>
+                          <div class="table__goods__info goods__info">
+                            <p class="goods__info-name">Product TT</p>
+                            <p class="goods__info-description">Sm Caption</p>
+                          </div><!-- goods__info -->
+
+                          <ul class="table__goods__details goods__details">
+                            <li class="goods__details__item">
+                              <span>SIZE:</span> <span>L</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>COLOR:</span> <span>GREY</span>
+                            </li>
+                          </ul><!-- goods__details -->
+
+                          <div class="goods__link-group">
+                            <a href="#" class="goods__link-group__item">REMOVE</a>
+                            <a href="#" class="goods__link-group__item">save</a>
+                          </div><!-- goods__link-group -->
+                        </td>
+                        <td>
+                          <div class="table__divider"></div>
+                          <span class="goods__quantity goods__quantity--has-border">1</span>
+                        </td>
+                        <td>
+                          <div class="table__divider"></div>
+                          <p class="table__cost">$200</p>
+                          <p class="table__cost table__cost--sm">(2 X $275)</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table><!-- table -->
+                </div><!-- table-responsive -->
+              </div><!-- col -->
+
+              <div class="col-xl-3 col-lg-4 col-md-4">
+                <aside class="aside">
+                  <button class="btn btn-primary btn-lg btn-block mb20 hidden-sm-down">PLACE ORDER</button>
+
+                  <div class="checkout checkout--without-border-b-t-sm side-paddings--sm-visible-sm">
+                    <dl class="dl-aligned">
+                      <dt>subtotal</dt>
+                      <dd>$900</dd>
+
+                      <dt>shipping</dt>
+                      <dd>free</dd>
+
+                      <dt>estimated tex</dt>
+                      <dd>tbd</dd>
+
+                      <dt class="dt-highlighted">wandersave applied</dt>
+                      <dd class="dd-highlighted">-$100</dd>
+
+                      <div class="divider mt35 mb30"></div>
+
+                      <dt class="mb0">estimated total</dt>
+                      <dd class="mb0">$825</dd>
+                    </dl>
+
+                    <button type="" class="btn btn-primary btn-lg btn-block">checkout</button>
+
+                    <div class="divider"></div>
+
+                    <form action="">
+                      <div class="form-group">
+                        <label for="promo-code-2">enter promo code</label>
+                        <input type="text" class="form-control" placeholder="" id="promo-code-2" value="">
+                      </div><!-- form-group -->
+
+                      <div class="form-group">
+                        <button type="" class="btn btn-blueberry btn-lg btn-block">apply code</button>
+                      </div><!-- form-group -->
+
+                      <div class="form-group">
+                        <label for="promo-code-2">REDEEM A GIFT CARD</label>
+                        <input type="text" class="form-control" placeholder="" id="promo-code-2" value="">
+                      </div><!-- form-group -->
+
+                      <div class="form-group">
+                        <button type="" class="btn btn-blueberry btn-lg btn-block">apply code</button>
+                      </div><!-- form-group -->
+                    </form>
+                  </div><!-- checkout -->
+
+                  <button class="btn btn-primary btn-block btn-lg hidden-sm-down">PLACE ORDER</button>
+
+                  <h4 class="title-medium text-center-sm mb0 hidden-sm-up">YOUR ORDER</h4>
+
+                  <div class="divider hidden-sm-up"></div>
+
+                  <ul class="list-goods list-goods--has--divider hidden-md-up">
+                    <li class="list-goods__item">
+                      <div class="row">
+                        <div class="col-5">
+                          <img src="assets/images/temp/product-img-2.png" class="w-100" alt="">
+                        </div><!-- col -->
+
+                        <div class="col-7">
+                          <div class="goods__info">
+                            <p class="goods__info-name">Product TT</p>
+                            <p class="goods__info-description">Sm Caption</p>
+                          </div><!-- goods__info -->
+                          <p>
+                            QTY: <span class="goods__quantity goods__quantity--has-border">1</span>
+                          </p>
+                          <ul class="table__goods__details goods__details mb10">
+                            <li class="goods__details__item">
+                              <span>SIZE:</span> <span>L</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>COLOR:</span> <span>GREY</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>cost:</span> <span>$200</span>
+                            </li>
+                          </ul><!-- goods__details -->
+                          <div class="goods__link-group">
+                            <a href="#" class="goods__link-group__item">REMOVE</a>
+                            <a href="#" class="goods__link-group__item">save</a>
+                          </div><!-- goods__link-group -->
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </li><!-- list-goods__item -->
+
+
+                    <li class="list-goods__item">
+                      <div class="row">
+                        <div class="col-5">
+                          <img src="assets/images/temp/product-img-2.png" class="w-100" alt="">
+                        </div><!-- col -->
+
+                        <div class="col-7">
+                          <div class="goods__info">
+                            <p class="goods__info-name">Product TT</p>
+                            <p class="goods__info-description">Sm Caption</p>
+                          </div><!-- goods__info -->
+                          <p>
+                            QTY: <span class="goods__quantity goods__quantity--has-border">1</span>
+                          </p>
+                          <ul class="table__goods__details goods__details mb10">
+                            <li class="goods__details__item">
+                              <span>SIZE:</span> <span>L</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>COLOR:</span> <span>GREY</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>cost:</span> <span>$200</span>
+                            </li>
+                          </ul><!-- goods__details -->
+                          <div class="goods__link-group">
+                            <a href="#" class="goods__link-group__item">REMOVE</a>
+                            <a href="#" class="goods__link-group__item">save</a>
+                          </div><!-- goods__link-group -->
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </li><!-- list-goods__item -->
+
+
+                    <li class="list-goods__item">
+                      <div class="row">
+                        <div class="col-5">
+                          <img src="assets/images/temp/product-img-2.png" class="w-100" alt="">
+                        </div><!-- col -->
+
+                        <div class="col-7">
+                          <div class="goods__info">
+                            <p class="goods__info-name">Product TT</p>
+                            <p class="goods__info-description">Sm Caption</p>
+                          </div><!-- goods__info -->
+                          <p>
+                            QTY: <span class="goods__quantity goods__quantity--has-border">1</span>
+                          </p>
+                          <ul class="table__goods__details goods__details mb10">
+                            <li class="goods__details__item">
+                              <span>SIZE:</span> <span>L</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>COLOR:</span> <span>GREY</span>
+                            </li>
+                            <li class="goods__details__item">
+                              <span>cost:</span> <span>$200</span>
+                            </li>
+                          </ul><!-- goods__details -->
+                          <div class="goods__link-group">
+                            <a href="#" class="goods__link-group__item">REMOVE</a>
+                            <a href="#" class="goods__link-group__item">save</a>
+                          </div><!-- goods__link-group -->
+                        </div><!-- col -->
+                      </div><!-- row -->
+                    </li><!-- list-goods__item -->
+                  </ul><!-- list-goods -->
+
+                  <div class="divider hidden-sm-up"></div>
+
+                  <div class="side-paddings--sm-visible-sm">
+                    <button class="btn btn-primary btn-block btn-lg hidden-sm-up">PLACE ORDER</button>
+                  </div><!-- side-paddings--sm-visible-sm -->
+
+                  <div class="divider hidden-sm-up"></div>
+                </aside><!-- aside -->
+              </div><!-- col -->
+            </div><!-- row -->
+          </div><!-- tab-pane -->
+        </div><!-- tab-content -->
+      </div><!-- container -->
+    </section><!-- section -->
+
+  </main>
+
+
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="../bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+  <script src="../bower_components/tether/dist/js/tether.min.js"></script>
+  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="assets/javascript/scripts.js"></script>
+
+
+
+</body>
+</html>

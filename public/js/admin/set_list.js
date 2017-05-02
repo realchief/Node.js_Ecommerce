@@ -99,7 +99,7 @@ $(document).ready(function(){
     + (qry ? '&query=' + encodeURIComponent(JSON.stringify(qry)) : '');
   });
 
-  $(document).on('click', '.product [name="delete"]', function(e){
+  $(document).on('click', '.' + GB.model + ' [name="delete"]', function(e){
     e.preventDefault();
 
     var $doc = $(this).parents('.' + GB.model)

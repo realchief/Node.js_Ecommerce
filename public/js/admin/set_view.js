@@ -280,7 +280,12 @@ var SetView = function(options, callback){
     });
 
     self['doc'] = Belt.copy(a.o.doc);
-    self.set(a.o.doc);
+
+    var doc = _.extend({}, a.o.doc, Belt.objFlatten(_.pick(a.o.doc, [
+      'label'
+    , 'description'
+    ])));
+    self.set(doc);
 
     self.$el.find('[name="product"] [name="_id"]').each(function(i, e){
       self.loadProductPreview({
@@ -370,6 +375,9 @@ var SetView = function(options, callback){
     gb.update = _.omit(gb.update, function(v, k){
       return Belt.equal(v, self.doc[k]);
     });
+
+    if (Belt.equal(gb.update.products, [])) gb.update.products = [''];
+    if (Belt.equal(gb.update.media, [])) gb.update.media = [''];
 
     Async.waterfall([
       function(cb){
