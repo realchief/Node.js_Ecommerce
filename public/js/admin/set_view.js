@@ -113,6 +113,7 @@ var SetView = function(options, callback){
         });
       }
     , 'set:featured_media': function(val){
+        if (val.url && val.url.match(/^http/)) val.url += '?i=' + Belt.uuid();
         return '<image src="' + val.url + '" class="img-responsive">';
       }
     , 'get:products': function(val, $el){
