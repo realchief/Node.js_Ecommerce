@@ -3,207 +3,140 @@
 <head>
   <%= Render('head', Locals) %>
 </head>
+  <body>
+    <%= Render('header', Locals) %>
 
-<body>
-  <%= Render('header', Locals) %>
+    <main class="main">
+      <section class="section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-4">
+              <div class="gallery">
+                <div class="gallery__body">
+                  <button class="galler__arrow galler__arrow--prev hidden-md-up"></button>
+                  <% if (Belt.get(doc, 'media.0')){ %>
+                    <img src="<%= doc.media[0].url %>" class="gallery__img" alt="<%= Belt.get(doc.media[0], 'label.us') || '' %>">
+                  <% } %>
+                  <button class="galler__arrow galler__arrow--next hidden-md-up"></button>
+                </div>
+                <ul class="gallery__pagination hidden-md-up">
+                  <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
+                    <li class="gallery__pagination__item <%= i === 0 ? 'active' : '' %>">
+                      <button class="gallery__pagination__btn"></button>
+                    </li>
+                  <% }) %>
+                </ul>
 
-  <main class="main">
+                <div class="gallery__thumbnails hidden-sm-down">
+                  <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
+                    <a href="#" class="gallery__thumbnails__item">
+                      <img src="<%= m.url %>" class="gallery__img" alt="<%= Belt.get(m, 'label.us') || '' %>">
+                    </a>
+                  <% }) %>
+                </div>
+              </div>
+            </div>
 
-    <section class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-4">
-            <div class="gallery">
-              <div class="gallery__body">
-                <button class="galler__arrow galler__arrow--prev hidden-md-up"></button>
-                <img src="/public/assets/tmp/Large-Image-Size.jpg" class="gallery__img" alt="">
-                <button class="galler__arrow galler__arrow--next hidden-md-up"></button>
-              </div><!-- gallery__body -->
+            <div class="col-lg-6 col-md-8">
+              <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
+              <h3 class="font-secondary text-muted mb12 text-center-sm"><%= doc.brands.join(', ') %></h3>
+              <h2 class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm">$<%= Belt.cast(price, 'number').toFixed(2) %></h2>
+              <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+                <% _.each(doc.options, function(v, k){ %>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-7">
+                        <div class="dropdown dropdown--full">
+                          <button class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= options[k].value.toUpperCase() %>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <% _.each(v.values.us, function(v2){ %>
+                              <a class="dropdown-item" href="#"><%= v2.toUpperCase() %></a>
+                            <% }) %>
+                          </div>
+                        </div>
+                      </div>
 
-              <ul class="gallery__pagination hidden-md-up">
-                <li class="gallery__pagination__item active">
-                  <button class="gallery__pagination__btn"></button>
-                </li><!-- gallery__pagination__item -->
-                <li class="gallery__pagination__item">
-                  <button class="gallery__pagination__btn"></button>
-                </li><!-- gallery__pagination__item -->
-                <li class="gallery__pagination__item">
-                  <button class="gallery__pagination__btn"></button>
-                </li><!-- gallery__pagination__item -->
-              </ul><!-- gallery__pagination -->
-
-              <div class="gallery__thumbnails hidden-sm-down">
-                <a href="#" class="gallery__thumbnails__item">
-                  <img src="/public/assets/tmp/Large-Image-Size.jpg" class="gallery__img" alt="">
-                </a>
-                <a href="#" class="gallery__thumbnails__item">
-                  <img src="/public/assets/tmp/Large-Image-Size.jpg" class="gallery__img" alt="">
-                </a>
-                <a href="#" class="gallery__thumbnails__item">
-                  <img src="/public/assets/tmp/Large-Image-Size.jpg" class="gallery__img" alt="">
-                </a>
-                <a href="#" class="gallery__thumbnails__item">
-                  <img src="/public/assets/tmp/Large-Image-Size.jpg" class="gallery__img" alt="">
-                </a>
-              </div><!-- gallery__thumbnails -->
-            </div><!-- gallery -->
-          </div><!-- col -->
-
-          <div class="col-lg-6 col-md-8">
-            <h1 class="mb5 text-center-sm l-n">Supreme</h1>
-            <h3 class="font-secondary text-muted mb12 text-center-sm">Buttondown</h3>
-            <h2 class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm">$80</h2>
-            <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-lg-6 col-md-7">
-                    <div class="dropdown dropdown--full">
-                      <button class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        COLOR
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">LIGHT BLUE</a>
-                        <a class="dropdown-item" href="#">PURPLE - BLUE</a>
-                        <a class="dropdown-item" href="#">RED - BROWN</a>
-                      </div><!-- dropdown-menu -->
-                    </div><!-- dropdown -->
-                  </div><!-- col -->
-                </div><!-- row -->
-              </div><!-- form-group -->
-
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-lg-6 col-md-7">
-                    <div class="dropdown dropdown--full dropdown--has-error">
-                      <button class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        size
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">xl</a>
-                        <a class="dropdown-item" href="#">xxl</a>
-                        <a class="dropdown-item" href="#">lorem ipsum</a>
-                      </div><!-- dropdown-menu -->
-                      <div class="form-control-feedback">please select a size</div>
-                    </div><!-- dropdown -->
-                  </div><!-- col -->
-
-                  <div class="col-lg-6 col-md-5 hidden-sm-down">
-                    <p class="form-control-static">
-                      <a href="#" class="underline">View Size Guide</a>
-                    </p>
-                  </div><!-- col -->
-                </div><!-- row -->
-              </div><!-- form-group -->
-
-              <div class="form-group mt40">
-                <div class="row">
-                  <div class="col-lg-6 col-md-7">
-                    <button class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
-                  </div><!-- col -->
-                </div><!-- row -->
-              </div><!-- form-group -->
-            </form>
-
-            <div class="row">
-              <div class="col-lg-8 col-md-9">
-                <div id="accordion" class="accordion" role="tablist" aria-multiselectable="true">
-                  <div class="card accordion__item">
-                    <div class="accordion__header" role="tab" id="headingOne">
-                      <a data-toggle="collapse" class="collapsed accordion__title" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        PRODUCT DETAILS
-                        <i class="accordion__icon"></i>
-                      </a>
-                    </div><!-- accordion__header -->
-
-                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="accordion__body">
-                        <ul>
-                          <li>All cotton flannel single chest pocket with double stitched inseam details</li>
-                          <li>Rounded hem with reinforced side-seam gussets</li>
-                          <li>Distressed metal button closures at center front placket, button-down collar, & cuffs</li>
-                        </ul>
-                        <p class="mt25">
-                          <a href="#" class="underline font-base-medium fs11 link-dark">view suize guide</a>
+                      <div class="col-lg-6 col-md-5 hidden-sm-down hidden-xs-up">
+                        <p class="form-control-static">
+                          <a href="#" class="underline">View Size Guide</a>
                         </p>
-                      </div><!-- accordion__body -->
-                    </div><!-- collapse -->
-                  </div><!-- accordion__item -->
+                      </div>
+                    </div>
+                  </div>
+                <% }) %>
 
-                  <div class="card accordion__item">
-                    <div class="accordion__header" role="tab" id="headingTwo">
-                      <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        EDITORIAL NOTES
-                        <i class="accordion__icon"></i>
+                <div class="form-group mt40">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                      <button class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="row">
+                <div class="col-lg-8 col-md-9">
+                  <% if (Belt.get(doc, 'description.us')){ %>
+                    <div id="accordion" class="accordion">
+                      <div class="card accordion__item">
+                        <div class="accordion__header" role="tab" id="headingOne">
+                          <a class="accordion__title">
+                            PRODUCT DETAILS
+                          </a>
+                        </div>
+                        <div id="collapseOne" aria-labelledby="headingOne">
+                          <div class="accordion__body">
+                            <%= doc.description.us %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+
+                  <ul class="list-icons justify-content-center mt40-sm">
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-instagram list-icons__icon"></i>
                       </a>
-                    </div><!-- accordion__header -->
-
-                    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                      <div class="accordion__body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis odio a purus ullamcorper, at scelerisque justo laoreet. Aliquam placerat lacus vitae felis tristique, auctor consequat ex aliquet. Aliquam at massa velit. Vivamus sit amet laoreet lectus, non sollicitudin ex.</p>
-                      </div><!-- accordion__body -->
-                    </div><!-- collapse -->
-                  </div><!-- accordion__item -->
-
-                  <div class="card accordion__item">
-                    <div class="accordion__header" role="tab" id="headingThree">
-                      <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        SHIPPING & RETURNS
-                        <i class="accordion__icon"></i>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                    <li class="list-icons__item">
+                        <i class="wanderset-icon-facebook list-icons__icon"></i>
                       </a>
-                    </div><!-- accordion__header -->
+                    </li>
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-twitter list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-pinterest list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-email list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item ml-auto hidden-sm-down">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-heart-empty list-icons__icon"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                      <div class="accordion__body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                      </div><!-- accordion__body -->
-                    </div><!-- collapse -->
-                  </div><!-- accordion__item -->
-                </div><!-- accordion -->
+    <%= Render('footer', Locals) %>
 
-                <ul class="list-icons justify-content-center mt40-sm">
-                  <li class="list-icons__item">
-                    <a href="#" class="list-icons__link">
-                      <i class="wanderset-icon-instagram list-icons__icon"></i>
-                    </a>
-                  </li>
-                  <li class="list-icons__item">
-                    <a href="#" class="list-icons__link">
-                  <li class="list-icons__item">
-                      <i class="wanderset-icon-facebook list-icons__icon"></i>
-                    </a>
-                  </li>
-                    <a href="#" class="list-icons__link">
-                      <i class="wanderset-icon-twitter list-icons__icon"></i>
-                    </a>
-                  </li>
-                  <li class="list-icons__item">
-                    <a href="#" class="list-icons__link">
-                      <i class="wanderset-icon-pinterest list-icons__icon"></i>
-                    </a>
-                  </li>
-                  <li class="list-icons__item">
-                    <a href="#" class="list-icons__link">
-                      <i class="wanderset-icon-email list-icons__icon"></i>
-                    </a>
-                  </li>
-                  <li class="list-icons__item ml-auto hidden-sm-down">
-                    <a href="#" class="list-icons__link">
-                      <i class="wanderset-icon-heart-empty list-icons__icon"></i>
-                    </a>
-                  </li>
-                </ul><!-- list-icons -->
-              </div><!-- col -->
-            </div><!-- row -->
-
-          </div><!-- col -->
-        </div><!-- row -->
-      </div><!-- container -->
-    </section><!-- section -->
-
-  </main>
-
-  <%= Render('footer', Locals) %>
-
-  <%= Render('javascript', Locals) %>
-</body>
+    <%= Render('javascript', Locals) %>
+  </body>
 </html>

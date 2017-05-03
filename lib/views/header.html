@@ -27,11 +27,11 @@
 
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link nav-link--product-qty dropdown-toggle" id="dropdownCheckout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="hidden-sm-down">bag <span>(2)</span></span>
+                  <span class="hidden-sm-down">bag <span>(0)</span></span>
                   <span class="header__icon header__product-qty hidden-md-up">
-                    22
                   </span>
                 </a>
+                <% if (false){ %>
                 <div class="dropdown-menu dropdown-menu--checkout dropdown-menu--has-arrow dropdown-menu-right" aria-labelledby="dropdownCheckout">
                   <h4 class="dropdown-menu--checkout__title">1 ITEM ADDED TO BAG</h4>
                   <p class="dropdown-menu--checkout__info">(you have 3 items in your shopping bag)</p>
@@ -68,6 +68,7 @@
                     <button type="" class="btn btn-primary btn-block">checkout</button>
                   </form>
                 </div><!-- dropdown-menu -->
+                <% } %>
               </div><!-- dropdown -->
               </li>
             </ul><!-- nav -->
