@@ -6496,7 +6496,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   text-align: center;
   display: inline-block;
   padding-top: 10px;
-  background: url("../images/elements/bag.svg") no-repeat 50% 50%/cover; }
+  background: url("/public/assets/icons/bag.svg") no-repeat 50% 50%/cover; }
 
 /* NAVBAR */
 .navbar {
@@ -6769,43 +6769,43 @@ ol, ul {
   font-family: 'GothamBook';
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/gotham/GothamBook.woff2") format("woff2"), url("../fonts/gotham/GothamBook.woff") format("woff"), url("../fonts/gotham/GothamBook.ttf") format("ttf"); }
+  src: url("/public/fonts/gotham/GothamBook.woff2") format("woff2"), url("/public/fonts/gotham/GothamBook.woff") format("woff"), url("/public/fonts/gotham/GothamBook.ttf") format("ttf"); }
 
 @font-face {
   font-family: 'Gotham-Medium';
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/gotham/Gotham-Medium.woff2") format("woff2"), url("../fonts/gotham/Gotham-Medium.woff") format("woff"), url("../fonts/gotham/Gotham-Medium.ttf") format("ttf"); }
+  src: url("/public/fonts/gotham/Gotham-Medium.woff2") format("woff2"), url("/public/fonts/gotham/Gotham-Medium.woff") format("woff"), url("/public/fonts/gotham/Gotham-Medium.ttf") format("ttf"); }
 
 @font-face {
   font-family: 'Gotham-Bold';
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/gotham/Gotham-Bold.woff2") format("woff2"), url("../fonts/gotham/Gotham-Bold.woff") format("woff"), url("../fonts/gotham/Gotham-Bold.ttf") format("ttf"); }
+  src: url("/public/fonts/gotham/Gotham-Bold.woff2") format("woff2"), url("/public/fonts/gotham/Gotham-Bold.woff") format("woff"), url("/public/fonts/gotham/Gotham-Bold.ttf") format("ttf"); }
 
 @font-face {
   font-family: 'Gotham-Black';
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/gotham/Gotham-Black.woff2") format("woff2"), url("../fonts/gotham/Gotham-Black.woff") format("woff"), url("../fonts/gotham/Gotham-Black.ttf") format("ttf"); }
+  src: url("/public/fonts/gotham/Gotham-Black.woff2") format("woff2"), url("/public/fonts/gotham/Gotham-Black.woff") format("woff"), url("/public/fonts/gotham/Gotham-Black.ttf") format("ttf"); }
 
 @font-face {
   font-family: 'DroidSerif-Italic';
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/droid-serif/DroidSerif-Italic.woff2") format("woff2"), url("../fonts/droid-serif/DroidSerif-Italic.woff") format("woff"), url("../fonts/droid-serif/DroidSerif-Italic.ttf") format("ttf"); }
+  src: url("/public/fonts/droid-serif/DroidSerif-Italic.woff2") format("woff2"), url("/public/fonts/droid-serif/DroidSerif-Italic.woff") format("woff"), url("/public/fonts/droid-serif/DroidSerif-Italic.ttf") format("ttf"); }
 
 @font-face {
   font-family: 'Zerocalcare Blackletter';
   font-style: normal;
   font-weight: normal;
-  src: url("../fonts/zerocalcare/Zerocalcare Blackletter.woff2") format("woff2"), url("../fonts/zerocalcare/Zerocalcare Blackletter.woff") format("woff"), url("../fonts/zerocalcare/Zerocalcare Blackletter.ttf") format("ttf"); }
+  src: url("/public/fonts/zerocalcare/Zerocalcare Blackletter.woff2") format("woff2"), url("/public/fonts/zerocalcare/Zerocalcare Blackletter.woff") format("woff"), url("/public/fonts/zerocalcare/Zerocalcare Blackletter.ttf") format("ttf"); }
 
 /* FONTS ICONS */
 @font-face {
   font-family: 'fontello';
-  src: url("../fonts/fontello/fontello.eot?37094533");
-  src: url("../fonts/fontello/fontello.eot?37094533#iefix") format("embedded-opentype"), url("../fonts/fontello/fontello.woff2?37094533") format("woff2"), url("../fonts/fontello/fontello.woff?37094533") format("woff"), url("../fonts/fontello/fontello.ttf?37094533") format("truetype"), url("../fonts/fontello/fontello.svg?37094533#fontello") format("svg");
+  src: url("/public/fonts/fontello/fontello.eot?37094533");
+  src: url("/public/fonts/fontello/fontello.eot?37094533#iefix") format("embedded-opentype"), url("/public/fonts/fontello/fontello.woff2?37094533") format("woff2"), url("../fonts/fontello/fontello.woff?37094533") format("woff"), url("../fonts/fontello/fontello.ttf?37094533") format("truetype"), url("/public/fonts/fontello/fontello.svg?37094533#fontello") format("svg");
   font-weight: normal;
   font-style: normal; }
 

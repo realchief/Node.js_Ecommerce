@@ -16,6 +16,8 @@
   , "query-object": "*"
   , "pleasejs": "*"
   , "Sortable": "*"
+  , "tether": "*"
+  , "bootstrap-select": "*"
   },
   "ignore": [
     "test",
