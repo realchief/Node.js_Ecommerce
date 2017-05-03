@@ -15,7 +15,7 @@
                 <div class="gallery__body">
                   <button class="galler__arrow galler__arrow--prev hidden-md-up"></button>
                   <% if (Belt.get(doc, 'media.0')){ %>
-                    <img src="<%= doc.media[0].url %>" class="gallery__img" alt="<%= Belt.get(doc.media[0], 'label.us') || '' %>">
+                    <img name="main_image" src="<%= doc.media[0].url %>" class="gallery__img" alt="<%= Belt.get(doc.media[0], 'label.us') || '' %>">
                   <% } %>
                   <button class="galler__arrow galler__arrow--next hidden-md-up"></button>
                 </div>
@@ -29,7 +29,7 @@
 
                 <div class="gallery__thumbnails hidden-sm-down">
                   <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
-                    <a href="#" class="gallery__thumbnails__item">
+                    <a name="image_thumbnail" href="#" class="gallery__thumbnails__item">
                       <img src="<%= m.url %>" class="gallery__img" alt="<%= Belt.get(m, 'label.us') || '' %>">
                     </a>
                   <% }) %>
@@ -43,16 +43,16 @@
               <h2 class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm">$<%= Belt.cast(price, 'number').toFixed(2) %></h2>
               <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
                 <% _.each(doc.options, function(v, k){ %>
-                  <div class="form-group">
+                  <div name="option" class="form-group">
                     <div class="row">
                       <div class="col-lg-6 col-md-7">
                         <div class="dropdown dropdown--full">
-                          <button class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button name="selected_option_value" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <%= options[k].value.toUpperCase() %>
                           </button>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <% _.each(v.values.us, function(v2){ %>
-                              <a class="dropdown-item" href="#"><%= v2.toUpperCase() %></a>
+                              <a name="option_value" class="dropdown-item" href="#"><%= v2.toUpperCase() %></a>
                             <% }) %>
                           </div>
                         </div>
@@ -136,7 +136,22 @@
     </main>
 
     <%= Render('footer', Locals) %>
-
     <%= Render('javascript', Locals) %>
+
+    <script>
+      $(document).ready(function(){
+        $(document).on('click', 'a[name="image_thumbnail"]', function(e){
+          e.preventDefault();
+
+          $('[name="main_image"]').attr('src', $(this).find('img').attr('src'));
+        });
+
+        $(document).on('click', '[name="option_value"]', function(e){
+          e.preventDefault();
+
+          $(this).parents('[name="option"]').find('[name="selected_option_value"]').html($(this).html());
+        });
+      });
+    </script>
   </body>
 </html>
