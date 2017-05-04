@@ -8,16 +8,9 @@
     <div class="row">
       <div class="col-sm-3">
         <div class="form-group">
-          <label class="col-sm-2 control-label">label</label>
-          <div class="col-sm-10">
-            <input name="<%= path_prefix %>label" type="text" class="form-control" placeholder="label" data-get="<%= path_prefix %>label" data-get-method="val()" data-set="<%= path_prefix %>label" data-set-method="val" value="<%= index %>">
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="form-group">
           <label class="col-sm-2 control-label">product</label>
           <div class="col-sm-10">
+            <input name="<%= path_prefix %>label" type="hidden" class="form-control" placeholder="label" data-get="<%= path_prefix %>label" data-get-method="val()" data-set="<%= path_prefix %>label" data-set-method="val" value="<%= index %>">
             <input name="<%= path_prefix %>product" type="text" class="form-control" placeholder="product" data-get="<%= path_prefix %>product" data-get-method="val()" data-set="<%= path_prefix %>product._id" data-set-method="val">
           </div>
         </div>
