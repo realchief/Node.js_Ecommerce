@@ -9,24 +9,30 @@
 
   <main class="main">
 
-    <div class="bilboard bilboard--dark" style="background-image: url('/public/assets/tmp/Chance-Billboard.jpg');">
+    <div class="bilboard bilboard--dark" style="background-image: url('<%= doc.featured_media.url %>');">
       <div class="container">
-        <h1 class="bilboard__title">chance <br> the rapper</h1>
-        <h6 class="bilboard__subtitle">
-          <a href="#bilboard-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="bilboard-collapse">
-            <span class="title-has-border">about</span>
-          </a>
-        </h6>
-      </div><!-- container -->
-    </div><!-- bilboard -->
-    <div class="collapse" id="bilboard-collapse">
-      <div class="bilboard__panel">
-        <div class="container container--sm">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div><!-- container -->
-        <a href="#bilboard-collapse" data-toggle="collapse" href="#bilboard-collapse" aria-expanded="false" aria-controls="bilboard-collapse" class="btn btn-icon btn-close btn-close--floatet"><i class="wanderset-icon-up-open"></i></a>
-      </div><!-- bilboard__panel -->
-    </div><!-- collapse -->
+        <% if (Belt.get(doc, 'label.us')){ %>
+          <h1 class="bilboard__title"><%= doc.label.us %></h1>
+        <% } %>
+        <% if (Belt.get(doc, 'description.us')){ %>
+          <h6 class="bilboard__subtitle">
+            <a href="#bilboard-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="bilboard-collapse">
+              <span class="title-has-border">about</span>
+            </a>
+          </h6>
+        <% } %>
+      </div>
+    </div>
+    <% if (Belt.get(doc, 'description.us')){ %>
+      <div class="collapse" id="bilboard-collapse">
+        <div class="bilboard__panel">
+          <div class="container container--sm">
+            <p><%= doc.description.us %></p>
+          </div>
+          <a href="#bilboard-collapse" data-toggle="collapse" href="#bilboard-collapse" aria-expanded="false" aria-controls="bilboard-collapse" class="btn btn-icon btn-close btn-close--floatet"><i class="wanderset-icon-up-open"></i></a>
+        </div>
+      </div>
+    <% } %>
 
     <section class="section section--sm-pt-0">
 
@@ -363,321 +369,29 @@
               <div class="col-xl-10 col-md-9">
 
                 <div class="row">
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
+                  <% _.each(doc.products, function(p){ %>
+                    <div class="col-md-3 col-sm-4 col-6">
+                      <div class="goods__item">
+                        <% if (Belt.get(p, 'media.0')){ %>
+                          <a href="/product/<%= p._id %>" class="goods__item__link">
+                            <img src="<%= p.media[0].url %>" class="goods__img" alt="<%= Belt.get(p, 'media.0.label.us') %>">
+                          </a>
+                        <% } %>
+                        <div class="goods__info">
+                          <% if (Belt.get(p, 'label.us')){ %>
+                            <p class="goods__info-name"><%= p.label.us %></p>
+                          <% } %>
+                          <% if (Belt.get(p, 'brands.0')){ %>
+                            <p class="goods__info-name"><%= p.brands.join(', ') %></p>
+                          <% } %>
+                          <% if (Belt.get(p, 'stocks.0.price')){ %>
+                            <p class="goods__info-price">$<%= Belt.cast(p.stocks[0].price, 'number').toFixed(2).replace(/\.0+$/, '') %></p>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  <% }) %>
 
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
-
-                  <div class="col-md-3 col-sm-4 col-6">
-                    <div class="goods__item">
-                      <a href="#" class="goods__item__link">
-                        <img src="/public/assets/tmp/product-img-1.png" class="goods__img" alt="">
-                      </a>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                        <p class="goods__info-price">$100</p>
-                      </div><!-- goods__info -->
-                    </div><!-- goods__item -->
-                  </div><!-- col -->
                 </div><!-- row -->
                 <nav aria-label="..." class="mt30 hidden-sm-down">
                   <ul class="pagination justify-content-end">
@@ -705,197 +419,30 @@
                   <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--right">
                     <i class="wanderset-icon-arrow-right list-icons__icon"></i>
                   </a>
-                </div><!-- paging -->
-              </div><!-- col -->
-            </div><!-- row -->
-          </div><!-- container-fluid -->
-        </div><!-- tab-pane -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="tab-pane" id="shop-lifestyle-tab" role="tabpanel">
           <div class="container">
             <div class="masonry-grid masonry-grid--styleguide">
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-3.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
+              <% _.each(doc.media, function(m){ %>
+                <div class="masonry-grid__item">
+                  <div class="lifestyle__item">
+                    <a href="/media/<%= m._id %>">
+                      <img src="<%= m.url %>" class="lifestyle__img" alt="<%= Belt.get(m, 'label.us') || '' %>">
+                      <span class="lifestyle__overlay"></span>
+                      <% _.each(m.products, function(p){ %>
+                        <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: <%= p.y_percentage * 100 %>%; left: <%= p.x_percentage * 100 %>%"></button>
+                      <% }) %>
+                    </a>
+                  </div>
+                </div>
+              <% }) %>
 
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Small-3.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Medium-1.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-5.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-1.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-XL-1.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Small-4.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-2.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Small-2.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-4.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Small-5.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-2.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-XL-2.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-3.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-              <div class="masonry-grid__item">
-                <div class="lifestyle__item">
-                  <img src="/public/assets/tmp/Chance-Large-3.jpg" class="lifestyle__img" alt="">
-                  <span class="lifestyle__overlay"></span>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-                  <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
-                </div><!-- lifestyle__item -->
-              </div><!-- masonry-grid__item -->
-
-            </div><!-- masonry-grid -->
-
+            </div>
             <nav aria-label="..." class="mt30 hidden-sm-down">
               <ul class="pagination justify-content-end">
                 <li class="page-item disabled">
@@ -922,14 +469,11 @@
               <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--right">
                 <i class="wanderset-icon-arrow-right list-icons__icon"></i>
               </a>
-            </div><!-- paging -->
-          </div><!-- container -->
-        </div><!-- tab-pane -->
-      </div><!-- tab-content -->
-
-
-    </section><!-- section -->
-
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <%= Render('footer', Locals) %>
