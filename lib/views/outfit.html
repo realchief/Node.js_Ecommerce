@@ -15,11 +15,9 @@
             <div class="lifestyle__item lifestyle__item--preview">
               <img src="<%= doc.url %>" class="lifestyle__img" alt="<%= Belt.get(doc, 'label.us') || '' %>">
               <span class="lifestyle__overlay"></span>
-              <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: 6%; left: 22%"></button>
-              <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: 56%; left: 72%"></button>
-              <button type="button" class="lifestyle__dot lifestyle__dot--yellow" style="top: 92%; left: 53%"></button>
-              <button type="button" class="lifestyle__dot lifestyle__dot--green" style="top: 15%; left: 80%"></button>
-              <button type="button" class="lifestyle__dot lifestyle__dot--purple" style="top: 33%; left: 33%"></button>
+              <% _.each(doc.products, function(p){ %>
+                <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: <%= p.y_percentage * 100 %>%; left: <%= p.x_percentage * 100 %>%"></button>
+              <% }) %>
             </div>
             <% if (Belt.get(doc, 'label.us')){ %>
               <h2 class="title-bold mb8 text-primary"><%= doc.label.us %></h2>
@@ -56,6 +54,166 @@
             </div>
 
             <button class="btn btn-primary btn-lg btn-block mt15">SHOP OUTFIT</button>
+
+            <hr>
+
+            <ul class="list-goods list-goods--has--divider">
+              <% _.each(doc.products, function(p){ %>
+                <li class="list-goods__item">
+                  <div class="row align-items-center">
+                    <div class="col-sm-6 col-5">
+                      <% if (Belt.get(p, 'product.media.0')){ %>
+                        <img src="<%= p.product.media[0].url %>" class="goods__img" alt="<%= Belt.get(p, 'product.label.us') || '' %>">
+                      <% } %>
+                    </div>
+
+                    <div class="col-sm-6 col-7">
+                      <div class="goods__info goods__info--preview">
+                        <% if (Belt.get(p, 'product.label.us')){ %>
+                          <p class="goods__info-name"><%= p.product.label.us %></p>
+                        <% } %>
+                        <% if (Belt.get(p, 'product.brands.0')){ %>
+                          <p class="goods__info-description"><%= p.product.brands.join(', ') %></p>
+                        <% } %>
+                        <% if (Belt.get(p, 'product.stocks.0.price')){ %>
+                          <p class="goods__info-price">$<%= Belt.cast(p.product.stocks[0].price, 'number').toFixed(2).replace(/\.0+$/, '') %></p>
+                        <% } %>
+                      </div>
+
+                      <form action="">
+                        <% _.each(p.product.options, function(v, k){ %>
+                          <div class="form-group">
+                            <div class="dropdown">
+                              <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <%= v.label.us.toUpperCase() %>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <% _.each(v.values.us, function(v2){ %>
+                                  <a class="dropdown-item" href="#"><%= v2 %></a>
+                                <% }) %>
+                              </div>
+                            </div>
+                          </div>
+                        <% }) %>
+
+                        <button class="btn btn-primary btn-md btn-block mt30">ADD TO BAG</button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+              <% }) %>
+            </ul>
+
+            <hr>
+
+            <% _.each(doc.products, function(p){ %>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="gallery">
+                    <% if (Belt.get(p, 'product.media.0')){ %>
+                      <div class="gallery__body">
+                        <button class="galler__arrow galler__arrow--prev"></button>
+                        <img src="<%= p.product.media[0].url %>" class="gallery__img" alt="<%= Belt.get(p, 'product.media[0].label.us') || '' %>">
+                        <button class="galler__arrow galler__arrow--next"></button>
+                      </div>
+
+                      <ul class="gallery__pagination">
+                        <% _.each(p.product.media, function(m, i){ %>
+                          <li class="gallery__pagination__item <%= !i ? 'active' : '' %>">
+                            <button class="gallery__pagination__btn"></button>
+                          </li>
+                        <% }) %>
+                      </ul>
+                    <% } %>
+
+                    <div class="gallery__description">
+                      <% if (Belt.get(p, 'product.label.us')){ %>
+                        <h1 class="mb5 text-center-sm l-n text-center"><%= p.product.label.us %></h1>
+                      <% } %>
+                      <% if (Belt.get(p, 'product.brands.0')){ %>
+                        <h3 class="font-secondary text-muted mb12 text-center-sm text-center"><%= p.product.brands.join(', ') %></h3>
+                      <% } %>
+                      <% if (Belt.get(p, 'product.stocks.0.price')){ %>
+                        <h2 class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm text-center">$<%= Belt.cast(p.product.stocks[0].price, 'number').toFixed(2).replace(/\.0+$/, '') %></h2>
+                      <% } %>
+                    </div>
+                  </div>
+
+                  <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+                    <% _.each(p.product.options, function(o){ %>
+                      <div class="form-group">
+                        <div class="dropdown dropdown--full">
+                          <button class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= o.label.us %>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <% _.each(o.values.us, function(v){ %>
+                              <a class="dropdown-item" href="#"><%= v %></a>
+                            <% }) %>
+                          </div>
+                        </div>
+                      </div>
+                    <% }) %>
+
+                    <div class="form-group mt40">
+                      <button class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
+                    </div>
+                  </form>
+
+                  <% if (Belt.get(p, 'product.description.us')){ %>
+                    <div id="accordion" class="accordion">
+                      <div class="card accordion__item">
+                        <div class="accordion__header" role="tab" id="headingOne">
+                          <a class="accordion__title">
+                            PRODUCT DETAILS
+                          </a>
+                        </div>
+
+                        <div id="collapseOne" aria-labelledby="headingOne">
+                          <div class="accordion__body">
+                            <%= p.product.description.us %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+
+                  <ul class="list-icons justify-content-center mt40-sm">
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-instagram list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-facebook list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-twitter list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-pinterest list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-email list-icons__icon"></i>
+                      </a>
+                    </li>
+                    <li class="list-icons__item ml-auto hidden-sm-down">
+                      <a href="#" class="list-icons__link">
+                        <i class="wanderset-icon-heart-empty list-icons__icon"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            <% }) %>
+
           </div>
         </div>
       </div>
