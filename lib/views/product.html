@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <%= Render('head', Locals) %>
+  <script>
+    var DOC = <%= Belt.stringify(doc) %>;
+  </script>
 </head>
   <body>
     <%= Render('header', Locals) %>
@@ -9,27 +12,31 @@
     <main class="main">
       <section class="section">
         <div class="container">
-          <div class="row">
+          <div class="row" data-view="product">
             <div class="col-lg-6 col-md-4">
               <div class="gallery">
                 <div class="gallery__body">
-                  <button class="galler__arrow galler__arrow--prev hidden-md-up"></button>
-                  <% if (Belt.get(doc, 'media.0')){ %>
-                    <img name="main_image" src="<%= doc.media[0].url %>" class="gallery__img" alt="<%= Belt.get(doc.media[0], 'label.us') || '' %>">
+                  <% if (doc.media.length > 1){ %>
+                    <button name="prev_image" class="galler__arrow galler__arrow--prev hidden-md-up"></button>
                   <% } %>
-                  <button class="galler__arrow galler__arrow--next hidden-md-up"></button>
+                  <% if (Belt.get(doc, 'media.0')){ %>
+                    <img name="main_image" data-index="0" src="<%= doc.media[0].url %>" class="gallery__img" alt="<%= Belt.get(doc.media[0], 'label.us') || '' %>">
+                  <% } %>
+                  <% if (doc.media.length > 1){ %>
+                    <button name="next_image" class="galler__arrow galler__arrow--next hidden-md-up"></button>
+                  <% } %>
                 </div>
                 <ul class="gallery__pagination hidden-md-up">
                   <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
                     <li class="gallery__pagination__item <%= i === 0 ? 'active' : '' %>">
-                      <button class="gallery__pagination__btn"></button>
+                      <button name="image_pager" class="gallery__pagination__btn" data-index="<%= i %>"></button>
                     </li>
                   <% }) %>
                 </ul>
 
                 <div class="gallery__thumbnails hidden-sm-down">
                   <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
-                    <a name="image_thumbnail" href="#" class="gallery__thumbnails__item">
+                    <a name="image_thumbnail" data-index="<%= i %>" href="#" class="gallery__thumbnails__item">
                       <img src="<%= m.url %>" class="gallery__img" alt="<%= Belt.get(m, 'label.us') || '' %>">
                     </a>
                   <% }) %>
@@ -38,43 +45,57 @@
             </div>
 
             <div class="col-lg-6 col-md-8">
-              <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
-              <h3 class="font-secondary text-muted mb12 text-center-sm"><%= doc.brands.join(', ') %></h3>
-              <h2 class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm">$<%= Belt.cast(price, 'number').toFixed(2) %></h2>
-              <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
-                <% _.each(doc.options, function(v, k){ %>
-                  <div name="option" class="form-group">
-                    <div class="row">
-                      <div class="col-lg-6 col-md-7">
-                        <div class="dropdown dropdown--full">
-                          <button name="selected_option_value" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <%= options[k].value.toUpperCase() %>
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <% _.each(v.values.us, function(v2){ %>
-                              <a name="option_value" class="dropdown-item" href="#"><%= v2.toUpperCase() %></a>
-                            <% }) %>
+              <% if (Belt.get(doc, 'label.us')){ %>
+                <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
+              <% } %>
+              <% if (Belt.get(doc, 'brands.0')){ %>
+                <h3 class="font-secondary text-muted mb12 text-center-sm"><%= doc.brands.join(', ') %></h3>
+              <% } %>
+              <div name="configuration">
+                <% if (configuration){ %>
+                  <h2 name="price" class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm">$<%= configuration.price.toFixed(2).replace(/\.0+$/, '') %></h2>
+                  <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+                    <% _.each(doc.options, function(v, k){ %>
+                      <div name="option" data-option="<%= k %>" class="form-group">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-7">
+                            <div class="dropdown dropdown--full">
+                              <button name="selected_option_value" class="btn <% if (v.values.us.length > 1){ %>dropdown-toggle dropdown-toggle--has-arrow<% } %> btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <%= configuration.options[k].value.toUpperCase() %>
+                              </button>
+                              <% if (v.values.us.length > 1){ %>
+                                <div class="dropdown-menu">
+                                  <% _.each(v.values.us, function(v2){ %>
+                                    <a name="option_value" data-value="<%= v2 %>" class="dropdown-item" href="#"><%= v2.toUpperCase() %></a>
+                                  <% }) %>
+                                </div>
+                              <% } %>
+                            </div>
                           </div>
                         </div>
                       </div>
+                    <% }) %>
 
-                      <div class="col-lg-6 col-md-5 hidden-sm-down hidden-xs-up">
-                        <p class="form-control-static">
-                          <a href="#" class="underline">View Size Guide</a>
-                        </p>
+                    <div class="form-group mt40">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                          <button name="add_to_bag" class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <% }) %>
-
-                <div class="form-group mt40">
-                  <div class="row">
-                    <div class="col-lg-6 col-md-7">
-                      <button class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
+                  </form>
+                <% } else { %>
+                  <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+                    <div class="form-group mt40">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                          <button name="add_to_bag" class="btn btn-primary btn-lg btn-block disabled" disabled="disabled">NOT AVAILABLE</button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </form>
+                  </form>
+                <% } %>
+              </div>
 
               <div class="row">
                 <div class="col-lg-8 col-md-9">
@@ -137,21 +158,5 @@
 
     <%= Render('footer', Locals) %>
     <%= Render('javascript', Locals) %>
-
-    <script>
-      $(document).ready(function(){
-        $(document).on('click', 'a[name="image_thumbnail"]', function(e){
-          e.preventDefault();
-
-          $('[name="main_image"]').attr('src', $(this).find('img').attr('src'));
-        });
-
-        $(document).on('click', '[name="option_value"]', function(e){
-          e.preventDefault();
-
-          $(this).parents('[name="option"]').find('[name="selected_option_value"]').html($(this).html());
-        });
-      });
-    </script>
   </body>
 </html>
