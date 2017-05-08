@@ -34,7 +34,9 @@
                   <div class="row align-items-center">
                     <div class="col-sm-6 col-5">
                       <% if (Belt.get(p, 'product.media.0')){ %>
-                        <img src="<%= p.product.media[0].url %>" class="goods__img" alt="<%= Belt.get(p, 'product.label.us') || '' %>">
+                        <a href="/product/<%= p.product._id %>">
+                          <img src="<%= p.product.media[0].url %>" class="goods__img" alt="<%= Belt.get(p, 'product.label.us') || '' %>">
+                        </a>
                       <% } %>
                     </div>
 
