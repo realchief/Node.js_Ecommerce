@@ -8,16 +8,15 @@
   <%= Render('header', Locals) %>
 
   <main class="main">
-
     <div class="bilboard bilboard--dark" style="background-image: url('<%= doc.featured_media.url %>');">
       <div class="container">
         <% if (Belt.get(doc, 'label.us')){ %>
-          <h1 class="bilboard__title text-white"><%= doc.label.us %></h1>
+          <h1 class="bilboard__title text-white text-gray-shadow"><%= doc.label.us %></h1>
         <% } %>
         <% if (Belt.get(doc, 'description.us')){ %>
           <h6 class="bilboard__subtitle">
             <a href="#bilboard-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="bilboard-collapse">
-              <span class="title-has-border text-white">about</span>
+              <span class="title-has-border text-white text-gray-shadow">about</span>
             </a>
           </h6>
         <% } %>
