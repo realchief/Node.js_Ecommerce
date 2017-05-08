@@ -6496,7 +6496,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   text-align: center;
   display: inline-block;
   padding-top: 10px;
-  background: url("../images/elements/bag.svg") no-repeat 50% 50%/cover; }
+  background: url("/public/assets/icons/bag.svg") no-repeat 50% 50%/cover; }
 
 /* NAVBAR */
 .navbar {
