@@ -118,7 +118,7 @@ Async.waterfall([
                   'vendor': GB.brand
                 , 'sku': e.url.split('/').pop().replace(/\.html$/, '')
                 , 'price': e.price
-                , 'quantity': 10
+                , 'available_quantity': 10
                 }
               }, function(err, res, json){
                 err = err || Belt.get(json, 'error');

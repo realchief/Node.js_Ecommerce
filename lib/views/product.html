@@ -61,7 +61,7 @@
                           <div class="col-lg-6 col-md-7">
                             <div class="dropdown dropdown--full">
                               <button name="selected_option_value" class="btn <% if (v.values.us.length > 1){ %>dropdown-toggle dropdown-toggle--has-arrow<% } %> btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <%= configuration.options[k].value.toUpperCase() %>
+                                <%= (Belt.get(configuration, 'options.' + k + '.value') || v.values.us[0]).toUpperCase() %>
                               </button>
                               <% if (v.values.us.length > 1){ %>
                                 <div class="dropdown-menu">
