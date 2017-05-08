@@ -16,7 +16,7 @@
               <img src="<%= doc.url %>" class="lifestyle__img" alt="<%= Belt.get(doc, 'label.us') || '' %>">
               <span class="lifestyle__overlay"></span>
               <% _.each(doc.products, function(p){ %>
-                <button type="button" class="lifestyle__dot lifestyle__dot--sky" style="top: <%= p.y_percentage * 100 %>%; left: <%= p.x_percentage * 100 %>%"></button>
+                <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: <%= p.y_percentage * 100 %>%; left: <%= p.x_percentage * 100 %>%"></button>
               <% }) %>
             </div>
             <% if (Belt.get(doc, 'label.us')){ %>
