@@ -8446,8 +8446,8 @@ b {
 .lifestyle__dot {
   z-index: 50;
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border-width: 2px;
   border-style: solid;
@@ -8457,15 +8457,15 @@ b {
   display: inline-block; }
   .lifestyle__dot:before {
     content: '';
-    width: 7px;
-    height: 7px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: transparent;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -3.5px;
-    margin-left: -3.5px; }
+    margin-top: -10px;
+    margin-left: -10px; }
 
 .lifestyle__dot--sky {
   border-color: #61d2fe; }
