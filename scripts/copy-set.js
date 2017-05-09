@@ -30,10 +30,10 @@ var GB = _.defaults(O.argv, {
 , 'host': 'wanderset.com'
 , 'db': 'staging_wanderset'
 , 'from_set': {
-    'name': 'Pair of Thieves'
+    'name': 'Nabil Zaidi'
   }
 , 'to_set': {
-    'name': 'Cash Warren'
+    'name': 'Profound Aesthetic'
   }
 });
 
@@ -69,8 +69,8 @@ Async.waterfall([
         'url': O.host + '/set/' + GB.to_set._id + '/update.json'
       , 'method': 'post'
       , 'json': {
-          'products': products
-        , 'media': media
+        // 'products': products
+          'media': media
         }
       }, function(err, res, json){
         console.log(Belt.stringify(json));
