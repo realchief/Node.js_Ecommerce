@@ -8,7 +8,7 @@
   <%= Render('header', Locals) %>
 
   <main class="main">
-    <div class="bilboard bilboard--dark" style="background-image: url('<%= doc.featured_media.url %>');">
+    <div class="bilboard bilboard--dark" style="background-image: url('<%= Belt.get(doc, 'featured_media.url') %>');">
       <div class="container">
         <% if (Belt.get(doc, 'label.us')){ %>
           <h1 class="bilboard__title text-white text-gray-shadow"><%= doc.label.us %></h1>
