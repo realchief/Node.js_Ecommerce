@@ -1,0 +1,1 @@
+/home/ubuntu/wanderset-staging/node_modules/basecmd/scripts/install.js
