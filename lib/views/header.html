@@ -117,6 +117,7 @@
                   <div class="col-md-8">
                     <div class="row">
                       <% _.each(Instance.categories, function(v, k){ %>
+                        <% if (!_.size(v)) return %>
                         <div class="col-sm-3">
                           <ul class="list-dropdown-menu">
                             <li class="list-dropdown-menu__item list-dropdown-menu__item--heading"><%= k %></li>
