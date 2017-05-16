@@ -1,6 +1,11 @@
 <tr class="set" data-id="<%= _id %>">
   <td><%= _id %></td>
-  <td style="width:500px !important;"><%= name %></td>
+  <td style="width:500px !important;">
+    <p><%= name %></p>
+    <% if (typeof brand !== 'undefined' && brand){ %>
+      <p><span class="label label-warning">BRAND</span></p>
+    <% } %>
+  </td>
   <td style="width:200px !important;">
     <strong name="label.us"><%= label.us %></strong><br>
     <% if (typeof description !== 'undefined'){ %>

@@ -10,17 +10,11 @@
           </div><!-- col -->
 
           <div class="col-sm-4 col-8 text-center">
-            <a href="/" class="logo">wander<span class="logo__span">set</span></a>
+            <a href="/" class="logo"><img class="img-responsive" src="/public/assets/logo.png"></a>
           </div><!-- col -->
 
           <div class="col-sm-4 col-2">
             <ul class="nav nav--header justify-content-end">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="wanderset-icon-search header__icon"></i>
-                </a>
-              </li>
-
               <li class="nav-item hidden-sm-down">
                 <a href="#" class="nav-link">sign in</a>
               </li>
@@ -28,7 +22,7 @@
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link nav-link--product-qty dropdown-toggle" id="dropdownCheckout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="hidden-sm-down">bag <span>(0)</span></span>
-                  <span class="header__icon header__product-qty hidden-md-up">
+                  <span class="header__icon header__product-qty hidden-xs-up">
                     0
                   </span>
                 </a>
@@ -70,11 +64,11 @@
 
         <ul class="navbar-nav justify-content-center w-100 hidden-sm-down">
           <li class="nav-item dropdown--large">
-            <a class="nav-link" href="#">new</a>
+            <a class="nav-link" href="/list/product">new</a>
           </li>
 
           <li class="nav-item dropdown dropdown--has-triange dropdown--large">
-            <a class="nav-link" data-toggle="dropdown" href="#">set</a>
+            <a class="nav-link" href="/">set</a>
             <div class="dropdown-menu dropdown-menu--large">
               <div class="container">
                 <div class="row">
@@ -82,13 +76,9 @@
                     <div class="row">
                       <div class="col-sm-4">
                         <ul class="list-dropdown-menu">
-                          <li class="list-dropdown-menu__item"><a href="/set/590fcdf2687142063996a401" class="list-dropdown-menu__link">Jaden Smith</a></li>
-                          <li class="list-dropdown-menu__item"><a href="/set/5910a8c3c13d1d13050f95b3" class="list-dropdown-menu__link">Chance The Rapper</a></li>
-                          <li class="list-dropdown-menu__item"><a href="/set/5910bc61214e4818cf1abbcf" class="list-dropdown-menu__link">Trevor Andrew</a></li>
-                          <li class="list-dropdown-menu__item"><a href="/set/5910a7dec13d1d13050f95b1" class="list-dropdown-menu__link">Andrew Weitz</a></li>
-                          <li class="list-dropdown-menu__item"><a href="/set/5910a7fcc13d1d13050f95b2" class="list-dropdown-menu__link">Cash Warren</a></li>
-                          <li class="list-dropdown-menu__item"><a href="/set/5910c942e6817c1958ac345e" class="list-dropdown-menu__link">Nabil Zaidi</a></li>
-                          <li class="list-dropdown-menu__item"><a href="/set/5910ab076d0e24139a8ae593" class="list-dropdown-menu__link">Javier Laval</a></li>
+                          <% _.each(Instance.setmember_sets, function(s){ %>
+                            <li class="list-dropdown-menu__item"><a href="/set/<%= s._id %>" class="list-dropdown-menu__link"><%= Belt.get(s, 'label.us') || s.name %></a></li>
+                          <% }) %>
                         </ul><!-- list-dropdownenu -->
                       </div><!-- col -->
                     </div><!-- row -->
@@ -97,8 +87,26 @@
             </div><!-- dropdown-menu -->
           </li>
 
-          <li class="nav-item dropdown--large">
+          <li class="nav-item dropdown dropdown--has-triange dropdown--large">
             <a class="nav-link" href="/brands">brands</a>
+            <div class="dropdown-menu dropdown-menu--large">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 3)), function(a){ %>
+                        <div class="col-sm-4">
+                          <ul class="list-dropdown-menu">
+                            <% _.each(a, function(s){ %>
+                              <li class="list-dropdown-menu__item"><a href="/set/<%= s._id %>" class="list-dropdown-menu__link"><%= Belt.get(s, 'label.us') || s.name %></a></li>
+                            <% }) %>
+                          </ul><!-- list-dropdownenu -->
+                        </div><!-- col -->
+                      <% }) %>
+                    </div><!-- row -->
+                  </div><!-- col -->
+                </div><!-- container -->
+            </div><!-- dropdown-menu -->
           </li>
 
           <li class="nav-item dropdown dropdown--has-triange dropdown--large">
@@ -108,41 +116,19 @@
                 <div class="row">
                   <div class="col-md-8">
                     <div class="row">
-                      <div class="col-sm-4">
-                        <ul class="list-dropdown-menu">
-                          <li class="list-dropdown-menu__item list-dropdown-menu__item--heading">clothing</li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">coats + jackets</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">jeans</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">pants</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">shirts</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">sweaters</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">sweatshirts</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">t-shirts</a></li>
-                        </ul><!-- list-dropdownenu -->
-                      </div><!-- col -->
-
-                      <div class="col-md-4">
-                        <ul class="list-dropdown-menu">
-                          <li class="list-dropdown-menu__item list-dropdown-menu__item--heading">footwear</li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">boots</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">sneakers</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">shoes</a></li>
-                        </ul><!-- list-dropdown-menu -->
-                      </div><!-- col -->
-
-                      <div class="col-sm-4">
-                        <ul class="list-dropdown-menu">
-                          <li class="list-dropdown-menu__item list-dropdown-menu__item--heading">accessories</li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">bags</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">eyewear</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">hats</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">gloves/scarves</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">jewelry</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">socks</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">underwear</a></li>
-                          <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link">watches</a></li>
-                        </ul><!-- list-dropdown-menu -->
-                      </div><!-- col -->
+                      <% _.each(Instance.categories, function(v, k){ %>
+                        <div class="col-sm-3">
+                          <ul class="list-dropdown-menu">
+                            <li class="list-dropdown-menu__item list-dropdown-menu__item--heading"><%= k %></li>
+                            <% _.each(v, function(v2, k2){ %>
+                              <li class="list-dropdown-menu__item"><a href="/list/product?page_title=<%= encodeURIComponent((k + ' > ' + k2).toUpperCase()) %>&q=<%= encodeURIComponent(JSON.stringify({'categories': {'$regex': (k + ' > ' + k2), '$options': 'i'}})) %>" class="list-dropdown-menu__link"><%= k2 %></a></li>
+                              <% if (false) _.each(v2, function(v3, k3){ %>
+                                <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link"><%= k3 %></a></li>
+                              <% }) %>
+                            <% }) %>
+                          </ul><!-- list-dropdownenu -->
+                        </div><!-- col -->
+                      <% }) %>
                     </div><!-- row -->
                   </div><!-- col -->
                 </div><!-- container -->
@@ -150,7 +136,7 @@
           </li>
 
           <li class="nav-item dropdown--large">
-            <a class="nav-link" href="#">lifestyle</a>
+            <a class="nav-link" href="/list/media">lifestyle</a>
           </li>
         </ul>
       </div><!-- collapse -->

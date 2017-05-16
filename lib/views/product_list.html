@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= Render('head', Locals) %>
+</head>
+
+<body>
+  <%= Render('header', Locals) %>
+
+  <main class="main">
+    <section class="section section--sm-pt-0">
+      <% if (page_title){ %>
+        <div class="container">
+          <div class="row">
+            <h3><%= page_title %></h3>
+          </div>
+        </div>
+      <% } %>
+      <hr>
+      <div class="box box--sm-mb-0 hidden-xs-up">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
+              <div class="dropdown dropdown--sm dropdown--muted dropdown--inline-block">
+                <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  NEWEST
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </div><!-- dropdown -->
+
+              <nav aria-label="..." class="inline-block ml10">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item disabled">
+                    <a class="page-link pagination__arrow pagination__arrow--prev" href="#" tabindex="-1"></a>
+                  </li>
+                  <li class="page-item"><a class="page-link page-link--curent" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link page-link--switch" href="#">...</a></li>
+                  <li class="page-item"><a class="page-link" href="#">25</a></li>
+                  <li class="page-item">
+                    <a class="page-link pagination__arrow pagination__arrow--next" href="#"></a>
+                  </li>
+                </ul>
+              </nav>
+            </div><!-- col -->
+          </div><!-- row -->
+        </div><!-- container -->
+      </div><!-- box -->
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="shop-product-tab" role="tabpanel">
+          <div class="box hidden-xs-up">
+            <ul class="tabs tabs--full mb0" role="tablist">
+              <li class="nav-item tabs__item">
+                <a class="tabs__link" data-toggle="tab" href="#filter-tab" role="tab">Filter</a>
+              </li>
+              <li class="nav-item tabs__item">
+                <a class="tabs__link" data-toggle="tab" href="#sort-tab" role="tab">Sort</a>
+              </li>
+            </ul><!-- tabs -->
+
+            <div class="tab-content">
+              <div class="tab-pane" id="filter-tab" role="tabpanel">
+                <div id="filter-accordion" class="accordion accordion--w-b" role="tablist" aria-multiselectable="true">
+                  <div class="card accordion__item">
+
+                    <div class="accordion__header" role="tab" id="heading-accordion-categories">
+                      <a data-toggle="collapse" class="collapsed accordion__title" data-parent="#filter-accordion" href="#body-accordion-categories" aria-expanded="true" aria-controls="body-accordion-categories">
+                        categories
+                        <i class="accordion__icon"></i>
+                      </a>
+                    </div><!-- accordion__header -->
+
+                    <div id="body-accordion-categories" class="collapse" role="tabpanel" aria-labelledby="heading-accordion-categories">
+                      <div class="accordion__body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                      </div><!-- accordion__body -->
+                    </div><!-- collapse -->
+                  </div><!-- accordion__item -->
+
+                  <div class="card accordion__item">
+                    <div class="accordion__header" role="tab" id="heading-accordion-brands">
+                      <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#filter-accordion" href="#body-accordion-brands" aria-expanded="false" aria-controls="body-accordion-brands">
+                        brands
+                        <i class="accordion__icon"></i>
+                      </a>
+                    </div><!-- accordion__header -->
+
+                    <div id="body-accordion-brands" class="collapse" role="tabpanel" aria-labelledby="heading-accordion-brands">
+                      <div class="accordion__body">
+                        <ul>
+                          <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                          <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                          <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+                        </ul>
+                      </div><!-- accordion__body -->
+                    </div><!-- collapse -->
+                  </div><!-- accordion__item -->
+
+                  <div class="card accordion__item">
+                    <div class="accordion__header" role="tab" id="heading-accordion-colors">
+                      <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#filter-accordion" href="#body-accordion-color" aria-expanded="false" aria-controls="body-accordion-color">
+                        colors
+                        <i class="accordion__icon"></i>
+                      </a>
+                    </div><!-- accordion__header -->
+
+                    <div id="body-accordion-color" class="collapse" role="tabpanel" aria-labelledby="heading-accordion-colors">
+                      <div class="accordion__body">
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox" checked>
+                            <span class="label">all</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">black</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">blue</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">brown</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">burgundy</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">grey</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">green</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">neutrals</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">red</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+                        <div class="checkbox-holder">
+                          <label>
+                            <input type="checkbox">
+                            <span class="label">white</span>
+                          </label>
+                        </div><!-- checkbox-holder -->
+
+                        <div class="mt20 mr20 ml20">
+                          <button type="button" class="btn btn-primary btn-block">APPLY</button>
+                        </div>
+                      </div><!-- accordion__body -->
+                    </div><!-- collapse -->
+                  </div><!-- accordion__item -->
+                </div><!-- accordion -->
+              </div><!-- tab-pane -->
+
+              <div class="tab-pane" id="sort-tab" role="tabpanel">
+                <div class="list-group list-group--w-b-t list-group--w-b-side">
+                  <a href="#" class="list-group-item list-group-item-action">newest</a>
+                  <a href="#" class="list-group-item list-group-item-action">price high to low</a>
+                  <a href="#" class="list-group-item list-group-item-action">price low to high</a>
+                </div>
+              </div><!-- tab-pane -->
+            </div><!-- tab-content -->
+          </div><!-- hidden-md-up -->
+
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-2 col-sm-3 hidden-xs-up">
+                <aside class="aside">
+                  <ul class="list aside__item">
+                    <li class="list__item list__title">CLOTHING</li>
+                    <li class="list__item"><a href="#" class="list__link">COATS + JACKETS</a></li>
+                    <li class="list__item"><a href="#" class="list__link">JEANS</a></li>
+                    <li class="list__item"><a href="#" class="list__link">PANTS</a></li>
+                    <li class="list__item"><a href="#" class="list__link">SHIRTS</a></li>
+                    <li class="list__item"><a href="#" class="list__link">Sweaters</a></li>
+                    <li class="list__item"><a href="#" class="list__link">sweatshirts</a></li>
+                    <li class="list__item"><a href="#" class="list__link">t-Shirts</a></li>
+                  </ul><!-- list -->
+
+                  <ul class="list aside__item">
+                    <li class="list__item list__title">FOOTWEAR</li>
+                    <li class="list__item"><a href="#" class="list__link">Boots</a></li>
+                    <li class="list__item"><a href="#" class="list__link">sneakers</a></li>
+                    <li class="list__item"><a href="#" class="list__link">Shoes</a></li>
+                  </ul><!-- list -->
+
+                  <ul class="list aside__item">
+                    <li class="list__item list__title">Accessories</li>
+                    <li class="list__item"><a href="#" class="list__link">BAGS</a></li>
+                    <li class="list__item"><a href="#" class="list__link">eyewears</a></li>
+                    <li class="list__item"><a href="#" class="list__link">Hats</a></li>
+                    <li class="list__item"><a href="#" class="list__link">Gloves/scarves</a></li>
+                    <li class="list__item"><a href="#" class="list__link">jewelry</a></li>
+                    <li class="list__item"><a href="#" class="list__link">socks</a></li>
+                    <li class="list__item"><a href="#" class="list__link">underwear</a></li>
+                    <li class="list__item"><a href="#" class="list__link">watches</a></li>
+                  </ul><!-- list -->
+
+                  <ul class="list mb5">
+                    <li class="list__item list__title"><a class="list__link collapse-btn" data-toggle="collapse" href="#collapseExampleOne" aria-expanded="false" aria-controls="collapseExampleOne">Color</a></li>
+                    <div class="collapse" id="collapseExampleOne">
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">all</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">black</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">blue</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">brown</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">burgundy</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">grey</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">green</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">neutrals</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">red</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">white</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                    </div><!-- collapse -->
+                  </ul><!-- list -->
+
+                  <ul class="list">
+                    <li class="list__item list__title"><a class="list__link collapse-btn" data-toggle="collapse" href="#collapseExampleTwo" aria-expanded="false" aria-controls="collapseExampleTwo">Sizing</a></li>
+                    <div class="collapse" id="collapseExampleTwo">
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">SMALL</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">MEDIUM</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">LARGE</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">X-LARGE</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">XX-LARGE</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                      <div class="checkbox-holder">
+                        <label>
+                          <input type="checkbox">
+                          <span class="label">XXX-LARGE</span>
+                        </label>
+                      </div><!-- checkbox-holder -->
+                    </div><!-- collapse -->
+                  </ul><!-- list -->
+                </aside><!-- aside -->
+              </div><!-- col -->
+
+              <div class="col-xs-12">
+
+                <div class="row">
+                  <% _.each(docs, function(p){ %>
+                    <div class="col-md-3 col-sm-4 col-6">
+                      <div class="goods__item">
+                        <% if (Belt.get(p, 'media.0')){ %>
+                          <a href="/product/<%= p._id %>" class="goods__item__link">
+                            <img src="<%= p.media[0].url %>" class="goods__img" alt="<%= Belt.get(p, 'media.0.label.us') %>">
+                          </a>
+                        <% } %>
+                        <div class="goods__info">
+                          <% if (Belt.get(p, 'label.us')){ %>
+                            <p class="goods__info-name"><%= p.label.us %></p>
+                          <% } %>
+                          <% if (Belt.get(p, 'brands.0')){ %>
+                            <p class="goods__info-name"><%= p.brands.join(', ') %></p>
+                          <% } %>
+                          <% if (Belt.get(p, 'stocks.0.price')){ %>
+                            <p class="goods__info-price">$<%= Belt.cast(p.stocks[0].price, 'number').toFixed(2).replace(/\.0+$/, '') %></p>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                  <% }) %>
+
+                </div><!-- row -->
+                <nav aria-label="..." class="mt30 hidden-xs-up">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                      <a class="page-link pagination__arrow pagination__arrow--prev" href="#" tabindex="-1"></a>
+                    </li>
+                    <li class="page-item"><a class="page-link page-link--curent" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link page-link--switch" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">25</a></li>
+                    <li class="page-item">
+                      <a class="page-link pagination__arrow pagination__arrow--next" href="#"></a>
+                    </li>
+                  </ul>
+                </nav>
+
+                <div class="paging hidden-xs-up">
+                  <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--left">
+                    <i class="wanderset-icon-arrow-left list-icons__icon"></i>
+                  </a>
+                  <span>
+                    page <span>1</span> of <span>5</span>
+                  </span>
+                  <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--right">
+                    <i class="wanderset-icon-arrow-right list-icons__icon"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%= Render('footer', Locals) %>
+  <%= Render('javascript', Locals) %>
+
+</body>
+</html>

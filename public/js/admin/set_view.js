@@ -367,6 +367,7 @@ var SetView = function(options, callback){
     , 'description'
     , 'products'
     , 'media'
+    , 'brand'
     ]);
 
     if (self.featured_media){

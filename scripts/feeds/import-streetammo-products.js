@@ -28,7 +28,7 @@ var Spin = new Spinner(4);
 var GB = _.defaults(O.argv, {
   'mongodb': O.mongodb
 , 'collection_name': 'products'
-, 'db': 'streetammo'
+, 'db': 'streetammo_foot'
 });
 
 Spin.start();
@@ -47,7 +47,7 @@ Async.waterfall([
   }
 , function(cb){
     var count = 0
-      , skip = 279
+      , skip = 0
       , limit = 100;
 
     return Async.doWhilst(function(next){
