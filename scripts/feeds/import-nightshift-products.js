@@ -155,6 +155,10 @@ Async.waterfall([
           Request({
             'url': O.host + '/product/create.json'
           , 'method': 'post'
+          , 'auth': {
+              'user': 'wanderset'
+            , 'pass': 'wanderset1234'
+            }
           , 'json': _.omit(e, [
               'stocks'
             , 'media'
@@ -178,6 +182,10 @@ Async.waterfall([
             Request({
               'url': O.host + '/product/' + gb.doc._id + '/stock/create.json'
             , 'method': 'post'
+            , 'auth': {
+                'user': 'wanderset'
+              , 'pass': 'wanderset1234'
+              }
             , 'json': s
             }, function(err, res, json){
               err = err || Belt.get(json, 'error');
@@ -198,6 +206,10 @@ Async.waterfall([
             Request({
               'url': O.host + '/product/' + gb.doc._id + '/media/create.json'
             , 'method': 'post'
+            , 'auth': {
+                'user': 'wanderset'
+              , 'pass': 'wanderset1234'
+              }
             , 'json': {
                 'remote_url': s
               }
