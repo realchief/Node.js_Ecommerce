@@ -721,6 +721,8 @@ var ProductView = function(options, callback){
     });
   };
 
+  gb.view['sortable_media'] = new Sortable(gb.view.$el.find('[name="medias"]')[0]);
+
   gb.view['method'] = a.o.method;
   gb.view['_id'] = a.o._id;
 

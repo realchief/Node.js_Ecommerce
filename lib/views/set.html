@@ -11,7 +11,11 @@
     <div class="bilboard bilboard--dark" style="background-image: url('<%= Belt.get(doc, 'featured_media.url') %>'); <% if (doc.brand){ %>max-height:200px;<% } %>">
       <div class="container">
         <% if (Belt.get(doc, 'label.us')){ %>
-          <h1 class="bilboard__title text-white text-gray-shadow"><%= doc.label.us %></h1>
+          <h1 class="bilboard__title text-white text-gray-shadow">
+            <span <% if (doc.label.us.match(/mane/i)){ %>style="color:#29363b !important;text-shadow:none !important;"<% } %>>
+              <%= doc.label.us %>
+            </span>
+          </h1>
         <% } %>
         <% if (Belt.get(doc, 'description.us')){ %>
           <h6 class="bilboard__subtitle">

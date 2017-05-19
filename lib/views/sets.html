@@ -13,7 +13,11 @@
         <div class="bilboard bilboard--dark" style="background-image: url('<%= Belt.get(doc, 'featured_media.url') || '' %>');">
           <div class="container">
             <% if (Belt.get(doc, 'label.us')){ %>
-              <h1 class="bilboard__title text-white text-gray-shadow"><%= doc.label.us %></h1>
+              <h1 class="bilboard__title text-white text-gray-shadow">
+                <span <% if (doc.label.us.match(/mane/i)){ %>style="color:#29363b !important;text-shadow:none !important;"<% } %>>
+                  <%= doc.label.us %>
+                </span>
+              </h1>
             <% } %>
             <h6 class="bilboard__subtitle">
               <span class="title-has-border text-white text-gray-shadow">shop the set</span>
