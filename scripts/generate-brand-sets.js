@@ -29,6 +29,11 @@ var GB = _.defaults(O.argv, {
   'mongodb': O.mongodb
 , 'host': 'wanderset.com'
 , 'db': 'staging_wanderset'
+, 'brand_regex': /N\/A Socks/i
+, 'auth': {
+    'user': 'wanderset'
+  , 'pass': 'wanderset1234'
+  }
 });
 
 Spin.start();
@@ -63,6 +68,8 @@ Async.waterfall([
 
         _.each(GB.results, function(r){
           _.each(r.brands, function(b){
+            if (!b.match(GB.brand_regex)) return;
+
             GB.brands[b] = GB.brands[b] || [];
             GB.brands[b].push(Belt.copy(r));
           });
@@ -106,6 +113,7 @@ Async.waterfall([
         Request({
           'url': O.host + '/set/' + set._id + '/update.json'
         , 'method': 'post'
+        , 'auth': GB.auth
         , 'json': {
             'products': products
           }
@@ -117,6 +125,7 @@ Async.waterfall([
         Request({
           'url': O.host + '/set/create.json'
         , 'method': 'post'
+        , 'auth': GB.auth
         , 'json': {
             'name': e
           , 'label': {
