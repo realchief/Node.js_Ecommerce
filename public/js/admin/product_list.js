@@ -186,7 +186,13 @@ $(document).ready(function(){
       && (res.skip + 1) > (res.limit * (i - 1))
       ? 'primary' : 'default') + '">' + i + '</a>';
     }
-    phtml += '</div>'
+    phtml += '</div>';
+
+    phtml += '<a href="/product/export.csv?limit=' + res.count
+    + (res.sort ? '&sort=' + encodeURIComponent(JSON.stringify(res.sort)) : '')
+    + (res.query ? '&query=' + encodeURIComponent(JSON.stringify(res.query)) : '')
+    + '" class="btn btn-primary" style="margin-top:10px;">Export CSV</a>';
+
     $('[name="pagination"]').html(phtml);
 
     if (Belt.get(res.query, '_id')){

@@ -1309,6 +1309,21 @@
   },
   {
     "type": "get",
+    "url": "/product/export.csv",
+    "title": "Export Products CSV",
+    "name": "ExportProduct",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "get",
     "url": "/product/availability/read.json",
     "title": "Get Product Availability for Options",
     "name": "GetProductAvailability",
