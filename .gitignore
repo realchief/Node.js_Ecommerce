@@ -5,7 +5,6 @@ bower_components
 *.log
 credentials.json
 config.json
-data
 tmp
 log/
 target/

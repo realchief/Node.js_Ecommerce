@@ -10,6 +10,16 @@ var SetView = function(options, callback){
 
         this.loadMedia();
       }
+    , 'click [name="mobile_featured_media_create"]': function(e){
+        e.preventDefault();
+
+        this.loadMobileMedia();
+      }
+    , 'click [name="logo_media_create"]': function(e){
+        e.preventDefault();
+
+        this.loadLogoMedia();
+      }
     , 'click [name="media_create"]': function(e){
         e.preventDefault();
 
@@ -116,6 +126,14 @@ var SetView = function(options, callback){
         if (val.url && val.url.match(/^http/)) val.url += '?i=' + Belt.uuid();
         return '<image src="' + val.url + '" class="img-responsive">';
       }
+    , 'set:mobile_featured_media': function(val){
+        if (val.url && val.url.match(/^http/)) val.url += '?i=' + Belt.uuid();
+        return '<image src="' + val.url + '" class="img-responsive">';
+      }
+    , 'set:logo_media': function(val){
+        if (val.url && val.url.match(/^http/)) val.url += '?i=' + Belt.uuid();
+        return '<image src="' + val.url + '" class="img-responsive">';
+      }
     , 'get:products': function(val, $el){
         var vals = [];
 
@@ -157,6 +175,24 @@ var SetView = function(options, callback){
   gb['view'] = new Bh.View(a.o);
 
   gb.view['media_dropzone'] = new Dropzone('[name="featured_media_file"]', {
+    'url': '#'
+  , 'method': 'post'
+  , 'acceptedFiles': 'image/*,video/*'
+  , 'dictDefaultMessage': 'Add image'
+  , 'addRemoveLinks': true
+  , 'maxFiles': 1
+  });
+
+  gb.view['mobile_media_dropzone'] = new Dropzone('[name="mobile_featured_media_file"]', {
+    'url': '#'
+  , 'method': 'post'
+  , 'acceptedFiles': 'image/*,video/*'
+  , 'dictDefaultMessage': 'Add image'
+  , 'addRemoveLinks': true
+  , 'maxFiles': 1
+  });
+
+  gb.view['logo_media_dropzone'] = new Dropzone('[name="logo_media_file"]', {
     'url': '#'
   , 'method': 'post'
   , 'acceptedFiles': 'image/*,video/*'
@@ -218,54 +254,153 @@ var SetView = function(options, callback){
     });
   };
 
+  gb.view['loadMobileMedia'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    return Async.waterfall([
+      function(cb){
+        if (self.$el.find('[name="mobile_featured_media_url"]').val()){
+          self['mobile_featured_media'] = {
+            'mobile_remote_url': self.$el.find('[name="mobile_featured_media_url"]').val()
+          };
+          self.set({
+            'mobile_featured_media': {
+              'url': self.mobile_featured_media.mobile_remote_url
+            }
+          });
+        } else if (Belt.get(self, 'mobile_media_dropzone.files.0')){
+          var fr = new FileReader()
+            , ocb = _.once(cb);
+
+          fr.readAsDataURL(self.mobile_media_dropzone.files[0]);
+          fr.onload = function(){
+            self['mobile_featured_media'] = {
+              'mobile_file': self.transformers.to_blob(fr.result)
+            , 'mobile_filename': self.mobile_media_dropzone.files[0].name
+            };
+            self.set({
+              'mobile_featured_media': {
+                'url': fr.result
+              }
+            });
+            ocb();
+          };
+          fr.onerror = ocb;
+
+        } else {
+          cb(new Error('No mobile media selected'));
+        }
+      }
+    , function(cb){
+        self.mobile_media_dropzone.removeAllFiles();
+        self.$el.find('[name="mobile_featured_media_url"]').val('');
+
+        cb();
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  gb.view['loadLogoMedia'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    return Async.waterfall([
+      function(cb){
+        if (self.$el.find('[name="logo_media_url"]').val()){
+          self['logo_media'] = {
+            'logo_remote_url': self.$el.find('[name="logo_media_url"]').val()
+          };
+          self.set({
+            'logo_media': {
+              'url': self.logo_media.logo_remote_url
+            }
+          });
+        } else if (Belt.get(self, 'logo_media_dropzone.files.0')){
+          var fr = new FileReader()
+            , ocb = _.once(cb);
+
+          fr.readAsDataURL(self.logo_media_dropzone.files[0]);
+          fr.onload = function(){
+            self['logo_media'] = {
+              'logo_file': self.transformers.to_blob(fr.result)
+            , 'logo_filename': self.logo_media_dropzone.files[0].name
+            };
+            self.set({
+              'logo_media': {
+                'url': fr.result
+              }
+            });
+            ocb();
+          };
+          fr.onerror = ocb;
+
+        } else {
+          cb(new Error('No logo media selected'));
+        }
+      }
+    , function(cb){
+        self.logo_media_dropzone.removeAllFiles();
+        self.$el.find('[name="logo_media_url"]').val('');
+
+        cb();
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
   gb.view['create'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-      'data': _.extend({}, self.get(), self.featured_media)
+      'data': _.extend({}, self.get(), self.featured_media || {}, self.mobile_featured_media || {}, self.logo_media || {})
     });
 
     return Async.waterfall([
       function(cb){
-        if (Belt.get(a.o.data, 'remote_url')){
-          $.post('/set/create.json', a.o.data, function(json){
-            if (Belt.get(json, 'error')) return cb(new Error(json.error));
+        var fd = new FormData()
+          , ocb = _.once(cb)
+          , data = Belt.copy(a.o.data);
+
+        Belt.delete(data, 'file');
+        Belt.delete(data, 'mobile_file');
+        Belt.delete(data, 'logo_file');
+
+        fd.append('json', JSON.stringify(_.omit(data, [
+
+        ])));
+        if (a.o.data.file) fd.append('file', a.o.data.file, a.o.data.filename);
+        if (a.o.data.mobile_file) fd.append('mobile_file', a.o.data.mobile_file, a.o.data.mobile_filename);
+        if (a.o.data.logo_file) fd.append('logo_file', a.o.data.logo_file, a.o.data.logo_filename);
+
+        $.ajax({
+          'url': '/set/create.json'
+        , 'type': 'POST'
+        , 'data': fd
+        , 'cache': false
+        , 'dataType': 'json'
+        , 'processData': false
+        , 'contentType': false
+        , 'success': function(json){
+            if (Belt.get(json, 'error')) return ocb(new Error(json.error));
 
             gb['doc'] = Belt.get(json, 'data');
 
-            cb();
-          });
-        } else if (Belt.get(a.o.data, 'file')){
-          var fd = new FormData()
-            , ocb = _.once(cb);
-
-          var data = Belt.copy(a.o.data);
-          Belt.delete(data, 'file');
-
-          fd.append('json', JSON.stringify(_.omit(data, [
-          ])));
-          fd.append('file', a.o.data.file, a.o.data.filename);
-
-          $.ajax({
-            'url': '/set/create.json'
-          , 'type': 'POST'
-          , 'data': fd
-          , 'cache': false
-          , 'dataType': 'json'
-          , 'processData': false
-          , 'contentType': false
-          , 'success': function(json){
-              if (Belt.get(json, 'error')) return ocb(new Error(json.error));
-
-              gb['doc'] = Belt.get(json, 'data');
-
-              ocb();
-            }
-          });
-        } else {
-          cb(new Error('Featured media is required'));
-        }
+            ocb();
+          }
+        });
       }
     ], function(err){
       a.cb(err, gb);
@@ -368,10 +503,19 @@ var SetView = function(options, callback){
     , 'products'
     , 'media'
     , 'brand'
+    , 'hide'
     ]);
 
     if (self.featured_media){
       _.extend(gb.update, self.featured_media);
+    }
+
+    if (self.mobile_featured_media){
+      _.extend(gb.update, self.mobile_featured_media);
+    }
+
+    if (self.logo_media){
+      _.extend(gb.update, self.logo_media);
     }
 
     gb.update = _.omit(gb.update, function(v, k){
@@ -383,42 +527,38 @@ var SetView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        if (Belt.get(gb.update, 'file')){
-          var fd = new FormData()
-            , ocb = _.once(cb);
+        var fd = new FormData()
+          , ocb = _.once(cb);
 
-          var data = Belt.copy(gb.update);
-          Belt.delete(data, 'file');
+        var data = Belt.copy(gb.update);
+        Belt.delete(data, 'file');
+        Belt.delete(data, 'mobile_file');
+        Belt.delete(data, 'logo_file');
 
-          fd.append('json', JSON.stringify(_.omit(data, [
-          ])));
-          fd.append('file', gb.update.file, gb.update.filename);
+        fd.append('json', JSON.stringify(_.omit(data, [
 
-          $.ajax({
-            'url': '/set/' + self._id + '/update.json'
-          , 'type': 'POST'
-          , 'data': fd
-          , 'cache': false
-          , 'dataType': 'json'
-          , 'processData': false
-          , 'contentType': false
-          , 'success': function(json){
-              if (Belt.get(json, 'error')) return ocb(new Error(json.error));
+        ])));
 
-              gb['doc'] = Belt.get(json, 'data');
+        if (gb.update.file) fd.append('file', gb.update.file, gb.update.filename);
+        if (gb.update.mobile_file) fd.append('mobile_file', gb.update.mobile_file, gb.update.mobile_filename);
+        if (gb.update.logo_file) fd.append('logo_file', gb.update.logo_file, gb.update.logo_filename);
 
-              ocb();
-            }
-          });
-        } else {
-          $.post('/set/' + self._id + '/update.json', gb.update, function(json){
-            if (Belt.get(json, 'error')) return cb(new Error(json.error));
+        $.ajax({
+          'url': '/set/' + self._id + '/update.json'
+        , 'type': 'POST'
+        , 'data': fd
+        , 'cache': false
+        , 'dataType': 'json'
+        , 'processData': false
+        , 'contentType': false
+        , 'success': function(json){
+            if (Belt.get(json, 'error')) return ocb(new Error(json.error));
 
             gb['doc'] = Belt.get(json, 'data');
 
-            cb();
-          });
-        }
+            ocb();
+          }
+        });
       }
     ], function(err){
       a.cb(err, gb);

@@ -33,16 +33,16 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': Path.join(O.__dirname, './data/feeds/alps-and-meters-2.csv')
+  'csv_path': Path.join(O.__dirname, './data/feeds/asphalt-yacht-club-feed.csv')
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
 , 'vendors': [
-    'Alps & Meters'
+    'Asphalt Yacht Club'
   ]
 , 'brands': [
-    'Alps & Meters'
+    'Asphalt Yacht Club'
   ]
 });
 
@@ -55,6 +55,7 @@ Async.waterfall([
     var fs = FS.createReadStream(GB.csv_path)
       , csv = CSV({
           'headers': true
+        , 'discardUnmappedColumns': true
         })
         .on('data', function(d){
           GB.products[d.Handle] = GB.products[d.Handle] || {};

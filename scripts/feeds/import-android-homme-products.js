@@ -33,16 +33,16 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': Path.join(O.__dirname, './data/feeds/alps-and-meters-2.csv')
+  'csv_path': Path.join(O.__dirname, './data/feeds/android-homme-feed.csv')
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
 , 'vendors': [
-    'Alps & Meters'
+    'Android Homme'
   ]
 , 'brands': [
-    'Alps & Meters'
+    'Android Homme'
   ]
 });
 
@@ -57,90 +57,72 @@ Async.waterfall([
           'headers': true
         })
         .on('data', function(d){
-          GB.products[d.Handle] = GB.products[d.Handle] || {};
-          GB.products[d.Handle]['name'] = d.Handle;
+          GB.products[d['STYLE NO.']] = GB.products[d['STYLE NO.']] || {};
+          GB.products[d['STYLE NO.']]['name'] = d.NAME;
 
-          if (d.Title){
+          d.Handle = d['STYLE NO.'];
+
+          if (d.NAME){
             GB.products[d.Handle]['label'] = {
-              'us': d.Title
+              'us': d.NAME
             };
           }
 
-          if (d['Body (HTML)']){
+          if (d.DESCRIPTION){
             GB.products[d.Handle]['description'] = {
-              'us': d['Body (HTML)']
+              'us': d.DESCRIPTION + (d['STYLE PICTURE'] ? '\n\n' + d['STYLE PICTURE'] : '')
             };
           }
 
           GB.products[d.Handle]['vendors'] = GB.vendors;
           GB.products[d.Handle]['brands'] = GB.brands;
 
-          if (d.Type){
-            GB.products[d.Handle]['categories'] = GB.products[d.Handle].categories || [];
-            GB.products[d.Handle].categories.push(d.Type);
-            GB.products[d.Handle].categories = _.uniq(GB.products[d.Handle].categories);
-          }
+          //categories?
 
           GB.products[d.Handle]['options'] = GB.products[d.Handle]['options'] || {};
 
-          GB.products[d.Handle].opts = GB.products[d.Handle].opts || {};
-
           var opts = {}
-          _.each(['Option1', 'Option2', 'Option3'], function(o){
-            d[o + ' Name'] = d[o + ' Name'] || GB.products[d.Handle].opts[o + ' Name'];
-            d[o + ' Value'] = d[o + ' Value'] || GB.products[d.Handle].opts[o + ' Value'];
 
-            if (!d[o + ' Name'] || !d[o + ' Value']) return;
+          _.each(['COLOR', 'OUTSOLE'], function(o){
+            if (!d[o]) return;
 
-            d[o + ' Name'] = d[o + ' Name'].replace(/\./g, '');
-
-            GB.products[d.Handle].opts[o + ' Name'] = d[o + ' Name'];
-
-            opts[d[o + ' Name']] = {
-              'alias': d[o + ' Name']
-            , 'value': d[o + ' Value']
+            opts[o] = {
+              'alias': o
+            , 'value': d[o]
             };
 
-            GB.products[d.Handle].options[d[o + ' Name']] = GB.products[d.Handle].options[d[o + ' Name']] || {
-              'name': d[o + ' Name']
+            GB.products[d.Handle].options[o] = GB.products[d.Handle].options[o] || {
+              'name': o
             , 'label': {
-                'us': d[o + ' Name']
+                'us': o
               }
             , 'values': {
-                'us': []
+                'us': [
+                  d[o]
+                ]
               }
             };
-
-            GB.products[d.Handle].options[d[o + ' Name']].values.us.push(d[o + ' Value']);
-            GB.products[d.Handle].options[d[o + ' Name']].values.us = _.uniq(GB.products[d.Handle].options[d[o + ' Name']].values.us);
           });
 
-          if (d['Variant SKU']){
+
+          GB.products[d.Handle].opts = opts;
+
+          if (d['STYLE NO.']){
             GB.products[d.Handle]['stocks'] = GB.products[d.Handle]['stocks'] || [];
 
-            var qty = Belt.cast(d['Variant Inventory Qty'], 'number') || 0;
+            var qty = 0;
             if (qty < 0 || !qty) qty = 0;
 
             GB.products[d.Handle].stocks.push({
               'vendor': GB.vendors[0]
-            , 'sku': d['Variant SKU'].replace(/^'/, '')
-            , 'price': Belt.cast(d['Variant Price'], 'number') || 0
+            , 'sku': d['STYLE NO.']
+            , 'price': Belt.cast((d['PRICE'] || '').replace(/\$/g, ''), 'number') || 0
             , 'available_quantity': qty
             , 'options': opts
             });
           }
 
           GB.products[d.Handle]['media'] = GB.products[d.Handle].media || [];
-
-          if (d['Product Page URL']){
-            GB.products[d.Handle].media.push(d['Product Page URL']);
-            GB.products[d.Handle].media = _.uniq(GB.products[d.Handle].media);
-          }
-
-          if (d['Image Src']){
-            GB.products[d.Handle].media.push(d['Image Src']);
-            GB.products[d.Handle].media = _.uniq(GB.products[d.Handle].media);
-          }
         })
         .on('end', function(){
           cb();
@@ -182,8 +164,8 @@ Async.waterfall([
           Async.eachSeries(e.stocks, function(s, cb4){
             Request({
               'url': O.host + '/product/' + gb.doc._id + '/stock/create.json'
-            , 'method': 'post'
             , 'auth': GB.auth
+            , 'method': 'post'
             , 'json': s
             }, function(err, res, json){
               err = err || Belt.get(json, 'error');
@@ -194,29 +176,6 @@ Async.waterfall([
 
               console.log(Belt.stringify(json.data));
               cb4();
-            });
-          }, function(err){
-            cb3(err);
-          });
-        }
-      , function(cb3){
-          Async.eachSeries(e.media, function(s, cb4){
-            Request({
-              'url': O.host + '/product/' + gb.doc._id + '/media/create.json'
-            , 'method': 'post'
-            , 'auth': GB.auth
-            , 'json': {
-                'remote_url': s
-              }
-            }, function(err, res, json){
-              err = err || Belt.get(json, 'error');
-              if (err){
-                console.error(err);
-                return cb4();
-              }
-
-              console.log(Belt.stringify(json.data));
-              setTimeout(cb4, 1000);
             });
           }, function(err){
             cb3(err);

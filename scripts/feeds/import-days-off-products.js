@@ -33,16 +33,16 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': Path.join(O.__dirname, './data/feeds/alps-and-meters-2.csv')
+  'csv_path': Path.join(O.__dirname, './data/feeds/days-off-feed.csv')
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
 , 'vendors': [
-    'Alps & Meters'
+    'Days Off'
   ]
 , 'brands': [
-    'Alps & Meters'
+    'Days Off'
   ]
 });
 
