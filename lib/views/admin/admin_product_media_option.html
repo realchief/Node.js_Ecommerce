@@ -1,12 +1,8 @@
 <div name="media_option" data-option="<%= option %>">
-  <div class="hr-line-dashed"></div>
   <div class="row">
-    <div class="col-sm-3">
-      <h3><%= option %></h3>
-    </div>
-    <div class="col-sm-5">
+    <div class="col-sm-12">
       <div class="form-group">
-        <label class="col-sm-1 control-label">value</label>
+        <label class="col-sm-1 control-label"><%= option %></label>
         <div class="col-sm-11">
           <input name="<%= path_prefix %><%= option %>" type="text" class="form-control" placeholder="<%= option %> of stock" data-set="<%= path_prefix %><%= option %>" data-set-method="val" data-get="<%= path_prefix %><%= option %>" data-get-method="val()">
         </div>

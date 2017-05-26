@@ -6,23 +6,23 @@
   </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-1">
         <% if (typeof url !== 'undefined'){ %>
-          <img class="img-responsive thumbnail" src="<%= url %>" data-get="<%= path_prefix %>remote_url" data-get-method="attr('src')">
+          <a href="<%= url %>" target="_blank">
+            <img class="img-responsive thumbnail" src="<%= url %>" data-get="<%= path_prefix %>remote_url" data-get-method="attr('src')">
+          </a>
         <% } else { %>
           <img class="img-responsive thumbnail" src="<%= data %>" data-get="<%= path_prefix %>file" data-get-method="attr('src')" data-get-transformer="to_blob">
         <% } %>
         <input type="hidden" value="<%= filename %>" data-get="<%= path_prefix %>filename" data-get-method="val()">
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <div class="form-group">
           <label class="col-sm-2 control-label">label.us</label>
           <div class="col-sm-10">
             <input name="<%= path_prefix %>label.us" type="text" class="form-control" placeholder="label" data-get="<%= path_prefix %>label.us" data-get-method="val()" data-set="<%= path_prefix %>label.us" data-set-method="val">
           </div>
         </div>
-      </div>
-      <div class="col-sm-5">
         <div class="form-group">
           <label class="col-sm-2 control-label">description.us</label>
           <div class="col-sm-10">
@@ -30,14 +30,16 @@
           </div>
         </div>
       </div>
-    </div>
-    <div name="media_options">
-      <% if (typeof options !== 'undefined') _.each(options, function(v, k){ %>
-        <%= Render('admin_product_media_option', {
-          'path_prefix': path_prefix + 'options.'
-        , 'option': k
-        }) %>
-      <% }) %>
+      <div class="col-sm-5">
+        <div name="media_options">
+          <% if (typeof options !== 'undefined') _.each(options, function(v, k){ %>
+            <%= Render('admin_product_media_option', {
+              'path_prefix': path_prefix + 'options.'
+            , 'option': k
+            }) %>
+          <% }) %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

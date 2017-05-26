@@ -523,6 +523,7 @@ var ProductView = function(options, callback){
     , 'vendors'
     , 'brands'
     , 'categories'
+    , 'media'
     ]);
     gb.update['options'] = self.getOptions();
 
@@ -560,6 +561,11 @@ var ProductView = function(options, callback){
       return !s._id;
     });
 
+    gb.data.media = _.filter(gb.data.media, function(s){
+      return s._id;
+    });
+
+/*
     gb['update_media'] = _.chain(gb.data.media)
                           .filter(function(s){
                             return s._id;
@@ -588,6 +594,7 @@ var ProductView = function(options, callback){
                           })
                           .pluck('_id')
                           .value();
+*/
 
     Async.waterfall([
       function(cb){
@@ -721,7 +728,11 @@ var ProductView = function(options, callback){
     });
   };
 
-  gb.view['sortable_media'] = new Sortable(gb.view.$el.find('[name="medias"]')[0]);
+  gb.view['sortable_media'] = new Sortable(gb.view.$el.find('[name="medias"]')[0], {
+    'onUpdate': function(){
+      gb.view.updateMedia();
+    }
+  });
 
   gb.view['method'] = a.o.method;
   gb.view['_id'] = a.o._id;
