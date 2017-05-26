@@ -497,7 +497,7 @@ var MediaView = function(options, callback){
 
     });
 
-    gb['data'] = self.get();
+    gb['data'] = self.getSelf();
 
     gb['update'] = _.pick(gb.data, [
       'label'
