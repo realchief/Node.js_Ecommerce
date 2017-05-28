@@ -504,6 +504,7 @@ var SetView = function(options, callback){
     , 'media'
     , 'brand'
     , 'hide'
+    , 'homepage'
     ]);
 
     if (self.featured_media){

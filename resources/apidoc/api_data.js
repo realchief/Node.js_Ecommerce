@@ -1324,13 +1324,13 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/product/availability/read.json",
-    "title": "Get Product Availability for Options",
-    "name": "GetProductAvailability",
+    "url": "/product/list.json",
+    "title": "List Products",
+    "name": "ListProduct",
     "group": "Product",
     "permission": [
       {
-        "name": "public"
+        "name": "admin, public"
       }
     ],
     "version": "0.0.0",
@@ -1339,13 +1339,13 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/product/list.json",
-    "title": "List Products",
-    "name": "ListProduct",
+    "url": "/product/:_id/availability.json",
+    "title": "Get Product Availability",
+    "name": "ProductAvailability",
     "group": "Product",
     "permission": [
       {
-        "name": "admin, public"
+        "name": "public"
       }
     ],
     "version": "0.0.0",
