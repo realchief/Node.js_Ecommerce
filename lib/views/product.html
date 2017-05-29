@@ -54,9 +54,7 @@
                       <div class="col-lg-6 col-md-7">
                         <label><%= k %></label>
                         <div class="dropdown dropdown--full">
-                          <button data-get="options.<%= k %>" data-get-method="html()" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <%= val %>
-                          </button>
+                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
                           <div class="dropdown-menu">
                             <% _.each(v.values.us, function(o){ %>
                               <a class="dropdown-item" href="#" data-value="<%= o %>"><%= o %></a>
