@@ -1,115 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%= Render('head', Locals) %>
-</head>
+  <head>
+    <%= Render('head', Locals) %>
+  </head>
+  <body>
+    <%= Render('header', Locals) %>
 
-<body>
-  <%= Render('header', Locals) %>
-
-  <main class="main">
-    <section class="section section--sm-pt-0">
-
-      <div class="box box--sm-mb-0 hidden-xs-up">
+    <main class="main">
+      <section class="section section--sm-pt-0">
         <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-6">
-              <ul class="tabs tabs--has-divider tabs--desktop-btn-view tabs--full-md" role="tablist">
-                <li class="nav-item tabs__item tabs__item--btn">
-                  <a class="tabs__link tabs__link--btn active" data-toggle="tab" href="#shop-product-tab" role="tab">SHOP PRODUCT</a>
-                </li>
-                <li class="nav-item tabs__item tabs__item--btn">
-                  <a class="tabs__link tabs__link--btn" data-toggle="tab" href="#shop-lifestyle-tab" role="tab">SHOP LIFESTYLE</a>
-                </li>
-              </ul><!-- tabs -->
-            </div><!-- col -->
-
-            <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
-              <div class="dropdown dropdown--sm dropdown--muted dropdown--inline-block">
-                <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  NEWEST
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div><!-- dropdown -->
-
-              <nav aria-label="..." class="inline-block ml10">
-                <ul class="pagination justify-content-end">
-                  <li class="page-item disabled">
-                    <a class="page-link pagination__arrow pagination__arrow--prev" href="#" tabindex="-1"></a>
-                  </li>
-                  <li class="page-item"><a class="page-link page-link--curent" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link page-link--switch" href="#">...</a></li>
-                  <li class="page-item"><a class="page-link" href="#">25</a></li>
-                  <li class="page-item">
-                    <a class="page-link pagination__arrow pagination__arrow--next" href="#"></a>
-                  </li>
-                </ul>
-              </nav>
-            </div><!-- col -->
-          </div><!-- row -->
-        </div><!-- container -->
-      </div><!-- box -->
-
-      <div class="tab-content">
-        <div class="tab-pane active" id="shop-product-tab" role="tabpanel">
-          <div class="container">
-            <div class="masonry-grid masonry-grid--styleguide">
-              <% _.each(docs, function(m){ %>
-                <div class="masonry-grid__item">
-                  <div class="lifestyle__item">
-                    <a href="/media/<%= m._id %>">
-                      <img src="<%= m.url %>" class="lifestyle__img" alt="<%= Belt.get(m, 'label.us') || '' %>">
-                      <span class="lifestyle__overlay"></span>
-                      <% _.each(m.products, function(p){ %>
-                        <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: <%= p.y_percentage * 100 %>%; left: <%= p.x_percentage * 100 %>%"></button>
-                      <% }) %>
-                    </a>
-                  </div>
-                </div>
-              <% }) %>
-
-            </div>
-            <nav aria-label="..." class="mt30 hidden-xs-up">
-              <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                  <a class="page-link pagination__arrow pagination__arrow--prev" href="#" tabindex="-1"></a>
-                </li>
-                <li class="page-item"><a class="page-link page-link--curent" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link page-link--switch" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">25</a></li>
-                <li class="page-item">
-                  <a class="page-link pagination__arrow pagination__arrow--next" href="#"></a>
-                </li>
-              </ul>
-            </nav>
-
-            <div class="paging hidden-md-up">
-              <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--left">
-                <i class="wanderset-icon-arrow-left list-icons__icon"></i>
-              </a>
-              <span>
-                page <span>1</span> of <span>5</span>
-              </span>
-              <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--right">
-                <i class="wanderset-icon-arrow-right list-icons__icon"></i>
-              </a>
-            </div>
+          <div class="masonry-grid">
+            <% _.each(docs, function(m){ %>
+              <%= Render('media_item', _.extend({}, Locals, {
+                'doc': m
+              })) %>
+            <% }) %>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <%= Render('footer', Locals) %>
-  <%= Render('javascript', Locals) %>
+    <a href="#" class="btn-scroll-top">
+      <i class="wanderset-icon-up-open btn-scroll-top__icon"></i>
+    </a>
 
-</body>
+    <%= Render('footer', Locals) %>
+    <%= Render('javascript', Locals) %>
+
+  </body>
 </html>

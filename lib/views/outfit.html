@@ -7,76 +7,30 @@
 <body>
   <%= Render('header', Locals) %>
 
-  <main class="main">
+  <main class="main" data-view="OutfitView" data-id="<%= doc._id %>">
     <section class="section">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4 offset-lg-1 col-md-5 push-sm-down text-center-sm">
-            <div class="lifestyle__item lifestyle__item--preview">
-              <img src="<%= doc.url %>" class="lifestyle__img" alt="<%= Belt.get(doc, 'label.us') || '' %>">
-              <span class="lifestyle__overlay"></span>
-              <% _.each(doc.products, function(p){ %>
-                <button type="button" class="lifestyle__dot lifestyle__dot--red" style="top: <%= p.y_percentage * 100 %>%; left: <%= p.x_percentage * 100 %>%"></button>
-              <% }) %>
-            </div>
-            <% if (Belt.get(doc, 'label.us')){ %>
-              <h2 class="title-bold mb8 text-primary"><%= doc.label.us %></h2>
-            <% } %>
-            <% if (Belt.get(doc, 'description.us')){ %>
-              <p class="goods__info-description ln-xl fs13"><%= doc.description.us %></p>
-            <% } %>
+          <div class="col-lg-5 offset-lg-1 col-md-5 push-sm-down text-center-sm">
+            <%= Render('media_view', Locals) %>
           </div>
 
-          <div class="col-lg-5 offset-lg-1 col-md-7">
-            <ul class="list-goods list-goods--has--divider">
+          <div class="col-lg-5 col-md-7">
+            <div class="row">
               <% _.each(doc.products, function(p){ %>
-                <li class="list-goods__item">
-                  <div class="row align-items-center">
-                    <div class="col-sm-6 col-5">
-                      <% if (Belt.get(p, 'product.media.0')){ %>
-                        <a href="/product/<%= p.product._id %>">
-                          <img src="<%= p.product.media[0].url %>" class="goods__img" alt="<%= Belt.get(p, 'product.label.us') || '' %>">
-                        </a>
-                      <% } %>
-                    </div>
-
-                    <div class="col-sm-6 col-7">
-                      <div class="goods__info goods__info--preview">
-                        <% if (Belt.get(p, 'product.label.us')){ %>
-                          <p class="goods__info-name"><%= p.product.label.us %></p>
-                        <% } %>
-                        <% if (Belt.get(p, 'product.brands.0')){ %>
-                          <p class="goods__info-description"><%= p.product.brands.join(', ') %></p>
-                        <% } %>
-                        <% if (Belt.get(p, 'product.stocks.0.price')){ %>
-                          <p class="goods__info-price">$<%= Belt.cast(p.product.stocks[0].price, 'number').toFixed(2).replace(/\.0+$/, '') %></p>
-                        <% } %>
-                      </div>
-
-                      <form action="">
-                        <% _.each(p.product.options, function(v, k){ %>
-                          <div class="form-group">
-                            <div class="dropdown">
-                              <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <%= v.label.us.toUpperCase() %>
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <% _.each(v.values.us, function(v2){ %>
-                                  <a class="dropdown-item" href="#"><%= v2 %></a>
-                                <% }) %>
-                              </div>
-                            </div>
-                          </div>
-                        <% }) %>
-
-                        <button class="btn btn-primary btn-md btn-block mt30">ADD TO BAG</button>
-                      </form>
-                    </div>
-                  </div>
-                </li>
+                <% if (doc.products.length >= 3){ %>
+                  <div class="col-4">
+                <% } else if (doc.products.length <= 2){ %>
+                  <div class="col-6">
+                <% } else { %>
+                  <div class="col-12">
+                <% } %>
+                  <%= Render('outfit_product_preview', _.extend({}, Locals, {
+                    'doc': p.product
+                  })) %>
+                </div>
               <% }) %>
-            </ul>
-
+            </div>
           </div>
         </div>
       </div>

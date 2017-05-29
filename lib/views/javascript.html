@@ -1,5 +1,4 @@
 <script src="/socket.io/socket.io.js"></script>
-<script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/jsbelt/lib/belt.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/underscore.string/dist/underscore.string.min.js" type="text/javascript" charset="utf-8"></script>
@@ -9,20 +8,34 @@
 <script src="/bower_components/query-object/query-object.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/moment-timezone/builds/moment-timezone-with-data.min.js" type="text/javascript" charset="utf-8"></script>
 
+<script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/slick-carousel/slick/slick.min.js"></script>
+<script src="/bower_components/sticky-kit/jquery.sticky-kit.min.js"></script>
+<script src="/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
+<script src="/bower_components/aos/dist/aos.js"></script>
+<script src="/bower_components/parallax.js/parallax.js"></script>
+<script src="/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="/bower_components/tether/dist/js/tether.min.js"></script>
+<script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/bootbox/bootbox.js" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript">
   var Async = async
     , Moment = moment
     , Str = s
     , Socket = io('/');
+
+  $(document).ready(function(){
+    $('.parallax').parallax();
+  });
 </script>
 
-<script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
-<script src="/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
-<script src="/bower_components/tether/dist/js/tether.min.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/bower_components/bootbox/bootbox.js" type="text/javascript" charset="utf-8"></script>
 <script src="/public/js/util.js" type="text/javascript" charset="utf-8"></script>
 <script src="/templates.js" type="text/javascript" charset="utf-8"></script>
+<script src="/public/assets/javascript/scripts.js"></script>
+
 <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
   <script src="<%= e %>" type="text/javascript" charset="utf-8"></script>
 <% }) %>

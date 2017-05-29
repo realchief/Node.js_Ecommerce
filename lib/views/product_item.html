@@ -1,0 +1,20 @@
+<div class="goods__item product-item" data-id="<%= doc._id %>">
+  <a href="/product/<%= doc._id %>" class="goods__item__link">
+    <% if (Belt.get(doc, 'media.0.url')){ %>
+      <img src="<%= doc.media[0].url %>" class="goods__img">
+    <% } %>
+    <div class="goods__info">
+      <% if (Belt.get(doc, 'label.us')){ %>
+        <p class="goods__info-name"><%= doc.label.us %></p>
+      <% } %>
+      <% if (Belt.get(doc, 'brands.0')){ %>
+        <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
+      <% } %>
+      <% if (Belt.get(doc, 'base_configuration.price')){ %>
+        <p class="goods__info-price">$<%= doc.base_configuration.price %></p>
+      <% } else { %>
+        <p class="goods__info-price">Unavailable</p>
+      <% } %>
+    </div>
+  </a>
+</div>

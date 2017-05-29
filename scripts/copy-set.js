@@ -30,10 +30,16 @@ var GB = _.defaults(O.argv, {
 , 'host': 'wanderset.com'
 , 'db': 'staging_wanderset'
 , 'from_set': {
-    'name': 'Nabil Zaidi'
+    'name': 'Chance the Rapper'
   }
 , 'to_set': {
-    'name': 'Profound Aesthetic'
+    'name': 'homepage'
+  }
+, 'copy_media': true
+, 'copy_products': false
+, 'auth': {
+    'user': 'wanderset'
+  , 'pass': 'wanderset1234'
   }
 });
 
@@ -68,6 +74,7 @@ Async.waterfall([
       Request({
         'url': O.host + '/set/' + GB.to_set._id + '/update.json'
       , 'method': 'post'
+      , 'auth': GB.auth
       , 'json': {
         // 'products': products
           'media': media

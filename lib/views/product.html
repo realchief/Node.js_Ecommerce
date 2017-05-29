@@ -9,36 +9,29 @@
   <body>
     <%= Render('header', Locals) %>
 
-    <main class="main">
+    <main class="main" data-view="ProductView" data-id="<%= doc._id %>">
       <section class="section">
         <div class="container">
-          <div class="row" data-view="product">
+          <div class="row">
             <div class="col-lg-6 col-md-4">
               <div class="gallery">
                 <div class="gallery__body">
-                  <% if (doc.media.length > 1){ %>
-                    <button name="prev_image" class="galler__arrow galler__arrow--prev hidden-md-up"></button>
-                  <% } %>
-                  <% if (Belt.get(doc, 'media.0')){ %>
-                    <img name="main_image" data-index="0" src="<%= doc.media[0].url %>" class="gallery__img" alt="<%= Belt.get(doc.media[0], 'label.us') || '' %>">
-                  <% } %>
-                  <% if (doc.media.length > 1){ %>
-                    <button name="next_image" class="galler__arrow galler__arrow--next hidden-md-up"></button>
-                  <% } %>
+                  <button class="gallery__arrow gallery__arrow--prev hidden-md-up"></button>
+                  <div class="carousel--with-thumbnails carousel--track">
+                    <% _.each(doc.media, function(m){ %>
+                      <div class="gallery__item">
+                        <img src="<%= m.url %>" class="gallery__img">
+                      </div>
+                    <% }) %>
+                  </div>
+                  <button class="gallery__arrow gallery__arrow--next hidden-md-up"></button>
                 </div>
-                <ul class="gallery__pagination hidden-md-up">
-                  <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
-                    <li class="gallery__pagination__item <%= i === 0 ? 'active' : '' %>">
-                      <button name="image_pager" class="gallery__pagination__btn" data-index="<%= i %>"></button>
-                    </li>
-                  <% }) %>
-                </ul>
 
                 <div class="gallery__thumbnails hidden-sm-down">
-                  <% if (doc.media.length > 1) _.each(doc.media, function(m, i){ %>
-                    <a name="image_thumbnail" data-index="<%= i %>" href="#" class="gallery__thumbnails__item">
-                      <img src="<%= m.url %>" class="gallery__img" alt="<%= Belt.get(m, 'label.us') || '' %>">
-                    </a>
+                  <% _.each(doc.media, function(m, i){ %>
+                    <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
+                      <img src="<%= m.url %>" class="gallery__img">
+                    </div>
                   <% }) %>
                 </div>
               </div>
@@ -51,70 +44,83 @@
               <% if (Belt.get(doc, 'brands.0')){ %>
                 <h3 class="font-secondary text-muted mb12 text-center-sm"><%= doc.brands.join(', ') %></h3>
               <% } %>
-              <div name="configuration">
-                <% if (configuration){ %>
-                  <h2 name="price" class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm">$<%= configuration.price.toFixed(2).replace(/\.0+$/, '') %></h2>
-                  <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
-                    <% _.each(doc.options, function(v, k){ %>
-                      <div name="option" data-option="<%= k %>" class="form-group">
-                        <div class="row">
-                          <div class="col-lg-6 col-md-7">
-                            <div class="dropdown dropdown--full">
-                              <button name="selected_option_value" class="btn <% if (v.values.us.length > 1){ %>dropdown-toggle dropdown-toggle--has-arrow<% } %> btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <%= (Belt.get(configuration, 'options.' + k + '.value') || v.values.us[0]).toUpperCase() %>
-                              </button>
-                              <% if (v.values.us.length > 1){ %>
-                                <div class="dropdown-menu">
-                                  <% _.each(v.values.us, function(v2){ %>
-                                    <a name="option_value" data-value="<%= v2 %>" class="dropdown-item" href="#"><%= v2.toUpperCase() %></a>
-                                  <% }) %>
-                                </div>
-                              <% } %>
-                            </div>
+              <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm"></h2>
+              <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+                <% _.each(doc.options, function(v, k){ %>
+                  <% var val = Belt.get(v, 'values.us.0'); %>
+                  <% if (!val) return; %>
+                  <div class="form-group" data-option="<%= k %>">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-7">
+                        <label><%= k %></label>
+                        <div class="dropdown dropdown--full">
+                          <button data-get="options.<%= k %>" data-get-method="html()" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= val %>
+                          </button>
+                          <div class="dropdown-menu">
+                            <% _.each(v.values.us, function(o){ %>
+                              <a class="dropdown-item" href="#" data-value="<%= o %>"><%= o %></a>
+                            <% }) %>
                           </div>
                         </div>
                       </div>
-                    <% }) %>
+                    </div>
+                  </div>
+                <% }) %>
 
-                    <div class="form-group mt40">
-                      <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                          <button name="add_to_bag" class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
-                        </div>
-                      </div>
+                <div class="form-group mt40">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                      <button name="add_to_bag" class="btn btn-primary btn-lg btn-block">ADD TO BAG</button>
                     </div>
-                  </form>
-                <% } else { %>
-                  <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
-                    <div class="form-group mt40">
-                      <div class="row">
-                        <div class="col-lg-6 col-md-7">
-                          <button name="add_to_bag" class="btn btn-primary btn-lg btn-block disabled" disabled="disabled">NOT AVAILABLE</button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                <% } %>
-              </div>
+                  </div>
+                </div>
+              </form>
 
               <div class="row">
                 <div class="col-lg-8 col-md-9">
-                  <% if (Belt.get(doc, 'description.us')){ %>
-                    <div id="accordion" class="accordion">
+                  <div id="accordion" class="accordion" role="tablist" aria-multiselectable="true">
+                    <% if (Belt.get(doc, 'description.us')){ %>
                       <div class="card accordion__item">
                         <div class="accordion__header" role="tab" id="headingOne">
-                          <a class="accordion__title">
+                          <a data-toggle="collapse" class="collapsed accordion__title" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             PRODUCT DETAILS
+                            <i class="accordion__icon"></i>
                           </a>
                         </div>
-                        <div id="collapseOne" aria-labelledby="headingOne">
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="accordion__body"><%= doc.description.us %></div>
+                        </div>
+                      </div>
+                    <% } %>
+                    <% if (Belt.get(doc, 'editorial_notes.us')){ %>
+                      <div class="card accordion__item">
+                        <div class="accordion__header" role="tab" id="headingTwo">
+                          <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            EDITORIAL NOTES
+                            <i class="accordion__icon"></i>
+                          </a>
+                        </div>
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                          <div class="accordion__body"></div>
+                        </div>
+                      </div>
+                    <% } %>
+                    <% if (Belt.get(doc, 'shipping_returns.us')){ %>
+                      <div class="card accordion__item">
+                        <div class="accordion__header" role="tab" id="headingThree">
+                          <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            SHIPPING &amp; RETURNS
+                            <i class="accordion__icon"></i>
+                          </a>
+                        </div>
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
                           <div class="accordion__body">
-                            <%= doc.description.us %>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  <% } %>
+                    <% } %>
+                  </div>
 
                   <ul class="list-icons justify-content-center mt40-sm">
                     <li class="list-icons__item">
@@ -124,10 +130,10 @@
                     </li>
                     <li class="list-icons__item">
                       <a href="#" class="list-icons__link">
-                    <li class="list-icons__item">
                         <i class="wanderset-icon-facebook list-icons__icon"></i>
                       </a>
                     </li>
+                    <li class="list-icons__item">
                       <a href="#" class="list-icons__link">
                         <i class="wanderset-icon-twitter list-icons__icon"></i>
                       </a>

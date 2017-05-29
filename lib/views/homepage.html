@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= Render('head', Locals) %>
+  </head>
+
+  <body>
+
+    <main class="main">
+      <%= Render('header', Locals) %>
+
+      <%= Render('billboard.homepage', Locals) %>
+
+      <section class="section section--pt-30">
+        <div class="container">
+          <div class="gallery">
+            <div class="gallery__body">
+              <button class="gallery__arrow gallery__arrow--prev"></button>
+              <div class="carousel--billboard carousel--track" data-slick='{"dots": false}'>
+                <a href="#" class="gallery__item">
+                  <img src="/public/assets/images/temp/billboard-gallery-1.jpg" class="gallery__img" alt="">
+                </a><!-- gallery__item -->
+                <a href="#" class="gallery__item">
+                  <img src="/public/assets/images/temp/billboard-gallery-2.jpg" class="gallery__img" alt="">
+                </a><!-- gallery__item -->
+                <a href="#" class="gallery__item">
+                  <img src="/public/assets/images/temp/billboard-gallery-3.jpg" class="gallery__img" alt="">
+                </a><!-- gallery__item -->
+                <a href="#" class="gallery__item">
+                  <img src="/public/assets/images/temp/billboard-gallery-2.jpg" class="gallery__img" alt="">
+                </a><!-- gallery__item -->
+              </div><!-- gallery__track -->
+              <button class="gallery__arrow gallery__arrow--next"></button>
+            </div><!-- gallery__current -->
+          </div><!-- gallery -->
+
+          <div class="divider divider--lg divider--content"></div>
+
+          <div class="masonry-grid">
+            <% _.each(Belt.get(doc, 'media') || [], function(m){ %>
+              <%= Render('media_item', _.extend({}, Locals, {
+                'doc': m
+              })) %>
+            <% }) %>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <a href="#" class="btn-scroll-top">
+      <i class="wanderset-icon-up-open btn-scroll-top__icon"></i>
+    </a>
+
+    <%= Render('javascript', Locals) %>
+  </body>
+</html>

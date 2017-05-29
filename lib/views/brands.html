@@ -8,17 +8,21 @@
   <%= Render('header', Locals) %>
 
   <main class="main">
-    <% _.each(docs, function(doc){ %>
-      <a href="/set/<%= doc._id %>">
-        <div class="bilboard bilboard--dark" style="background-image: url('<%= Belt.get(doc, 'featured_media.url') || '' %>');height:250px;">
-          <div class="container">
-            <h6 class="bilboard__subtitle">
-              <span class="title-has-border text-white text-gray-shadow">shop the brand</span>
-            </h6>
-          </div>
+    <section class="section section--pt-40">
+      <div class="container">
+        <div class="brands-row">
+          <% _.each(docs, function(d){ %>
+             <a href="/brand/<%= encodeURIComponent(Belt.get(d, 'label.us') || d.name) %>" class="brands__item">
+                <img src="<%=
+                   Belt.get(d, 'logo_media.url')
+                || Belt.get(d, 'mobile_featured_media.url')
+                || Belt.get(d, 'featured_media.url')
+                %>" class="brands__item__img">
+             </a>
+          <% }) %>
         </div>
-      </a>
-    <% }) %>
+      </div>
+    </section>
   </main>
 
   <%= Render('footer', Locals) %>

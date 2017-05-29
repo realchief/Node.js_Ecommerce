@@ -1,0 +1,10 @@
+<div class="lifestyle__item lifestyle__item--preview lifestyle__item--individual" data-id="<%= doc._id %>">
+  <img src="<%= Belt.get(doc, 'url') || '' %>" class="lifestyle__img">
+  <% _.each(doc.products, function(p){ %>
+    <button type="button"
+    class="lifestyle__dot lifestyle__dot--<%= Belt.get(p, 'product.target_color') || 'red' %>"
+    style="top: <%= Instance.toPercentage(p.y_percentage || 0) %>%;
+    left: <%= Instance.toPercentage(p.x_percentage || 0) %>%">
+    </button>
+  <% }) %>
+</div>

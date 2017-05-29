@@ -1,6 +1,10 @@
 <div name="media" class="panel panel-default">
   <div class="panel-heading">
     <div class="text-right">
+      <% if (typeof _id !== 'undefined'){ %>
+        <a href="/media/<%= _id %>" target="_blank" class="btn btn-default">Preview</a>
+        <a href="/admin/media/<%= _id %>/read" target="_blank" class="btn btn-default">Edit</a>
+      <% } %>
       <button name="delete" class="btn btn-danger">Remove</button>
     </div>
   </div>

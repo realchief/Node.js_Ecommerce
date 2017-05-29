@@ -1,146 +1,228 @@
-  <header class="header">
-    <div class="header__inner">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-sm-4 col-2">
-            <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="wanderset-icon-menu header__icon"></i>
-            </button>
-            <p class="hidden-sm-down">Sell on wanderset</p>
-          </div><!-- col -->
+<header class="header">
+  <div class="header__inner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-sm-4 col-2">
+          <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="wanderset-icon-menu header__icon"></i>
+          </button>
+          <p class="hidden-sm-down text-uppercase hidden-xs-up">Sell on wanderset</p>
+        </div>
 
-          <div class="col-sm-4 col-8 text-center">
-            <a href="/" class="logo"><img class="img-responsive" src="/public/assets/logo.png"></a>
-          </div><!-- col -->
+        <div class="col-sm-4 col-8 text-center">
+          <a href="/" class="logo"></a>
+        </div>
 
-          <div class="col-sm-4 col-2">
-            <ul class="nav nav--header justify-content-end">
-              <li class="nav-item hidden-sm-down">
-                <a href="#" class="nav-link">sign in</a>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link nav-link--product-qty dropdown-toggle" id="dropdownCheckout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="hidden-sm-down">bag <span>(0)</span></span>
-                  <span class="header__icon header__product-qty hidden-xs-up">
-                    0
-                  </span>
-                </a>
-              </li>
-            </ul><!-- nav -->
-          </div><!-- col -->
-        </div><!-- row -->
-
-      </div><!-- container -->
-    </div><!-- header__inner -->
-
-    <nav class="navbar navbar-toggleable-sm">
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <div class="navbar__mobile-menu hidden-md-up">
-          <ul class="navbar-nav">
+        <div class="col-sm-4 col-2">
+          <ul class="nav nav--header justify-content-end">
             <li class="nav-item">
-              <a class="nav-link" href="/">The set</a>
-            </li><!-- nav-item -->
+              <a href="#" class="nav-link nav-link--search-form-trigger">
+                <i class="wanderset-icon-search header__icon"></i>
+              </a>
+            </li>
 
+            <li class="nav-item hidden-sm-down hidden-xs-up">
+              <a href="#" class="nav-link">sign in</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link nav-link--product-qty dropdown-toggle" id="dropdownCheckout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="hidden-sm-down">bag <span>(2)</span></span>
+                <span class="header__icon header__product-qty hidden-md-up">
+                  22
+                </span>
+              </a>
+              <div class="dropdown-menu dropdown-menu--checkout dropdown-menu--has-arrow dropdown-menu-right" aria-labelledby="dropdownCheckout">
+                <h4 class="dropdown-menu--checkout__title">1 ITEM ADDED TO BAG</h4>
+                <p class="dropdown-menu--checkout__info">(you have 3 items in your shopping bag)</p>
+                <div class="box-sm">
+                  <div class="row">
+                    <div class="col-sm-6 col-5">
+                      <img src="/public/assets/images/temp/product-img-1.png" class="img-fluid" alt="">
+                    </div><!-- col -->
+
+                    <div class="col-sm-6 col-7">
+                      <div class="goods__info">
+                        <p class="goods__info-name">Product TT</p>
+                        <p class="goods__info-description">Sm Caption</p>
+                      </div><!-- goods__info -->
+
+                      <ul class="goods__details">
+                        <li class="goods__details__item">
+                          <span>qty:</span> <span>1</span>
+                        </li>
+                        <li class="goods__details__item">
+                          <span>SIZE:</span> <span>L</span>
+                        </li>
+                        <li class="goods__details__item">
+                          <span>COLOR:</span> <span>GREY</span>
+                        </li>
+                        <li class="goods__details__item">
+                          <span>cost:</span> <span>$200</span>
+                        </li>
+                      </ul><!-- goods__details -->
+                    </div><!-- col -->
+                  </div><!-- row -->
+                </div><!-- box -->
+                <form action="">
+                  <button type="" class="btn btn-primary btn-block">checkout</button>
+                </form>
+              </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+            </li>
+          </ul><!-- nav -->
+        </div><!-- col -->
+      </div><!-- row -->
+
+    </div><!-- container -->
+  </div><!-- header__inner -->
+
+  <nav class="navbar navbar-toggleable-sm">
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <div class="navbar__mobile-menu hidden-md-up">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/products/new">New Arrivals</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">The Set</a>
+            <div class="dropdown-menu">
+              <% _.each(Instance.setmember_sets, function(s){ %>
+                <a class="dropdown-item" href="/set/<%= encodeURIComponent(s.name) %>"><%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || s.name || '') %></a>
+              <% }) %>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/brands">Brands</a>
+          </li>
+
+          <% _.each(Instance.categories, function(v, k){ %>
+            <% if (!_.size(v)) return; %>
             <li class="nav-item">
-              <a class="nav-link" href="/brands">Brands</a>
-            </li><!-- nav-item -->
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><%= k %></a>
+              <div class="dropdown-menu">
+                <% _.each(v, function(v2, k2){ %>
+                  <a class="dropdown-item" href="/products/<%= k %>/<%= k2 %>"><%= k2 %></a>
+                <% }) %>
+              </div>
+            </li>
+          <% }) %>
 
-          </ul><!-- navbar-nav -->
+          <li class="nav-item">
+            <a class="nav-link" href="/lifestyle">Lifestyle</a>
+          </li>
+        </ul>
 
+        <div class="hidden-xs-up">
           <div class="navbar-divider"></div>
-
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="#">Sign in</a>
-            </li><!-- nav-item -->
-
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Sell on wanderset</a>
-            </li><!-- nav-item -->
-          </ul><!-- navbar-nav -->
-        </div><!-- mobile-menu-holder -->
+            </li>
+          </ul>
+        </div>
+      </div>
 
+      <ul class="navbar-nav justify-content-center w-100 hidden-sm-down">
+        <li class="nav-item dropdown dropdown--large">
+          <a class="nav-link" href="/products/new">new</a>
+        </li>
 
-        <ul class="navbar-nav justify-content-center w-100 hidden-sm-down">
-          <li class="nav-item dropdown--large">
-            <a class="nav-link" href="/list/product">new</a>
-          </li>
+        <li class="nav-item dropdown dropdown--large">
+          <a class="nav-link" data-toggle="dropdown" href="#">the set</a>
+          <div class="dropdown-menu dropdown-menu--large">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <% _.each(Instance.setmember_sets, function(s){ %>
+                      <div class="col-sm-2">
+                        <a href="/set/<%= encodeURIComponent(s.name) %>">
+                          <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
+                          alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>">
+                        </a>
+                      </div>
+                    <% }) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
 
-          <li class="nav-item dropdown dropdown--has-triange dropdown--large">
-            <a class="nav-link" href="/">set</a>
-            <div class="dropdown-menu dropdown-menu--large">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="row">
+        <li class="nav-item dropdown dropdown--large">
+          <a class="nav-link" href="/brands">brands</a>
+          <div class="dropdown-menu dropdown-menu--large">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 3)), function(s){ %>
                       <div class="col-sm-4">
                         <ul class="list-dropdown-menu">
-                          <% _.each(Instance.setmember_sets, function(s){ %>
-                            <li class="list-dropdown-menu__item"><a href="/set/<%= s._id %>" class="list-dropdown-menu__link"><%= Belt.get(s, 'label.us') || s.name %></a></li>
+                          <% _.each(s, function(s2){ %>
+                            <li class="list-dropdown-menu__item">
+                              <a href="/brand/<%= encodeURIComponent(s2.name) %>" class="list-dropdown-menu__link"><%= Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
+                            </li>
                           <% }) %>
-                        </ul><!-- list-dropdownenu -->
-                      </div><!-- col -->
-                    </div><!-- row -->
-                  </div><!-- col -->
-                </div><!-- container -->
-            </div><!-- dropdown-menu -->
-          </li>
+                        </ul>
+                      </div>
+                    <% }) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
 
-          <li class="nav-item dropdown dropdown--has-triange dropdown--large">
-            <a class="nav-link" href="/brands">brands</a>
-            <div class="dropdown-menu dropdown-menu--large">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="row">
-                      <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 3)), function(a){ %>
-                        <div class="col-sm-4">
-                          <ul class="list-dropdown-menu">
-                            <% _.each(a, function(s){ %>
-                              <li class="list-dropdown-menu__item"><a href="/set/<%= s._id %>" class="list-dropdown-menu__link"><%= Belt.get(s, 'label.us') || s.name %></a></li>
-                            <% }) %>
-                          </ul><!-- list-dropdownenu -->
-                        </div><!-- col -->
-                      <% }) %>
-                    </div><!-- row -->
-                  </div><!-- col -->
-                </div><!-- container -->
-            </div><!-- dropdown-menu -->
-          </li>
+        <li class="nav-item dropdown  dropdown--large">
+          <a class="nav-link" data-toggle="dropdown" href="#">categories</a>
+          <div class="dropdown-menu dropdown-menu--large">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="row">
+                    <% _.each(Instance.categories, function(v, k){ %>
+                      <% if (!_.size(v)) return; %>
+                      <div class="col-sm-4">
+                        <ul class="list-dropdown-menu">
+                          <li class="list-dropdown-menu__item list-dropdown-menu__item--heading"><%= k %></li>
+                          <% _.each(v, function(v2, k2){ %>
+                            <li class="list-dropdown-menu__item">
+                              <a href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" class="list-dropdown-menu__link"><%= k2 %></a>
+                            </li>
+                          <% }) %>
+                        </ul>
+                      </div>
+                    <% }) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
 
-          <li class="nav-item dropdown dropdown--has-triange dropdown--large">
-            <a class="nav-link" data-toggle="dropdown" href="#">categories</a>
-            <div class="dropdown-menu dropdown-menu--large">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="row">
-                      <% _.each(Instance.categories, function(v, k){ %>
-                        <% if (!_.size(v)) return %>
-                        <div class="col-sm-3">
-                          <ul class="list-dropdown-menu">
-                            <li class="list-dropdown-menu__item list-dropdown-menu__item--heading"><%= k %></li>
-                            <% _.each(v, function(v2, k2){ %>
-                              <li class="list-dropdown-menu__item"><a href="/list/product?page_title=<%= encodeURIComponent((k + ' > ' + k2).toUpperCase()) %>&q=<%= encodeURIComponent(JSON.stringify({'categories': {'$regex': (k + ' > ' + k2), '$options': 'i'}})) %>" class="list-dropdown-menu__link"><%= k2 %></a></li>
-                              <% if (false) _.each(v2, function(v3, k3){ %>
-                                <li class="list-dropdown-menu__item"><a href="#" class="list-dropdown-menu__link"><%= k3 %></a></li>
-                              <% }) %>
-                            <% }) %>
-                          </ul><!-- list-dropdownenu -->
-                        </div><!-- col -->
-                      <% }) %>
-                    </div><!-- row -->
-                  </div><!-- col -->
-                </div><!-- container -->
-            </div><!-- dropdown-menu -->
-          </li>
+        <li class="nav-item dropdown dropdown--large">
+          <a class="nav-link" href="/lifestyle">lifestyle</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-          <li class="nav-item dropdown--large">
-            <a class="nav-link" href="/list/media">lifestyle</a>
-          </li>
-        </ul>
-      </div><!-- collapse -->
-    </nav><!-- navbar -->
-
-  </header><!-- header -->
+<div class="searh-box">
+  <form action="/products/search" method="get" class="searh-box__form">
+    <div class="form-group">
+      <input name="q" type="text" class="form-control">
+      <span class="searh-box__form__placeholder">Search</span>
+      <button type="submit" class="searh-box__form__btn">
+        <i class="wanderset-icon-mag-glass-icon"></i>
+      </button>
+    </div>
+  </form>
+</div>

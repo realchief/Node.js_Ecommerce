@@ -42,4 +42,11 @@
     , "vendors"
     ]
   }
+, "target_colors": {
+    "headwear": "yellow"
+  , "accessories": "green"
+  , "pants": "red"
+  , "footwear": "purple"
+  , "tops": "sky"
+  }
 }

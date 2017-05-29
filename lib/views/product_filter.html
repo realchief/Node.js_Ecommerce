@@ -1,0 +1,13 @@
+<aside class="aside">
+  <% _.each(Instance.categories, function(v, k){ %>
+    <% if (!_.size(v)) return; %>
+    <ul class="list aside__item">
+      <li class="list__item list__title"><%= k %></li>
+      <% _.each(v, function(v2, k2){ %>
+        <li class="list__item">
+          <a href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" class="list__link"><%= k2 %></a>
+        </li>
+      <% }) %>
+    </ul>
+  <% }) %>
+</aside>

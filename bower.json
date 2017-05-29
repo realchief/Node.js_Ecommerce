@@ -9,7 +9,6 @@
   , "jquery": "*"
   , "async": "*"
   , "backbone": "*"
-  , "bootstrap": "4.*"
   , "bootbox": "*"
   , "fontawesome": "*"
   , "bootheel": "git+ssh://git@github.com/sackio/bootheel.git#master"
@@ -18,6 +17,15 @@
   , "Sortable": "*"
   , "tether": "*"
   , "bootstrap-select": "*"
+  , "bootstrap": "v4.0.0-alpha.6"
+  , "tether": "*"
+  , "bootstrap-select": "^1.12.1"
+  , "parallax.js": "^1.4.2"
+  , "aos": "^2.1.1"
+  , "slick-carousel": "^1.6.0"
+  , "isotope": "^3.0.4"
+  , "jquery": "jQuery#1.11.0"
+  , "sticky-kit": "^1.1.2"
   },
   "ignore": [
     "test",
