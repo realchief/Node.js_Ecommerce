@@ -63,7 +63,7 @@
                   <dd class="mb0">$<%= doc.total_price %></dd>
                 </dl>
 
-                <a href="/checkout" class="btn btn-primary btn-lg btn-block">checkout</a>
+                <a href="/checkout" class="btn btn-primary btn-lg btn-block <%= !doc.total_price ? 'disabled' : '' %>">checkout</a>
               </div>
             </aside>
           </div>
