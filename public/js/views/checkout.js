@@ -17,6 +17,11 @@ var CheckoutView = function(options, callback){
         this.$el.find('[data-toggle="tab"]').removeClass('active');
         this.$el.find('[href="#' + next.attr('id') + '"]').addClass('active');
       }
+    , 'click [name="submit"]': function(e){
+        $.post('/order/create.json', this.get(), function(){
+          document.location = '/checkout/complete';
+        });
+      }
     }
   , 'transformers': {
 

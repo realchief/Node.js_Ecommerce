@@ -37,7 +37,7 @@
                         <div class="col-sm-6">
                           <label for="filed-country" class="hidden-sm-down">COUNTRY</label>
                           <select name="" data-get="shipping_country" id="filed-country" class="form-control">
-                            <option value="">UNITED STATES</option>
+                            <option value="US">UNITED STATES</option>
                           </select>
                         </div><!-- col -->
                       </div><!-- row -->
@@ -47,12 +47,12 @@
                       <div class="row">
                         <div class="col-sm-6 push-xs-down">
                           <label for="filed-first-name" class="hidden-sm-down">FIRST NAME</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-first-name" placeholder="first name">
+                          <input data-get="shipping_first_name" type="text" class="form-control form-control--placeholder-visible-md" id="filed-first-name" placeholder="first name">
                         </div><!-- col -->
 
                         <div class="col-sm-6">
-                          <label for="filed-last-name" class="hidden-sm-down">last NAME</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-last-name" placeholder="last name">
+                          <label for="filed-last-name" class="hidden-sm-down">LAST NAME</label>
+                          <input data-get="shipping_last_name" type="text" class="form-control form-control--placeholder-visible-md" id="filed-last-name" placeholder="last name">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -61,12 +61,12 @@
                       <div class="row">
                         <div class="col-sm-6 push-xs-down">
                           <label for="filed-address" class="hidden-sm-down">ADDRESS 1</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-address" placeholder="ADDRESS 1">
+                          <input data-get="shipping_address" type="text" class="form-control form-control--placeholder-visible-md" id="filed-address" placeholder="ADDRESS 1">
                         </div><!-- col -->
 
                         <div class="col-sm-6">
                           <label for="filed-address-2" class="hidden-sm-down">ADDRESS 2 (OPTIONAL)</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
+                          <input data-get="shipping_address_2" type="text" class="form-control form-control--placeholder-visible-md" id="filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -75,12 +75,12 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <label for="filed-city" class="hidden-sm-down">CITY</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-city" placeholder="city">
+                          <input data-get="shipping_city" type="text" class="form-control form-control--placeholder-visible-md" id="filed-city" placeholder="city">
                         </div><!-- col -->
 
                         <div class="col-6 hidden-sm-down">
                           <label for="filed-state" class="hidden-sm-down">STATE</label>
-                          <select name="" id="filed-state" class="form-control">
+                          <select data-get="shipping_region" name="" id="filed-state" class="form-control">
                             <option value="">SELECT A STATE</option>
                             <% _.each(Settings.us_regions, function(v, k){ %>
                               <option value="<%= k %>"><%= v %></option>
@@ -94,7 +94,7 @@
                       <div class="row">
                         <div class="col-6 push-xs-down hidden-sm-up">
                           <label for="filed-state" class="hidden-sm-down">STATE</label>
-                          <select name="" id="filed-state" class="form-control">
+                          <select data-get="shipping_region_mobile" name="" id="filed-state" class="form-control">
                             <option value="">SELECT A STATE</option>
                             <% _.each(Settings.us_regions, function(v, k){ %>
                               <option value="<%= k %>"><%= v %></option>
@@ -104,12 +104,12 @@
 
                         <div class="col-6 push-xs-down">
                           <label for="filed-zip" class="hidden-sm-down">ZIP CODE</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="filed-zip" placeholder="ZIP CODE">
+                          <input data-get="shipping_postal_code" type="text" class="form-control form-control--placeholder-visible-md" id="filed-zip" placeholder="ZIP CODE">
                         </div><!-- col -->
 
                         <div class="col-sm-6">
                           <label for="filed-shipping-telephone" class="hidden-sm-down">SHIPPING TELEPHONE</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" placeholder="SHIPPING TELEPHONE" id="filed-shipping-telephone">
+                          <input data-get="shipping_phone" type="text" class="form-control form-control--placeholder-visible-md" placeholder="SHIPPING TELEPHONE" id="filed-shipping-telephone">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -167,7 +167,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <label for="filed-cardholder-name">CARDHOLDER’S NAME</label>
-                          <input type="text" class="form-control" id="filed-cardholder-name">
+                          <input data-get="billing_cardholder" type="text" class="form-control" id="filed-cardholder-name">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -176,7 +176,7 @@
                       <label for="filed-card-number">CARD NUMBER</label>
                       <div class="row">
                         <div class="col-sm-6">
-                          <input type="text" class="form-control" id="filed-card-number">
+                          <input data-get="billing_cardnumber" type="text" class="form-control" id="filed-card-number">
                         </div>
                       </div>
                     </div>
@@ -185,16 +185,20 @@
                       <label for="">EXPIRATION DATE</label>
                       <div class="row">
                         <div class="col-lg-3 col-md-5 col-7">
-                          <select name="" id="" class="form-control">
-                            <option value="">1 - JANUARY</option>
-                            <option value="">3 - JANUARY</option>
+                          <select data-get="billing_exp_month" name="" id="" class="form-control">
+                            <% _.times(12, function(i){ %>
+                              <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
+                              <option value="<%= i %>"><%= i %></option>
+                            <% }) %>
                           </select>
                         </div><!-- col -->
 
                         <div class="col-lg-2 col-sm-3 col-5">
-                          <select name="" id="" class="form-control">
-                            <option value="">2017</option>
-                            <option value="">2018</option>
+                          <select data-get="billing_exp_year" name="" id="" class="form-control">
+                            <% _.times(10, function(i){ %>
+                              <% i = new Date().getFullYear() + i; %>
+                              <option value="<%= i %>"><%= i %></option>
+                            <% }) %>
                           </select>
                         </div><!-- col -->
                       </div><!-- row -->
@@ -204,7 +208,7 @@
                       <label for="filed-security-code">SECURITY CODE</label>
                       <div class="row">
                         <div class="col-lg-1 col-sm-3 col-4">
-                          <input type="text" class="form-control" id="filed-security-code">
+                          <input data-get="billing_cvc" type="text" class="form-control" id="filed-security-code">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -218,7 +222,7 @@
 
                     <div class="checkbox-holder">
                       <label>
-                        <input type="checkbox">
+                        <input data-get="billing_same" data-get-method="isChecked()" type="checkbox">
                         <span class="label">SAME AS SHIPPING ADDRESS</span>
                       </label>
                     </div><!-- checkbox-holder -->
@@ -227,8 +231,8 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <label for="billing-filed-country" class="hidden-sm-down">COUNTRY</label>
-                          <select name="" id="billing-filed-country" class="form-control">
-                            <option value="">UNITED STATES</option>
+                          <select data-get="billing_country" name="" id="billing-filed-country" class="form-control">
+                            <option value="US">UNITED STATES</option>
                           </select>
                         </div><!-- col -->
                       </div><!-- row -->
@@ -238,12 +242,12 @@
                       <div class="row">
                         <div class="col-sm-6 push-xs-down">
                           <label for="billing-filed-first-name" class="hidden-sm-down">FIRST NAME</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-first-name" placeholder="FIRST NAME">
+                          <input data-get="billing_first_name" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-first-name" placeholder="FIRST NAME">
                         </div><!-- col -->
 
                         <div class="col-sm-6">
                           <label for="billing-filed-last-name" class="hidden-sm-down">last NAME</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-last-name" placeholder="last NAME">
+                          <input data-get="billing_last_name" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-last-name" placeholder="last NAME">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -252,12 +256,12 @@
                       <div class="row">
                         <div class="col-sm-6 push-xs-down">
                           <label for="billing-filed-address" class="hidden-sm-down">ADDRESS 1</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billingfiled-address" placeholder="ADDRESS 1">
+                          <input data-get="billing_address" type="text" class="form-control form-control--placeholder-visible-md" id="billingfiled-address" placeholder="ADDRESS 1">
                         </div><!-- col -->
 
                         <div class="col-sm-6">
                           <label for="billing-filed-address-2" class="hidden-sm-down">ADDRESS 2 (OPTIONAL)</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
+                          <input data-get="billing_address_2" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
@@ -266,12 +270,12 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <label for="billing-filed-city" class="hidden-sm-down">CITY</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-city" placeholder="city">
+                          <input data-get="billing_city" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-city" placeholder="city">
                         </div><!-- col -->
 
                         <div class="col-6 hidden-sm-down">
                           <label for="billing-filed-state" class="hidden-sm-down">STATE</label>
-                          <select name="" id="billing-filed-state" class="form-control">
+                          <select data-get="billing_region" name="" id="billing-filed-state" class="form-control">
                             <option value="">SELECT A STATE</option>
                             <% _.each(Settings.us_regions, function(v, k){ %>
                               <option value="<%= k %>"><%= v %></option>
@@ -285,7 +289,7 @@
                       <div class="row">
                         <div class="col-6 hidden-sm-up">
                           <label for="billing-filed-state-2" class="hidden-sm-down">STATE</label>
-                          <select name="" id="billing-filed-state-2" class="form-control">
+                          <select data-get="billing_region_mobile" name="" id="billing-filed-state-2" class="form-control">
                             <option value="">STATE</option>
                             <% _.each(Settings.us_regions, function(v, k){ %>
                               <option value="<%= k %>"><%= v %></option>
@@ -295,25 +299,25 @@
 
                         <div class="col-6">
                           <label for="billing-filed-zip" class="hidden-sm-down">ZIP CODE</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-zip" placeholder="zip code">
+                          <input data-get="billing_postal" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-zip" placeholder="zip code">
                         </div><!-- col -->
 
                         <div class="col-sm-6 hidden-sm-down">
                           <label for="billing-filed-bipping-telephone">BILLING TELEPHONE</label>
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-bipping-telephone" placeholder="billing telephone">
+                          <input data-get="billing_phone" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-bipping-telephone" placeholder="billing telephone">
                         </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
 
                     <div class="form-group hidden-sm-up">
-                      <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-bipping-telephone-2" placeholder="billing telephone">
+                      <input data-get="billing_phone_mobile" type="text" class="form-control form-control--placeholder-visible-md" id="billing-filed-bipping-telephone-2" placeholder="billing telephone">
                     </div><!-- form-group -->
 
                     <div class="form-group">
                       <label for="billing-billing-email" class="hidden-sm-down">BILLING EMAIL</label>
                       <div class="row">
                         <div class="col-sm-6">
-                          <input type="text" class="form-control form-control--placeholder-visible-md" id="billing-billing-email" placeholder="BILLING EMAIL">
+                          <input data-get="billing_email" type="text" class="form-control form-control--placeholder-visible-md" id="billing-billing-email" placeholder="BILLING EMAIL">
                         </div><!-- col -->
 
                         <div class="col-sm-6 hidden-sm-down">
@@ -324,7 +328,7 @@
 
                     <div class="checkbox-holder side-paddings--sm-visible-sm hidden-sm-down">
                       <label>
-                        <input type="checkbox">
+                        <input data-get="email_subscribe" data-get-method="isChecked()" type="checkbox">
                         <span class="label">PLEASE ADD ME TO WANDERSET’S EMAIL LIST</span>
                       </label>
                     </div><!-- checkbox-holder -->
