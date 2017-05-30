@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= Render('head', Locals) %>
+</head>
+
+<body>
+  <%= Render('header', Locals) %>
+
+  <main class="main">
+    <section class="section section--pt-40">
+      <div class="container">
+        <div class="brands-row">
+          <% _.each(docs, function(d){ %>
+              <a href="/set/<%= encodeURIComponent(d.name) %>" class="dropdown__thumbnails-item">
+                <img src="<%=
+                   Belt.get(d, 'logo_media.url')
+                || Belt.get(d, 'mobile_featured_media.url')
+                || Belt.get(d, 'featured_media.url')
+                %>" class="brands__item__img">
+                <span class="dropdown__thumbnails-name__item"><%= (Belt.get(d, 'label.us') || '') %></span>
+             </a>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%= Render('footer', Locals) %>
+  <%= Render('javascript', Locals) %>
+</body>
+</html>
+sets

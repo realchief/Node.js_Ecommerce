@@ -4452,7 +4452,7 @@ a.bg-inverse:focus, a.bg-inverse:hover {
   -ms-flex-direction: column-reverse !important;
   flex-direction: column-reverse !important; }
 
-.flex-wrap, .card-options, .brands-row {
+.flex-wrap, .dropdown__thumbnails-row, .card-options, .brands-row {
   -ms-flex-wrap: wrap !important;
   flex-wrap: wrap !important; }
 
@@ -6411,6 +6411,11 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 /*************************
   Fonts variable
 *************************/
+/* $font-base-thin: 'GothamThinRegular';
+$font-base-book: 'GothamBook';
+$font-base-medium: 'Gotham-Medium';
+$font-base-bold: 'Gotham-Bold';
+$font-base-black: 'Gotham-Black'; */
 .font-icons, .navbar__mobile-menu .nav-item .dropdown-toggle:before, .accordion__icon, .dropdown-toggle--has-arrow:before, .gallery__arrow, .goods__preview-holder:before {
   font-family: 'fontello';
   font-style: normal; }
@@ -6573,7 +6578,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
       background: rgba(0, 0, 0, 0.8); } }
   .navbar .nav-link {
     color: #ffffff;
-    font-family: "Gotham-Bold"; }
+    font-family: "Montserrat-Bold"; }
   @media (min-width: 768px) {
     .navbar .navbar-nav--aside > .nav-item.show > .nav-link {
       color: #ffffff; }
@@ -6635,7 +6640,7 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   @media (max-width: 767px) {
     .navbar-nav > .nav-item > .nav-link {
       padding: 10px 15px 10px 5px;
-      font-family: "Gotham-Medium"; } }
+      font-family: "Montserrat-Medium"; } }
 
 .navbar__mobile-menu {
   padding-top: 10px;
@@ -6894,6 +6899,42 @@ ol, ul {
   src: url("../fonts/gotham/Gotham-Black.woff2") format("woff2"), url("../fonts/gotham/Gotham-Black.woff") format("woff"), url("../fonts/gotham/Gotham-Black.ttf") format("ttf"); }
 
 @font-face {
+  font-family: 'Montserrat-Thin';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/montserrat/Montserrat-Thin.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Thin.woff") format("woff"), url("../fonts/montserrat/Montserrat-Thin.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/montserrat/Montserrat-Regular.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Regular.woff") format("woff"), url("../fonts/montserrat/Montserrat-Regular.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/montserrat/Montserrat-SemiBold.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-SemiBold.woff") format("woff"), url("../fonts/montserrat/Montserrat-SemiBold.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'Montserrat-Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/montserrat/Montserrat-Medium.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Medium.woff") format("woff"), url("../fonts/montserrat/Montserrat-Medium.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/montserrat/Montserrat-Bold.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Bold.woff") format("woff"), url("../fonts/montserrat/Montserrat-Bold.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'Montserrat-Black';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/montserrat/Montserrat-Black.woff2") format("woff2"), url("../fonts/montserrat/Montserrat-Black.woff") format("woff"), url("../fonts/montserrat/Montserrat-Black.ttf") format("ttf"); }
+
+@font-face {
   font-family: 'DroidSerif-Italic';
   font-style: normal;
   font-weight: normal;
@@ -7052,7 +7093,7 @@ ol, ul {
   -moz-appearance: none;
   border-radius: 0;
   box-shadow: none;
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   border-color: #adadad;
   letter-spacing: 2.2px;
   text-transform: uppercase;
@@ -7063,28 +7104,28 @@ ol, ul {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control::-moz-placeholder {
     color: #616161;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control:-ms-input-placeholder {
     color: #616161;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control::-webkit-input-placeholder {
     color: #616161;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control:focus {
     box-shadow: none;
@@ -7104,28 +7145,28 @@ ol, ul {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control--placeholder-visible-md::-moz-placeholder {
     color: rgba(255, 255, 255, 0);
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control--placeholder-visible-md:-ms-input-placeholder {
     color: rgba(255, 255, 255, 0);
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; }
   .form-control--placeholder-visible-md::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0);
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-family: "Gotham-Medium";
+    font-family: "Montserrat-Medium";
     line-height: 100%; } }
 
 .form-control--narrow {
@@ -7174,7 +7215,7 @@ label {
 .form-control-feedback {
   font-size: 11px;
   text-transform: uppercase;
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   letter-spacing: 2px;
   padding: 5px 10px;
   display: none; }
@@ -7189,10 +7230,10 @@ fieldset:not(:last-child) {
     fieldset:not(:last-child) {
       margin-bottom: 0; } }
 
-font html, body {
+html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   color: #29363b;
   font-size: 12px;
   line-height: 1.5;
@@ -7220,7 +7261,7 @@ body {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-top: 0;
   margin-bottom: 20px;
-  font-family: "GothamBook";
+  font-family: "Montserrat-SemiBold";
   line-height: 1.15;
   color: #22252c; }
   h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child, .h1:last-child, .h2:last-child, .h3:last-child, .h4:last-child, .h5:last-child, .h6:last-child {
@@ -7246,15 +7287,15 @@ h6, .h6 {
 
 .title, .billboard__title, .billboard__subtitle {
   text-transform: uppercase;
-  font-family: "Gotham-Black"; }
+  font-family: "Montserrat-Black"; }
 
 .title-bold {
   text-transform: uppercase;
-  font-family: "Gotham-Bold"; }
+  font-family: "Montserrat-Bold"; }
 
 .title-medium {
   text-transform: uppercase;
-  font-family: "Gotham-Medium"; }
+  font-family: "Montserrat-Medium"; }
 
 .title-divider {
   margin-top: 40px;
@@ -7327,7 +7368,7 @@ a {
   font-size: 12px; }
 
 .sidelink__bold {
-  font-family: "Gotham-Black";
+  font-family: "Montserrat-Black";
   color: #4e4e4e; }
 
 button, a {
@@ -7344,7 +7385,7 @@ p {
     margin-bottom: 0; }
 
 b {
-  font-family: "Gotham-Black"; }
+  font-family: "Montserrat-Black"; }
 
 .l-n {
   letter-spacing: normal; }
@@ -7397,19 +7438,22 @@ b {
 
 /*Font classes*/
 .font-base-thin {
-  font-family: "GothamThinRegular"; }
+  font-family: "Montserrat-Thin"; }
+
+.font-base-regular {
+  font-family: "Montserrat-Regular"; }
 
 .font-base-book {
-  font-family: "GothamBook"; }
+  font-family: "Montserrat-SemiBold"; }
 
 .font-base-medium {
-  font-family: "Gotham-Medium"; }
+  font-family: "Montserrat-Medium"; }
 
 .font-base-bold {
-  font-family: "Gotham-Bold"; }
+  font-family: "Montserrat-Bold"; }
 
 .font-base-black {
-  font-family: "Gotham-Black"; }
+  font-family: "Montserrat-Black"; }
 
 .font-secondary {
   font-family: "DroidSerif-Italic";
@@ -7425,7 +7469,7 @@ b {
   padding: 8.5px 109px;
   border-width: 2px;
   position: relative;
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   letter-spacing: 0.2em;
   line-height: 1; }
   .btn:focus {
@@ -7466,7 +7510,7 @@ b {
       background: #ffffff;
       color: #939393; }
   .btn.btn-link {
-    font-family: "Gotham-Black";
+    font-family: "Montserrat-Black";
     letter-spacing: normal;
     color: #adadad; }
   .btn.btn.disabled, .btn.btn:disabled {
@@ -7502,11 +7546,10 @@ b {
     color: #ffffff;
     background: #8F9FBF;
     padding: 0;
-    border: none; }
+    border: none;
+    letter-spacing: normal; }
     .btn.btn-close i:before {
-      position: relative;
-      margin-right: 0;
-      margin-left: .1em; }
+      position: relative; }
     .btn.btn-close:hover, .btn.btn-close:focus {
       background: #6f83ac;
       color: #ffffff; }
@@ -7654,10 +7697,10 @@ b {
   text-transform: uppercase; }
 
 .list__title {
-  font-family: "Gotham-Black";
+  font-family: "Montserrat-Black";
   color: #616161; }
   .list__title .list__link {
-    font-family: "Gotham-Black";
+    font-family: "Montserrat-Black";
     color: #616161; }
 
 .list__item {
@@ -7672,7 +7715,7 @@ b {
   width: 30px; }
 
 /* FLEX */
-.flex, body, .list-icons, .flex-centered, .btn.btn-close, .list-icons__link, .searh-box, .btn-scroll-top, .accordion__title, .billboard, .gallery__thumbnails, .gallery__pagination, .goods__item, .goods__link-group, .tabs, .paging, .card-options, .brands-row {
+.flex, body, .list-icons, .flex-centered, .btn.btn-close, .list-icons__link, .searh-box, .btn-scroll-top, .accordion__title, .dropdown__thumbnails-row, .dropdown__thumbnails-see-all-members, .billboard, .gallery__thumbnails, .gallery__pagination, .goods__item, .goods__link-group, .tabs, .paging, .card-options, .brands-row {
   display: -ms-flexbox;
   display: flex; }
 
@@ -7680,7 +7723,7 @@ b {
   display: -ms-inline-flexbox;
   display: inline-flex; }
 
-.flex-wrap, .card-options, .brands-row {
+.flex-wrap, .dropdown__thumbnails-row, .card-options, .brands-row {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap; }
 
@@ -7704,15 +7747,15 @@ b {
   -ms-flex-pack: distribute;
   justify-content: space-around; }
 
-.flex-content-center, .flex-centered, .btn.btn-close, .list-icons__link, .searh-box, .btn-scroll-top, .flex-inline-centered, .btn.btn-icon, .goods__quantity--has-border, .card-options__item, .gallery__thumbnails, .gallery__pagination, .tabs--centered {
+.flex-content-center, .flex-centered, .btn.btn-close, .list-icons__link, .searh-box, .btn-scroll-top, .flex-inline-centered, .btn.btn-icon, .goods__quantity--has-border, .card-options__item, .dropdown__thumbnails-row, .gallery__thumbnails, .gallery__pagination, .tabs--centered {
   -ms-flex-pack: center;
   justify-content: center; }
 
-.flex-item-center, .flex-centered, .btn.btn-close, .list-icons__link, .searh-box, .btn-scroll-top, .flex-inline-centered, .btn.btn-icon, .goods__quantity--has-border, .card-options__item, .accordion__title, .billboard.billboard--centered, .goods__link-group, .paging {
+.flex-item-center, .flex-centered, .btn.btn-close, .list-icons__link, .searh-box, .btn-scroll-top, .flex-inline-centered, .btn.btn-icon, .goods__quantity--has-border, .card-options__item, .accordion__title, .dropdown__thumbnails-see-all-members, .billboard.billboard--centered, .goods__link-group, .paging {
   -ms-flex-align: center;
   align-items: center; }
 
-.flex-item-start {
+.flex-item-start, .dropdown__thumbnails-row {
   -ms-flex-align: start;
   align-items: flex-start; }
 
@@ -7801,7 +7844,7 @@ b {
       text-transform: uppercase;
       min-height: 17px;
       font-style: normal;
-      font-family: "Gotham-Medium"; }
+      font-family: "Montserrat-Medium"; }
       @media (max-width: 575px) {
         .checkbox-holder input[type=checkbox] + .label, .checkbox-holder input[type=radio] + .label, .radio-holder input[type=checkbox] + .label, .radio-holder input[type=radio] + .label {
           letter-spacing: 2px; } }
@@ -8241,7 +8284,7 @@ b {
   padding-bottom: 8.5px;
   border-width: 1px;
   font-size: 11px;
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   background: transparent;
   border-color: #474747;
   color: #474747;
@@ -8274,7 +8317,7 @@ b {
     padding-left: 0;
     padding-right: 0;
     font-size: 12px;
-    font-family: "Gotham-Black";
+    font-family: "Montserrat-Black";
     border: none;
     min-width: 200px; }
     .dropdown--link .dropdown-toggle:hover, .dropdown--link .dropdown-toggle:focus {
@@ -8348,6 +8391,85 @@ b {
 .dropdown--border-thick .dropdown-menu {
   margin-top: -2px;
   border-width: 2px; }
+
+.dropdown__thumbnails-row {
+  margin-left: -20px;
+  margin-right: -20px; }
+  .dropdown__thumbnails-row + .dropdown__thumbnails-row {
+    margin-top: 20px; }
+
+.dropdown__thumbnails-item {
+  padding-left: 20px;
+  padding-right: 20px;
+  /* min-width: 20%;
+  width: 20%; */
+  max-width: 180px;
+  width: 100%;
+  display: inline-block;
+  position: relative; }
+  .dropdown__thumbnails-item:hover:before, .dropdown__thumbnails-item:focus:before {
+    opacity: 1;
+    visibility: visible; }
+  @media (max-width: 991px) {
+    .dropdown__thumbnails-item {
+      max-width: 140px; } }
+  .dropdown__thumbnails-item:before {
+    transition: 200ms;
+    content: '';
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 140px;
+    height: 140px;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden; }
+    @media (max-width: 991px) {
+      .dropdown__thumbnails-item:before {
+        width: 100px;
+        height: 100px; } }
+
+.dropdown__thumbnails-item--see-all-members:before {
+  content: none; }
+
+.dropdown__thumbnails-see-all-members {
+  width: 140px;
+  height: 140px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  background: #8F9FBF; }
+  .dropdown__thumbnails-see-all-members:hover, .dropdown__thumbnails-see-all-members:focus {
+    background-color: #29363b; }
+  @media (max-width: 991px) {
+    .dropdown__thumbnails-see-all-members {
+      width: 100px;
+      height: 100px;
+      font-size: 10px;
+      padding-left: 5px;
+      padding-right: 5px; } }
+
+.dropdown__thumbnails-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px; }
+
+.dropdown__thumbnails-name {
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  color: #686868; }
+  @media (max-width: 991px) {
+    .dropdown__thumbnails-name {
+      font-size: 10px; } }
+
+.dropdown__thumbnails-name__item {
+  display: block; }
 
 .dropdown-toggle:after {
   content: none; }
@@ -8426,7 +8548,7 @@ b {
 .list-dropdown-menu__item {
   text-transform: uppercase;
   color: #676767;
-  font-family: "Gotham-Black";
+  font-family: "Montserrat-Black";
   font-size: 12px; }
   @media (max-width: 991px) {
     .list-dropdown-menu__item {
@@ -8440,7 +8562,7 @@ b {
   margin-bottom: 4px; }
 
 .list-dropdown-menu__link {
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   color: #979797;
   padding: 4px 0;
   display: inline-block;
@@ -8487,7 +8609,7 @@ b {
   color: #ffffff;
   font-size: 11px;
   margin-bottom: 10px;
-  font-family: "Gotham-Bold"; }
+  font-family: "Montserrat-Bold"; }
   .billboard__subtitle a {
     color: #ffffff; }
     .billboard__subtitle a:hover, .billboard__subtitle a:focus {
@@ -8733,7 +8855,7 @@ b {
 .gallery__arrow--fill-path__title {
   color: #000000;
   transition: 400ms;
-  font-family: "Gotham-Bold";
+  font-family: "Montserrat-Bold";
   font-size: 12px;
   position: absolute;
   top: 50%;
@@ -8751,7 +8873,7 @@ b {
 
 .gallery__arrow--fill-path__subtitle {
   display: block;
-  font-family: "GothamBook"; }
+  font-family: "Montserrat-SemiBold"; }
 
 .gallery__arrow--round-slide {
   width: 62px;
@@ -8814,7 +8936,7 @@ b {
 .gallery__arrow--round-slide__title {
   color: #ffffff;
   transition: 400ms;
-  font-family: "Gotham-Bold";
+  font-family: "Montserrat-Bold";
   font-size: 12px;
   position: absolute;
   top: 50%;
@@ -9049,7 +9171,7 @@ b {
 .goods__info-name {
   letter-spacing: 0;
   color: #22252c;
-  font-family: "GothamBook"; }
+  font-family: "Montserrat-SemiBold"; }
 
 .goods__info-description {
   color: #616161;
@@ -9096,7 +9218,8 @@ b {
 .goods__quantity {
   text-align: center;
   color: #4e4e4e;
-  font-size: 11px; }
+  font-size: 11px;
+  letter-spacing: normal; }
 
 .goods__quantity--has-border {
   border: 1px solid #adadad;
@@ -9426,7 +9549,7 @@ b {
   text-align: center;
   letter-spacing: 3.3px;
   color: #22252c;
-  font-family: "GothamBook";
+  font-family: "Montserrat-SemiBold";
   margin-bottom: 5px;
   letter-spacing: 0; }
 
@@ -9452,7 +9575,7 @@ dt, dd {
   font-weight: normal;
   text-transform: uppercase;
   color: #616161;
-  font-family: "Gotham-Medium";
+  font-family: "Montserrat-Medium";
   font-size: 11px; }
 
 .dt-highlighted, .dd-highlighted {
@@ -9709,7 +9832,7 @@ dt, dd {
   padding: 14px 15px;
   position: relative;
   letter-spacing: 2px;
-  font-family: "Gotham-Medium"; }
+  font-family: "Montserrat-Medium"; }
   .tabs__link [class^="wanderset-icon-"]:before, .tabs__link [class*=" wanderset-icon-"]:before {
     vertical-align: text-top; }
   @media (max-width: 767px) {
@@ -9860,7 +9983,7 @@ address {
   font-size: 13px;
   line-height: 1.85;
   letter-spacing: 0;
-  font-family: "GothamBook"; }
+  font-family: "Montserrat-SemiBold"; }
 
 .address__item {
   display: block; }
@@ -9869,7 +9992,7 @@ address {
   text-transform: uppercase;
   color: #616161;
   letter-spacing: 0.2em;
-  font-family: "Gotham-Medium"; }
+  font-family: "Montserrat-Medium"; }
 
 .address__edit {
   color: #29363c;
@@ -10704,7 +10827,7 @@ address {
     padding-left: 0;
     height: 100px;
     font-size: 80px;
-    font-family: "GothamThinRegular";
+    font-family: "Montserrat-Thin";
     text-transform: none; }
     @media (max-width: 767px) {
       .searh-box__form .form-control {
@@ -10717,7 +10840,7 @@ address {
 .searh-box__form__placeholder {
   font-size: 80px;
   color: #adadad;
-  font-family: "GothamThinRegular";
+  font-family: "Montserrat-Thin";
   position: absolute;
   left: 0;
   top: 50%;
@@ -10727,7 +10850,7 @@ address {
   letter-spacing: 0; }
   @media (max-width: 767px) {
     .searh-box__form__placeholder {
-      font-size: 25px; } }
+      font-size: 38px; } }
 
 .searh-box__form__btn {
   font-size: 40px;
@@ -10757,12 +10880,12 @@ address {
 .search-result__subtitle {
   text-transform: uppercase;
   color: #a5a5a5;
-  font-family: "Gotham-Bold";
+  font-family: "Montserrat-Bold";
   margin-bottom: 16px; }
 
 .search-result__title {
   color: #29363c;
-  font-family: "GothamThinRegular";
+  font-family: "Montserrat-Thin";
   letter-spacing: 0; }
 
 /* HAS BACKGROUND */

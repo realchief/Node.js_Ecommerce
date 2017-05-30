@@ -97,19 +97,20 @@
           <a class="nav-link" data-toggle="dropdown" href="#">the set</a>
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="row">
-                    <% _.each(Instance.setmember_sets, function(s){ %>
-                      <div class="col-sm-2">
-                        <a href="/set/<%= encodeURIComponent(s.name) %>">
-                          <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
-                          alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>">
-                        </a>
-                      </div>
-                    <% }) %>
-                  </div>
-                </div>
+              <div class="dropdown__thumbnails-row">
+                <% _.each(Instance.setmember_sets, function(s){ %>
+                  <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
+                    <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
+                    alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img" >
+                    <span class="dropdown__thumbnails-name__item"><%= (Belt.get(s, 'label.us') || '') %></span>
+                  </a>
+                <% }) %>
+                <a href="/sets" class="dropdown__thumbnails-item dropdown__thumbnails-item--see-all-members">
+                  <span class="dropdown__thumbnails-see-all-members">
+                    see all<br>
+                    set members
+                  </span>
+                </a>
               </div>
             </div>
           </div>

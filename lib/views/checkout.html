@@ -9,7 +9,7 @@
     'hide_navbar': true
   })) %>
 
-  <main class="main">
+  <main class="main" data-view="CheckoutView">
     <section class="section section--pt-0">
       <div class="container">
         <ul class="tabs tabs--centered tabs--has-dotted negative-side-margin-xs">
@@ -36,7 +36,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <label for="filed-country" class="hidden-sm-down">COUNTRY</label>
-                          <select name="" id="filed-country" class="form-control">
+                          <select name="" data-get="shipping_country" id="filed-country" class="form-control">
                             <option value="">UNITED STATES</option>
                           </select>
                         </div><!-- col -->
@@ -163,32 +163,6 @@
                 <div class="divider divider--sm divider--dark hidden-sm-down"></div>
                 <form action="">
                   <fieldset class="side-paddings--sm-visible-sm">
-                    <div class="form-group hidden-md-up d-flex justify-content-between mb0">
-                      <div class="form-check form-check-inline">
-                       <label class="form-check-label">
-                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> <img src="/public/assets/icons/visa.svg" class="list-credit-card__icon" alt="">
-                       </label>
-                      </div>
-
-                      <div class="form-check form-check-inline">
-                       <label class="form-check-label">
-                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> <img src="/public/assets/icons/mastercard.svg" class="list-credit-card__icon" alt="">
-                       </label>
-                      </div>
-
-                      <div class="form-check form-check-inline">
-                       <label class="form-check-label">
-                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> <img src="/public/assets/icons/amex.svg" class="list-credit-card__icon" alt="">
-                       </label>
-                      </div>
-
-                      <div class="form-check form-check-inline">
-                       <label class="form-check-label">
-                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"> <img src="/public/assets/icons/discover.svg" class="list-credit-card__icon" alt="">
-                       </label>
-                      </div>
-                    </div>
-
                     <div class="form-group">
                       <div class="row">
                         <div class="col-sm-6">
@@ -203,23 +177,6 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <input type="text" class="form-control" id="filed-card-number">
-                        </div>
-
-                        <div class="col-sm-6 hidden-sm-down">
-                          <ul class="list-credit-card mt7">
-                            <li class="list-credit-card__item">
-                              <img src="/public/assets/images/elements/visa.svg" class="list-credit-card__icon" alt="">
-                            </li>
-                            <li class="list-credit-card__item">
-                              <img src="/public/assets/images/elements/mastercard.svg" class="list-credit-card__icon" alt="">
-                            </li>
-                            <li class="list-credit-card__item">
-                              <img src="/public/assets/images/elements/amex.svg" class="list-credit-card__icon" alt="">
-                            </li>
-                            <li class="list-credit-card__item">
-                              <img src="/public/assets/images/elements/discover.svg" class="list-credit-card__icon" alt="">
-                            </li>
-                          </ul>
                         </div>
                       </div>
                     </div>
@@ -249,12 +206,6 @@
                         <div class="col-lg-1 col-sm-3 col-4">
                           <input type="text" class="form-control" id="filed-security-code">
                         </div><!-- col -->
-
-                        <div class="col-lg-5 col-sm-9 col-8">
-                          <p class="form-control-static">
-                            <a href="#" class="underline fs8">WHAT'S THIS?</a>
-                          </p>
-                        </div><!-- col -->
                       </div><!-- row -->
                     </div><!-- form-group -->
                   </fieldset>
@@ -263,6 +214,7 @@
 
                   <fieldset>
                     <h4 class="title-medium text-center-sm">BILLING ADDRESS</h4>
+                    <div class="divider divider--sm divider--dark hidden-sm-down"></div>
 
                     <div class="checkbox-holder">
                       <label>
@@ -335,7 +287,9 @@
                           <label for="billing-filed-state-2" class="hidden-sm-down">STATE</label>
                           <select name="" id="billing-filed-state-2" class="form-control">
                             <option value="">STATE</option>
-                            <option value="">Ukraine</option>
+                            <% _.each(Settings.us_regions, function(v, k){ %>
+                              <option value="<%= k %>"><%= v %></option>
+                            <% }) %>
                           </select>
                         </div><!-- col -->
 
@@ -375,8 +329,6 @@
                       </label>
                     </div><!-- checkbox-holder -->
                   </fieldset>
-
-                  <div class="divider divider--sm divider--dark hidden-sm-up"></div>
 
                   <fieldset class="hidden-xs-up">
                     <div class="form-group">
@@ -512,6 +464,36 @@
                       <% }) %>
                     </tbody>
                   </table>
+                </div>
+
+                <div class="hidden-md-up">
+                  <dl>
+                    <div class="hidden-md-up">
+                      <dt>YOUR ORDER</dt>
+                      <dd><%= doc.products.length %> items</dd>
+                      <div class="divider mt35 mb30"></div>
+                    </div>
+                  </dl>
+                  <ul class="list-goods list-goods--has--divider hidden-md-up">
+                    <% _.each(doc.products, function(p){ %>
+                      <%= Render('checkout-sidebar-product', _.extend({}, Locals, {
+                        'doc': p
+                      })) %>
+                    <% }) %>
+                  </ul>
+                  <dl class="dl-aligned">
+                    <div class="divider mt35 mb30"></div>
+                    <dt>subtotal</dt>
+                    <dd>$<%= doc.total_price %></dd>
+
+                    <dt>shipping</dt>
+                    <dd>free</dd>
+
+                    <div class="divider"></div>
+
+                    <dt>total</dt>
+                    <dd>$<%= doc.total_price %></dd>
+                  </dl>
                 </div>
               </div>
 
