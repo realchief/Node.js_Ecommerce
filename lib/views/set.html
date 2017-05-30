@@ -7,7 +7,11 @@
     <%= Render('header', Locals) %>
 
     <main class="main">
-      <%= Render('billboard.setmember', Locals) %>
+      <% if (doc.brand){ %>
+        <%= Render('billboard.brand', Locals) %>
+      <% } else { %>
+        <%= Render('billboard.setmember', Locals) %>
+      <% } %>
 
       <section class="section section--sm-pt-0">
         <div class="filter sticky hidden-sm-down">
