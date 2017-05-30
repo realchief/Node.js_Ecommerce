@@ -1,0 +1,36 @@
+<tr>
+  <td>
+    <% if (Belt.get(doc, 'product.media.0.url')){ %>
+      <img src="<%= doc.product.media[0].url %>" class="table__img">
+    <% } %>
+  </td>
+  <td>
+    <div class="table__goods__info goods__info">
+      <% if (Belt.get(doc, 'product.label.us')){ %>
+        <p class="goods__info-name"><%= doc.product.label.us %></p>
+      <% } %>
+      <% if (Belt.get(doc, 'product.brands.0')){ %>
+        <p class="goods__info-description"><%= doc.product.brands.join(', ') %></p>
+      <% } %>
+    </div>
+    <ul class="table__goods__details goods__details">
+      <% _.each(doc.options, function(v, k){ %>
+        <li class="goods__details__item">
+          <span><%= k %>:</span> <span><%= v %></span>
+        </li>
+      <% }) %>
+    </ul>
+    <div class="goods__link-group">
+      <a name="cart_product_remove" href="/cart/product/<%= doc._id %>/delete.json" class="goods__link-group__item">remove</a>
+    </div>
+  </td>
+  <td>
+    <div class="table__divider"></div>
+    <span class="goods__quantity goods__quantity--has-border"><%= doc.quantity %></span>
+  </td>
+  <td>
+    <div class="table__divider"></div>
+    <p class="table__cost">$<%= doc.quantity * doc.stock.price %></p>
+    <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= doc.stock.price %>)</p>
+  </td>
+</tr>

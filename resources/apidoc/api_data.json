@@ -1,22 +1,7 @@
 [
   {
     "type": "post",
-    "url": "/cart/create.json",
-    "title": "Create Cart",
-    "name": "CreateCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "admin, current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "post",
-    "url": "/cart/:_id/product/create.json",
+    "url": "/cart/product/create.json",
     "title": "Add Product to Cart",
     "name": "CreateCartProduct",
     "group": "Cart",
@@ -30,39 +15,9 @@
     "groupTitle": "Cart"
   },
   {
-    "type": "post",
-    "url": "/cart/product/create.json",
-    "title": "Add Product to Current Session's Cart",
-    "name": "CreateCurrentCartProduct",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
     "type": "delete",
-    "url": "/cart/:_id/delete.json",
-    "title": "Delete Cart",
-    "name": "DeleteCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "admin, current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "delete",
-    "url": "/cart/:_id/product/:_id/delete.json",
-    "title": "Delete Product in Cart",
+    "url": "/cart/product/:product/delete.json",
+    "title": "Delete Product from Session Cart",
     "name": "DeleteCartProduct",
     "group": "Cart",
     "permission": [
@@ -75,134 +30,14 @@
     "groupTitle": "Cart"
   },
   {
-    "type": "delete",
-    "url": "/cart/delete.json",
-    "title": "Delete Current Session's Cart",
-    "name": "DeleteCurrentCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "delete",
-    "url": "/cart/product/:_id/delete.json",
-    "title": "Delete Product in Current Session's Cart",
-    "name": "DeleteCurrentCartProduct",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
     "type": "get",
-    "url": "/cart/list.json",
-    "title": "List Carts",
-    "name": "ListCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "admin"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "get",
-    "url": "/cart/:_id/read.json",
-    "title": "Read Cart",
-    "name": "ReadCart",
+    "url": "/cart/session/read.json",
+    "title": "Read Session Cart",
+    "name": "ReadCartSession",
     "group": "Cart",
     "permission": [
       {
         "name": "admin, current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "get",
-    "url": "/cart/read.json",
-    "title": "Read Current Session's Cart",
-    "name": "ReadCurrentCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "put",
-    "url": "/cart/:_id/update.json",
-    "title": "Update Cart",
-    "name": "UpdateCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "admin, current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "put",
-    "url": "/cart/:_id/product/:_id/update.json",
-    "title": "Update Product in Cart",
-    "name": "UpdateCartProduct",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "admin, current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "put",
-    "url": "/cart/update.json",
-    "title": "Update Current Session's Cart",
-    "name": "UpdateCurrentCart",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "current user"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "lib/controllers/cart.js",
-    "groupTitle": "Cart"
-  },
-  {
-    "type": "put",
-    "url": "/cart/product/:_id/update.json",
-    "title": "Update Product in Current Session's Cart",
-    "name": "UpdateCurrentCartProduct",
-    "group": "Cart",
-    "permission": [
-      {
-        "name": "current user"
       }
     ],
     "version": "0.0.0",

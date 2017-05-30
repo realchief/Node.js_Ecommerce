@@ -9,12 +9,19 @@ var ProductView = function(options, callback){
         e.preventDefault();
       }
     , 'click [data-option] a.dropdown-item': function(e){
+        e.preventDefault();
+
         var $el = $(e.currentTarget)
           , val = $el.html()
           , button = $el.parents('.form-group').find('button');
         button.html(val);
 
         this.emit('options:update');
+      }
+    , 'click [name="add_to_bag"]:not(.disabled)': function(e){
+        e.preventDefault();
+
+        this.throttledAddToBag();
       }
     }
   , 'transformers': {
@@ -46,7 +53,14 @@ var ProductView = function(options, callback){
         , Belt.cs(cb, gb, 'price', 0, 'data.price'));
       }
     , function(cb){
-        gb.price = gb.price ? ('$' + Belt.cast(gb.price, 'string')) : 'Unavailable';
+        if (gb.price){
+          gb.price = '$' + Belt.cast(gb.price, 'string');
+          self.$el.find('[name="add_to_bag"]').removeClass('disabled');
+        } else {
+          gb.price = 'Unavailable';
+          self.$el.find('[name="add_to_bag"]').addClass('disabled');
+        }
+
         self.set({
           'price': gb.price
         });
@@ -63,7 +77,39 @@ var ProductView = function(options, callback){
   }, 100, {
     'leading': false
   , 'trailing': true
-  })
+  });
+
+  gb.view['addToBag'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'quantity': 1
+    , 'product': self._id
+    , 'options': self.get().options || {}
+    });
+
+    Async.waterfall([
+      function(cb){
+        $.post('/cart/product/create.json', a.o, function(res){
+          console.log(res);
+          cb();
+        });
+      }
+    , function(cb){
+        GetCartCount(Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  gb.view['throttledAddToBag'] = _.throttle(function(){
+    gb.view.addToBag();
+  }, 100, {
+    'leading': false
+  , 'trailing': true
+  });
 
   gb.view['_id'] = a.o._id;
 

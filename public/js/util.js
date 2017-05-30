@@ -29,3 +29,39 @@ $.fn.isVisible = function(){
 $.fn.isChecked = function(){
   return $(this).is(':checked') ? true : false;
 };
+
+var GetCartCount = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+
+  });
+
+  Async.waterfall([
+    function(cb){
+      $.getJSON('/cart/session/read.json', function(res){
+        gb['products'] = Belt.get(res, 'data.products') || [];
+
+        cb();
+      });
+    }
+  , function(cb){
+      $('[data-set="cart_product_count"]').html(gb.products.length);
+
+      if (gb.products.length){
+        $('[name="cart"]').removeClass('hidden-xs-up');
+      } else {
+        $('[name="cart"]').addClass('hidden-xs-up');
+      }
+
+      cb();
+    }
+  ], function(err){
+    a.cb(err);
+  });
+};
+
+$(document).ready(function(){
+  GetCartCount();
+});

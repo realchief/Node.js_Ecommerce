@@ -8,121 +8,23 @@
   <%= Render('header', Locals) %>
 
   <main class="main">
-
     <section class="section section--pt-0">
       <div class="container">
         <h1 class="h3 text-center title-bold title-divider">SHOPPING BAG</h1>
         <div class="row">
           <div class="col-xl-9 col-lg-8 col-md-8">
-
             <div class="checkout hidden-md-up side-paddings--sm-visible-sm--sm">
               <form action="">
-                <button type="" class="btn btn-primary btn-block btn-lg">CHECKOUT</button>
+                <a href="/checkout" class="btn btn-primary btn-block btn-lg">CHECKOUT</a>
               </form>
-            </div><!-- checkout -->
-
+            </div>
             <ul class="list-goods list-goods--has--divider hidden-md-up">
-              <li class="list-goods__item">
-                <div class="row">
-                  <div class="col-5">
-                    <img src="/public/assets/tmp/product-img-2.png" class="w-100" alt="">
-                  </div><!-- col -->
-
-                  <div class="col-7">
-                    <div class="goods__info">
-                      <p class="goods__info-name">Product TT</p>
-                      <p class="goods__info-description">Sm Caption</p>
-                    </div><!-- goods__info -->
-                    <p>
-                      QTY: <span class="goods__quantity goods__quantity--has-border">1</span>
-                    </p>
-                    <ul class="table__goods__details goods__details mb10">
-                      <li class="goods__details__item">
-                        <span>SIZE:</span> <span>L</span>
-                      </li>
-                      <li class="goods__details__item">
-                        <span>COLOR:</span> <span>GREY</span>
-                      </li>
-                      <li class="goods__details__item">
-                        <span>cost:</span> <span>$200</span>
-                      </li>
-                    </ul><!-- goods__details -->
-                    <div class="goods__link-group">
-                      <a href="#" class="goods__link-group__item">REMOVE</a>
-                      <a href="#" class="goods__link-group__item">save</a>
-                    </div><!-- goods__link-group -->
-                  </div><!-- col -->
-                </div><!-- row -->
-              </li><!-- list-goods__item -->
-
-
-              <li class="list-goods__item">
-                <div class="row">
-                  <div class="col-5">
-                    <img src="/public/assets/tmp/product-img-2.png" class="w-100" alt="">
-                  </div><!-- col -->
-
-                  <div class="col-7">
-                    <div class="goods__info">
-                      <p class="goods__info-name">Product TT</p>
-                      <p class="goods__info-description">Sm Caption</p>
-                    </div><!-- goods__info -->
-                    <p>
-                      QTY: <span class="goods__quantity goods__quantity--has-border">1</span>
-                    </p>
-                    <ul class="table__goods__details goods__details mb10">
-                      <li class="goods__details__item">
-                        <span>SIZE:</span> <span>L</span>
-                      </li>
-                      <li class="goods__details__item">
-                        <span>COLOR:</span> <span>GREY</span>
-                      </li>
-                      <li class="goods__details__item">
-                        <span>cost:</span> <span>$200</span>
-                      </li>
-                    </ul><!-- goods__details -->
-                    <div class="goods__link-group">
-                      <a href="#" class="goods__link-group__item">REMOVE</a>
-                      <a href="#" class="goods__link-group__item">save</a>
-                    </div><!-- goods__link-group -->
-                  </div><!-- col -->
-                </div><!-- row -->
-              </li><!-- list-goods__item -->
-
-
-              <li class="list-goods__item">
-                <div class="row">
-                  <div class="col-5">
-                    <img src="/public/assets/tmp/product-img-2.png" class="w-100" alt="">
-                  </div><!-- col -->
-
-                  <div class="col-7">
-                    <div class="goods__info">
-                      <p class="goods__info-name">Product TT</p>
-                      <p class="goods__info-description">Sm Caption</p>
-                    </div><!-- goods__info -->
-                    <p>
-                      QTY: <span class="goods__quantity goods__quantity--has-border">1</span>
-                    </p>
-                    <ul class="table__goods__details goods__details mb10">
-                      <li class="goods__details__item">
-                        <span>SIZE:</span> <span>L</span>
-                      </li>
-                      <li class="goods__details__item">
-                        <span>COLOR:</span> <span>GREY</span>
-                      </li>
-                      <li class="goods__details__item">
-                        <span>cost:</span> <span>$200</span>
-                      </li>
-                    </ul><!-- goods__details -->
-                    <div class="goods__link-group">
-                      <a href="#" class="goods__link-group__item">REMOVE</a>
-                      <a href="#" class="goods__link-group__item">save</a>
-                    </div><!-- goods__link-group -->
-                  </div><!-- col -->
-                </div><!-- row -->
-              </li><!-- list-goods__item -->
-            </ul><!-- list-goods -->
+              <% _.each(doc.products, function(p){ %>
+                <%= Render('bag-product.mobile', _.extend({}, Locals, {
+                  'doc': p
+                })) %>
+              <% }) %>
+            </ul>
 
             <div class="table-responsive hidden-sm-down">
               <table class="table">
@@ -134,171 +36,40 @@
                     <th>COST</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr>
-                    <td>
-                      <img src="/public/assets/tmp/product-img-2.png" class="table__img" alt="">
-                    </td>
-                    <td>
-                      <div class="table__goods__info goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                      </div><!-- goods__info -->
-
-                      <ul class="table__goods__details goods__details">
-                        <li class="goods__details__item">
-                          <span>SIZE:</span> <span>L</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>COLOR:</span> <span>GREY</span>
-                        </li>
-                      </ul><!-- goods__details -->
-
-                      <div class="goods__link-group">
-                        <a href="#" class="goods__link-group__item">REMOVE</a>
-                        <a href="#" class="goods__link-group__item">save</a>
-                      </div><!-- goods__link-group -->
-                    </td>
-                    <td>
-                      <div class="table__divider"></div>
-                      <span class="goods__quantity goods__quantity--has-border">1</span>
-                    </td>
-                    <td>
-                      <div class="table__divider"></div>
-                      <p class="table__cost">$200</p>
-                      <p class="table__cost table__cost--sm">(2 X $275)</p>
-                    </td>
-                  </tr>
-
-
-                  <tr>
-                    <td>
-                      <img src="/public/assets/tmp/product-img-2.png" class="table__img" alt="">
-                    </td>
-                    <td>
-                      <div class="table__goods__info goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                      </div><!-- goods__info -->
-
-                      <ul class="table__goods__details goods__details">
-                        <li class="goods__details__item">
-                          <span>SIZE:</span> <span>L</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>COLOR:</span> <span>GREY</span>
-                        </li>
-                      </ul><!-- goods__details -->
-
-                      <div class="goods__link-group">
-                        <a href="#" class="goods__link-group__item">REMOVE</a>
-                        <a href="#" class="goods__link-group__item">save</a>
-                      </div><!-- goods__link-group -->
-                    </td>
-                    <td>
-                      <div class="table__divider"></div>
-                      <span class="goods__quantity goods__quantity--has-border">1</span>
-                    </td>
-                    <td>
-                      <div class="table__divider"></div>
-                      <p class="table__cost">$200</p>
-                      <p class="table__cost table__cost--sm">(2 X $275)</p>
-                    </td>
-                  </tr>
-
-
-                  <tr>
-                    <td>
-                      <img src="/public/assets/tmp/product-img-2.png" class="table__img" alt="">
-                    </td>
-                    <td>
-                      <div class="table__goods__info goods__info">
-                        <p class="goods__info-name">Product TT</p>
-                        <p class="goods__info-description">Sm Caption</p>
-                      </div><!-- goods__info -->
-
-                      <ul class="table__goods__details goods__details">
-                        <li class="goods__details__item">
-                          <span>SIZE:</span> <span>L</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>COLOR:</span> <span>GREY</span>
-                        </li>
-                      </ul><!-- goods__details -->
-
-                      <div class="goods__link-group">
-                        <a href="#" class="goods__link-group__item">REMOVE</a>
-                        <a href="#" class="goods__link-group__item">save</a>
-                      </div><!-- goods__link-group -->
-                    </td>
-                    <td>
-                      <div class="table__divider"></div>
-                      <span class="goods__quantity goods__quantity--has-border">1</span>
-                    </td>
-                    <td>
-                      <div class="table__divider"></div>
-                      <p class="table__cost">$200</p>
-                      <p class="table__cost table__cost--sm">(2 X $275)</p>
-                    </td>
-                  </tr>
+                  <% _.each(doc.products, function(p){ %>
+                    <%= Render('bag-product', _.extend({}, Locals, {
+                      'doc': p
+                    })) %>
+                  <% }) %>
                 </tbody>
-              </table><!-- table -->
-            </div><!-- table-responsive -->
-          </div><!-- col -->
+              </table>
+            </div>
+          </div>
 
           <div class="col-xl-3 col-lg-4 col-md-4">
             <aside class="aside">
               <div class="checkout checkout--without-border-b-t-sm side-paddings--sm-visible-sm">
                 <dl class="dl-aligned">
                   <dt>subtotal</dt>
-                  <dd>$900</dd>
+                  <dd>$<%= doc.total_price %></dd>
 
                   <dt>shipping</dt>
                   <dd>free</dd>
 
-                  <dt>estimated tex</dt>
-                  <dd>tbd</dd>
-
-                  <dt class="dt-highlighted">wandersave applied</dt>
-                  <dd class="dd-highlighted">-$100</dd>
-
                   <div class="divider mt35 mb30"></div>
 
-                  <dt class="mb0">estimated total</dt>
-                  <dd class="mb0">$825</dd>
+                  <dt class="mb0">total</dt>
+                  <dd class="mb0">$<%= doc.total_price %></dd>
                 </dl>
 
-                <button type="" class="btn btn-primary btn-lg btn-block">checkout</button>
-
-                <div class="divider"></div>
-
-                <form action="">
-                  <div class="form-group">
-                    <label for="promo-code-2">enter promo code</label>
-                    <input type="text" class="form-control" placeholder="" id="promo-code-2" value="">
-                  </div><!-- form-group -->
-
-                  <div class="form-group">
-                    <button type="" class="btn btn-blueberry btn-lg btn-block">apply code</button>
-                  </div><!-- form-group -->
-
-                  <div class="form-group">
-                    <label for="promo-code-2">REDEEM A GIFT CARD</label>
-                    <input type="text" class="form-control" placeholder="" id="promo-code-2" value="">
-                  </div><!-- form-group -->
-
-                  <div class="form-group">
-                    <button type="" class="btn btn-blueberry btn-lg btn-block">apply code</button>
-                  </div><!-- form-group -->
-                </form>
-              </div><!-- checkout -->
-            </aside><!-- aside -->
-          </div><!-- col -->
-        </div><!-- row -->
-      </div><!-- container -->
-    </section><!-- section -->
-
+                <a href="/checkout" class="btn btn-primary btn-lg btn-block">checkout</a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <%= Render('footer', Locals) %>
