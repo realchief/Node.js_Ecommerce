@@ -523,8 +523,10 @@ var ProductView = function(options, callback){
     , 'vendors'
     , 'brands'
     , 'categories'
-    , 'media'
-    ]);
+    ].concat(self.update_media ? [
+      'media'
+    ] : []));
+
     gb.update['options'] = self.getOptions();
 
     gb.update = _.omit(gb.update, function(v, k){
@@ -565,36 +567,38 @@ var ProductView = function(options, callback){
       return s._id;
     });
 
-/*
-    gb['update_media'] = _.chain(gb.data.media)
-                          .filter(function(s){
-                            return s._id;
-                          })
-                          .map(function(s){
-                            return _.omit(s, [
-                              'remote_url'
-                            , 'filename'
-                            , 'file'
-                            ]);
-                          })
-                          .filter(function(s){
-                            var ex = _.find(self.doc.media, function(s2){
-                              return s2._id === s._id;
-                            });
+    if (!self.update_media){
+      gb['update_media'] = _.chain(gb.data.media)
+                            .filter(function(s){
+                              return s._id;
+                            })
+                            .map(function(s){
+                              return _.omit(s, [
+                                'remote_url'
+                              , 'filename'
+                              , 'file'
+                              ]);
+                            })
+                            .filter(function(s){
+                              var ex = _.find(self.doc.media, function(s2){
+                                return s2._id === s._id;
+                              });
 
-                            return !Belt.equal(s, _.pick(ex, _.keys(s)));
-                          })
-                          .value();
+                              return !Belt.equal(s, _.pick(ex, _.keys(s)));
+                            })
+                            .value();
 
-    gb['delete_media'] = _.chain(self.doc.media)
-                          .filter(function(s){
-                            return !_.some(gb.data.media, function(s2){
-                              return s2._id === s._id
-                            });
-                          })
-                          .pluck('_id')
-                          .value();
-*/
+      gb['delete_media'] = _.chain(self.doc.media)
+                            .filter(function(s){
+                              return !_.some(gb.data.media, function(s2){
+                                return s2._id === s._id
+                              });
+                            })
+                            .pluck('_id')
+                            .value();
+    }
+
+    delete self.update_media;
 
     Async.waterfall([
       function(cb){
@@ -731,6 +735,7 @@ var ProductView = function(options, callback){
   gb.view['sortable_media'] = new Sortable(gb.view.$el.find('[name="medias"]')[0], {
     'onUpdate': function(){
       gb.view.updateMedia();
+      gb.view['update_media'] = true;
     }
   });
 
