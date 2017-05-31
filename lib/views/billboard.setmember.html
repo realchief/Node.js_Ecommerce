@@ -4,9 +4,9 @@
       <%= Belt.get(doc, 'label.us') || '' %>
     </h1>
     <% if (Belt.get(doc, 'description.us')){ %>
-      <h6 class="billboard__subtitle" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
+      <h6 class="billboard__subtitle">
         <a href="#billboard-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="billboard-collapse">
-          <span class="title-has-border">about</span>
+          <span class="title-has-border" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">about</span>
         </a>
       </h6>
     <% } %>
@@ -28,13 +28,13 @@
 
 <div class="billboard billboard--dark hidden-md-up" style="background-image:url('<%= Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>')">
   <div class="container">
-    <h1 class="billboard__title">
+    <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
       <%= Belt.get(doc, 'label.us') || '' %>
     </h1>
     <% if (Belt.get(doc, 'description.us')){ %>
       <h6 class="billboard__subtitle">
         <a href="#billboard-collapse-2" data-toggle="collapse" aria-expanded="false" aria-controls="billboard-collapse">
-          <span class="title-has-border">about</span>
+          <span class="title-has-border" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">about</span>
         </a>
       </h6>
     <% } %>
