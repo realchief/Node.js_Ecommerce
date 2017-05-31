@@ -500,6 +500,7 @@ var SetView = function(options, callback){
       'name'
     , 'label'
     , 'description'
+    , 'text_color'
     , 'products'
     , 'media'
     , 'brand'
