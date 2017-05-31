@@ -1,10 +1,10 @@
 <div class="billboard billboard--dark parallax hidden-sm-down" data-parallax="scroll" data-position="top" data-speed="0.2" data-image-src="<%= Belt.get(doc, 'featured_media.url') || '' %>">
   <div class="container">
-    <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= text_color %> !important;<% } %>">
+    <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
       <%= Belt.get(doc, 'label.us') || '' %>
     </h1>
     <% if (Belt.get(doc, 'description.us')){ %>
-      <h6 class="billboard__subtitle" style="<% if (doc.text_color){ %>color:<%= text_color %> !important;<% } %>">
+      <h6 class="billboard__subtitle" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
         <a href="#billboard-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="billboard-collapse">
           <span class="title-has-border">about</span>
         </a>
