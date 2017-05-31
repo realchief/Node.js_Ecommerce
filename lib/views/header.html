@@ -100,9 +100,11 @@
               <div class="dropdown__thumbnails-row">
                 <% _.each(Instance.setmember_sets, function(s){ %>
                   <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
-                    <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
-                    alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img" >
-                    <span class="dropdown__thumbnails-name__item"><%= (Belt.get(s, 'label.us') || '') %></span>
+                    <span class="dropdown__thumbnails-img-holder">
+                      <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
+                      alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img">
+                    </span>
+                    <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'label.us') || '') %></p>
                   </a>
                 <% }) %>
                 <a href="/sets" class="dropdown__thumbnails-item dropdown__thumbnails-item--see-all-members">
