@@ -64,4 +64,8 @@ var GetCartCount = function(options, callback){
 
 $(document).ready(function(){
   GetCartCount();
+
+  setInterval(function(){
+    $('.masonry-grid').isotope('layout');
+  }, 1000);
 });
