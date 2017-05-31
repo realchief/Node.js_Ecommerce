@@ -97,23 +97,25 @@
           <a class="nav-link" data-toggle="dropdown" href="#">the set</a>
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
-              <div class="dropdown__thumbnails-row">
-                <% _.each(Instance.setmember_sets, function(s){ %>
-                  <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
-                    <span class="dropdown__thumbnails-img-holder">
-                      <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
-                      alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img">
+              <% _.each(Belt.splitArray(Instance.setmember_sets, 5), function(a){ %>
+                <div class="dropdown__thumbnails-row">
+                  <% _.each(a, function(s){ %>
+                    <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
+                      <span class="dropdown__thumbnails-img-holder">
+                        <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
+                        alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img">
+                      </span>
+                      <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'label.us') || '') %></p>
+                    </a>
+                  <% }) %>
+                  <a href="/sets" class="dropdown__thumbnails-item">
+                    <span class="dropdown__thumbnails-see-all-members">
+                      see all<br>
+                      set members
                     </span>
-                    <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'label.us') || '') %></p>
                   </a>
-                <% }) %>
-                <a href="/sets" class="dropdown__thumbnails-item dropdown__thumbnails-item--see-all-members">
-                  <span class="dropdown__thumbnails-see-all-members">
-                    see all<br>
-                    set members
-                  </span>
-                </a>
-              </div>
+                </div>
+              <% }) %>
             </div>
           </div>
         </li>
