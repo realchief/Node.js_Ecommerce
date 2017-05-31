@@ -103,7 +103,7 @@
                   <% _.each(a, function(s){ %>
                     <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
                       <span class="dropdown__thumbnails-img-holder">
-                        <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>" class="full-width-sm"
+                        <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>"
                         alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img">
                       </span>
                       <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'label.us') || '') %></p>
