@@ -1,4 +1,4 @@
-<div class="billboard billboard--dark parallax hidden-sm-down" data-parallax="scroll" data-position="top" data-speed="0.2" data-image-src="<%= Belt.get(doc, 'featured_media.url') || '' %>">
+<div class="billboard billboard--dark parallax hidden-sm-down" data-parallax="scroll" data-position-y="-65px" data-speed="0.2" data-image-src="<%= Belt.get(doc, 'featured_media.url') || '' %>">
   <div class="container">
     <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
       <%= Belt.get(doc, 'label.us') || '' %>
