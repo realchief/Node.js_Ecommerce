@@ -1,4 +1,4 @@
-<tr>
+<tr data-view="BagProductMobileView" data-id="<%= doc._id %>">
   <td>
     <% if (Belt.get(doc, 'product.media.0.url')){ %>
       <img src="<%= doc.product.media[0].url %>" class="table__img">
@@ -21,12 +21,13 @@
       <% }) %>
     </ul>
     <div class="goods__link-group">
-      <a name="cart_product_remove" href="/cart/product/<%= doc._id %>/delete.json" class="goods__link-group__item">remove</a>
+      <a name="cart_product_remove" href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item">remove</a>
+      <a name="cart_product_save" data-product="<%= doc._id %>" href="#" class="goods__link-group__item">SAVE</a>
     </div>
   </td>
   <td>
     <div class="table__divider"></div>
-    <span class="goods__quantity goods__quantity--has-border"><%= doc.quantity %></span>
+    <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>">
   </td>
   <td>
     <div class="table__divider"></div>

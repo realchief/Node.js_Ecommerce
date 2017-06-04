@@ -10,26 +10,18 @@
   <main class="main">
     <section class="section section--pt-40">
       <div class="container">
-        <% var set_rows = Belt.splitArray(Instance.setmember_sets, 5); %>
+        <% var set_rows = Belt.splitArray(Instance.setmember_sets, 4); %>
         <% _.each(set_rows, function(a, i){ %>
-          <div class="dropdown__thumbnails-row">
+          <div class="set-row">
             <% _.each(a, function(s){ %>
-              <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
-                <span class="dropdown__thumbnails-img-holder">
+              <a href="/set/<%= encodeURIComponent(s.name) %>" class="set__item">
+                <div class="set__item__holder">
                   <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>"
-                  alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img">
-                </span>
-                <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'label.us') || '') %></p>
+                  alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="set__item__img">
+                </div>
+                <span class="set__item__title"><%= (Belt.get(s, 'label.us') || '') %></span>
               </a>
             <% }) %>
-            <% if (i === set_rows.length - 1){ %>
-              <a href="/sets" class="dropdown__thumbnails-item">
-                <span class="dropdown__thumbnails-see-all-members">
-                  see all<br>
-                  set members
-                </span>
-              </a>
-            <% } %>
           </div>
         <% }) %>
       </div>

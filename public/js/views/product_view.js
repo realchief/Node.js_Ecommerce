@@ -91,7 +91,7 @@ var ProductView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        $.post('/cart/product/create.json', a.o, function(res){
+        $.post('/cart/session/product/create.json', a.o, function(res){
           console.log(res);
           cb();
         });

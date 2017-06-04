@@ -22,7 +22,7 @@
 
     <ul class="list-goods">
       <% _.each(doc.products, function(p){ %>
-        <%= Render('checkout-sidebar-product', _.extend({}, Locals, {
+        <%= Render('checkout_sidebar_product', _.extend({}, Locals, {
           'doc': p
         })) %>
       <% }) %>

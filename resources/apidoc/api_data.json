@@ -1,9 +1,9 @@
 [
   {
     "type": "post",
-    "url": "/cart/product/create.json",
-    "title": "Add Product to Cart",
-    "name": "CreateCartProduct",
+    "url": "/cart/session/product/create.json",
+    "title": "Add Product to Session's Cart",
+    "name": "CreateCartSessionProduct",
     "group": "Cart",
     "permission": [
       {
@@ -16,9 +16,9 @@
   },
   {
     "type": "delete",
-    "url": "/cart/product/:product/delete.json",
+    "url": "/cart/session/product/:product/delete.json",
     "title": "Delete Product from Session Cart",
-    "name": "DeleteCartProduct",
+    "name": "DeleteCartSessionProduct",
     "group": "Cart",
     "permission": [
       {
@@ -34,6 +34,21 @@
     "url": "/cart/session/read.json",
     "title": "Read Session Cart",
     "name": "ReadCartSession",
+    "group": "Cart",
+    "permission": [
+      {
+        "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/cart.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
+    "url": "/cart/session/product/:product/quantity/:quantity/update.json",
+    "title": "Update Product Quantity from Session Cart",
+    "name": "UpdateCartSessionProductQuantity",
     "group": "Cart",
     "permission": [
       {

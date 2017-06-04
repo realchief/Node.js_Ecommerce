@@ -20,7 +20,7 @@
             </div>
             <ul class="list-goods list-goods--has--divider hidden-md-up">
               <% _.each(doc.products, function(p){ %>
-                <%= Render('bag-product.mobile', _.extend({}, Locals, {
+                <%= Render('bag_product.mobile', _.extend({}, Locals, {
                   'doc': p
                 })) %>
               <% }) %>
@@ -38,7 +38,7 @@
                 </thead>
                 <tbody>
                   <% _.each(doc.products, function(p){ %>
-                    <%= Render('bag-product', _.extend({}, Locals, {
+                    <%= Render('bag_product', _.extend({}, Locals, {
                       'doc': p
                     })) %>
                   <% }) %>
