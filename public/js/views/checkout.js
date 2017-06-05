@@ -22,9 +22,31 @@ var CheckoutView = function(options, callback){
           document.location = '/checkout/complete';
         });
       }
+    , 'change [data-get]': function(e){
+        this.set(this.get());
+      }
+    , 'change [data-get="billing_same"]': function(e){
+        this.CopyShipping();
+        $(e.currentTarget).makeChecked(false);
+      }
+    , 'click [data-toggle="tab"]:not(.tabs__link)': function(e){
+        this.$el.find('[data-toggle="tab"]').removeClass('active');
+        this.$el.find('.tabs__link[href="' + $(e.currentTarget).attr('href') + '"]').addClass('active');
+      }
     }
   , 'transformers': {
-
+      'redact_card': function(val){
+        val = (val || '').split('');
+        var v = '';
+        for (var i = 0; i < val.length; i++){
+          if (i >= val.length - 5){
+            v += val[i];
+          } else {
+            v += 'X';
+          }
+        }
+        return v;
+      }
     }
   , 'events': {
 
@@ -32,6 +54,16 @@ var CheckoutView = function(options, callback){
   });
 
   gb['view'] = new Bh.View(a.o);
+
+  gb.view['CopyShipping'] = function(){
+    var info = _.pick(this.get(), function(v, k){
+      return k.match(/^shipping/i);
+    });
+
+    _.each(info, function(v, k){
+      gb.view.$el.find('[data-get="' + k.replace(/^shipping/i, 'billing') + '"]').val(v);
+    });
+  };
 
   gb.view.emit('load');
 

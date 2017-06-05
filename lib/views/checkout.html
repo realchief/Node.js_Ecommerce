@@ -384,16 +384,24 @@
                 <h4 class="title-medium text-center-sm">REVIEW YOUR ORDER</h4>
 
                 <div class="divider divider--sm divider--dark"></div>
-                <div class="row hidden-xs-up">
+                <div class="row">
                   <div class="col-lg-4 flex flex-column">
                     <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
                       <span class="address__item address__title">SHIPPING ADDRESS</span>
-                      <span class="address__item">Drew McCarver</span>
-                      <span class="address__item">30 Ridgecrest Road</span>
-                      <span class="address__item">Wallingford, CT 06492</span>
-                      <span class="address__item">United States</span>
-                      <span class="address__item">860-857-2037</span>
-                      <a href="#" class="address__item address__edit">EDIT</a>
+                      <span class="address__item">
+                        <span data-set="shipping_first_name"></span>&nbsp;
+                        <span data-set="shipping_last_name"></span>
+                      </span>
+                      <span data-set="shipping_address" class="address__item"></span>
+                      <span data-set="shipping_address_2" class="address__item"></span>
+                      <span class="address__item">
+                        <span data-set="shipping_city"></span>,&nbsp;
+                        <span data-set="shipping_region"></span>&nbsp;
+                        <span data-set="shipping_postal_code"></span>
+                      </span>
+                      <span data-set="shipping_country" class="address__item"></span>
+                      <span data-set="shipping_phone" class="address__item"></span>
+                      <a data-toggle="tab" href="#shipping-tab" role="tab" class="address__item address__edit">EDIT</a>
                     </address>
                   </div><!-- col -->
 
@@ -404,13 +412,20 @@
                   <div class="col-lg-4 flex flex-column">
                     <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
                       <span class="address__item address__title">BILLING ADDRESS</span>
-                      <span class="address__item">Drew McCarver</span>
-                      <span class="address__item">30 Ridgecrest Road</span>
-                      <span class="address__item">Wallingford, CT 06492</span>
-                      <span class="address__item">United States</span>
-                      <span class="address__item">860-857-2037</span>
-                      <span class="address__item">Drewdesigns@gmail.com</span>
-                      <a href="#" class="address__item address__edit">EDIT</a>
+                      <span class="address__item">
+                        <span data-set="billing_first_name"></span>&nbsp;
+                        <span data-set="billing_last_name"></span>
+                      </span>
+                      <span data-set="billing_address" class="address__item"></span>
+                      <span data-set="billing_address_2" class="address__item"></span>
+                      <span class="address__item">
+                        <span data-set="billing_city"></span>,&nbsp;
+                        <span data-set="billing_region"></span>&nbsp;
+                        <span data-set="billing_postal_code"></span>
+                      </span>
+                      <span data-set="billing_country" class="address__item"></span>
+                      <span data-set="billing_phone" class="address__item"></span>
+                      <a data-toggle="tab" href="#billing-tab" role="tab" class="address__item address__edit">EDIT</a>
                     </address>
                   </div><!-- col -->
 
@@ -421,11 +436,11 @@
                   <div class="col-lg-4 flex flex-column">
                     <address class="flex flex-column flex-1 mb0-sm flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
                       <span class="address__item address__title">PAYMENT DETAILS</span>
-                      <span class="address__item">Drew McCarver</span>
+                      <span class="address__item" data-set="billing_cardholder"></span>
                       <span class="address__item">VISA</span>
-                      <span class="address__item">XXXX-XXXX-XXXX-1234</span>
-                      <span class="address__item">Exp. January 2017</span>
-                      <a href="#" class="address__item address__edit">EDIT</a>
+                      <span class="address__item" data-set="billing_cardnumber" data-set-transformer="redact_card"></span>
+                      <span class="address__item">Exp. <span data-set="billing_exp_month"></span>/<span data-set="billing_exp_year"></span></span>
+                      <a data-toggle="tab" href="#billing-tab" role="tab" class="address__item address__edit">EDIT</a>
                     </address>
                   </div><!-- col -->
 

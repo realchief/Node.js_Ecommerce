@@ -1,0 +1,33 @@
+<tr data-view="BagProductMobileView" data-id="<%= doc._id %>">
+  <td>
+    <% if (Belt.get(doc, 'product.media.0.url')){ %>
+      <img src="<%= doc.product.media[0].url %>" class="table__img">
+    <% } %>
+  </td>
+  <td>
+    <div class="table__goods__info goods__info">
+      <% if (Belt.get(doc, 'product.label.us')){ %>
+        <p class="goods__info-name"><%= doc.product.label.us %></p>
+      <% } %>
+      <% if (Belt.get(doc, 'product.brands.0')){ %>
+        <p class="goods__info-description"><%= doc.product.brands.join(', ') %></p>
+      <% } %>
+    </div>
+    <ul class="table__goods__details goods__details">
+      <% _.each(doc.options, function(v, k){ %>
+        <li class="goods__details__item">
+          <span><%= k %>:</span> <span><%= v %></span>
+        </li>
+      <% }) %>
+    </ul>
+  </td>
+  <td>
+    <div class="table__divider"></div>
+    <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>">
+  </td>
+  <td>
+    <div class="table__divider"></div>
+    <p class="table__cost">$<%= doc.quantity * doc.stock.price %></p>
+    <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= doc.stock.price %>)</p>
+  </td>
+</tr>
