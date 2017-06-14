@@ -29,7 +29,7 @@ var GB = _.defaults(O.argv, {
   'mongodb': O.mongodb
 , 'host': 'wanderset.com'
 , 'db': 'staging_wanderset'
-, 'brand_regex': /N\/A Socks/i
+, 'brand_regex': /Publish Brand/i
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'

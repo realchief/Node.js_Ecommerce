@@ -66,6 +66,6 @@ $(document).ready(function(){
   GetCartCount();
 
   setInterval(function(){
-    $('.masonry-grid').isotope('layout');
+    Belt.call($('.masonry-grid'), 'isotope', 'layout');
   }, 1000);
 });

@@ -21,6 +21,8 @@ var LoadProducts = function(options, callback){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['docs'] = Belt.get(json, 'data');
+        GB['docs'] = gb.docs;
+
         cb();
       });
     }

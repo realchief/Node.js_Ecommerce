@@ -33,16 +33,16 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/products_export-7.csv' //Path.join(O.__dirname, './data/feeds/asphalt-yacht-club-feed.csv')
+  'csv_path': '/home/ben/Downloads/publish-wanderset.csv' //Path.join(O.__dirname, './data/feeds/asphalt-yacht-club-feed.csv')
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
 , 'vendors': [
-    'Asphalt Yacht Club'
+    'Publish Brand'
   ]
 , 'brands': [
-    'Asphalt Yacht Club'
+    'Publish Brand'
   ]
 });
 
