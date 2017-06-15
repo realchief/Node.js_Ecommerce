@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'brands': 'Perennial Collections'
+    '_id': '590f81f8b516521620762122'
   }
 , 'skip': 0
 , 'limit': 100
@@ -43,13 +43,12 @@ var GB = _.defaults(O.argv, {
   , 'pass': 'wanderset1234'
   }
 , 'iterator': function(o, cb){
-    Async.eachSeries(o.stocks, function(s, cb2){
-      Request({
-        'url': O.host + '/product/' + o._id + '/stock/' + s._id + '/delete.json'
-      , 'auth': GB.auth
-      , 'method': 'delete'
-      }, Belt.cw(cb2));
-    }, Belt.cw(cb, 0));
+    Request({
+      'url': O.host + '/product/' + o._id + '/delete.json'
+    , 'auth': GB.auth
+    , 'json': true
+    , 'method': 'delete'
+    }, Belt.cw(cb));
   }
 });
 

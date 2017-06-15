@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'brands': 'Perennial Collections'
+    'brands': 'Perennial Collections' //'N/A Socks'
   }
 , 'skip': 0
 , 'limit': 100
@@ -42,14 +42,27 @@ var GB = _.defaults(O.argv, {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
+, 'quantity': 10
+, 'price': 10
 , 'iterator': function(o, cb){
-    Async.eachSeries(o.stocks, function(s, cb2){
-      Request({
-        'url': O.host + '/product/' + o._id + '/stock/' + s._id + '/delete.json'
-      , 'auth': GB.auth
-      , 'method': 'delete'
-      }, Belt.cw(cb2));
-    }, Belt.cw(cb, 0));
+    Request({
+      'url': O.host + '/product/' + o._id + '/stock/create.json'
+    , 'auth': GB.auth
+    , 'body': {
+        'vendor': GB.query.brands
+      , 'sku': 'default'
+      , 'price': GB.price
+      , 'available_quantity': GB.quantity
+      , 'options': {
+          'size': {
+            'alias': 'size'
+          , 'value': '6-8"'
+          }
+        }
+      }
+    , 'json': true
+    , 'method': 'post'
+    }, Belt.cw(cb));
   }
 });
 
