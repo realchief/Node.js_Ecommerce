@@ -28,7 +28,11 @@ var Spin = new Spinner(4);
 var GB = _.defaults(O.argv, {
   'mongodb': O.mongodb
 , 'collection_name': 'products'
-, 'db': 'streetammo_foot'
+, 'db': 'streetammo_2'
+, 'auth': {
+    'user': 'wanderset'
+  , 'pass': 'wanderset1234'
+  }
 });
 
 Spin.start();
@@ -61,6 +65,7 @@ Async.waterfall([
               Request({
                 'url': O.host + '/product/create.json'
               , 'method': 'post'
+              , 'auth': GB.auth
               , 'json': {
                   'name': e.title
                 , 'label': {
@@ -95,9 +100,12 @@ Async.waterfall([
               });
             }
           , function(cb3){
+              if (!GB.doc) return cb3();
+
               Request({
                 'url': O.host + '/product/' + GB.doc._id + '/stock/create.json'
               , 'method': 'post'
+              , 'auth': GB.auth
               , 'json': {
                   'vendor': 'streetammo'
                 , 'sku': e.url.split('/').pop()
@@ -115,9 +123,12 @@ Async.waterfall([
               });
             }
           , function(cb3){
+              if (!GB.doc) return cb3();
+
               Request({
                 'url': O.host + '/product/' + GB.doc._id + '/media/create.json'
               , 'method': 'post'
+              , 'auth': GB.auth
               , 'json': {
                   'remote_url': e.image
                 }

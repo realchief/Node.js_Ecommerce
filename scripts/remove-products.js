@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    '_id': '590f81f8b516521620762122'
+    'vendors': 'Streetammo'
   }
 , 'skip': 0
 , 'limit': 100
