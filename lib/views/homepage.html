@@ -9,39 +9,189 @@
     <main class="main">
       <%= Render('header', Locals) %>
 
-      <%= Render('billboard.homepage', Locals) %>
+      <section class="section section--30">
 
-      <section class="section section--pt-30">
         <div class="container">
-          <div class="gallery">
-            <div class="gallery__body">
-              <button class="gallery__arrow gallery__arrow--prev hidden-xs-up"></button>
-              <div class="carousel--billboard carousel--track" data-slick='{"dots": false}'>
-                <a href="/set/Chance%3Cbr%3EThe%20Rapper" class="gallery__item">
-                  <img src="/public/assets/images/temp/billboard-gallery-1.jpg" class="gallery__img" alt="">
-                </a><!-- gallery__item -->
-                <a href="/set/Andrew%3Cbr%3EWeitz" class="gallery__item">
-                  <img src="/public/static/andrew-weitz-post.jpg" class="gallery__img" alt="">
-                </a><!-- gallery__item -->
-                <a href="/set/Gucci%3Cbr%3EMane" class="gallery__item">
-                  <img src="/public/assets/images/temp/billboard-gallery-3.jpg" class="gallery__img" alt="">
-                </a><!-- gallery__item -->
-              </div><!-- gallery__track -->
-              <button class="gallery__arrow gallery__arrow--next hidden-xs-up"></button>
-            </div><!-- gallery__current -->
-          </div><!-- gallery -->
 
-          <div class="divider divider--lg divider--content"></div>
+          <div class="set-member">
+            <a href="#" class="set-member__item">
+              <div class="set-member__hero" style="background-image:url('assets/images/temp/set-member-1.jpg');">
+              </div><!-- set-member__hero -->
+              <div class="set-member__info">
+                <p class="set-member__info__title">set member</p>
+                <h3 class="set-member__info__name">andrew weitz</h3>
+                <button type="button" class="btn btn-outline-secondary btn-bold set-member__btn">view collection</button>
+              </div><!-- set-member__info -->
+            </a><!-- set-member__item -->
 
-          <div class="masonry-grid">
-            <% _.each(Belt.get(doc, 'media') || [], function(m){ %>
-              <%= Render('media_item', _.extend({}, Locals, {
-                'doc': m
-              })) %>
-            <% }) %>
-          </div>
-        </div>
-      </section>
+            <a href="#" class="set-member__item">
+              <div class="set-member__hero" style="background-image:url('assets/images/temp/set-member-2.jpg');">
+              </div><!-- set-member__hero -->
+              <div class="set-member__info">
+                <p class="set-member__info__title">set member</p>
+                <h3 class="set-member__info__name">trevor andrews</h3>
+                <button type="button" class="btn btn-outline-secondary btn-bold set-member__btn">view collection</button>
+              </div><!-- set-member__info -->
+            </a><!-- set-member__item -->
+
+
+            <a href="#" class="set-member__item">
+              <div class="set-member__hero" style="background-image:url('assets/images/temp/set-member-3.jpg');">
+              </div><!-- set-member__hero -->
+              <div class="set-member__info">
+                <p class="set-member__info__title">set member</p>
+                <h3 class="set-member__info__name">gucci mane</h3>
+                <button type="button" class="btn btn-outline-secondary btn-bold set-member__btn">view collection</button>
+              </div><!-- set-member__info -->
+            </a><!-- set-member__item -->
+
+            <a href="#" class="set-member__item">
+              <div class="set-member__hero" style="background-image:url('assets/images/temp/set-member-4.jpg');">
+              </div><!-- set-member__hero -->
+              <div class="set-member__info">
+                <p class="set-member__info__title">set member</p>
+                <h3 class="set-member__info__name">javier laval</h3>
+                <button type="button" class="btn btn-outline-secondary btn-bold set-member__btn">view collection</button>
+              </div><!-- set-member__info -->
+            </a><!-- set-member__item -->
+          </div><!-- set-member -->
+        </div><!-- container -->
+
+      </section><!-- section -->
+
+
+      <section class="mosaic-info" style="background-image:url('assets/images/temp/Large-The-Set-Piece-Image.jpg');">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12">
+              <div class="flex flex-column-sm">
+                <div class="mosaic-info__logo">
+                  <span class="mosaic-info__logo__item">
+                    the
+                  </span><!-- mosaic-info__logo__item -->
+                  <span class="mosaic-info__logo__item mosaic-info__logo__item--blue">
+                    set
+                  </span><!-- mosaic-info__logo__item -->
+                </div><!-- mosaic-info__logo -->
+
+                <div class="mosaic-info__description">
+                  <p class="mosaic-info__description__text">Use your influence to create a next level<br class="hidden-md-down"> shopping experience with Wanderset’s<br class="hidden-md-down"> unique and innovative platform.</p>
+                  <h2 class="mosaic-info__description__title">Join The Set. Tell your story.</h2>
+                  <a href="#" class="btn btn-has-arrow btn-has-arrow--right btn-bold mosaic__btn">
+                    learn more
+                    <i class="wanderset-icon-right-open btn-has-arrow__icon btn-has-arrow__icon-right"></i>
+                  </a>
+                </div>
+              </div><!-- flex -->
+            </div><!-- col -->
+          </div><!-- row -->
+        </div><!-- container -->
+      </section><!-- mosaic-info -->
+
+      <section class="section section--30">
+
+        <div class="container">
+          <div class="row no-gutters row--flex-stretch mb60">
+            <div class="col-md-6 mb10-sm">
+              <a href="#" class="mosaic-item mosaic-item--xl" style="background-image:url('assets/images/temp/Wander-Piece.jpg');">
+              </a><!-- mosaic-item -->
+            </div><!-- col -->
+
+            <div class="col-md-6">
+              <div class="row row--flex-stretch no-gutters">
+                <div class="col-6">
+                  <a href="#" class="mosaic-item has-bg" style="background-image:url('assets/images/temp/Small-Blog-Piece-1.jpg')">
+                  </a><!-- mosaic-item -->
+                </div><!-- col -->
+                <div class="col-6">
+                  <a href="#" class="mosaic-item has-bg" style="background-image:url('assets/images/temp/Small-Blog-Piece-2.jpg')">
+                  </a><!-- mosaic-item -->
+                </div><!-- col -->
+
+
+                <div class="col-6">
+                  <a href="#" class="mosaic-item has-bg" style="background-image:url('assets/images/temp/Small-Blog-Piece-3.jpg')">
+                  </a><!-- mosaic-item -->
+                </div><!-- col -->
+                <div class="col-6">
+                  <a href="#" class="mosaic-item has-bg" style="background-image:url('assets/images/temp/Small-Blog-Piece-4.jpg')">
+                  </a><!-- mosaic-item -->
+                </div><!-- col -->
+              </div><!-- row -->
+            </div><!-- col -->
+          </div><!-- row -->
+
+          <div class="row">
+            <div class="col-lg-4 col-sm-6">
+              <a href="#" class="mosaic-set">
+                <img src="assets/images/temp/mosaic-set-1.jpg" class="w-100" alt="">
+                <div class="mosaic-set__description">
+                  <p class="mosaic-set__description__title">collection</p>
+                  <span class="mosaic-set__description__divider"></span>
+                  <h3 class="mosaic-set__description__name">all black<br>everything</h3>
+                </div><!-- mosaic-set__description -->
+              </a><!-- mosaic-set -->
+            </div><!-- col -->
+
+            <div class="col-lg-4 col-sm-6">
+              <a href="#" class="mosaic-set">
+                <img src="assets/images/temp/mosaic-set-2.jpg" class="w-100" alt="">
+                <div class="mosaic-set__description">
+                  <p class="mosaic-set__description__title">new</p>
+                  <span class="mosaic-set__description__divider"></span>
+                  <h3 class="mosaic-set__description__name">new drop<br>from adidas</h3>
+                </div><!-- mosaic-set__description -->
+              </a><!-- mosaic-set -->
+            </div><!-- col -->
+
+            <div class="col-lg-4 col-sm-6">
+              <a href="#" class="mosaic-set">
+                <img src="assets/images/temp/mosaic-set-3.jpg" class="w-100" alt="">
+                <div class="mosaic-set__description">
+                  <p class="mosaic-set__description__title">sale</p>
+                  <span class="mosaic-set__description__divider"></span>
+                  <h3 class="mosaic-set__description__name">buy one, get one<br>dad hats</h3>
+                </div><!-- mosaic-set__description -->
+              </a><!-- mosaic-set -->
+            </div><!-- col -->
+
+            <div class="col-lg-4 col-sm-6">
+              <a href="#" class="mosaic-set">
+                <img src="assets/images/temp/mosaic-set-4.jpg" class="w-100" alt="">
+                <div class="mosaic-set__description">
+                  <p class="mosaic-set__description__title">keep it 100</p>
+                  <span class="mosaic-set__description__divider"></span>
+                  <h3 class="mosaic-set__description__name">outfits<br>under $100</h3>
+                </div><!-- mosaic-set__description -->
+              </a><!-- mosaic-set -->
+            </div><!-- col -->
+
+            <div class="col-lg-4 col-sm-6">
+              <a href="#" class="mosaic-set">
+                <img src="assets/images/temp/mosaic-set-5.jpg" class="w-100" alt="">
+                <div class="mosaic-set__description">
+                  <p class="mosaic-set__description__title">editorial</p>
+                  <span class="mosaic-set__description__divider"></span>
+                  <h3 class="mosaic-set__description__name">the history of<br>the rock tour tee</h3>
+                </div><!-- mosaic-set__description -->
+              </a><!-- mosaic-set -->
+            </div><!-- col -->
+
+            <div class="col-lg-4 col-sm-6">
+              <a href="#" class="mosaic-set">
+                <img src="assets/images/temp/mosaic-set-6.jpg" class="w-100" alt="">
+                <div class="mosaic-set__description">
+                  <p class="mosaic-set__description__title">lifestyle</p>
+                  <span class="mosaic-set__description__divider"></span>
+                  <h3 class="mosaic-set__description__name">a one on one with<br>andrew weitz</h3>
+                </div><!-- mosaic-set__description -->
+              </a><!-- mosaic-set -->
+            </div><!-- col -->
+          </div><!-- row -->
+
+        </div><!-- container -->
+
+      </section><!-- section -->
     </main>
 
     <a href="#" class="btn-scroll-top">
