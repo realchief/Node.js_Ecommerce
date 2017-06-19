@@ -20,6 +20,11 @@ var SetView = function(options, callback){
 
         this.loadLogoMedia();
       }
+    , 'click [name="landing_media_create"]': function(e){
+        e.preventDefault();
+
+        this.loadLandingMedia();
+      }
     , 'click [name="media_create"]': function(e){
         e.preventDefault();
 
@@ -134,6 +139,10 @@ var SetView = function(options, callback){
         if (val.url && val.url.match(/^http/)) val.url += '?i=' + Belt.uuid();
         return '<image src="' + val.url + '" class="img-responsive">';
       }
+    , 'set:landing_media': function(val){
+        if (val.url && val.url.match(/^http/)) val.url += '?i=' + Belt.uuid();
+        return '<image src="' + val.url + '" class="img-responsive">';
+      }
     , 'get:products': function(val, $el){
         var vals = [];
 
@@ -193,6 +202,15 @@ var SetView = function(options, callback){
   });
 
   gb.view['logo_media_dropzone'] = new Dropzone('[name="logo_media_file"]', {
+    'url': '#'
+  , 'method': 'post'
+  , 'acceptedFiles': 'image/*,video/*'
+  , 'dictDefaultMessage': 'Add image'
+  , 'addRemoveLinks': true
+  , 'maxFiles': 1
+  });
+
+  gb.view['landing_media_dropzone'] = new Dropzone('[name="landing_media_file"]', {
     'url': '#'
   , 'method': 'post'
   , 'acceptedFiles': 'image/*,video/*'
@@ -360,12 +378,70 @@ var SetView = function(options, callback){
     });
   };
 
+  gb.view['loadLandingMedia'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    return Async.waterfall([
+      function(cb){
+        if (self.$el.find('[name="landing_media_url"]').val()){
+          self['landing_media'] = {
+            'landing_remote_url': self.$el.find('[name="landing_media_url"]').val()
+          };
+          self.set({
+            'landing_media': {
+              'url': self.landing_media.landing_remote_url
+            }
+          });
+        } else if (Belt.get(self, 'landing_media_dropzone.files.0')){
+          var fr = new FileReader()
+            , ocb = _.once(cb);
+
+          fr.readAsDataURL(self.landing_media_dropzone.files[0]);
+          fr.onload = function(){
+            self['landing_media'] = {
+              'landing_file': self.transformers.to_blob(fr.result)
+            , 'landing_filename': self.landing_media_dropzone.files[0].name
+            };
+            self.set({
+              'landing_media': {
+                'url': fr.result
+              }
+            });
+            ocb();
+          };
+          fr.onerror = ocb;
+
+        } else {
+          cb(new Error('No landing media selected'));
+        }
+      }
+    , function(cb){
+        self.landing_media_dropzone.removeAllFiles();
+        self.$el.find('[name="landing_media_url"]').val('');
+
+        cb();
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
   gb.view['create'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-      'data': _.extend({}, self.get(), self.featured_media || {}, self.mobile_featured_media || {}, self.logo_media || {})
+      'data': _.extend({}
+            , self.get()
+            , self.featured_media || {}
+            , self.mobile_featured_media || {}
+            , self.logo_media || {}
+            , self.landing_media || {})
     });
 
     return Async.waterfall([
@@ -377,6 +453,7 @@ var SetView = function(options, callback){
         Belt.delete(data, 'file');
         Belt.delete(data, 'mobile_file');
         Belt.delete(data, 'logo_file');
+        Belt.delete(data, 'landing_file');
 
         fd.append('json', JSON.stringify(_.omit(data, [
 
@@ -384,6 +461,7 @@ var SetView = function(options, callback){
         if (a.o.data.file) fd.append('file', a.o.data.file, a.o.data.filename);
         if (a.o.data.mobile_file) fd.append('mobile_file', a.o.data.mobile_file, a.o.data.mobile_filename);
         if (a.o.data.logo_file) fd.append('logo_file', a.o.data.logo_file, a.o.data.logo_filename);
+        if (a.o.data.landing_file) fd.append('logo_file', a.o.data.landing_file, a.o.data.landing_file);
 
         $.ajax({
           'url': '/set/create.json'
@@ -420,6 +498,8 @@ var SetView = function(options, callback){
     var doc = _.extend({}, a.o.doc, Belt.objFlatten(_.pick(a.o.doc, [
       'label'
     , 'description'
+    , 'listing_label'
+    , 'landing_label'
     ])));
     self.set(doc);
 
@@ -499,6 +579,9 @@ var SetView = function(options, callback){
     gb['update'] = _.pick(gb.data, [
       'name'
     , 'label'
+    , 'landing_label'
+    , 'listing_label'
+    , 'slug'
     , 'description'
     , 'text_color'
     , 'products'
@@ -520,6 +603,10 @@ var SetView = function(options, callback){
       _.extend(gb.update, self.logo_media);
     }
 
+    if (self.landing_media){
+      _.extend(gb.update, self.landing_media);
+    }
+
     gb.update = _.omit(gb.update, function(v, k){
       return Belt.equal(v, self.doc[k]);
     });
@@ -533,9 +620,11 @@ var SetView = function(options, callback){
           , ocb = _.once(cb);
 
         var data = Belt.copy(gb.update);
+
         Belt.delete(data, 'file');
         Belt.delete(data, 'mobile_file');
         Belt.delete(data, 'logo_file');
+        Belt.delete(data, 'landing_file');
 
         fd.append('json', JSON.stringify(_.omit(data, [
 
@@ -544,6 +633,7 @@ var SetView = function(options, callback){
         if (gb.update.file) fd.append('file', gb.update.file, gb.update.filename);
         if (gb.update.mobile_file) fd.append('mobile_file', gb.update.mobile_file, gb.update.mobile_filename);
         if (gb.update.logo_file) fd.append('logo_file', gb.update.logo_file, gb.update.logo_filename);
+        if (gb.update.landing_file) fd.append('landing_file', gb.update.landing_file, gb.update.landing_filename);
 
         $.ajax({
           'url': '/set/' + self._id + '/update.json'

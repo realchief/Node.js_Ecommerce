@@ -50,6 +50,15 @@ var BuildQuery = function(options, callback){
     qry['_id'] = val;
   }
 
+  val = $('[name="name"] [name="filter"]').val();
+  if (val){
+    val = val.replace(/\W+/g, '\\W*');
+    qry['name'] = {
+      '$regex': val
+    , '$options': 'i'
+    };
+  }
+
   val = $('[name="content"] [name="filter"]').val();
   if (val){
     val = val.replace(/\W+/g, '\\W*');
