@@ -285,28 +285,30 @@ var MediaView = function(options, callback){
     a.o = _.defaults(a.o, {
       //coordinates
       //label
-      'color': Please.make_color()[0]
+      'color': '#61d2fe'//Please.make_color()[0]
     , 'canvas': self.$el.find('canvas')[0]
     });
 
     gb['context'] = a.o.canvas.getContext('2d');
     gb.context.beginPath();
-    gb.context.arc(a.o.coordinates.x, a.o.coordinates.y, 10, 0, 2 * Math.PI);
+    gb.context.arc(a.o.coordinates.x, a.o.coordinates.y, 8, 0, 2 * Math.PI);
     gb.context.fillStyle = a.o.color;
     gb.context.fill();
 
+/*
     gb['context'] = a.o.canvas.getContext('2d');
     gb.context.beginPath();
     gb.context.arc(a.o.coordinates.x, a.o.coordinates.y, 16, 0, 2 * Math.PI);
     gb.context.lineWidth = 2;
     gb.context.strokeStyle = a.o.color;
     gb.context.stroke();
+*/
 
     gb['context'] = a.o.canvas.getContext('2d');
     gb.context.fillStyle = 'black';
     gb.context.strokeStyle = 'black';
-    gb.context.font = '20px Arial';
-    gb.context.fillText(a.o.label, a.o.coordinates.x - 5, a.o.coordinates.y);
+    gb.context.font = '16px Arial';
+    gb.context.fillText(a.o.label, a.o.coordinates.x - 4, a.o.coordinates.y);
   };
 
   gb.view['renderCanvas'] = function(options, callback){
