@@ -289,9 +289,13 @@ var MediaView = function(options, callback){
     , 'canvas': self.$el.find('canvas')[0]
     });
 
+    a.o.coordinates = _.mapObject(a.o.coordinates, function(c){
+      return Belt.cast(c, 'number');
+    });
+
     gb['context'] = a.o.canvas.getContext('2d');
     gb.context.beginPath();
-    gb.context.arc(a.o.coordinates.x, a.o.coordinates.y, 8, 0, 2 * Math.PI);
+    gb.context.arc(a.o.coordinates.x + 8, a.o.coordinates.y + 8, 8, 0, 2 * Math.PI);
     gb.context.fillStyle = a.o.color;
     gb.context.fill();
 
@@ -308,7 +312,7 @@ var MediaView = function(options, callback){
     gb.context.fillStyle = 'black';
     gb.context.strokeStyle = 'black';
     gb.context.font = '16px Arial';
-    gb.context.fillText(a.o.label, a.o.coordinates.x - 4, a.o.coordinates.y);
+    gb.context.fillText(a.o.label, a.o.coordinates.x + 4, a.o.coordinates.y + 14);
   };
 
   gb.view['renderCanvas'] = function(options, callback){
