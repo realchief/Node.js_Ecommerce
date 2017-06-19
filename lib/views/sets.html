@@ -16,10 +16,10 @@
             <% _.each(a, function(s){ %>
               <a href="/set/<%= encodeURIComponent(s.name) %>" class="set__item">
                 <div class="set__item__holder">
-                  <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>"
-                  alt="<%= Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="set__item__img">
+                  <img src="<%= Belt.get(s, 'landing_media.url') || Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>"
+                  alt="<%= Belt.get(s, 'landing_label.us') || Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="set__item__img">
                 </div>
-                <span class="set__item__title"><%= (Belt.get(s, 'label.us') || '') %></span>
+                <span class="set__item__title"><%= Belt.get(s, 'landing_label.us') || (Belt.get(s, 'label.us') || '') %></span>
               </a>
             <% }) %>
           </div>
