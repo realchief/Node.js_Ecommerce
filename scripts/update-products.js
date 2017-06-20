@@ -34,22 +34,22 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'brands': 'N/A Socks'
+
   }
-, 'skip': 0
+, 'skip': 200
 , 'limit': 100
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
 , 'iterator': function(o, cb){
+    console.log('Updating product [' + o._id + ']...');
+
     Request({
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'options': {
-
-        }
+        'name': o.name
       }
     , 'json': true
     , 'method': 'post'
@@ -77,8 +77,9 @@ Async.waterfall([
       }, function(err, res, json){
         cont = _.any(Belt.get(json, 'data')) ? true : false;
         GB.skip += GB.limit;
+        console.log(GB.skip);
 
-        Async.eachSeries(Belt.get(json, 'data') || [], function(d, cb2){
+        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
           GB.iterator(d, cb2);
         }, Belt.cw(next, 0));
       })
