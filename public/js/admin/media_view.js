@@ -507,6 +507,7 @@ var MediaView = function(options, callback){
 
     gb['update'] = _.pick(gb.data, [
       'label'
+    , 'slug'
     , 'description'
     , 'products'
     ]);

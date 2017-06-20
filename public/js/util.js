@@ -69,3 +69,13 @@ $(document).ready(function(){
     Belt.call($('.masonry-grid'), 'isotope', 'layout');
   }, 1000);
 });
+
+var ToggleLoader = function(show){
+  if (show && !$('.loader').length){
+    $('main').append(Templates.loader());
+  }
+
+  if (!show){
+    $('.loader').remove();
+  }
+};

@@ -1,6 +1,6 @@
 <div class="masonry-grid__item media-item" data-id="<%= doc._id %>">
   <% if (Belt.get(doc, 'products.0')){ %>
-    <a href="/media/<%= Belt.get(doc, '_id') || '' %>">
+    <a href="/media/<%= doc.slug || Belt.get(doc, '_id') || '' %>">
   <% } %>
   <div class="lifestyle__item" data-aos="fade-up" data-aos-duration="1200">
     <img src="<%= Belt.get(doc, 'url') || '' %>" class="lifestyle__img">

@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%= Render('head', Locals) %>
-</head>
+  <head>
+    <%= Render('head', Locals) %>
+  </head>
+  <body>
+    <%= Render('header', Locals) %>
 
-<body>
-  <%= Render('header', Locals) %>
+    <main class="main" data-view="OutfitView" data-id="<%= doc._id %>">
+      <section class="section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-5 push-sm-down text-center-sm">
+              <%= Render('media_view', Locals) %>
+            </div>
 
-  <main class="main" data-view="OutfitView" data-id="<%= doc._id %>">
-    <section class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-5 offset-lg-1 col-md-5 push-sm-down text-center-sm">
-            <%= Render('media_view', Locals) %>
-          </div>
-
-          <div class="col-lg-5 col-md-7">
-            <div class="row">
-              <% _.each(doc.products, function(p){ %>
-                <% if (doc.products.length >= 3){ %>
-                  <div class="col-4">
-                <% } else if (doc.products.length <= 2){ %>
-                  <div class="col-6">
-                <% } else { %>
-                  <div class="col-12">
-                <% } %>
-                  <%= Render('outfit_product_preview', _.extend({}, Locals, {
-                    'doc': p.product
-                  })) %>
-                </div>
-              <% }) %>
+            <div class="col-lg-5 col-md-7">
+              <div class="row">
+                <% _.each(doc.products, function(p){ %>
+                  <% if (doc.products.length >= 3){ %>
+                    <div class="col-4">
+                  <% } else if (doc.products.length <= 2){ %>
+                    <div class="col-6">
+                  <% } else { %>
+                    <div class="col-12">
+                  <% } %>
+                    <%= Render('outfit_product_preview', _.extend({}, Locals, {
+                      'doc': p.product
+                    })) %>
+                  </div>
+                <% }) %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <%= Render('footer', Locals) %>
-
-  <%= Render('javascript', Locals) %>
-</body>
+    <%= Render('footer', Locals) %>
+    <%= Render('javascript', Locals) %>
+  </body>
 </html>

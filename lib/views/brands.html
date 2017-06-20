@@ -12,13 +12,16 @@
       <div class="container">
         <div class="brands-row">
           <% _.each(docs, function(d){ %>
-             <a href="/brand/<%= encodeURIComponent(Belt.get(d, 'label.us') || d.name) %>" class="brands__item">
+             <a href="/brand/<%= encodeURIComponent(Belt.get(d, 'slug') || Belt.get(d, 'label.us') || d.name) %>" class="brands__item">
                 <img src="<%=
                    Belt.get(d, 'landing_media.url')
                 || Belt.get(d, 'logo_media.url')
                 || Belt.get(d, 'mobile_featured_media.url')
                 || Belt.get(d, 'featured_media.url')
-                %>" class="brands__item__img">
+                %>"
+                class="brands__item__img"
+                alt="<%= Belt.get(d, 'slug') || Belt.get(d, 'landing_label.us') || Belt.get(d, 'label.us') || d.name %>"
+                >
              </a>
           <% }) %>
         </div>

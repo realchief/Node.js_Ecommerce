@@ -1,5 +1,5 @@
 <div class="goods__item product-item" data-id="<%= doc._id %>">
-  <a href="/product/<%= doc._id %>" class="goods__item__link">
+  <a href="/product/<%= doc.slug || doc._id %>" class="goods__item__link">
     <% if (Belt.get(doc, 'media.0.url')){ %>
       <img src="<%= doc.media[0].url %>" class="goods__img">
     <% } %>
@@ -13,7 +13,7 @@
       <% if (Belt.get(doc, 'base_configuration.price')){ %>
         <p class="goods__info-price">$<%= doc.base_configuration.price %></p>
       <% } else { %>
-        <p class="goods__info-price">Unavailable</p>
+        <p class="goods__info-price">Sold out</p>
       <% } %>
     </div>
   </a>

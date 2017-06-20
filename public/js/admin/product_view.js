@@ -421,6 +421,7 @@ var ProductView = function(options, callback){
         gb['initial_doc'] = _.pick(a.o.data, [
           'name'
         , 'label'
+        , 'slug'
         , 'description'
         , 'brands'
         , 'categories'
@@ -519,6 +520,7 @@ var ProductView = function(options, callback){
     gb['update'] = _.pick(gb.data, [
       'name'
     , 'label'
+    , 'slug'
     , 'description'
     , 'vendors'
     , 'brands'

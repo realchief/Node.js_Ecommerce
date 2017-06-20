@@ -36,7 +36,9 @@
     </div>
   </div>
 
-  <nav class="navbar navbar-toggleable-sm <% if (typeof hide_navbar !== 'undefined' && hide_navbar){ %>hidden-xs-up<% } %>">
+  <nav class="navbar navbar-toggleable-sm <%
+    if (typeof hide_navbar !== 'undefined' && hide_navbar){ %>hidden-xs-up<% }
+  %>">
     <div class="collapse navbar-collapse" id="navbar-collapse">
       <div class="navbar__mobile-menu hidden-md-up">
         <ul class="navbar-nav">
@@ -48,7 +50,7 @@
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">The Set</a>
             <div class="dropdown-menu">
               <% _.each(Instance.setmember_sets, function(s){ %>
-                <a class="dropdown-item" href="/set/<%= encodeURIComponent(s.name) %>"><%= Belt.get(s, 'listing_label.us') || Instance.sanitizeLabel(Belt.get(s, 'label.us') || s.name || '') %></a>
+                <a class="dropdown-item" href="/set/<%= encodeURIComponent(s.slug || s.name || s._id) %>"><%= Belt.get(s, 'listing_label.us') || Instance.sanitizeLabel(Belt.get(s, 'label.us') || s.name || '') %></a>
               <% }) %>
             </div>
           </li>
@@ -101,12 +103,18 @@
               <% _.each(set_rows, function(a, i){ %>
                 <div class="dropdown__thumbnails-row">
                   <% _.each(a, function(s){ %>
-                    <a href="/set/<%= encodeURIComponent(s.name) %>" class="dropdown__thumbnails-item">
+                    <a href="/set/<%= encodeURIComponent(s.slug || s.name || s._id) %>" class="dropdown__thumbnails-item">
                       <span class="dropdown__thumbnails-img-holder">
-                        <img src="<%= Belt.get(s, 'logo_media.url') || Belt.get(s, 'mobile_featured_media.url') || Belt.get(s, 'featured_media.url') || '' %>"
-                        alt="<%= Belt.get(s, 'listing_label.us') || Instance.sanitizeLabel(Belt.get(s, 'label.us') || '') %>" class="dropdown__thumbnails-img">
+                        <img src="<%=
+                          Belt.get(s, 'logo_media.url')
+                        || Belt.get(s, 'mobile_featured_media.url')
+                        || Belt.get(s, 'featured_media.url') || '' %>"
+                        alt="<%=
+                          Belt.get(s, 'listing_label.us')
+                        || Instance.sanitizeLabel(Belt.get(s, 'label.us')
+                        || '') %>" class="dropdown__thumbnails-img">
                       </span>
-                      <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'label.us') || '') %></p>
+                      <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'listing_label.us') || Belt.get(s, 'label.us') || '') %></p>
                     </a>
                   <% }) %>
                   <% if (i === set_rows.length - 1){ %>
@@ -135,7 +143,7 @@
                         <ul class="list-dropdown-menu">
                           <% _.each(s, function(s2){ %>
                             <li class="list-dropdown-menu__item">
-                              <a href="/brand/<%= encodeURIComponent(s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
+                              <a href="/brand/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
                             </li>
                           <% }) %>
                         </ul>
