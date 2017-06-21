@@ -36,17 +36,18 @@ var GB = _.defaults(O.argv, {
   'query': {
 
   }
-, 'skip': 2500
+, 'skip': 0
 , 'limit': 100
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
+, 'model': 'set'
 , 'iterator': function(o, cb){
-    console.log('Updating product [' + o._id + ']...');
+    console.log('Updating ' + GB.model + ' [' + o._id + ']...');
 
     Request({
-      'url': O.host + '/product/' + o._id + '/update.json'
+      'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
         'name': o.name
@@ -65,7 +66,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/product/list.json'
+        'url': O.host + '/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query

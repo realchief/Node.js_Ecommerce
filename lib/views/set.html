@@ -158,7 +158,7 @@
           <div class="tab-pane" id="shop-lifestyle-tab" role="tabpanel">
             <div class="container">
               <div class="masonry-grid">
-                <% _.each(doc.media, function(m){ %>
+                <% _.each(doc.populated_media, function(m){ %>
                   <%= Render('media_item', _.extend({}, Locals, {
                     'doc': m
                   })) %>
