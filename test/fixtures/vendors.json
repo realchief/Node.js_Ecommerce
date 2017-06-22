@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Acme"
+  , "label": {
+      "us": "Acme Products"
+    }
+  , "description": {
+      "us": "Creators of fine and non-generic products"
+    }
+  , "shipping_description": {
+      "us": "Free two-day shipping"
+    }
+  , "returns_description": {
+      "us": "Return for any reason with 30-days"
+    }
+  }
+]

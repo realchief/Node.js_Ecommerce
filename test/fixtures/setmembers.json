@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Krusty the Clown"
+  , "label": {
+      "us": "Krusty the Clown"
+    }
+  , "description": {
+      "us": "Krusty is one of the world's leading influencers, thinkers, and cultural icons"
+    }
+  , "identities": {
+      "facebook": "krusty"
+    , "twitter": "krustyclown"
+    , "instagram": "krusty"
+    , "youtube": "krustyTV"
+    , "snapchat": "krusty"
+    , "pinterest": "krustylu"
+    }
+  }
+]

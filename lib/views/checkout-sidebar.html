@@ -1,0 +1,32 @@
+<aside class="aside">
+  <button name="next" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">NEXT</button>
+
+  <div class="checkout side-paddings--sm-visible-sm checkout--without-border-b-sm hidden-sm-down">
+    <dl class="dl-aligned">
+      <dt>subtotal</dt>
+      <dd>$<%= doc.total_price %></dd>
+
+      <dt>shipping</dt>
+      <dd>free</dd>
+
+      <div class="divider"></div>
+
+      <dt>total</dt>
+      <dd>$<%= doc.total_price %></dd>
+
+      <div class="divider mt35 mb30"></div>
+
+      <dt>YOUR ORDER</dt>
+      <dd><%= doc.products.length %> items</dd>
+    </dl>
+
+    <ul class="list-goods">
+      <% _.each(doc.products, function(p){ %>
+        <%= Render('checkout-sidebar-product', _.extend({}, Locals, {
+          'doc': p
+        })) %>
+      <% }) %>
+    </ul>
+  </div>
+  <button name="next" class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+</aside>
