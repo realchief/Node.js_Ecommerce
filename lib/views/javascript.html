@@ -28,6 +28,16 @@
     , Socket = io('/')
     , GB = {};
 
+  <% if (typeof doc !== 'undefined'){ %>
+    GB['doc'] = <%= Belt.stringify(doc) %>;
+  <% } %>
+  <% if (typeof docs !== 'undefined'){ %>
+    GB['docs'] = <%= Belt.stringify(docs) %>;
+  <% } %>
+  <% if (typeof count !== 'undefined'){ %>
+    GB['count'] = <%= count %>;
+  <% } %>
+
   $(document).ready(function(){
     $('.parallax').parallax();
   });
