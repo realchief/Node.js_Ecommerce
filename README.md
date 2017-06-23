@@ -47,3 +47,9 @@ Anytime you see code like `<%= Render('some-view', {'data': data}) %>` this mean
 All files in the `./bower_components` folder are accessible from paths like https://staging.wanderser.com/bower_components/... -- for example: https://staging.wanderset.com/bower_components/underscore/underscore-min.js
 
 Be sure to update `./lib/views/javascript.html` with any new Bower files to load on pages.
+
+### Static views
+
+Any HTML file saved in `./lib/views` is accessible from a URL like https://staging.wanderser.com/page/[name of file without .html]
+
+For example, `./lib/views/tos.html` is viewable at https://staging.wanderset.com/page/tos
