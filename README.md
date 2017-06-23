@@ -52,4 +52,4 @@ Be sure to update `./lib/views/javascript.html` with any new Bower files to load
 
 Any HTML file saved in `./lib/views` is accessible from a URL like https://staging.wanderser.com/page/[name of file without .html]
 
-For example, `./lib/views/tos.html` is viewable at https://staging.wanderset.com/page/tos
+For example, `./lib/views/terms-of-use.html` is viewable at https://staging.wanderset.com/page/terms-of-use
