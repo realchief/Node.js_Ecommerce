@@ -25,7 +25,6 @@
   </div>
 <% } %>
 
-
 <div class="billboard billboard--dark hidden-md-up" style="background-image:url('<%= Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>')">
   <div class="container">
     <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
