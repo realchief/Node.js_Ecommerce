@@ -29,7 +29,7 @@ var GB = _.defaults(O.argv, {
   'mongodb': O.mongodb
 , 'host': 'wanderset.com'
 , 'db': 'staging_wanderset'
-, 'brand_regex': /Publish Brand/i
+//, 'brand_regex': /Publish Brand/i
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
@@ -68,7 +68,7 @@ Async.waterfall([
 
         _.each(GB.results, function(r){
           _.each(r.brands, function(b){
-            if (!b.match(GB.brand_regex)) return;
+            if (GB.brand_regex && !b.match(GB.brand_regex)) return;
 
             GB.brands[b] = GB.brands[b] || [];
             GB.brands[b].push(Belt.copy(r));
