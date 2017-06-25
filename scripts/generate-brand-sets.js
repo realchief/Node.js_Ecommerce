@@ -116,6 +116,7 @@ Async.waterfall([
         , 'auth': GB.auth
         , 'json': {
             'products': products
+          , 'brand': true
           }
         }, function(err, res, json){
           console.log(Belt.stringify(json));
@@ -132,6 +133,7 @@ Async.waterfall([
               'us': e
             }
           , 'products': products
+          , 'brand': true
           }
         }, function(err, res, json){
           console.log(Belt.stringify(json));

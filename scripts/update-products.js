@@ -36,7 +36,7 @@ var GB = _.defaults(O.argv, {
   'query': {
 
   }
-, 'skip': 3100
+, 'skip': 5400
 , 'limit': 100
 , 'auth': {
     'user': 'wanderset'

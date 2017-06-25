@@ -106,7 +106,8 @@
                     <a href="/set/<%= encodeURIComponent(s.slug || s.name || s._id) %>" class="dropdown__thumbnails-item">
                       <span class="dropdown__thumbnails-img-holder">
                         <img src="<%=
-                          Belt.get(s, 'logo_media.url')
+                           Belt.get(s, 'logo_media.url')
+                        || Belt.get(s, 'landing_media.url')
                         || Belt.get(s, 'mobile_featured_media.url')
                         || Belt.get(s, 'featured_media.url') || '' %>"
                         alt="<%=
