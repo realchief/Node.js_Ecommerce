@@ -5,6 +5,9 @@
     <% if (typeof brand !== 'undefined' && brand){ %>
       <p><span class="label label-warning">BRAND</span></p>
     <% } %>
+    <% if (typeof hide !== 'undefined' && hide){ %>
+      <p><span class="label label-danger">HIDDEN</span></p>
+    <% } %>
   </td>
   <td style="width:200px !important;">
     <strong name="label.us"><%= label.us %></strong><br>

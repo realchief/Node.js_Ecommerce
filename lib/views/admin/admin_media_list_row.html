@@ -1,5 +1,10 @@
 <tr class="media" data-id="<%= _id %>">
-  <td><%= _id %></td>
+  <td>
+    <%= _id %>
+    <% if (typeof hide !== 'undefined' && hide){ %>
+      <p><span class="label label-danger">HIDDEN</span></p>
+    <% } %>
+  </td>
   <td name="media" style="width:200px !important;">
     <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="img-responsive"></a>
   </td>

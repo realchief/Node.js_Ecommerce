@@ -422,6 +422,7 @@ var ProductView = function(options, callback){
           'name'
         , 'label'
         , 'slug'
+        , 'hide'
         , 'description'
         , 'editorial_notes'
         , 'shipping_returns'
@@ -523,6 +524,7 @@ var ProductView = function(options, callback){
     gb['update'] = _.pick(gb.data, [
       'name'
     , 'label'
+    , 'hide'
     , 'slug'
     , 'description'
     , 'editorial_notes'
