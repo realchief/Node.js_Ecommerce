@@ -37,6 +37,25 @@
   <% if (typeof count !== 'undefined'){ %>
     GB['count'] = <%= count %>;
   <% } %>
+  <% if (typeof skip !== 'undefined'){ %>
+    GB['skip'] = <%= skip %>;
+  <% } %>
+  <% if (typeof limit !== 'undefined'){ %>
+    GB['limit'] = <%= limit %>;
+  <% } %>
+  <% if (typeof query !== 'undefined'){ %>
+    GB['query'] = <%= Belt.stringify(query) %>;
+  <% } %>
+  <% if (typeof search_query !== 'undefined'){ %>
+    GB['search_query'] = "<%= search_query %>";
+  <% } %>
+  <% if (typeof sort !== 'undefined'){ %>
+    <% if (_.isObject(sort)){ %>
+      GB['sort'] = <%= Belt.stringify(sort) %>;
+    <% } else { %>
+      GB['sort'] = "<%= sort %>";
+    <% } %>
+  <% } %>
 
   $(document).ready(function(){
     $('.parallax').parallax();

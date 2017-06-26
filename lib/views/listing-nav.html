@@ -1,0 +1,110 @@
+<%
+  var index = Math.ceil(((skip || 0) + 1) / limit)
+    , max = Math.ceil(count / limit);
+%>
+
+<div class="dropdown dropdown--border-thick dropdown--muted dropdown--inline-block">
+  <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
+    <% if (sort === '-created_at'){ %>
+      NEWEST
+    <% } else if (sort === 'low_price'){ %>
+      PRICE LOW TO HIGH
+    <% } else if (sort === '-high_price'){ %>
+      PRICE HIGH TO LOW
+    <% } else { %>
+      FILTER
+    <% } %>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right">
+    <a class="dropdown-item" href="<%=
+      Instance.paginationUrl(_.extend(Locals, {
+        'sort': '-created_at'
+      , 'skip': 0
+      }))
+    %>">Newest</a>
+    <a class="dropdown-item"href="<%=
+      Instance.paginationUrl(_.extend(Locals, {
+        'sort': 'low_price'
+      , 'skip': 0
+      }))
+    %>">Price Low to High</a>
+    <a class="dropdown-item" href="<%=
+      Instance.paginationUrl(_.extend(Locals, {
+        'sort': '-high_price'
+      , 'skip': 0
+      }))
+    %>">Price High to Low</a>
+  </div>
+</div>
+
+<nav class="inline-block ml10 <%= max === 1 ? 'hidden-xs-up' : '' %>">
+  <ul class="pagination justify-content-end">
+    <% if (index > 1){ %>
+      <li class="page-item">
+        <a class="page-link pagination__arrow pagination__arrow--prev" href="<%=
+          Instance.paginationUrl(_.extend(Locals, {
+            'skip': ((index - 2) * limit)
+          }))
+        %>"></a>
+      </li>
+    <% } %>
+
+    <% if (index - 2 >= 1){ %>
+      <li class="page-item">
+        <a class="page-link" href="<%=
+          Instance.paginationUrl(_.extend(Locals, {
+            'skip': ((index - 3) * limit)
+          }))
+        %>"><%= index - 2 %></a>
+      </li>
+    <% } %>
+
+    <% if (index - 1 >= 1){ %>
+      <li class="page-item">
+        <a class="page-link" href="<%=
+          Instance.paginationUrl(_.extend(Locals, {
+            'skip': ((index - 2) * limit)
+          }))
+        %>"><%= index - 1 %></a>
+      </li>
+    <% } %>
+
+    <li class="page-item">
+      <a class="page-link page-link--curent" href="<%=
+        Instance.paginationUrl(_.extend(Locals, {
+
+        }))
+      %>"><%= index %></a>
+    </li>
+
+    <% if (index < (max - 1)){ %>
+      <li class="page-item">
+        <a class="page-link" href="<%=
+          Instance.paginationUrl(_.extend(Locals, {
+            'skip': ((index) * limit)
+          }))
+        %>"><%= index + 1 %></a>
+      </li>
+    <% } %>
+
+    <% if (index < (max - 2)){ %>
+      <li class="page-item">
+        <a class="page-link" href="<%=
+          Instance.paginationUrl(_.extend(Locals, {
+            'skip': ((index + 1) * limit)
+          }))
+        %>"><%= index + 2 %></a>
+      </li>
+    <% } %>
+
+    <% if (index < (max - 1)){ %>
+      <li class="page-item">
+        <a class="page-link pagination__arrow pagination__arrow--next" href="<%=
+          Instance.paginationUrl(_.extend(Locals, {
+            'skip': ((index) * limit)
+          }))
+        %>"></a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
