@@ -17,19 +17,19 @@
   </button>
   <div class="dropdown-menu dropdown-menu-right">
     <a class="dropdown-item" href="<%=
-      Instance.paginationUrl(_.extend(Locals, {
+      Instance.paginationUrl(_.extend({}, Locals, {
         'sort': '-created_at'
       , 'skip': 0
       }))
     %>">Newest</a>
     <a class="dropdown-item"href="<%=
-      Instance.paginationUrl(_.extend(Locals, {
+      Instance.paginationUrl(_.extend({}, Locals, {
         'sort': 'low_price'
       , 'skip': 0
       }))
     %>">Price Low to High</a>
     <a class="dropdown-item" href="<%=
-      Instance.paginationUrl(_.extend(Locals, {
+      Instance.paginationUrl(_.extend({}, Locals, {
         'sort': '-high_price'
       , 'skip': 0
       }))
@@ -42,7 +42,7 @@
     <% if (index > 1){ %>
       <li class="page-item">
         <a class="page-link pagination__arrow pagination__arrow--prev" href="<%=
-          Instance.paginationUrl(_.extend(Locals, {
+          Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index - 2) * limit)
           }))
         %>"></a>
@@ -52,7 +52,7 @@
     <% if (index - 2 >= 1){ %>
       <li class="page-item">
         <a class="page-link" href="<%=
-          Instance.paginationUrl(_.extend(Locals, {
+          Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index - 3) * limit)
           }))
         %>"><%= index - 2 %></a>
@@ -62,7 +62,7 @@
     <% if (index - 1 >= 1){ %>
       <li class="page-item">
         <a class="page-link" href="<%=
-          Instance.paginationUrl(_.extend(Locals, {
+          Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index - 2) * limit)
           }))
         %>"><%= index - 1 %></a>
@@ -71,7 +71,7 @@
 
     <li class="page-item">
       <a class="page-link page-link--curent" href="<%=
-        Instance.paginationUrl(_.extend(Locals, {
+        Instance.paginationUrl(_.extend({}, Locals, {
 
         }))
       %>"><%= index %></a>
@@ -80,7 +80,7 @@
     <% if (index < (max - 1)){ %>
       <li class="page-item">
         <a class="page-link" href="<%=
-          Instance.paginationUrl(_.extend(Locals, {
+          Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index) * limit)
           }))
         %>"><%= index + 1 %></a>
@@ -90,7 +90,7 @@
     <% if (index < (max - 2)){ %>
       <li class="page-item">
         <a class="page-link" href="<%=
-          Instance.paginationUrl(_.extend(Locals, {
+          Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index + 1) * limit)
           }))
         %>"><%= index + 2 %></a>
@@ -100,7 +100,7 @@
     <% if (index < (max - 1)){ %>
       <li class="page-item">
         <a class="page-link pagination__arrow pagination__arrow--next" href="<%=
-          Instance.paginationUrl(_.extend(Locals, {
+          Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index) * limit)
           }))
         %>"></a>
