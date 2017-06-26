@@ -10,8 +10,8 @@
       <% if (Belt.get(doc, 'brands.0')){ %>
         <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
       <% } %>
-      <% if (Belt.get(doc, 'base_configuration.price')){ %>
-        <p class="goods__info-price">$<%= doc.base_configuration.price %></p>
+      <% if (Belt.get(doc, 'low_price')){ %>
+        <p class="goods__info-price">$<%= doc.low_price %></p>
       <% } else { %>
         <p class="goods__info-price">Sold out</p>
       <% } %>
