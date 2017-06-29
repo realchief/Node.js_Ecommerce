@@ -3,7 +3,11 @@
     <div class="ibox float-e-margins">
       <div class="ibox-content">
         <div class="pull-right">
-          <a href="/product/<%= Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
+          <% if (data.button_title !== 'Create'){ %>
+            <a href="/product/<%= Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
+            <button name="refresh_media" class="btn btn-default" type="submit">Refresh Images</button>
+          <% } %>
+          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
         </div>
         <h1><%= title %></h1>
         <div class="hr-line-dashed"></div>
@@ -139,7 +143,13 @@
         <form class="form-horizontal">
           <div class="form-group">
             <div class="col-sm-6 col-sm-offset-6">
-              <button name="submit" class="btn btn-primary btn-block" type="submit"><%= data.button_title %></button>
+              <div class="pull-right">
+                <% if (data.button_title !== 'Create'){ %>
+                  <a href="/product/<%= Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
+                  <button name="refresh_media" class="btn btn-default" type="submit">Refresh Images</button>
+                <% } %>
+                <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+              </div>
             </div>
           </div>
         </form>

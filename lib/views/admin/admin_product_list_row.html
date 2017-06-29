@@ -31,7 +31,7 @@
     <div class="row">
       <% _.each(media, function(m){ %>
         <div class="col-xs-6">
-          <a href="<%= m.url %>" target="_blank"><img src="<%= m.url %>" class="img-responsive"></a>
+          <a href="<%= m.url + '?t=' + Belt.uuid() %>" target="_blank"><img src="<%= m.url %>" class="img-responsive"></a>
         </div>
       <% }) %>
     </div>

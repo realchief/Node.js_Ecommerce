@@ -101,6 +101,13 @@ var ProductView = function(options, callback){
           });
         }
       }
+    , 'click [name="refresh_media"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        self.refreshMedia();
+      }
     }
   , 'transformers': {
       'split_lines': function(val){
@@ -509,6 +516,21 @@ var ProductView = function(options, callback){
     self.throttledUpdateStocks();
     self.throttledUpdateMedia();
     self['doc'] = a.o.doc;
+  };
+
+  gb.view['refreshMedia'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    $.post('/product/' + self._id + '/update.json', {
+      'refresh_media': true
+    }, function(json){
+      document.location.reload();
+    });
   };
 
   gb.view['update'] = function(options, callback){
