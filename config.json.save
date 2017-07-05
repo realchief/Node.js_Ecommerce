@@ -1,0 +1,67 @@
+{
+  "env": {
+    "development": {
+      "aws": {
+        "accessKeyId": "AKIAIYNQSHQP3NFW4ZTA"
+      , "secretAccessKey": "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"
+      , "region": "us-east-1"
+      }
+    , "stripe": {
+        "secret": "sk_test_GeOEXDVLit9MLw4ygcBlBbte"
+      , "key": "pk_test_VUDyoD9O5gJGZFOAabSjoFL4"
+      }
+    , "express": {
+        "session_secret": "zLNcJoqOkuxhZayHWtotgUu2zQMkqRvgZtd6N3xvow/p30t9TWzZqc57ogYr+l1cNkv6eqii7tTuqGhkXtBgMnsQKZrJBTqmUiD0zBpMAIDcNb2ZekL5Uj7pZIK+pX3cIO3fyP+mUKaBWDjrDhCfcxgyRSpDurQH7B1rlCBldq1hMpKYMfDsGo84zxJe2PqY3Xt4XaOfRem07dAK6QJzlHsIr3S7FS4QI4oIGV8G0owbY4oq+LRhzLQ0qGr0YicV2JIa+MV3t1MTbMhHkjigdzItX1XmE/kG1FwvS32qqtfVMBWCnGEpsTeWW6bwbeTK3u6khGGTR7zXmBbiMp6DkNPnDG6Z3cWT7k8D0muCINs0O5jq+lrzcUa210VQyq6INnBVJlqqGHaKN2gtEhBo6thSsGJzeUz5w+0wHgjbnfyXmESleozhGBxUva1suY32NV4YCxhkM/h3KrlA/IPWIpRD79BxzK9jB9BloGHqzxy59sB++HTpeQhisxhL/DH2nSmX4bTSl87+sHb20oTNw00MWyBdl7R8zjcrb/O2adV8+HzVRC+A/eBVneJPrbGhQ2EWuOf3hQdVuZ0QhPYnBaozQlTuQAKH40Juaikp3Z3Ymh+sjblneHEE/dT9GPOGyTVE3Mx4f228Loz/g7bg4+Z4reCrBETO1rPI/MiB5Ag="
+      , "cookie_secret": "rrMzLOh16ESKinzZ5kx8ft8ZGWCTFwbx6GlSQkyWr2CGgTIjDjwrc4y2x3bi91a/lPnt9zCmZ+wPS4ru9nLmWylGFDQM8VMkhFmQffP1KjVYaJ9eFcsQ2Od2t7SCS0ec27/j+kff+tegQYSmhD9yfvvEBZqGSgH+Fimj36jUgM7WxCbKsDnPTtGoYI23Yon02fC79Y1jTKo0YhEYno82U+m8xSXvEK9xjEYfbL68h148qkOW4rVv39iN9Pa25YXMmQqbrzwZttD6NuoZkw8FIao6nIfSyxBT563tUxwkz8hW37RXRgydz7ZdNtjJXPs8fvsmrhXKJGrAmpRpiDysDgLz8mbYwxRI3btDdDRnbvaHCYisUqJ9V6cLhBEhzwe2INyxwE9kgVupVtuKmSmdNCsn5YPVAc+cgALs5xG+Wamvsf8F5Fwm1C90jYtzX0D5YAfRsTSFtqPtu35VwUbcwkUonl+yCJI7j938MI3OtOOeF0N9r9DMORen3ba4BO+ycyP+dmEcxl5Bn9kdsPq7UCw2odzawfvzHiIDnk7QqOhJNR63pO2Ftt/sCTDjAh9CDd+timvKDi0LvGddaDc8K9SDhdF95QGVypVxKDOTvwRLBmFb9uumL2cHO8HHfwOM84/i1c/7uo3OlOgfsilDAvVzOl6pWvGephLr+1hmLw4="
+      }
+    , "admin_users": {
+        "wanderset": "wanderset1234"
+      }
+    , "shopify": {
+        "key": "4ebaf9d946c16ada23c443eae2bd2847"
+      , "secret": "31d05cbd38e38cfc7cace12214809bc2"
+      }
+    }
+  , "staging": {
+      "aws": {
+        "accessKeyId": "AKIAIYNQSHQP3NFW4ZTA"
+      , "secretAccessKey": "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"
+      , "region": "us-east-1"
+      }
+    , "stripe": {
+        "secret": "sk_test_GeOEXDVLit9MLw4ygcBlBbte"
+      , "key": "pk_test_VUDyoD9O5gJGZFOAabSjoFL4"
+      }
+    , "express": {
+        "session_secret": "O5qR7LFLy9JIb9TCi1zTLcnzKX8uY9F6qLFJ23BemlxkiIoya9dcYnC7+sQzDghcJnhrZ6eIKRXIPFBVSPRbM5DVEDXQ6mmeJiaTyD+7mtAmba0QwUGDaAWAdVFVswMPvc3B052Kf4t1YqFLbZmNdAsg7BpWk7czU7YQIp0aK2iZPwV2cNLoQU+a5G3JbzQI6wgAFWmT9lIpGgm3PrADLKrwB3R42cYx6LgzQswvXeu7cN6yY3KYiQvvoBS7VXybQDe3bVpFgHbSCMOyY5jBWgTr13po/m833hLC21/toQ4gNqkNvCU+i0YR9w6FnaWbs4cBZzZquEczk+b4+L98uT1OCWeUWAtGnK7HFBadX8qnPe4em4niv0JeBtk46+8Sq9+WsqPw9UXDNAbQdy8wtdsm8SZlByDTzvAUc2q+ZVf8Puh6mZXhAlnBADJKGRfj3P+eq7ItDPpXe+DjKJKx9JWUfGpL1n3D47dHi3n59KnvGzkQOvrgtlcuRI67Bh7zLTxjCH+xkuV6Revct+nX+tTaT9RKdwPCQlbfs97WnkCLHboUdtm5mAev9C9oG8P7zRThIQGsLONf8hT/kuiSsWruoLdBGlszvOf3QEP0Y6E6zat3ArPP2kmz5Taogv3WdDr6HgR5CO1MCeixIoqLuW7pGOcbVBvHnLAGHQEsxbg="
+      , "cookie_secret": "+9Rb5XCWJlK40PAfe5As1+5nYL710Qnbws901u3eWrtdWWXPSyWY/jYf5FiLkgOxFRyywPF1A8s0dhu37i4a/Z3i9ijHJ1hXlYcEJMCj3twY95ZvEV9xowKPnEMwVKWBd7QxNv857IDLAMKAWzohyCleBy/iSedByJk+eFSGkAfrqAJi1oEBOYJGl0EyLNqL0Ts0ElGlzbcc1U14lRinYuur7yO8ZVk6+M4hcWourZTpDDWkzSU1P0QJRrZk0MQwowiEeJfDUHKnlmBRiQqdnvX6Xq4ruXE6wYVopzUDAWFhSku5wiDFflhNGcX1IUBWLzDuhSs8SefgTpYq+pVCY4Tt0TeNEjZ3AGZ750tnMZnz87wRmSQr9DfwzZvVGbFBrNaHYeJvt7AMXRhs1qF4J4SBqgAoFKckVh49zl3Ak4c3g9iL8NSL/a4xu4MluQTnuVh/K03Ly2dXtvsItcMZv4SMDsDK9HxEpMNNhVSOwWY8l9OsV7KY2jQ08H5FNnFPzEMjbuv5OOjQAKQrQ0lkxJdxbjMmPPcU6PQK8kqlByuzz2VHgsjJYLDxRo/Ooy8iabLtiIdaWq+AEEuWEK6yqQbcJUBqJNFVckQaESB5r0yeT5K8WajL/l4i+gBEeY9jNy0OBgPYz15j0O47KiRLv71QYblw470qgpc+VCpR8eM="
+      }
+    , "admin_users": {
+        "wanderset": "wanderset1234"
+      }
+    , "shopify": {
+        "key": "514ee0ddd7c71e190352cf421f17f71b"
+      , "secret": "f1637f47fb4e235015132a188b50e885"
+      , "host": "https://wanderset.push
+      }
+    }
+  , "production": {
+      "aws": {
+        "accessKeyId": "AKIAIYNQSHQP3NFW4ZTA"
+      , "secretAccessKey": "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"
+      , "region": "us-east-1"
+      }
+    , "express": {
+        "session_secret": "pkav2nWY1YmPkV8TMkR+0ZUfX76pvIfmschvqGi+jjmLgQkiIY/wyO5rJ4fIXFtHekGxq1e9+Da8HZPzx/kPwiGnnbjxuB9JGWLbfOVcvfcdkrenMXN2PSBsbi9FF4PO7z5T/trtGSk0ureDxpS6TSI+VceyXiTm97tOI6PEfH8ZbF271W+TrbpAbtbOp2KzAT1nc/r50hNfv1Qjj6vertOBs7KxLx0FAItHKyBnnJEp5w5F8o5BwtcYLnW881kl8s1KeRSZKjOLnSkSlDnAHLyfhLEtIOxnMkT6I4/9hDGsGBxgB7XEOjJa9ie6O6sIgo4nnoA3bNTE1nnNEH97F6zwEQGCt/wv2wx7Oo8eLMbDQ7JcHQi5Yw2w1JCZLs5WDTftxpvX6EYRxNBVKI2AZsgG9+n/f0XhM3Vy9Ne+Jv/9tXmtK/4WbT/SVNa/lNWgc/SbrfU1PYiEUgBgz4y55Fgi4Cit2ASCqcstYHgTRsP/DneIlgRVJI0xCcTlXnItPvXvPES4AHbRRZDjoCUqpbjIp5buTOzbwUpuRWHxkIZXARujKV+6ob38G45QRD7HlRnVzimcKriY1tWndG2n+1B5Zqit4topk+4AJYy3Zr9pI/JnYao/WasO722F3LruD90RHk7GZMpzPcRzXjsOSyA/gnHsJ8lmx/mDqRb7E/4="
+      , "cookie_secret": "7xqXQBUfGjmw5Cb2cidI8LTl37wkbPvpd45hyAPt5LW8YUoq/MfoA43sHiUpv4CYn6VuretKG5jjP522vs8Xm3mkD9tMWUIA8AoBxp9LFCPSiNAMh+GPtBxmlY7sZXuOXXh3aO+AIt4VTpiYJC1W4Qf2eDmOcp7FEdZFRlodejFNM+HDUnW/j6q+eKXD8JGwHdlGEVj3LOS4TvQTAWiBhRKuWZmoP7eXKZ4pLZ6llhjo+yLNs0cR0mRg0nrE6bef4jNNNxvTNd0eXQDYNGSrnVyyy4bFi9oE6iHrm2P55yaTQWnJq4A0NA3ysoI+XbBaF8kwjgaEV1TclDK/V4HBOfV4OcNjmj7V4jVZuKUWYho44OT3mF4Eh1nJyg5tUjc59BWnykogGrXNQ1SVXRJCkwFpya20FCGD85Y2euJyiVsjc4Xal1tjJ93XdoXrfcfsumfOMFME7PqKKxLex4EULwPg+bUbhHnd3HmouT0kGWVHaU6EYz6mJD/bAaESOpo3wu8vh55tsSra1EmRDBB17kZ++NO6Dv+6XDRrY69xguoEtWoZvTECK8qay1Yzk4Q4DpE4kclZkOiLc9ci8cCqF6Bnd044z8ZBtwSp/0yRaunObrp5vbqOMJWl4t0y3tikqF8MVXPvrT66yOQDVIoBpgZ1yTUuf53eImD7fTSg+a4="
+      }
+    , "admin_users": {
+        "wanderset": "wanderfullife"
+      }
+    , "stripe": {
+        "secret": "sk_live_HLKft30aULSZAn2HdoEzlnvd"
+      , "key": "pk_live_QCI6Va7q2HRxWRB3BqBigket"
+      }
+    }
+  }
+}
