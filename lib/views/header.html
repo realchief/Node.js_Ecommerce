@@ -99,7 +99,7 @@
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
               <p class="dropdown-menu__sub-title">use your influence to create a next level shopping experience with wanderset’s unique and innovative platform. <a href="#" class="btn btn-blueberry btn-circled btn-bold">go</a></p>
-              <% var set_rows = Belt.splitArray(Instance.setmember_sets, 5); %>
+              <% var set_rows = Belt.splitArray(Instance.setmember_sets, 5).slice(0, 2); %>
               <% _.each(set_rows, function(a, i){ %>
                 <div class="dropdown__thumbnails-row">
                   <% _.each(a, function(s){ %>
@@ -181,6 +181,7 @@
 </header>
 
 <div class="searh-box">
+  <a href="#" class="searh-box__close"></a>
   <form action="/products/search" method="get" class="searh-box__form">
     <div class="form-group">
       <input name="q" type="text" class="form-control">
