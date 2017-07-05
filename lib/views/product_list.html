@@ -12,13 +12,13 @@
           <div class="container">
             <div class="filter__inner">
               <div class="row align-items-center">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <% if (typeof page_title !== 'undefined'){ %>
                     <h5 class="search-result__subtitle"><%= page_title %></h5>
                   <% } %>
                 </div>
 
-                <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
+                <div class="col-md-6 push-md-top hidden-sm-down flex flex-item-center justify-content-md-end">
                   <%= Render('listing-nav', Locals) %>
                 </div>
               </div>
@@ -29,13 +29,13 @@
         <div class="filter hidden-md-up mt-4 mb-3">
           <div class="container">
             <div class="row align-items-center">
-              <div class="col-md-6">
+              <div class="col-lg-6">
                 <% if (typeof page_title !== 'undefined'){ %>
                   <h5 class="search-result__subtitle"><%= page_title %></h5>
                 <% } %>
               </div>
 
-              <div class="col-md-6 push-md-top hidden-sm-down flex flex-item-center justify-content-md-end">
+              <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
                 <%= Render('listing-nav', Locals) %>
               </div>
             </div>
