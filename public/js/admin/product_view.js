@@ -436,7 +436,7 @@ var ProductView = function(options, callback){
         , 'sizing_guide'
         , 'brands'
         , 'categories'
-        , 'vendors'
+        , 'vendor'
         ]);
 
         gb.initial_doc['options'] = self.getOptions();
@@ -552,7 +552,7 @@ var ProductView = function(options, callback){
     , 'editorial_notes'
     , 'shipping_returns'
     , 'sizing_guide'
-    , 'vendors'
+    , 'vendor'
     , 'brands'
     , 'categories'
     ].concat(self.update_media ? [

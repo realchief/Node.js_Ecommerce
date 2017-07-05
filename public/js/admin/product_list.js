@@ -80,15 +80,6 @@ var BuildQuery = function(options, callback){
     ];
   }
 
-  val = $('[name="vendors"] [name="filter"]').val();
-  if (val){
-    val = val.replace(/\W+/g, '\\W*');
-    qry['vendors'] = {
-      '$regex': val
-    , '$options': 'i'
-    };
-  }
-
   val = $('[name="categories"] [name="filter"]').val();
   if (val){
     val = val.replace(/\W+/g, '\\W*');
@@ -203,10 +194,6 @@ $(document).ready(function(){
 
     if (Belt.get(res.query, 'name.$regex')){
       $('[name="name"] [name="filter"]').val(res.query.name.$regex.replace(/\\W\*/g, ' '));
-    }
-
-    if (Belt.get(res.query, 'vendors.$regex')){
-      $('[name="vendors"] [name="filter"]').val(res.query.vendors.$regex.replace(/\\W\*/g, ' '));
     }
 
     if (Belt.get(res.query, 'categories.$regex')){

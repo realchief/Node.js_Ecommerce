@@ -1,8 +1,8 @@
 {
   "env": {
     "development": {
-      "host": "http://localhost:8849"
-    , "domain": "localhost:8849"
+      "host": "https://wanderset.pushbuild.com"
+    , "domain": "wanderset.pushbuild.com"
     , "express": {
         "port": 8849
       }

@@ -38,5 +38,6 @@
   , "grimoire": "*"
   , "stripe": "*"
   , "shortid": "*"
+  , "shopify-node-api": "*"
   }
 }
