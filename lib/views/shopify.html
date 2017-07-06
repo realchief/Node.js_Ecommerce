@@ -65,6 +65,8 @@
       });
 
       $('[name="install"]').on('click', function(e){
+        e.preventDefault();
+        
         var url = ($('[name="shopify_url"]').val() || '')
                                             .split(/https?:\/\//)
                                             .pop()
