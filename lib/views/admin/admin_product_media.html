@@ -29,6 +29,14 @@
             <textarea name="<%= path_prefix %>description.us" type="text" class="form-control" placeholder="label" data-get="<%= path_prefix %>description.us" data-get-method="val()" data-set="<%= path_prefix %>description.us" data-set-method="val" rows="3"></textarea>
           </div>
         </div>
+        <% if (typeof remote_url !== 'undefined'){ %>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">original url</label>
+            <div class="col-sm-10">
+              <textarea name="<%= path_prefix %>remote_url" type="text" class="form-control" placeholder="label" data-set="<%= path_prefix %>remote_url" data-set-method="val" rows="3"></textarea>
+            </div>
+          </div>
+        <% } %>
       </div>
       <div class="col-sm-5">
         <div name="media_options">

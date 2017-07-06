@@ -217,7 +217,7 @@ var MediaView = function(options, callback){
 
     self['canvas'] = gb.canvas;
 
-    gb.canvas.width = _.min([a.o.image.width, a.o.max_width]);
+    gb.canvas.width = 445; //_.min([a.o.image.width, a.o.max_width]);
     gb.canvas.height = (a.o.image.height * gb.canvas.width) / a.o.image.width;
 
     gb['context'] = gb.canvas.getContext('2d');
