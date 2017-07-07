@@ -51,7 +51,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'refresh_media': true
+        'downsample_media': true
       }
     , 'json': true
     , 'method': 'post'

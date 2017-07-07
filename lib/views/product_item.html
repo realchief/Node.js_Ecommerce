@@ -1,7 +1,7 @@
 <div class="goods__item product-item" data-id="<%= doc._id %>">
   <a href="/product/<%= doc.slug || doc._id %>" class="goods__item__link">
     <% if (Belt.get(doc, 'media.0.url')){ %>
-      <img src="<%= doc.media[0].url %>" class="goods__img">
+      <img src="<%= Belt.get(doc, 'media.0.url') || Belt.get(doc, 'downsample_media.0.url') %>" class="goods__img">
     <% } %>
     <div class="goods__info">
       <% if (Belt.get(doc, 'label.us')){ %>

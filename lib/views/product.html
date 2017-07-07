@@ -20,7 +20,7 @@
                   <div class="carousel--with-thumbnails carousel--track">
                     <% _.each(doc.media, function(m){ %>
                       <div class="gallery__item">
-                        <img src="<%= m.url %>" class="gallery__img">
+                        <img src="<%= Belt.get(m, 'url') || Belt.get(m, 'url') %>" class="gallery__img">
                       </div>
                     <% }) %>
                   </div>
@@ -30,7 +30,7 @@
                 <div class="gallery__thumbnails hidden-sm-down">
                   <% _.each(doc.media, function(m, i){ %>
                     <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
-                      <img src="<%= m.url %>" class="gallery__img">
+                      <img src="<%= Belt.get(m, 'downsample_url') || Belt.get(m, 'url') %>" class="gallery__img">
                     </div>
                   <% }) %>
                 </div>
