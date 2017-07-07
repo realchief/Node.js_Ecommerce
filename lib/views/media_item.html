@@ -3,7 +3,7 @@
     <a href="/media/<%= doc.slug || Belt.get(doc, '_id') || '' %>">
   <% } %>
   <div class="lifestyle__item" data-aos="fade-up" data-aos-duration="1200">
-    <img src="<%= Belt.get(doc, 'url') || '' %>" class="lifestyle__img">
+    <img src="<%= Belt.get(doc, 'downsample_url') || Belt.get(doc, 'url') || '' %>" class="lifestyle__img">
     <% _.each(doc.products, function(p){ %>
       <button type="button"
       class="lifestyle__dot lifestyle__dot--<%= Belt.get(p, 'product.target_color') || 'red' %>"

@@ -50,7 +50,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'url': o.url
+        'downsample': true
       }
     , 'json': true
     , 'method': 'post'

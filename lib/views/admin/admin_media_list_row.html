@@ -6,7 +6,11 @@
     <% } %>
   </td>
   <td name="media" style="width:200px !important;">
-    <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="img-responsive"></a>
+    <% if (typeof downsample_url !== 'undefined'){ %>
+      <a href="<%= downsample_url %>" target="_blank"><img src="<%= downsample_url %>" class="img-responsive"></a>
+    <% } else { %>
+      <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="img-responsive"></a>
+    <% } %>
   </td>
   <td style="width:200px !important;">
     <% if (typeof label !== 'undefined'){ %>

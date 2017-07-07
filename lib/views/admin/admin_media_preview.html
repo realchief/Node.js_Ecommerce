@@ -1,8 +1,10 @@
 <div name="media_preview">
   <p>ID: <strong><%= _id %></strong></p>
   <p>
-    <a href="<%= url %>" target="_blank">
-      <img src="<%= url %>" class="img-responsive" style="max-height:100px;">
-    </a>
+    <% if (typeof downsample_url !== 'undefined'){ %>
+      <a href="<%= downsample_url %>" target="_blank"><img src="<%= downsample_url %>" class="img-responsive" style="max-height:100px;"></a>
+    <% } else { %>
+      <a href="<%= url %>" target="_blank"><img src="<%= url %>" class="img-responsive" style="max-height:100px;"></a>
+    <% } %>
   </p>
 </div>
