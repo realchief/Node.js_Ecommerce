@@ -99,12 +99,12 @@
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
               <div class="row">
-                <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 4)), function(s){ %>
+                <% _.each(Belt.splitArray(Instance.setmember_sets, Math.ceil(Instance.setmember_sets.length / 4)), function(s){ %>
                   <div class="col-sm-3">
                     <ul class="list-dropdown-menu">
                       <% _.each(s, function(s2){ %>
                         <li class="list-dropdown-menu__item">
-                          <a href="/brand/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
+                          <a href="/set/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
                         </li>
                       <% }) %>
                     </ul>
