@@ -98,27 +98,19 @@
           <a class="nav-link" href="/sets">the set</a>
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
-              <% var set_rows = Belt.splitArray(Instance.setmember_sets, 5).slice(0, 2); %>
-              <% _.each(set_rows, function(a, i){ %>
-                <div class="dropdown__thumbnails-row">
-                  <% _.each(a, function(s){ %>
-                    <a href="/set/<%= encodeURIComponent(s.slug || s.name || s._id) %>" class="dropdown__thumbnails-item">
-                      <span class="dropdown__thumbnails-img-holder">
-                        <img src="<%=
-                           Belt.get(s, 'logo_media.url')
-                        || Belt.get(s, 'landing_media.url')
-                        || Belt.get(s, 'mobile_featured_media.url')
-                        || Belt.get(s, 'featured_media.url') || '' %>"
-                        alt="<%=
-                          Belt.get(s, 'listing_label.us')
-                        || Instance.sanitizeLabel(Belt.get(s, 'label.us')
-                        || '') %>" class="dropdown__thumbnails-img">
-                      </span>
-                      <p class="dropdown__thumbnails-name"><%= (Belt.get(s, 'listing_label.us') || Belt.get(s, 'label.us') || '') %></p>
-                    </a>
-                  <% }) %>
-                </div>
-              <% }) %>
+              <div class="row">
+                <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 4)), function(s){ %>
+                  <div class="col-sm-3">
+                    <ul class="list-dropdown-menu">
+                      <% _.each(s, function(s2){ %>
+                        <li class="list-dropdown-menu__item">
+                          <a href="/brand/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
+                        </li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                <% }) %>
+              </div>
             </div>
           </div>
         </li>
@@ -128,21 +120,17 @@
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
               <div class="row">
-                <div class="col-sm-12">
-                  <div class="row">
-                    <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 4)), function(s){ %>
-                      <div class="col-sm-3">
-                        <ul class="list-dropdown-menu">
-                          <% _.each(s, function(s2){ %>
-                            <li class="list-dropdown-menu__item">
-                              <a href="/brand/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
-                            </li>
-                          <% }) %>
-                        </ul>
-                      </div>
-                    <% }) %>
+                <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 4)), function(s){ %>
+                  <div class="col-sm-3">
+                    <ul class="list-dropdown-menu">
+                      <% _.each(s, function(s2){ %>
+                        <li class="list-dropdown-menu__item">
+                          <a href="/brand/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
+                        </li>
+                      <% }) %>
+                    </ul>
                   </div>
-                </div>
+                <% }) %>
               </div>
             </div>
           </div>
