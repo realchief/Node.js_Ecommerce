@@ -23,7 +23,7 @@
   </td>
   <td style="width:150px !important;">
     <% _.each(stocks, function(v, k){ %>
-      <p>vendor: <strong><%= v.vendor %></strong>, sku: <%= v.sku %></p>
+      <p>vendor: <strong><%= v.vendor %></strong><br>sku: <%= v.sku %><br>qty: <%= v.available_quantity %></p>
     <% }) %>
   </td>
   <td name="media">

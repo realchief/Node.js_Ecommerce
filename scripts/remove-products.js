@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'vendors': 'Streetammo'
+
   }
 , 'skip': 0
 , 'limit': 100
@@ -48,7 +48,10 @@ var GB = _.defaults(O.argv, {
     , 'auth': GB.auth
     , 'json': true
     , 'method': 'delete'
-    }, Belt.cw(cb));
+    }, function(err, _res, res){
+      console.log(Belt.stringify(res));
+      cb();
+    });
   }
 });
 
@@ -71,7 +74,7 @@ Async.waterfall([
       , 'json': true
       }, function(err, res, json){
         cont = _.any(Belt.get(json, 'data')) ? true : false;
-        GB.skip += GB.limit;
+        //GB.skip += GB.limit;
 
         Async.eachSeries(Belt.get(json, 'data') || [], function(d, cb2){
           GB.iterator(d, cb2);

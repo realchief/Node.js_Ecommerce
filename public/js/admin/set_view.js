@@ -463,6 +463,8 @@ var SetView = function(options, callback){
         if (a.o.data.logo_file) fd.append('logo_file', a.o.data.logo_file, a.o.data.logo_filename);
         if (a.o.data.landing_file) fd.append('logo_file', a.o.data.landing_file, a.o.data.landing_file);
 
+        if (!a.o.data.vendor) a.o.data.vendor = undefined;
+
         $.ajax({
           'url': '/set/create.json'
         , 'type': 'POST'
@@ -582,6 +584,7 @@ var SetView = function(options, callback){
     , 'landing_label'
     , 'listing_label'
     , 'slug'
+    , 'vendor'
     , 'description'
     , 'text_color'
     , 'products'
@@ -590,6 +593,8 @@ var SetView = function(options, callback){
     , 'hide'
     , 'homepage'
     ]);
+
+    if (!gb.update.vendor) gb.update.vendor = undefined;
 
     if (self.featured_media){
       _.extend(gb.update, self.featured_media);

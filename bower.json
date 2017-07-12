@@ -16,7 +16,6 @@
   , "pleasejs": "*"
   , "Sortable": "*"
   , "tether": "*"
-  , "bootstrap-select": "*"
   , "bootstrap": "v4.0.0-alpha.6"
   , "tether": "*"
   , "bootstrap-select": "^1.12.1"
