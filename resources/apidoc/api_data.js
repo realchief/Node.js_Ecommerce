@@ -4971,5 +4971,95 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "lib/controllers/user.js",
     "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/vendor/count.json",
+    "title": "Count Vendor",
+    "name": "CountVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "post",
+    "url": "/vendor/create.json",
+    "title": "Create Vendor",
+    "name": "CreateVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "delete",
+    "url": "/vendor/:_id/delete.json",
+    "title": "Delete Vendor",
+    "name": "DeleteVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "get",
+    "url": "/vendor/list.json",
+    "title": "List Vendors",
+    "name": "ListVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "get",
+    "url": "/vendor/:_id/read.json",
+    "title": "Read Vendor",
+    "name": "ReadVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
+  },
+  {
+    "type": "put",
+    "url": "/vendor/:_id/update.json",
+    "title": "Update Vendor",
+    "name": "UpdateVendor",
+    "group": "Vendor",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/vendor.js",
+    "groupTitle": "Vendor"
   }
 ] });
