@@ -55,6 +55,34 @@
       }
     , "create_rest_routes": false
     }
+  , "staging-worker": {
+      "host": "http://staging.wanderset.com:8852"
+    , "domain": "staging.wanderset.com:8852"
+    , "express": {
+        "port": 8852
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "staging-worker.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "staging_wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "error": "https://2po.st/0oSILZHvI0OA"
+      }
+    , "email": {
+        "from": "STAGING WORKER Wanderset <staging-no-reply@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "create_rest_routes": false
+    }
   , "production": {
       "host": "https://wanderset.com"
     , "domain": ".wanderset.com"
