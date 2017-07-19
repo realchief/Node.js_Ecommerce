@@ -1203,6 +1203,21 @@ define({ "api": [
     "groupTitle": "Product"
   },
   {
+    "type": "post",
+    "url": "/product/old/:old_product/new/:new_product/replace.json",
+    "title": "Replace Product",
+    "name": "ProductReplace",
+    "group": "Product",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/product.js",
+    "groupTitle": "Product"
+  },
+  {
     "type": "get",
     "url": "/product/:_id/read.json",
     "title": "Read Product",
