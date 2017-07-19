@@ -182,7 +182,7 @@ $(document).ready(function(){
     phtml += '</div>';
 
     phtml += '<a href="/product/export.csv?limit=' + res.count
-    + (res.sort ? '&sort=' + encodeURIComponent(JSON.stringify(res.sort)) : '')
+    //+ (res.sort ? '&sort=' + encodeURIComponent(JSON.stringify(res.sort)) : '')
     + (res.query ? '&query=' + encodeURIComponent(JSON.stringify(res.query)) : '')
     + '" class="btn btn-primary" style="margin-top:10px;">Export CSV</a>';
 
