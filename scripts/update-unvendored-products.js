@@ -107,6 +107,7 @@ Async.waterfall([
           'query': JSON.stringify(GB.query)
         , 'skip': GB.skip
         , 'limit': GB.limit
+        , 'sort': '-created_at'
         }
       , 'method': 'get'
       , 'json': true
