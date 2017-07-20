@@ -11,14 +11,367 @@ var Path = require('path')
   , Str = require('underscore.string')
   , Querystring = require('querystring')
   , Request = require('request')
+  , Crypto = require('crypto')
 ;
 
-module.exports = function(options){
+module.exports = function(options, Instance){
   var o = _.defaults(options || {}, {
-
+    'crawler_host': 'http://localhost:10235'
   });
 
   var S = {};
+  S['settings'] = o;
+
+  S['UpdateProduct'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //product
+      //vendor
+      //last_sync
+      //synced_at
+      'base_quantity': 3
+    , 'dkk_to_usd': 0.15
+    });
+
+    Async.waterfall([
+      function(cb){
+        gb['sku'] = (Belt.get(a.o, 'product.url') || '').split('/').pop();
+        if (!gb.sku) return cb(new Error('sku is missing'));
+
+        Instance.log.warn('Syncing "' + gb.sku + '"');
+
+        Instance.db.model('product').findOne({
+          'sku': gb.sku
+        }, Belt.cs(cb, gb, 'doc', 1, 0));
+      }
+    , function(cb){
+        if (!gb.doc || a.o.product.availability) return cb();
+
+        gb.doc.remove({}, function(){
+          return cb(new Error('Removed unavailable product'));
+        });
+      }
+    , function(cb){
+        gb.doc = gb.doc || Instance.db.model('product')({});
+
+        gb.doc.set({
+          'sku': gb.sku
+        , 'name': a.o.product.title
+        , 'label': {
+            'us': a.o.product.title
+          }
+        , 'description': {
+
+          }
+        , 'vendor': a.o.vendor.get('_id')
+        , 'brands': a.o.product.brand ? [
+            a.o.product.brand
+          ] : []
+        , 'last_sync': a.o.last_sync
+        , 'synced_at': a.o.synced_at
+        , 'source': {
+            'platform': a.o.vendor.get('custom_sync.strategy')
+          , 'record': a.o.product
+          }
+        /*
+        , 'media': _.map(a.o.product.images, function(i){
+
+            return {
+              'remote_url': i.src
+            };
+          })
+        */
+        /*, 'options': _.object(
+            _.pluck(a.o.product.options, 'name')
+          , _.map(a.o.product.options, function(o){
+              return {
+                'name': o.name
+              , 'label': {
+                  'us': o.name
+                }
+              , 'values': {
+                  'us': o.values
+                }
+              }
+            })
+          )*/
+        });
+
+        gb['options'] = {};
+
+        if (a.o.product.color) gb.options['color'] = {
+          'name': 'color'
+        , 'label': {
+            'us': 'color'
+          }
+        , 'values': {
+            'us': [
+              a.o.product.color
+            ]
+          }
+        };
+
+        if (_.any(a.o.product.sizes)) gb.options['size'] = {
+          'name': 'size'
+        , 'label': {
+            'us': 'size'
+          }
+        , 'values': {
+            'us': a.o.product.sizes
+          }
+        };
+
+        gb.doc.set({
+          'options': gb.options
+        });
+
+        gb.doc.media = _.filter(gb.doc.media, function(m){
+          return _.some(a.o.product.images, function(i){
+            return i === m.remote_url;
+          });
+        }) || [];
+
+        _.each(a.o.product.images, function(i){
+          if (_.some(gb.doc.media, function(m){
+            return i === m.remote_url;
+          })) return;
+
+          gb.doc.media.push({
+            'remote_url': i
+          });
+        });
+
+        gb['price'] = (a.o.product.price || '').replace(/^\D*|\D*$/g, '').replace(/\D/g, '');
+        gb.price = Belt.cast(gb.price, 'number') || 0;
+        gb.price = a.o.dkk_to_usd * gb.price;
+
+        gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
+      }
+    , function(cb){
+        gb['stocks'] = [];
+        if (!gb.price) return cb();
+
+        Async.eachSeries(gb.doc.getOptionConfigurations() || [true], function(v, cb2){
+          var gb2 = {};
+
+          if (v === true){
+            gb2['no_options'] = true;
+          } else {
+            gb2['options'] = _.mapObject(v, function(v2, k2){
+              return {
+                'value': v2
+              , 'alias': k2
+              , 'alias_value': v2
+              };
+            });
+          }
+
+          Async.waterfall([
+            function(cb3){
+              if (v === true){
+                Instance.db.model('stock').findOne({
+                  '$or': [
+                    {
+                      'options': {}
+                    }
+                  , {
+                      'options': {
+                        '$exists': false
+                      }
+                    }
+                  ]
+                }, Belt.cs(cb3, gb2, 'stock', 1, 0));
+              } else {
+                Instance.db.model('stock').findOne({
+                  'options': gb2.options
+                }, Belt.cs(cb3, gb2, 'stock', 1, 0));
+              }
+            }
+          , function(cb3){
+              gb2.stock = gb2.stock || Instance.db.model('stock')({});
+
+              gb2.stock.set({
+                'product': gb.doc.get('_id')
+              , 'vendor': a.o.vendor.get('_id')
+              , 'sku': Crypto.createHash('md5')
+                             .update(gb.doc.get('_id').toString() + (gb.no_options ? '' : JSON.stringify(v)))
+                             .digest('hex')
+              , 'source': {
+                  'platform': a.o.vendor.get('custom_sync.strategy')
+                , 'record': a.o.product
+                }
+              , 'last_sync': a.o.last_sync
+              , 'synced_at': a.o.synced_at
+              , 'options': gb2.options
+              , 'price': gb.price
+              , 'list_price': gb.price
+              , 'available_quantity': a.o.base_quantity
+              });
+
+              gb2.stock.save(Belt.cs(cb3, gb2, 'stock', 1, 0));
+            }
+          , function(cb3){
+              gb.stocks.push(gb2.stock.get('_id'));
+
+              cb3();
+            }
+          ], Belt.cw(cb2, 0));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        gb.doc.set({
+          'stocks': gb.stocks
+        });
+
+        gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
+      }
+    ], function(err){
+      a.cb(err, gb.doc);
+    });
+  };
+
+  S['IterateProducts'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'progress_cb': Belt.np
+    , 'host': o.crawler_host
+    });
+
+    Async.waterfall([
+      function(cb){
+        gb['index'] = 0;
+        gb['category'] = '/men/apparel';
+        gb['urls'] = [];
+
+        Async.doWhilst(function(next){
+          Request({
+            'url': a.o.host + '/method'
+          , 'method': 'get'
+          , 'qs': {
+              'method': 'getProductsList'
+            , 'index': gb.index++
+            , 'category': gb.category
+            }
+          , 'json': true
+          }, function(err, res, json){
+            gb.urls = Belt.get(json, 'data.response.products') || [];
+            gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
+
+            Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb2){
+              Request({
+                'url': a.o.host + '/method'
+              , 'method': 'get'
+              , 'qs': {
+                  'method': 'getProduct'
+                , 'url': u
+                }
+              , 'json': true
+              }, function(err, res, json){
+                var prod = Belt.get(json, 'data.response') || {};
+                prod['url'] = u;
+
+                a.o.progress_cb(prod, cb2);
+              });
+            }, Belt.cw(next, 0));
+          });
+        }, function(){ return _.any(gb.urls); }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        gb['index'] = 0;
+        gb['category'] = '/men/footwear';
+        gb['urls'] = [];
+
+        Async.doWhilst(function(next){
+          Request({
+            'url': a.o.host + '/method'
+          , 'method': 'get'
+          , 'qs': {
+              'method': 'getProductsList'
+            , 'index': gb.index++
+            , 'category': gb.category
+            }
+          , 'json': true
+          }, function(err, res, json){
+            gb.urls = Belt.get(json, 'data.response.products') || [];
+            gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
+
+            Async.eachSeries(gb.urls, function(u, cb2){
+              Request({
+                'url': a.o.host + '/method'
+              , 'method': 'get'
+              , 'qs': {
+                  'method': 'getProduct'
+                , 'url': u
+                }
+              , 'json': true
+              }, function(err, res, json){
+                var prod = Belt.get(json, 'data.response') || {};
+                prod['url'] = u;
+
+                a.o.progress_cb(prod, cb2);
+              });
+            }, Belt.cw(next, 0));
+          });
+        }, function(){ return _.any(gb.urls); }, Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  S['SyncVendor'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //vendor
+      //progress_cb
+    });
+
+    return Async.waterfall([
+      function(cb){
+        gb['products'] = [];
+        gb['last_sync'] = Belt.uuid();
+        gb['synced_at'] = new Date();
+
+        self.IterateProducts({
+          'progress_cb': a.o.progress_cb
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Instance.db.model('product').find({
+          'vendor': a.o.vendor.get('_id')
+        , 'last_sync': {
+            '$ne': gb.last_sync
+          }
+        }, Belt.cs(cb, gb, 'remove_products', 1, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.remove_products || [], function(e, cb2){
+          e.remove(Belt.cw(cb2));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Instance.db.model('stock').find({
+          'vendor': a.o.vendor.get('_id')
+        , 'last_sync': {
+            '$ne': gb.last_sync
+          }
+        }, Belt.cs(cb, gb, 'remove_stocks', 1, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
+          e.remove(Belt.cw(cb2));
+        }, Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
 
   return S;
 };
