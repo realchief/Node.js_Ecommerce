@@ -34,10 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'vendor': {
-      '$exists': false
-    }
-  , 'brands': 'Profound Aesthetic'
+
   })
 , 'skip': 0
 , 'limit': 100

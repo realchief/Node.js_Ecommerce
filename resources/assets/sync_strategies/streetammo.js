@@ -227,6 +227,21 @@ module.exports = function(options, Instance){
 
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
+    , function(cb){
+        if (!a.o.product.brand) return cb();
+
+        Instance.db.model('set').findOne({
+          'brand': true
+        , 'name': new RegExp('^' + Instance.escapeRegExp(a.o.product.brand) + '$', 'i')
+        }, Belt.cs(cb, gb, 'brand_set', 1, 0));
+      }
+    , function(cb){
+        if (!gb.brand_set) return cb();
+
+        gb.brand_set.products.addToSet(gb.doc.get('_id'));
+
+        gb.brand_set.save(Belt.cw(cb, 0));
+      }
     ], function(err){
       a.cb(err, gb.doc);
     });
