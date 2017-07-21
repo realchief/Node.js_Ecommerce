@@ -345,13 +345,15 @@ module.exports = function(options, Instance){
     a.o = _.defaults(a.o, {
       //vendor
       //progress_cb
+      'last_sync': Belt.uuid()
+    , 'synced_at': new Date()
     });
 
     return Async.waterfall([
       function(cb){
         gb['products'] = [];
-        gb['last_sync'] = Belt.uuid();
-        gb['synced_at'] = new Date();
+        gb['last_sync'] = a.o.last_sync;
+        gb['synced_at'] = a.o.synced_at;
 
         self.IterateProducts({
           'progress_cb': a.o.progress_cb
