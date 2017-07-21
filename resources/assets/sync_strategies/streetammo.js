@@ -367,12 +367,12 @@ module.exports = function(options, Instance){
           }
         }, Belt.cs(cb, gb, 'remove_products', 1, 0));
       }
-    , function(cb){
+/*    , function(cb){
         Async.eachSeries(gb.remove_products || [], function(e, cb2){
           e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
       }
-    , function(cb){
+  */  , function(cb){
         Instance.db.model('stock').find({
           'vendor': a.o.vendor.get('_id')
         , 'last_sync': {
@@ -380,11 +380,11 @@ module.exports = function(options, Instance){
           }
         }, Belt.cs(cb, gb, 'remove_stocks', 1, 0));
       }
-    , function(cb){
+    /*, function(cb){
         Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
           e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
-      }
+      }*/
     ], function(err){
       a.cb(err);
     });
