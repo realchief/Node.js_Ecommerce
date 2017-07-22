@@ -254,6 +254,9 @@ module.exports = function(options, Instance){
     a.o = _.defaults(a.o, {
       'progress_cb': Belt.np
     , 'host': o.crawler_host
+    , 'categories': [
+
+      ]
     });
 
     Async.waterfall([
