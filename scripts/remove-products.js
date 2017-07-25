@@ -34,16 +34,16 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'vendors': 'Streetammo'
-  , 'vendor': {
-      '$exists': false
+    'brands': {
+      '$regex': 'NIKE SB|Stussy|NIKE SPORTSWEAR|URBAN CLASSICS|40S & SHORTIES|MISTER TEE|OBEY|HUF|CHEAP MONDAY|CLARKS ORIGINALS|DICKIES|THREADS|UNMARKED|SPITFIRE|DEFEND PARIS|USGOODZ|SUPRA|nike|OTHER'
+    , '$options': 'i'
     }
   })
 , 'skip': 0
 , 'limit': 100
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+  , 'pass': 'wset2017'
   }
 , 'iterator': function(o, cb){
     Request({
