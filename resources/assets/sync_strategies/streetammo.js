@@ -299,7 +299,7 @@ module.exports = function(options, Instance){
                 });
               }, Belt.cw(next, 0));
             });
-          }, function(){ return _.any(gb.urls); }, Belt.cw(c2, 0));
+          }, function(){ return _.any(gb.urls); }, Belt.cw(cb2, 0));
         }, Belt.cw(cb, 0));
       }
     ], function(err){
