@@ -145,7 +145,7 @@ module.exports = function(options, Instance){
 
         gb['price'] = (a.o.product.price || '').replace(/^\D*|\D*$/g, '').replace(/\D/g, '');
         gb.price = Belt.cast(gb.price, 'number') || 0;
-        gb.price = a.o.dkk_to_usd * gb.price;
+        gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
 
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }

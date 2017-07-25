@@ -15,36 +15,11 @@
           <div class="row">
             <div class="col-lg-6 col-md-4">
               <ul class="slider-thumbnails">
-                <li data-thumb="/public/assets/images/temp/Large-Image-Size.jpg">
-                    <img src="/public/assets/images/temp/Large-Image-Size.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Denim.jpg">
-                    <img src="/public/assets/images/temp/Denim.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Hat.jpg">
-                    <img src="/public/assets/images/temp/Hat.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Shoes.jpg">
-                    <img src="/public/assets/images/temp/Shoes.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Vest.jpg">
-                    <img src="/public/assets/images/temp/Vest.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Large-Image-Size.jpg">
-                    <img src="/public/assets/images/temp/Large-Image-Size.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Denim.jpg">
-                    <img src="/public/assets/images/temp/Denim.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Hat.jpg">
-                    <img src="/public/assets/images/temp/Hat.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Shoes.jpg">
-                    <img src="/public/assets/images/temp/Shoes.jpg" class="w-100" />
-                </li>
-                <li data-thumb="/public/assets/images/temp/Vest.jpg">
-                    <img src="/public/assets/images/temp/Vest.jpg" class="w-100" />
-                </li>
+                <% _.each(doc.media, function(m){ %>
+                  <li data-thumb="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>">
+                    <img src="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100" />
+                  </li>
+                <% }) %>
               </ul>
 
               <!-- <div class="gallery">
