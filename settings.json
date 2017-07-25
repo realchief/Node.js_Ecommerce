@@ -49,4 +49,30 @@
   , "footwear": "purple"
   , "tops": "sky"
   }
+, "sync_sets": [
+    {
+      "old_set_id": "5910d186e6817c1958ac3481"
+    , "old_set_slug": "pair-of-thieves-rkmjvirdmb"
+    , "new_set_id": "5910a7fcc13d1d13050f95b2"
+    , "new_set_slug": "cash-warren"
+    }
+  , {
+      "old_set_id": "59121a6b0a391b2dc565c83f"
+    , "old_set_slug": "en-noir-r19xnwisdqb"
+    , "new_set_id": "592f2acccf07632617ba473d"
+    , "new_set_slug": "rob-garcia"
+    }
+  , {
+      "old_set_id": "5911ed5897c57525ec102624"
+    , "old_set_slug": "android-homme-h1wenvjrw7b"
+    , "new_set_id": "5910ab076d0e24139a8ae593"
+    , "new_set_slug": "javier-laval"
+    }
+  , {
+      "old_set_id": "5910bc61214e4818cf1abbcf"
+    , "old_set_slug": "trevor-andrew"
+    , "new_set_id": "591219d10a391b2dc565c835"
+    , "new_set_slug": "guccighost-hyqxnpjbwqb"
+    }
+  ]
 }
