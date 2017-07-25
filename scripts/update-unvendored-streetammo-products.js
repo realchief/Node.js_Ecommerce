@@ -33,27 +33,64 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'query': Belt.stringify({
-    'vendors': 'Streetammo'
-  , 'vendor': {
+  'query': {
+    'vendor': {
       '$exists': false
     }
-  })
+  , 'vendors': 'Streetammo'
+  }
 , 'skip': 0
-, 'limit': 100
+, 'limit': 1
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wanderset1234'
   }
 , 'iterator': function(o, cb){
-    Request({
-      'url': O.host + '/product/' + o._id + '/delete.json'
-    , 'auth': GB.auth
-    , 'json': true
-    , 'method': 'delete'
-    }, function(err, _res, res){
-      console.log(Belt.stringify(res));
-      cb();
+    //console.log('Updating product [' + o._id + ']...');
+
+    var gb = {};
+
+    Async.waterfall([
+      function(cb2){
+        Request({
+          'url': O.host + '/product/list.json'
+        , 'auth': GB.auth
+        , 'qs': {
+            'query': JSON.stringify({
+              'name': o.name.split(' - ').pop()
+            , 'brands': o.name.split(' - ').shift()
+            , 'vendor': {
+                '$exists': true
+              }
+            })
+          , 'skip': 0
+          , 'limit': 1
+          }
+        , 'method': 'get'
+        , 'json': true
+        }, Belt.cs(cb2, gb, 'matched_product', 2, 'data.0'));
+      }
+    , function(cb2){
+        if (!gb.matched_product) return cb2();
+
+        console.log('...found match: ' + o._id + ' ' + gb.matched_product._id);
+
+        Request({
+          'url': O.host + '/product/old/' + o._id + '/new/' + gb.matched_product._id + '/replace.json'
+        , 'auth': GB.auth
+        , 'method': 'post'
+        , 'json': true
+        }, Belt.cw(cb2, gb, 'res', 2, 0));
+      }
+    , function(cb2){
+        if (!gb.matched_product) return cb2();
+
+        console.log(gb.res)
+
+        cb2();
+      }
+    ], function(err){
+      cb(err);
     });
   }
 });
@@ -69,17 +106,19 @@ Async.waterfall([
         'url': O.host + '/product/list.json'
       , 'auth': GB.auth
       , 'qs': {
-          'query': GB.query
+          'query': JSON.stringify(GB.query)
         , 'skip': GB.skip
         , 'limit': GB.limit
+        , 'sort': '-created_at'
         }
       , 'method': 'get'
       , 'json': true
       }, function(err, res, json){
         cont = _.any(Belt.get(json, 'data')) ? true : false;
-        //GB.skip += GB.limit;
+        GB.skip += GB.limit;
+        console.log(GB.skip);
 
-        Async.eachSeries(Belt.get(json, 'data') || [], function(d, cb2){
+        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
           GB.iterator(d, cb2);
         }, Belt.cw(next, 0));
       })

@@ -71,11 +71,13 @@ $(document).ready(function(){
 });
 
 var ToggleLoader = function(show){
-  if (show && !$('.loader').length){
-    $('main').append(Templates.loader());
+  if (show){
+    $('.loader').removeClass('hidden-xs-up');
+    $('body').addClass('overflow');
   }
 
   if (!show){
-    $('.loader').remove();
+    $('.loader').addClass('hidden-xs-up');
+    $('body').removeClass('overflow');
   }
 };
