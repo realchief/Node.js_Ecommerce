@@ -14,35 +14,21 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-4">
-              <ul class="slider-thumbnails">
-                <% _.each(doc.media, function(m, i){ %>
-                  <li data-thumb="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>">
-                    <img src="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100" />
-                  </li>
-                <% }) %>
-              </ul>
-
-              <!-- <div class="gallery">
-                <div class="gallery__body">
-                  <button class="gallery__arrow gallery__arrow--prev hidden-md-up"></button>
-                  <div class="carousel--with-thumbnails carousel--track">
-                    <% _.each(doc.media, function(m){ %>
-                      <div class="gallery__item">
-                        <img src="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
-                      </div>
-                    <% }) %>
+              <div class="carousel--with-thumbnails">
+                <% _.each(doc.media, function(m){ %>
+                  <div class="gallery__item">
+                    <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
                   </div>
-                  <button class="gallery__arrow gallery__arrow--next hidden-md-up"></button>
-                </div>
+                <% }) %>
+              </div>
 
-                <div class="gallery__thumbnails hidden-sm-down">
-                  <% _.each(doc.media, function(m, i){ %>
-                    <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
-                      <img src="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
-                    </div>
-                  <% }) %>
-                </div>
-              </div> -->
+              <div class="gallery__thumbnails hidden-sm-down">
+                <% _.each(doc.media, function(m, i){ %>
+                  <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
+                    <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
+                  </div>
+                <% }) %>
+              </div>
             </div>
 
             <div class="col-lg-6 col-md-8">
