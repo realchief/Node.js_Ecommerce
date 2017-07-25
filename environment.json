@@ -27,6 +27,34 @@
       }
     , "create_rest_routes": false
     }
+  , "temp": {
+      "host": "https://temp.wanderset.com"
+    , "domain": "temp.wanderset.com"
+    , "express": {
+        "port": 9950
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "temp.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "temp_wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "error": "https://2po.st/0oSILZHvI0OA"
+      }
+    , "email": {
+        "from": "STAGING Wanderset <staging-no-reply@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "create_rest_routes": false
+    }
   , "staging": {
       "host": "https://staging.wanderset.com"
     , "domain": "staging.wanderset.com"

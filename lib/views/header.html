@@ -3,9 +3,11 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-sm-4 col-2">
-          <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="wanderset-icon-menu header__icon"></i>
-          </button>
+          <div class="navbar-toggle hidden-md-up" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="navbar-toggle-line navbar-toggle-line--half navbar-toggle-line--start"></div>
+            <div class="navbar-toggle-line"></div>
+            <div class="navbar-toggle-line navbar-toggle-line--half navbar-toggle-line--end"></div>
+          </div>
         </div>
 
         <div class="col-sm-4 col-8 text-center">
@@ -20,14 +22,19 @@
               </a>
             </li>
 
-            <li class="nav-item hidden-sm-down hidden-xs-up">
-              <a href="#" class="nav-link">sign in</a>
+            <li class="nav-item hidden-sm-down">
+              <a href="#" class="nav-link">
+                <i class="wanderset-icon-user header__icon"></i>
+              </a>
             </li>
 
             <li name="cart" class="nav-item dropdown">
               <a href="/bag" class="nav-link nav-link--product-qty" aria-haspopup="true" aria-expanded="false">
-                <span class="hidden-sm-down">bag (<span data-set="cart_product_count" data-set-method="html"></span>)</span>
+                <!-- <i class="wanderset-icon-bag header__icon"> (<span data-set="cart_product_count" data-set-method="html"></span>)</i>
                 <span class="header__icon header__product-qty hidden-md-up" data-set="cart_product_count" data-set-method="html"></span>
+                <span class="nav-product-qty"> -->
+                <span class="nav-product-qty">2</span>
+                <i class="wanderset-icon-bag header__icon"></i>
               </a>
             </li>
           </ul>
