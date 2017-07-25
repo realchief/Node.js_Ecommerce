@@ -33,29 +33,43 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/wanderset-product-categories.csv'
+  'csv_path': '/home/ben/Downloads/Wanderset Product Categories - Alec - Sheet1.csv'
 , 'category_fields': [
-    'Master Category'
-  , 'Subcategory'
-  , 'Subcategory 2'
-  , 'Subcategory 3'
+    'Cat1'
+  , 'Cat2'
+  , 'Cat3'
   ]
+, 'auth': {
+    'user': 'wanderset'
+  , 'pass': 'wset2017'
+  }
 });
 
 Spin.start();
 
 Async.waterfall([
   function(cb){
+    GB['queue'] = Async.queue(function(task, callback){
+      task(callback);
+    }, 1);
+
     var fs = FS.createReadStream(GB.csv_path)
       , csv = CSV({
           'headers': true
         })
         .on('data', function(d){
-          var cats = Belt.arrayDefalse(_.values(_.pick(d, GB.category_fields))).join(' > ').toLowerCase();
+          var cats = _.map(Belt.arrayDefalse(_.values(_.pick(d, GB.category_fields))), function(v){
+            return v.replace(/^\s*|\s*$/g, '');
+          }).join(' > ').toLowerCase();
+
+          if (cats.match(/\?/) || !cats) return;
+
+          GB.queue.push(function(cb2){
 
           Request({
             'url': O.host + '/product/' + d._id + '/update.json'
           , 'method': 'post'
+          , 'auth': GB.auth
           , 'json': {
               'categories': [cats]
             }
@@ -65,8 +79,13 @@ Async.waterfall([
               console.error(err);
             }
 
-            console.log(Belt.stringify(json.data));
+            console.log(Belt.stringify(Belt.get(json, 'data')));
+
+            cb2();
           });
+
+          });
+
         })
         .on('end', function(){
           cb();
