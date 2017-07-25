@@ -26,18 +26,8 @@
                 </li>
               </ul><!-- tabs -->
 
-              <nav aria-label="..." class="ml-md-auto hidden-xs-up">
-                <ul class="pagination pagination--shop-product">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">«</a>
-                  </li>
-                  <li class="page-item"><a class="page-link page-link--curent" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">»</a>
-                  </li>
-                </ul>
+              <nav aria-label="" class="ml-md-auto" data-set="pagination.desktop">
+
               </nav>
             </div><!-- filter__inner -->
           </div><!-- container -->
@@ -57,7 +47,7 @@
                 </ul><!-- tabs -->
               </div><!-- col -->
 
-              <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center hidden-xs-up">
+              <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
                 <div class="dropdown dropdown--sm dropdown--muted dropdown--inline-block">
                   <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     NEWEST
@@ -69,7 +59,7 @@
                   </div>
                 </div><!-- dropdown -->
 
-                <nav aria-label="..." class="inline-block ml10 hidden-xs-up">
+                <nav aria-label="..." class="inline-block ml10">
                   <ul class="pagination justify-content-end">
                     <li class="page-item disabled">
                       <a class="page-link pagination__arrow pagination__arrow--prev" href="#" tabindex="-1"></a>
@@ -98,57 +88,9 @@
                 </div>
 
                 <div class="col-xl-10 col-md-9">
-                  <div class="row row--flex">
-                    <% _.each(doc.shown_products, function(p){ %>
-                      <div class="col-md-3 col-sm-4 col-6">
-                        <%= Render('product_item', _.extend({}, Locals, {
-                          'doc': p
-                        })) %>
-                      </div>
-                    <% }) %>
-
-                    <nav aria-label="..." class="d-flex justify-content-center w-100 mt-5 hidden-xs-up">
-                      <ul class="pagination pagination--shop-product">
-                        <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1">«</a>
-                        </li>
-                        <li class="page-item"><a class="page-link page-link--curent" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">»</a>
-                        </li>
-                      </ul>
-                    </nav>
-
+                  <div class="row row--flex" data-set="products">
 
                   </div>
-
-                  <nav class="mt30 hidden-sm-down hidden-xs-up">
-                    <ul class="pagination justify-content-end">
-                      <li class="page-item disabled">
-                        <a class="page-link pagination__arrow pagination__arrow--prev" href="#" tabindex="-1"></a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link page-link--curent" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link pagination__arrow pagination__arrow--next" href="#"></a>
-                      </li>
-                    </ul>
-                  </nav>
-
-                  <div class="paging hidden-md-up hidden-xs-up">
-                    <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--left">
-                      <i class="wanderset-icon-arrow-left list-icons__icon"></i>
-                    </a>
-                    <span>
-                      page <span>1</span> of <span>5</span>
-                    </span>
-                    <a href="#" class="list-icons__link list-icons__link--circled list-icons__link--circled--right">
-                      <i class="wanderset-icon-arrow-right list-icons__icon"></i>
-                    </a>
-                  </div><!-- paging -->
                 </div><!-- col -->
               </div><!-- row -->
             </div><!-- container-fluid -->

@@ -1,0 +1,42 @@
+<%
+  var index = Math.ceil(((skip || 0) + 1) / limit)
+    , max = Math.ceil(count / limit);
+%>
+
+<% if (max > 1){ %>
+  <ul class="pagination pagination--shop-product">
+    <% if (index > 1){ %>
+      <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" data-index="<%= index - 1 %>">«</a>
+      </li>
+    <% } %>
+    <% if (index - 2 >= 1){ %>
+      <li class="page-item">
+        <a class="page-link"  data-index="<%= index - 2 %>" href="#"><%= index - 2 %></a>
+      </li>
+    <% } %>
+    <% if (index - 1 >= 1){ %>
+      <li class="page-item">
+        <a class="page-link"  data-index="<%= index - 1 %>" href="#"><%= index - 1 %></a>
+      </li>
+    <% } %>
+    <li class="page-item">
+      <a class="page-link page-link--curent" href="#" data-index="<%= index %>"><%= index %></a>
+    </li>
+    <% if (index + 1 <= max){ %>
+      <li class="page-item">
+        <a class="page-link"  data-index="<%= index + 1 %>" href="#"><%= index + 1 %></a>
+      </li>
+    <% } %>
+    <% if (index + 2 <= max){ %>
+      <li class="page-item">
+        <a class="page-link"  data-index="<%= index + 2 %>" href="#"><%= index + 2 %></a>
+      </li>
+    <% } %>
+    <% if (index + 1 <= max){ %>
+      <li class="page-item">
+        <a class="page-link"  data-index="<%= index + 1 %>" href="#">»</a>
+      </li>
+    <% } %>
+  </ul>
+<% } %>

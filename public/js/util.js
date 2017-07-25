@@ -62,6 +62,10 @@ var GetCartCount = function(options, callback){
   });
 };
 
+var EscapeRegExp = function(val){
+  return (val || '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+};
+
 $(document).ready(function(){
   GetCartCount();
 
