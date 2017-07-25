@@ -255,86 +255,52 @@ module.exports = function(options, Instance){
       'progress_cb': Belt.np
     , 'host': o.crawler_host
     , 'categories': [
-
+        '/men/apparel'
+      , '/men/footwear'
+      , '/streetammo'
       ]
     });
 
     Async.waterfall([
       function(cb){
-        gb['index'] = 0;
-        gb['category'] = '/men/apparel';
-        gb['urls'] = [];
+        return Async.eachSeries(a.o.categories, function(c, cb2){
+          gb['index'] = 0;
+          gb['category'] = c;
+          gb['urls'] = [];
 
-        Async.doWhilst(function(next){
-          Request({
-            'url': a.o.host + '/method'
-          , 'method': 'get'
-          , 'qs': {
-              'method': 'getProductsList'
-            , 'index': gb.index++
-            , 'category': gb.category
-            }
-          , 'json': true
-          }, function(err, res, json){
-            gb.urls = Belt.get(json, 'data.response.products') || [];
-            gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
+          Async.doWhilst(function(next){
+            Request({
+              'url': a.o.host + '/method'
+            , 'method': 'get'
+            , 'qs': {
+                'method': 'getProductsList'
+              , 'index': gb.index++
+              , 'category': gb.category
+              }
+            , 'json': true
+            }, function(err, res, json){
+              gb.urls = Belt.get(json, 'data.response.products') || [];
+              gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
 
-            Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb2){
-              Request({
-                'url': a.o.host + '/method'
-              , 'method': 'get'
-              , 'qs': {
-                  'method': 'getProduct'
-                , 'url': u
-                }
-              , 'json': true
-              }, function(err, res, json){
-                var prod = Belt.get(json, 'data.response') || {};
-                prod['url'] = u;
+              Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb3){
+                Request({
+                  'url': a.o.host + '/method'
+                , 'method': 'get'
+                , 'qs': {
+                    'method': 'getProduct'
+                  , 'url': u
+                  }
+                , 'json': true
+                }, function(err, res, json){
+                  var prod = Belt.get(json, 'data.response') || {};
+                  prod['url'] = u;
 
-                a.o.progress_cb(prod, cb2);
-              });
-            }, Belt.cw(next, 0));
-          });
-        }, function(){ return _.any(gb.urls); }, Belt.cw(cb, 0));
-      }
-    , function(cb){
-        gb['index'] = 0;
-        gb['category'] = '/men/footwear';
-        gb['urls'] = [];
-
-        Async.doWhilst(function(next){
-          Request({
-            'url': a.o.host + '/method'
-          , 'method': 'get'
-          , 'qs': {
-              'method': 'getProductsList'
-            , 'index': gb.index++
-            , 'category': gb.category
-            }
-          , 'json': true
-          }, function(err, res, json){
-            gb.urls = Belt.get(json, 'data.response.products') || [];
-            gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
-
-            Async.eachSeries(gb.urls, function(u, cb2){
-              Request({
-                'url': a.o.host + '/method'
-              , 'method': 'get'
-              , 'qs': {
-                  'method': 'getProduct'
-                , 'url': u
-                }
-              , 'json': true
-              }, function(err, res, json){
-                var prod = Belt.get(json, 'data.response') || {};
-                prod['url'] = u;
-
-                a.o.progress_cb(prod, cb2);
-              });
-            }, Belt.cw(next, 0));
-          });
-        }, function(){ return _.any(gb.urls); }, Belt.cw(cb, 0));
+                  a.o.progress_cb(prod, cb3);
+                });
+              }, Belt.cw(next, 0));
+            });
+          }, function(){ return _.any(gb.urls); }, Belt.cw(c2, 0));
+        }, Belt.cw(cb, 0));
       }
     ], function(err){
       a.cb(err);
