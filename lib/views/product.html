@@ -17,7 +17,7 @@
               <div class="carousel--with-thumbnails">
                 <% _.each(doc.media, function(m){ %>
                   <div class="gallery__item">
-                    <img src="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
+                    <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
                   </div>
                 <% }) %>
               </div>
@@ -25,7 +25,7 @@
               <div class="gallery__thumbnails hidden-sm-down">
                 <% _.each(doc.media, function(m, i){ %>
                   <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
-                    <img src="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
+                    <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
                   </div>
                 <% }) %>
               </div>
