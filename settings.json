@@ -51,6 +51,12 @@
   }
 , "sync_sets": [
     {
+      "old_set_id": "591605202bdad6346ba32c81"
+    , "old_set_slug": "night-shift-hkz6diswqw"
+    , "new_set_id": "595d0e40dcd6e62284391304"
+    , "new_set_slug": "rich_marshall_%26_eddie_horowitz"
+    }
+  , {
       "old_set_id": "5910d186e6817c1958ac3481"
     , "old_set_slug": "pair-of-thieves-rkmjvirdmb"
     , "new_set_id": "5910a7fcc13d1d13050f95b2"
@@ -67,12 +73,6 @@
     , "old_set_slug": "android-homme-h1wenvjrw7b"
     , "new_set_id": "5910ab076d0e24139a8ae593"
     , "new_set_slug": "javier-laval"
-    }
-  , {
-      "old_set_id": "5910bc61214e4818cf1abbcf"
-    , "old_set_slug": "trevor-andrew"
-    , "new_set_id": "591219d10a391b2dc565c835"
-    , "new_set_slug": "guccighost-hyqxnpjbwqb"
     }
   ]
 }
