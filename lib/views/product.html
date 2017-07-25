@@ -36,7 +36,9 @@
                 <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
               <% } %>
               <% if (Belt.get(doc, 'brands.0')){ %>
-                <h3 class="font-secondary text-muted mb12 text-center-sm"><%= doc.brands.join(', ') %></h3>
+                <h3 class="font-secondary text-muted mb12 text-center-sm"><%= _.map(doc.brands, function(b){
+                  return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '">' + b + '</a>' : b;
+                }).join(', ') %></h3>
               <% } %>
               <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm"></h2>
               <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
