@@ -33,11 +33,11 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/Wanderset Product Categories.csv'
+  'csv_path': '/home/ben/Downloads/Wanderset Product Categories v2.csv'
 , 'category_fields': [
-    'Cat1'
-  , 'Cat2'
-  , 'Cat3'
+    'Cat 1'
+  , 'Cat 2'
+  , 'Cat 3'
   ]
 , 'auth': {
     'user': 'wanderset'
@@ -72,7 +72,7 @@ Async.waterfall([
           , 'auth': GB.auth
           , 'json': _.extend(cats && !cats.match(/\?/) ? {
               'categories': [cats]
-            } : {}, d.Remove && d.Remove.match(/x|w/i) && !(d.brands || '').match(/gucci/i) ? {
+            } : {}, d.Hide && d.Hide.match(/x|w/i) ? {
               'hide': true
             } : {})
           }, function(err, res, json){
