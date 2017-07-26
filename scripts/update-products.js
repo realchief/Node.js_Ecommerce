@@ -34,8 +34,8 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'media.remote_url': {
-      '$regex': 'streetammo'
+    'categories': {
+      '$regex': '\\?'
     }
   }
 , 'skip': 0
@@ -51,7 +51,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'downsample_media': true
+        'categories': []
       }
     , 'json': true
     , 'method': 'post'

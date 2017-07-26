@@ -66,6 +66,13 @@ var EscapeRegExp = function(val){
   return (val || '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 };
 
+var Instance = {};
+
+Instance['toPercentage'] = function(val){
+  val = Belt.cast(val, 'number') || 0;
+  return (val * 100).toFixed(2);
+};
+
 $(document).ready(function(){
   GetCartCount();
 

@@ -34,16 +34,46 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'vendors': 'Streetammo'
-  , 'vendor': {
-      '$exists': false
+    'brands': {
+      '$regex': [
+          'just water'
+        , 'london sock company'
+        , 'eton'
+        , 'tom ford'
+        , 'new era'
+        , 'chance the rapper'
+        , 'ricta'
+        , 'element'
+        , 'birkenstock'
+        , 'converse'
+        , 'nike sb'
+        , 'stüssy'
+        , 'nike sportswear'
+        , 'urban classics'
+        , '40s & shorties'
+        , 'mister tee'
+        , 'obey'
+        , 'huf'
+        , 'cheap monday'
+        , 'clarks originals'
+        , 'dickies'
+        , 'threads'
+        , 'unmarked'
+        , 'spitfire'
+        , 'defend paris'
+        , 'usgoodz'
+        , 'supra'
+        , 'other'
+        , 'nike'
+        ].join('|')
+    , '$options': 'i'
     }
   })
 , 'skip': 0
 , 'limit': 100
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+  , 'pass': 'wset2017'
   }
 , 'iterator': function(o, cb){
     Request({

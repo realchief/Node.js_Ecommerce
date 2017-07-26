@@ -23,7 +23,7 @@
 
     <ul class="list-goods list-goods--has--divider hidden-md-up">
       <% _.each(doc.products, function(p){ %>
-        <%= Render('checkout-sidebar-product', _.extend({}, Locals, {
+        <%= Render('checkout_sidebar_product', _.extend({}, Locals, {
           'doc': p
         })) %>
       <% }) %>

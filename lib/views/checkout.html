@@ -19,9 +19,6 @@
           <li class="nav-item tabs__item">
             <a class="tabs__link" data-toggle="tab" href="#billing-tab" role="tab">BILLING</a>
           </li>
-          <li class="nav-item tabs__item">
-            <a class="tabs__link" data-toggle="tab" href="#review-tab" role="tab">REVIEW</a>
-          </li>
         </ul>
 
         <div class="tab-content">
@@ -32,63 +29,60 @@
                 <div class="divider divider--sm divider--dark hidden-sm-down"></div>
                 <form action="">
                   <fieldset class="side-paddings--sm-visible-sm">
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <label for="filed-country" class="hidden-sm-down">COUNTRY</label>
-                          <select name="" data-get="shipping_country" id="filed-country" class="form-control">
-                            <option value="US">UNITED STATES</option>
-                          </select>
-                        </div><!-- col -->
-                      </div><!-- row -->
-                    </div><!-- form-group -->
+                    <div class="row">
+                      <div class="col-sm-6 push-xs-down">
+                        <div name="shipping_first_name" class="form-group">
+                          <label class="hidden-sm-down">FIRST NAME</label>
+                          <input data-get="shipping_first_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="first name">
+                          <p class="form-group-error-label"></p>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div name="shipping_last_name" class="form-group">
+                         <label class="hidden-sm-down">LAST NAME</label>
+                          <input data-get="shipping_last_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="last name">
+                        </div>
+                      </div>
+                    </div>
 
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-6 push-xs-down">
-                          <label for="filed-first-name" class="hidden-sm-down">FIRST NAME</label>
-                          <input data-get="shipping_first_name" type="text" class="form-control form-control--placeholder-visible-md" id="filed-first-name" placeholder="first name">
-                        </div><!-- col -->
+                    <div class="row">
+                      <div class="col-sm-6 push-xs-down">
+                        <div name="shipping_address" class="form-group">
+                          <label class="hidden-sm-down">ADDRESS</label>
+                          <input data-get="shipping_address" type="text" class="form-control form-control--placeholder-visible-md" placeholder="address">
+                          <p class="form-group-error-label"></p>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div name="shipping_address_2" class="form-group">
+                          <label class="hidden-sm-down">ADDRESS LINE 2 (OPTIONAL)</label>
+                          <input data-get="shipping_address_2" type="text" class="form-control form-control--placeholder-visible-md" placeholder="address line 2 (optional)">
+                          <p class="form-group-error-label"></p>
+                        </div>
+                      </div>
+                    </div>
 
-                        <div class="col-sm-6">
-                          <label for="filed-last-name" class="hidden-sm-down">LAST NAME</label>
-                          <input data-get="shipping_last_name" type="text" class="form-control form-control--placeholder-visible-md" id="filed-last-name" placeholder="last name">
-                        </div><!-- col -->
-                      </div><!-- row -->
-                    </div><!-- form-group -->
-
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-6 push-xs-down">
-                          <label for="filed-address" class="hidden-sm-down">ADDRESS 1</label>
-                          <input data-get="shipping_address" type="text" class="form-control form-control--placeholder-visible-md" id="filed-address" placeholder="ADDRESS 1">
-                        </div><!-- col -->
-
-                        <div class="col-sm-6">
-                          <label for="filed-address-2" class="hidden-sm-down">ADDRESS 2 (OPTIONAL)</label>
-                          <input data-get="shipping_address_2" type="text" class="form-control form-control--placeholder-visible-md" id="filed-address-2" placeholder="ADDRESS 2 (OPTIONAL)">
-                        </div><!-- col -->
-                      </div><!-- row -->
-                    </div><!-- form-group -->
-
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <label for="filed-city" class="hidden-sm-down">CITY</label>
-                          <input data-get="shipping_city" type="text" class="form-control form-control--placeholder-visible-md" id="filed-city" placeholder="city">
-                        </div><!-- col -->
-
-                        <div class="col-6 hidden-sm-down">
-                          <label for="filed-state" class="hidden-sm-down">STATE</label>
-                          <select data-get="shipping_region" name="" id="filed-state" class="form-control">
+                    <div class="row">
+                      <div class="col-sm-6 push-xs-down">
+                        <div name="shipping_city" class="form-group">
+                          <label class="hidden-sm-down">CITY</label>
+                          <input data-get="shipping_city" type="text" class="form-control form-control--placeholder-visible-md" placeholder="city">
+                          <p class="form-group-error-label"></p>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div name="shipping_region" class="form-group">
+                          <label class="hidden-sm-down">STATE</label>
+                          <select data-get="shipping_region" class="form-control">
                             <option value="">SELECT A STATE</option>
                             <% _.each(Settings.us_regions, function(v, k){ %>
                               <option value="<%= k %>"><%= v %></option>
                             <% }) %>
                           </select>
-                        </div><!-- col -->
-                      </div><!-- row -->
-                    </div><!-- form-group -->
+                          <p class="form-group-error-label"></p>
+                        </div>
+                      </div>
+                    </div>
 
                     <div class="form-group">
                       <div class="row">
@@ -121,7 +115,7 @@
                     <h4 class="title-medium text-center-sm">SHIPPING OPTIONS</h4>
                     <div class="card-options">
                       <a href="#" class="card-options__item active">
-                        GROUND
+                        STANDARD
                       </a><!-- card-options__item -->
 
                       <a href="#" class="card-options__item">
@@ -129,7 +123,7 @@
                       </a><!-- card-options__item -->
 
                       <a href="#" class="card-options__item">
-                        NEXT<br>BUSINESS<br>DAY
+                        EXPEDITED
                       </a><!-- card-options__item -->
                     </div><!-- card-options -->
 
@@ -151,7 +145,7 @@
               </div><!-- col -->
 
               <div class="col-xl-3 col-lg-4 col-md-4">
-                <%= Render('checkout_sidebar', Locals) %>
+                <%= Render('checkout-sidebar', Locals) %>
               </div>
             </div>
           </div>
@@ -367,157 +361,9 @@
               </div><!-- col -->
 
               <div class="col-xl-3 col-lg-4 col-md-4">
-                <%= Render('checkout_sidebar', Locals) %>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-pane" id="review-tab" role="tabpanel">
-            <div class="row">
-              <div class="col-xl-9 col-lg-8 col-md-8">
-                <div class="side-paddings--sm-visible-sm">
-                  <button class="btn btn-primary btn-lg btn-block hidden-md-up">PLACE ORDER</button>
-                </div><!-- side-paddings--sm-visible-sm -->
-
-                <div class="divider divider--sm divider--dark hidden-md-up"></div>
-
-                <h4 class="title-medium text-center-sm">REVIEW YOUR ORDER</h4>
-
-                <div class="divider divider--sm divider--dark"></div>
-                <div class="row">
-                  <div class="col-lg-4 flex flex-column">
-                    <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
-                      <span class="address__item address__title">SHIPPING ADDRESS</span>
-                      <span class="address__item">
-                        <span data-set="shipping_first_name"></span>&nbsp;
-                        <span data-set="shipping_last_name"></span>
-                      </span>
-                      <span data-set="shipping_address" class="address__item"></span>
-                      <span data-set="shipping_address_2" class="address__item"></span>
-                      <span class="address__item">
-                        <span data-set="shipping_city"></span>,&nbsp;
-                        <span data-set="shipping_region"></span>&nbsp;
-                        <span data-set="shipping_postal_code"></span>
-                      </span>
-                      <span data-set="shipping_country" class="address__item"></span>
-                      <span data-set="shipping_phone" class="address__item"></span>
-                      <a data-toggle="tab" href="#shipping-tab" role="tab" class="address__item address__edit">EDIT</a>
-                    </address>
-                  </div><!-- col -->
-
-                  <div class="side-paddings--md-visible-xs hidden-lg-up">
-                    <div class="divider divider--sm divider--dark"></div>
-                  </div>
-
-                  <div class="col-lg-4 flex flex-column">
-                    <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
-                      <span class="address__item address__title">BILLING ADDRESS</span>
-                      <span class="address__item">
-                        <span data-set="billing_first_name"></span>&nbsp;
-                        <span data-set="billing_last_name"></span>
-                      </span>
-                      <span data-set="billing_address" class="address__item"></span>
-                      <span data-set="billing_address_2" class="address__item"></span>
-                      <span class="address__item">
-                        <span data-set="billing_city"></span>,&nbsp;
-                        <span data-set="billing_region"></span>&nbsp;
-                        <span data-set="billing_postal_code"></span>
-                      </span>
-                      <span data-set="billing_country" class="address__item"></span>
-                      <span data-set="billing_phone" class="address__item"></span>
-                      <a data-toggle="tab" href="#billing-tab" role="tab" class="address__item address__edit">EDIT</a>
-                    </address>
-                  </div><!-- col -->
-
-                  <div class="side-paddings--md-visible-xs hidden-lg-up">
-                    <div class="divider divider--sm divider--dark"></div>
-                  </div>
-
-                  <div class="col-lg-4 flex flex-column">
-                    <address class="flex flex-column flex-1 mb0-sm flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
-                      <span class="address__item address__title">PAYMENT DETAILS</span>
-                      <span class="address__item" data-set="billing_cardholder"></span>
-                      <span class="address__item">VISA</span>
-                      <span class="address__item" data-set="billing_cardnumber" data-set-transformer="redact_card"></span>
-                      <span class="address__item">Exp. <span data-set="billing_exp_month"></span>/<span data-set="billing_exp_year"></span></span>
-                      <a data-toggle="tab" href="#billing-tab" role="tab" class="address__item address__edit">EDIT</a>
-                    </address>
-                  </div><!-- col -->
-
-                  <div class="side-paddings--md-visible-xs hidden-lg-up">
-                    <div class="divider divider--sm divider--dark"></div>
-                  </div>
-                </div><!-- row -->
-
-                <div class="divider divider--md divider--dark hidden-sm-down"></div>
-
-                <form action="" class="hidden-sm-down">
-                  <div class="checkbox-holder side-paddings--sm-visible-sm">
-                    <label>
-                      <input type="checkbox">
-                      <span class="label">SAVE YOUR PURCHASE DETAILS FOR A FASTER CHECKOUT NEXT TIME</span>
-                    </label>
-                  </div><!-- checkbox-holder -->
-                </form>
-
-                <div class="divider divider--md divider--dark hidden-sm-down"></div>
-
-                <h4 class="title-medium text-center-sm mb35 hidden-sm-down">YOUR ORDER</h4>
-
-                <div class="table-responsive hidden-sm-down">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>ITEM</th>
-                        <th>ITEM DETAILS</th>
-                        <th>QUANTITY</th>
-                        <th>COST</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <% _.each(doc.products, function(p){ %>
-                        <%= Render('bag_product', _.extend({}, Locals, {
-                          'doc': p
-                        })) %>
-                      <% }) %>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="hidden-md-up">
-                  <dl>
-                    <div class="hidden-md-up">
-                      <dt>YOUR ORDER</dt>
-                      <dd><%= doc.products.length %> items</dd>
-                      <div class="divider mt35 mb30"></div>
-                    </div>
-                  </dl>
-                  <ul class="list-goods list-goods--has--divider hidden-md-up">
-                    <% _.each(doc.products, function(p){ %>
-                      <%= Render('checkout_sidebar_product', _.extend({}, Locals, {
-                        'doc': p
-                      })) %>
-                    <% }) %>
-                  </ul>
-                  <dl class="dl-aligned">
-                    <div class="divider mt35 mb30"></div>
-                    <dt>subtotal</dt>
-                    <dd>$<%= doc.total_price %></dd>
-
-                    <dt>shipping</dt>
-                    <dd>free</dd>
-
-                    <div class="divider"></div>
-
-                    <dt>total</dt>
-                    <dd>$<%= doc.total_price %></dd>
-                  </dl>
-                </div>
-              </div>
-
-              <div class="col-xl-3 col-lg-4 col-md-4">
-                <%= Render('checkout_sidebar.review', Locals) %>
+                <%= Render('checkout-sidebar', _.extend({}, Locals, {
+                  'submit': true
+                })) %>
               </div>
             </div>
           </div>

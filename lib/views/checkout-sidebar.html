@@ -1,5 +1,9 @@
 <aside class="aside">
-  <button name="next" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">NEXT</button>
+  <% if (typeof submit !== 'undefined' && submit){ %>
+    <button name="submit" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">PLACE ORDER</button>
+  <% } else { %>
+    <button name="next" class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+  <% } %>
 
   <div class="checkout side-paddings--sm-visible-sm checkout--without-border-b-sm hidden-sm-down">
     <dl class="dl-aligned">
@@ -7,12 +11,12 @@
       <dd>$<%= doc.total_price %></dd>
 
       <dt>shipping</dt>
-      <dd>free</dd>
+      <dd>$5</dd>
 
       <div class="divider"></div>
 
       <dt>total</dt>
-      <dd>$<%= doc.total_price %></dd>
+      <dd>$<%= doc.total_price + 5 %></dd>
 
       <div class="divider mt35 mb30"></div>
 
@@ -28,5 +32,10 @@
       <% }) %>
     </ul>
   </div>
-  <button name="next" class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+
+  <% if (typeof submit !== 'undefined' && submit){ %>
+    <button name="submit" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">PLACE ORDER</button>
+  <% } else { %>
+    <button name="next" class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+  <% } %>
 </aside>

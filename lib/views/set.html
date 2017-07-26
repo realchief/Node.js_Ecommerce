@@ -24,14 +24,13 @@
                 <li class="nav-item tabs__item tabs__item--btn">
                   <a class="tabs__link tabs__link--btn btn-filter-hide-pagination" data-toggle="tab" href="#shop-lifestyle-tab" role="tab">SHOP LIFESTYLE</a>
                 </li>
-              </ul><!-- tabs -->
+              </ul>
 
               <nav aria-label="" class="ml-md-auto" data-set="pagination.desktop">
-
               </nav>
-            </div><!-- filter__inner -->
-          </div><!-- container -->
-        </div><!-- filter -->
+            </div>
+          </div>
+        </div>
 
         <div class="filter hidden-md-up">
           <div class="container">
@@ -98,7 +97,7 @@
 
           <div class="tab-pane" id="shop-lifestyle-tab" role="tabpanel">
             <div class="container">
-              <div class="masonry-grid">
+              <div class="masonry-grid" data-set="media">
                 <% _.each(doc.shown_media, function(m){ %>
                   <%= Render('media_item', _.extend({}, Locals, {
                     'doc': m
