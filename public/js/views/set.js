@@ -140,7 +140,7 @@ $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
 });
 
 $(window).scroll(function() {
-  if ($(window).scrollTop() + $(window).height() > $(document).height() - 200){
+  if ($(window).scrollTop() + $(window).height() > $(document).height() - 400){
     ThrottleLoadSetMedia();
   }
 });

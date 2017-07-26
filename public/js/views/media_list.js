@@ -55,7 +55,7 @@ var ThrottleLoadMedia = _.throttle(function(){
 });
 
 $(window).scroll(function() {
-  if ($(window).scrollTop() + $(window).height() > $(document).height() - 200){
+  if ($(window).scrollTop() + $(window).height() > $(document).height() - 400){
     ThrottleLoadMedia();
   }
 });
