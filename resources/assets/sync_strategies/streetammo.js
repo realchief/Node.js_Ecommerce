@@ -33,6 +33,37 @@ module.exports = function(options, Instance){
       //synced_at
       'base_quantity': 3
     , 'dkk_to_usd': 0.15
+    , 'brand_regex': new RegExp([
+        'just water'
+      , 'london sock company'
+      , 'eton'
+      , 'tom ford'
+      , 'new era'
+      , 'chance the rapper'
+      , 'ricta'
+      , 'element'
+      , 'birkenstock'
+      , 'converse'
+      , 'nike sb'
+      , 'stüssy'
+      , 'nike sportswear'
+      , 'urban classics'
+      , '40s & shorties'
+      , 'mister tee'
+      , 'obey'
+      , 'huf'
+      , 'cheap monday'
+      , 'clarks originals'
+      , 'dickies'
+      , 'threads'
+      , 'unmarked'
+      , 'spitfire'
+      , 'defend paris'
+      , 'usgoodz'
+      , 'supra'
+      , 'other'
+      , 'nike'
+      ].join('|'), 'i')
     });
 
     Async.waterfall([
@@ -40,7 +71,7 @@ module.exports = function(options, Instance){
         gb['sku'] = (Belt.get(a.o, 'product.url') || '').split('/').pop();
         if (!gb.sku) return cb(new Error('sku is missing'));
         if (a.o.product.brand
-        && a.o.product.brand.match(/NIKE SB|StÜssy|stussy|NIKE SPORTSWEAR|URBAN CLASSICS|40S & SHORTIES|MISTER TEE|OBEY|HUF|CHEAP MONDAY|CLARKS ORIGINALS|DICKIES|THREADS|UNMARKED|SPITFIRE|DEFEND PARIS|USGOODZ|SUPRA|nike|OTHER/i)
+        && a.o.product.brand.match(a.o.brand_regex)
         ) return cb(new Error('unsynced brand'));
 
         Instance.log.warn('Syncing "' + gb.sku + '"');
