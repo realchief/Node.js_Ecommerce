@@ -40,7 +40,7 @@ module.exports = function(options, Instance){
         gb['sku'] = (Belt.get(a.o, 'product.url') || '').split('/').pop();
         if (!gb.sku) return cb(new Error('sku is missing'));
         if (a.o.product.brand
-        && a.o.product.brand.match(/NIKE SB|Stussy|NIKE SPORTSWEAR|URBAN CLASSICS|40S & SHORTIES|MISTER TEE|OBEY|HUF|CHEAP MONDAY|CLARKS ORIGINALS|DICKIES|THREADS|UNMARKED|SPITFIRE|DEFEND PARIS|USGOODZ|SUPRA|nike|OTHER/i)
+        && a.o.product.brand.match(/NIKE SB|StÜssy|stussy|NIKE SPORTSWEAR|URBAN CLASSICS|40S & SHORTIES|MISTER TEE|OBEY|HUF|CHEAP MONDAY|CLARKS ORIGINALS|DICKIES|THREADS|UNMARKED|SPITFIRE|DEFEND PARIS|USGOODZ|SUPRA|nike|OTHER/i)
         ) return cb(new Error('unsynced brand'));
 
         Instance.log.warn('Syncing "' + gb.sku + '"');

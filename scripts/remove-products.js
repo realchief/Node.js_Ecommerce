@@ -34,8 +34,8 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'brands': {
-      '$regex': 'NIKE SB|Stussy|NIKE SPORTSWEAR|URBAN CLASSICS|40S & SHORTIES|MISTER TEE|OBEY|HUF|CHEAP MONDAY|CLARKS ORIGINALS|DICKIES|THREADS|UNMARKED|SPITFIRE|DEFEND PARIS|USGOODZ|SUPRA|nike|OTHER'
+    'name': {
+      '$regex': '\\_hers$'
     , '$options': 'i'
     }
   })
