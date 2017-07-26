@@ -86,25 +86,6 @@
 
                     <div class="form-group">
                       <div class="row">
-                        <div class="col-sm-6">
-                          <label for="filed-city" class="hidden-sm-down">CITY</label>
-                          <input data-get="shipping_city" type="text" class="form-control form-control--placeholder-visible-md" id="filed-city" placeholder="city">
-                        </div><!-- col -->
-
-                        <div class="col-6 hidden-sm-down">
-                          <label for="filed-state" class="hidden-sm-down">STATE</label>
-                          <select data-get="shipping_region" name="" id="filed-state" class="form-control">
-                            <option value="">SELECT A STATE</option>
-                            <% _.each(Settings.us_regions, function(v, k){ %>
-                              <option value="<%= k %>"><%= v %></option>
-                            <% }) %>
-                          </select>
-                        </div><!-- col -->
-                      </div><!-- row -->
-                    </div><!-- form-group -->
-
-                    <div class="form-group">
-                      <div class="row">
                         <div class="col-6 push-xs-down hidden-sm-up">
                           <label for="filed-state" class="hidden-sm-down">STATE</label>
                           <select data-get="shipping_region_mobile" name="" id="filed-state" class="form-control">
