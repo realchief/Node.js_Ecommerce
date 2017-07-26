@@ -1,6 +1,6 @@
 GB['product_filter'] = {
   'skip': 0
-, 'limit': 50
+, 'limit': 20
 , 'query': {
     '_id': {
       '$in': GB.doc.products
@@ -13,7 +13,7 @@ GB['product_filter'] = {
 
 GB['media_filter'] = {
   'skip': 0
-, 'limit': 50
+, 'limit': 5
 , 'query': {
     '_id': {
       '$in': GB.doc.media
@@ -68,6 +68,7 @@ var LoadSetProducts = function(options, callback){
     }
   ], function(err){
     ToggleLoader();
+    a.cb(err, gb.data);
   });
 };
 
@@ -104,14 +105,27 @@ var LoadSetMedia = function(options, callback){
                 });
       });
 
-      $('.masonry-grid').append(html).isotope('layoutItems', html);
+      $('.masonry-grid').isotope('insert', $(html));
 
       cb();
     }
   ], function(err){
     ToggleLoader();
+    a.cb(err, gb.data);
   });
 };
+
+var ThrottleLoadSetMedia = _.throttle(function(){
+  if (GB.media_filter.skip >= GB.media_filter.count) return;
+
+  LoadSetMedia(GB.media_filter, function(err, data){
+    GB.media_filter.skip += GB.media_filter.limit;
+    if (!Belt.isNull(data, 'count')) GB.media_filter.count = data.count;
+  });
+}, 500, {
+  'leading': true
+, 'trailing': false
+});
 
 $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
   window.location.hash = 'product';
@@ -120,6 +134,13 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
 
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
   window.location.hash = 'lifestyle';
+  ThrottleLoadSetMedia();
+});
+
+$(window).scroll(function() {
+  if ($(window).scrollTop() + $(window).height() > $(document).height() - 200){
+    ThrottleLoadSetMedia();
+  }
 });
 
 $(document).ready(function(){
@@ -129,9 +150,10 @@ $(document).ready(function(){
     LoadSetProducts(GB.product_filter);
   }
 
+  ThrottleLoadSetMedia();
+
   if (window.location.hash === '#product'){
     $('[href="#shop-product-tab"]').tab('show');
-    LoadSetProducts(GB.product_filter);
   }
 
   $(document).on('click', 'a.page-link[data-index]', function(e){
