@@ -42,6 +42,7 @@ var LoadSetProducts = function(options, callback){
         'limit': a.o.limit
       , 'skip': a.o.skip
       , 'q': Belt.stringify(a.o.query)
+      , 'sort': a.o.sort
       }, function(res){
         gb['data'] = Belt.get(res, 'data') || {};
 
@@ -84,12 +85,13 @@ var LoadSetMedia = function(options, callback){
 
   Async.waterfall([
     function(cb){
-      ToggleLoader(true);
+      //ToggleLoader(true);
 
       $.post('/list/media.json', {
         'limit': a.o.limit
       , 'skip': a.o.skip
       , 'q': Belt.stringify(a.o.query)
+      , 'sort': a.o.sort
       }, function(res){
         gb['data'] = Belt.get(res, 'data') || {};
 
