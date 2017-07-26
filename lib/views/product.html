@@ -14,7 +14,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-4">
-              <div class="carousel--with-thumbnails">
+              <div class="carousel-with-thumbnails carousel--with-thumbnails">
                 <% _.each(doc.media, function(m){ %>
                   <div class="gallery__item">
                     <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
