@@ -335,18 +335,26 @@ module.exports = function(options, Instance){
               gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
 
               Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb3){
-                Request({
-                  'url': a.o.host + '/method'
-                , 'method': 'get'
-                , 'qs': {
-                    'method': 'getProduct'
-                  , 'url': u
-                  }
-                , 'json': true
-                }, function(err, res, json){
-                  var prod = Belt.get(json, 'data.response') || {};
-                  prod['url'] = u;
+                var e
+                  , prod;
 
+                Async.doWhilst(function(next2){
+                  Request({
+                    'url': a.o.host + '/method'
+                  , 'method': 'get'
+                  , 'qs': {
+                      'method': 'getProduct'
+                    , 'url': u
+                    }
+                  , 'json': true
+                  }, function(err, res, json){
+                    e = err;
+                    prod = Belt.get(json, 'data.response') || {};
+                    prod['url'] = u;
+
+                    next2();
+                  });
+                }, function(){ return e; }, function(err){
                   a.o.progress_cb(prod, cb3);
                 });
               }, Belt.cw(next, 0));
