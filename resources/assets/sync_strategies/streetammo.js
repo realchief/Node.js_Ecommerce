@@ -73,6 +73,7 @@ module.exports = function(options, Instance){
         if (a.o.product.brand
         && a.o.product.brand.match(a.o.brand_regex)
         ) return cb(new Error('unsynced brand'));
+        if (!a.o.product.availability) return cb(new Error('product unavailable'));
 
         Instance.log.warn('Syncing "' + gb.sku + '"');
 
@@ -80,13 +81,13 @@ module.exports = function(options, Instance){
           'sku': gb.sku
         }, Belt.cs(cb, gb, 'doc', 1, 0));
       }
-    , function(cb){
+/*    , function(cb){
         if (!gb.doc || a.o.product.availability) return cb();
 
         gb.doc.remove({}, function(){
           return cb(new Error('Removed unavailable product'));
         });
-      }
+      }*/
     , function(cb){
         gb.doc = gb.doc || Instance.db.model('product')({});
 
@@ -177,6 +178,10 @@ module.exports = function(options, Instance){
           });
         });
 
+        gb.doc.media = _.sortBy(gb.doc.media, function(m){
+          return _.indexOf(a.o.product.images, m.remote_url);
+        });
+
         gb['price'] = (a.o.product.price || '').replace(/^\D*|\D*$/g, '').replace(/\D/g, '');
         gb.price = Belt.cast(gb.price, 'number') || 0;
         gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
@@ -258,6 +263,11 @@ module.exports = function(options, Instance){
         gb.doc.set({
           'stocks': gb.stocks
         });
+
+        gb.doc.populate('stocks', Belt.cs(cb, gb, 'doc', 1, 0));
+      }
+    , function(cb){
+        gb.doc.getConfigurations();
 
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
