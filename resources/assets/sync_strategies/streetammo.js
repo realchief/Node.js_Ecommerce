@@ -318,11 +318,19 @@ module.exports = function(options, Instance){
             , 'method': 'get'
             , 'qs': {
                 'method': 'getProductsList'
-              , 'index': gb.index++
+              , 'index': gb.index
               , 'category': gb.category
               }
             , 'json': true
             }, function(err, res, json){
+              if (err){
+                gb.next = true;
+                return setTimeout(next, 5000);
+              } else {
+                gb.next = false;
+                gb.index++;
+              }
+
               gb.urls = Belt.get(json, 'data.response.products') || [];
               gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
 
@@ -343,7 +351,7 @@ module.exports = function(options, Instance){
                 });
               }, Belt.cw(next, 0));
             });
-          }, function(){ return _.any(gb.urls); }, Belt.cw(cb2, 0));
+          }, function(){ return gb.next || _.any(gb.urls); }, Belt.cw(cb2, 0));
         }, Belt.cw(cb, 0));
       }
     ], function(err){
