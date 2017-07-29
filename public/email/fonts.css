@@ -1,36 +1,34 @@
 
 /* Gotham font */
 @font-face {
-  font-family: 'Gotham Book';
+  font-family: 'GothamBook';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/Gotham Book.woff2') format('woff2'),
-       url('path-to-font/Gotham Book.woff') format('woff'),
-       url('path-to-font/Gotham Book.ttf') format('ttf');
+  src: url('../fonts/GothamBook.woff2') format('woff2'),
+       url('../fonts/GothamBook.woff') format('woff'),
+       url('../fonts/GothamBook.ttf') format('ttf');
 }
 @font-face {
-  font-family: 'Gotham Medium';
+  font-family: 'GothamMedium';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/Gotham Medium.woff2') format('woff2'),
-       url('path-to-font/Gotham Medium.woff') format('woff'),
-       url('path-to-font/Gotham Medium.ttf') format('ttf');
+  src: url('../fonts/GothamMedium.woff2') format('woff2'),
+       url('../fonts/GothamMedium.woff') format('woff'),
+       url('../fonts/GothamMedium.ttf') format('ttf');
 }
 @font-face {
-  font-family: 'Gotham Bold';
+  font-family: 'GothamBold';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/Gotham Bold.woff2') format('woff2'),
-       url('path-to-font/Gotham Bold.woff') format('woff'),
-       url('path-to-font/Gotham Bold.ttf') format('ttf');
+  src: url('../fonts/GothamBold.woff2') format('woff2'),
+       url('../fonts/GothamBold.woff') format('woff'),
+       url('../fonts/GothamBold.ttf') format('ttf');
 }
-
-/* Droid serif */
 @font-face {
-  font-family: 'DroidSerif-Italic';
+  font-family: 'DroidItalic';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/DroidSerif-Italic.woff2') format('woff2'),
-       url('path-to-font/DroidSerif-Italic.woff') format('woff'),
-       url('path-to-font/DroidSerif-Italic.ttf') format('ttf');
+  src: url('../fonts/DroidItalic.woff2') format('woff2'),
+       url('../fonts/DroidItalic.woff') format('woff'),
+       url('../fonts/DroidItalic.ttf') format('ttf');
 }
