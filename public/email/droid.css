@@ -1,0 +1,11 @@
+
+
+/* Droid serif */
+@font-face {
+  font-family: 'DroidSerif-Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/DroidSerif-Italic.woff2') format('woff2'),
+       url('../fonts/DroidSerif-Italic.woff') format('woff'),
+       url('../fonts/DroidSerif-Italic.ttf') format('ttf');
+}
