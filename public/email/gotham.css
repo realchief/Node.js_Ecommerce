@@ -4,31 +4,31 @@
   font-family: 'Gotham Book';
   font-style: normal;
   font-weight: normal;
-  src: url('../fonts/Gotham Book.woff2') format('woff2'),
-       url('../fonts/Gotham Book.woff') format('woff'),
-       url('../fonts/Gotham Book.ttf') format('ttf');
+  src: url('Gotham Book.woff2') format('woff2'),
+       url('Gotham Book.woff') format('woff'),
+       url('Gotham Book.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Gotham Book Italic';
   font-style: normal;
   font-weight: normal;
-  src: url('../fonts/Gotham Book Italic.woff2') format('woff2'),
-       url('../fonts/Gotham Book Italic.woff') format('woff'),
-       url('../fonts/Gotham Book Italic.ttf') format('ttf');
+  src: url('Gotham Book Italic.woff2') format('woff2'),
+       url('Gotham Book Italic.woff') format('woff'),
+       url('Gotham Book Italic.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Gotham Medium';
   font-style: normal;
   font-weight: normal;
-  src: url('../fonts/Gotham Medium.woff2') format('woff2'),
-       url('../fonts/Gotham Medium.woff') format('woff'),
-       url('../fonts/Gotham Medium.ttf') format('ttf');
+  src: url('Gotham Medium.woff2') format('woff2'),
+       url('Gotham Medium.woff') format('woff'),
+       url('Gotham Medium.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Gotham Bold';
   font-style: normal;
   font-weight: normal;
-  src: url('../fonts/Gotham Bold.woff2') format('woff2'),
-       url('../fonts/Gotham Bold.woff') format('woff'),
-       url('../fonts/Gotham Bold.ttf') format('ttf');
+  src: url('Gotham Bold.woff2') format('woff2'),
+       url('Gotham Bold.woff') format('woff'),
+       url('Gotham Bold.ttf') format('ttf');
 }
