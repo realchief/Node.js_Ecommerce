@@ -4,25 +4,33 @@
   font-family: 'Gotham Book';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/Gotham Book.woff2') format('woff2'),
-       url('path-to-font/Gotham Book.woff') format('woff'),
-       url('path-to-font/Gotham Book.ttf') format('ttf');
+  src: url('../fonts/Gotham Book.woff2') format('woff2'),
+       url('../fonts/Gotham Book.woff') format('woff'),
+       url('../fonts/Gotham Book.ttf') format('ttf');
+}
+@font-face {
+  font-family: 'Gotham Book Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Gotham Book Italic.woff2') format('woff2'),
+       url('../fonts/Gotham Book Italic.woff') format('woff'),
+       url('../fonts/Gotham Book Italic.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Gotham Medium';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/Gotham Medium.woff2') format('woff2'),
-       url('path-to-font/Gotham Medium.woff') format('woff'),
-       url('path-to-font/Gotham Medium.ttf') format('ttf');
+  src: url('../fonts/Gotham Medium.woff2') format('woff2'),
+       url('../fonts/Gotham Medium.woff') format('woff'),
+       url('../fonts/Gotham Medium.ttf') format('ttf');
 }
 @font-face {
   font-family: 'Gotham Bold';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/Gotham Bold.woff2') format('woff2'),
-       url('path-to-font/Gotham Bold.woff') format('woff'),
-       url('path-to-font/Gotham Bold.ttf') format('ttf');
+  src: url('../fonts/Gotham Bold.woff2') format('woff2'),
+       url('../fonts/Gotham Bold.woff') format('woff'),
+       url('../fonts/Gotham Bold.ttf') format('ttf');
 }
 
 /* Droid serif */
@@ -30,7 +38,7 @@
   font-family: 'DroidSerif-Italic';
   font-style: normal;
   font-weight: normal;
-  src: url('path-to-font/DroidSerif-Italic.woff2') format('woff2'),
-       url('path-to-font/DroidSerif-Italic.woff') format('woff'),
-       url('path-to-font/DroidSerif-Italic.ttf') format('ttf');
+  src: url('../fonts/DroidSerif-Italic.woff2') format('woff2'),
+       url('../fonts/DroidSerif-Italic.woff') format('woff'),
+       url('../fonts/DroidSerif-Italic.ttf') format('ttf');
 }
