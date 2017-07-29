@@ -1,7 +1,7 @@
 
 /* Gotham font */
 @font-face {
-  font-family: 'Gotham Book';
+  font-family: 'Gotham-Book';
   font-style: normal;
   font-weight: normal;
   src: url('Gotham Book.woff2') format('woff2'),
@@ -9,7 +9,7 @@
        url('Gotham Book.ttf') format('ttf');
 }
 @font-face {
-  font-family: 'Gotham Book Italic';
+  font-family: 'Gotham-Book-Italic';
   font-style: normal;
   font-weight: normal;
   src: url('Gotham Book Italic.woff2') format('woff2'),
@@ -17,7 +17,7 @@
        url('Gotham Book Italic.ttf') format('ttf');
 }
 @font-face {
-  font-family: 'Gotham Medium';
+  font-family: 'Gotham-Medium';
   font-style: normal;
   font-weight: normal;
   src: url('Gotham Medium.woff2') format('woff2'),
@@ -25,7 +25,7 @@
        url('Gotham Medium.ttf') format('ttf');
 }
 @font-face {
-  font-family: 'Gotham Bold';
+  font-family: 'Gotham-Bold';
   font-style: normal;
   font-weight: normal;
   src: url('Gotham Bold.woff2') format('woff2'),
