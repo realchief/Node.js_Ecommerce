@@ -9,6 +9,7 @@ GB['product_filter'] = {
       '$ne': true
     }
   }
+, 'sort': '-created_at'
 };
 
 GB['media_filter'] = {
@@ -173,6 +174,14 @@ $(document).ready(function(){
       '$regex': $(this).attr('data-category')
     , '$options': 'i'
     });
+
+    LoadSetProducts(GB.product_filter);
+  });
+
+  $(document).on('click', '[data-sort]', function(e){
+    e.preventDefault();
+
+    Belt.set(GB.product_filter, 'sort', $(this).attr('data-sort'));
 
     LoadSetProducts(GB.product_filter);
   });

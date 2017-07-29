@@ -1,0 +1,383 @@
+{
+  "Alps & Meters": [
+    {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders"
+    , "free": true
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express US shipping"
+    , "flat_price": 25
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Android Homme": [
+    {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders"
+    , "free": true
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 22
+    , "carrier": "UPS Ground"
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 45
+    , "carrier": "UPS"
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Anwar Carrots": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for US orders up to 3lbs"
+    , "flat_price": 8
+    , "allowed_countries": [
+        "US"
+      ]
+    , "max_weight": 3
+    }
+  , {
+      "label": "Standard"
+    , "description": "Standard shipping for US orders more than 3lbs, less than 20lbs"
+    , "flat_price": 15
+    , "allowed_countries": [
+        "US"
+      ]
+    , "min_weight": 3
+    , "max_weight": 20
+    }
+  , {
+      "label": "Standard"
+    , "description": "Standard shipping for US orders more than 20lbs"
+    , "flat_price": 30
+    , "allowed_countries": [
+        "US"
+      ]
+    , "min_weight": 20
+    }
+  , {
+      "label": "Standard International"
+    , "description": "Standard UPS shipping for non-US orders up to 5lbs"
+    , "carrier": "UPS"
+    , "flat_price": 25
+    , "disallowed_countries": [
+        "US"
+      ]
+    , "max_weight": 5
+    }
+  , {
+      "label": "Standard International"
+    , "description": "Standard UPS shipping for non-US orders more than 5lbs, less than 10lbs"
+    , "carrier": "UPS"
+    , "flat_price": 30
+    , "disallowed_countries": [
+        "US"
+      ]
+    , "min_weight": 5
+    , "max_weight": 10
+    }
+  , {
+      "label": "Standard International"
+    , "description": "Standard UPS shipping for non-US orders more than 10lbs"
+    , "carrier": "UPS"
+    , "flat_price": 35
+    , "disallowed_countries": [
+        "US"
+      ]
+    , "min_weight": 10
+    }
+  ]
+, "Days Off": [
+    {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders"
+    , "free": true
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Dead Studios": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders under $200"
+    , "flat_price": 25
+    , "max_price": 200
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Standard"
+    , "description": "Free standard shipping for all US orders $200 and up"
+    , "free": true
+    , "min_price": 200
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "En Noir": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 15
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 30
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "N/A Socks": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders under $40"
+    , "flat_price": 3
+    , "max_price": 40
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $40 and up"
+    , "free": true
+    , "min_price": 40
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Night : Shift": [
+    {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders"
+    , "free": true
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Perennial Collections": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 8
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Profound Aesthetic": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 12
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Publish": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $100"
+    , "flat_price": 15
+    , "max_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $100 and up"
+    , "free": true
+    , "min_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 28
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 42
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Repelica": [
+    {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders"
+    , "free": true
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Sneaker Lab": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 7
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Streetammo": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 20
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Teamcozy": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $100"
+    , "flat_price": 11
+    , "max_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $100 and up"
+    , "free": true
+    , "min_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 14
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 47
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "York Athletics MFG": [
+    {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 28
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Youth Machine": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $45"
+    , "flat_price": 5
+    , "max_price": 45
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $45 and up"
+    , "free": true
+    , "min_price": 45
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Bomb Clothing": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $100"
+    , "flat_price": 11
+    , "max_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $100 and up"
+    , "free": true
+    , "min_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Standard"
+    , "description": "Standard shipping for all US orders"
+    , "flat_price": 15
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 25
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+}
