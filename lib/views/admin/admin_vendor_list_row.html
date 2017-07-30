@@ -4,6 +4,7 @@
     <p><%= name %></p>
   </td>
   <td data-set="actions" data-set-method="html">
+    <a href="/admin/product/list?query=<%= encodeURIComponent('{"vendor": "' + _id + '"}') %>" class="btn btn-default">Products</a>
     <a href="/admin/vendor/<%= _id %>/read" class="btn btn-default">Edit</a>
     <button name="delete" class="btn btn-danger">Delete</a>
   </td>

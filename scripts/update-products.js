@@ -33,16 +33,16 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'query': {
-    'categories': {
-      '$regex': '\\?'
+  'query': Belt.stringify({
+    'vendor': {
+      '$exists': false
     }
-  }
+  })
 , 'skip': 0
-, 'limit': 1
+, 'limit': 500
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+  , 'pass': 'wset2017'
   }
 , 'iterator': function(o, cb){
     console.log('Updating product [' + o._id + ']...');
@@ -51,11 +51,15 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'categories': []
+        'vendor': '597e21e480620114c6721adc'
       }
     , 'json': true
     , 'method': 'post'
-    }, Belt.cw(cb));
+    }, function(err, res, json){
+      console.log(Belt.stringify(json));
+
+      cb();
+    });
   }
 });
 

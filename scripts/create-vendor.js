@@ -34,14 +34,11 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'name': 'Streetammo'
-  , 'custom_sync': {
-      'strategy': 'streetammo'
-    }
+    'name': 'Pretty Girls Like Trap Music'
   }
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+  , 'pass': 'wset2017'
   }
 });
 

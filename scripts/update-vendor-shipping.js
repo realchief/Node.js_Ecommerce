@@ -40,7 +40,7 @@ var GB = _.defaults(O.argv, {
 , 'limit': 1
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+  , 'pass': 'wset2017'
   }
 , 'model': 'vendor'
 , 'iterator': function(o, cb){
@@ -50,11 +50,15 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'shipping_options': Belt.get(GB.shipping_options)
+        'shipping_options': Belt.get(GB.shipping_options, o.name) || []
       }
     , 'json': true
     , 'method': 'post'
-    }, Belt.cw(cb));
+    }, function(err, res, json){
+      console.log(Belt.stringify(json));
+
+      cb();
+    });
   }
 });
 

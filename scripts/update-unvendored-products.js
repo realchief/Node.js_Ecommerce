@@ -34,9 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'vendor': {
-      '$exists': false
-    }
+    'vendor': '597e21e480620114c6721adc'
   }
 , 'skip': 0
 , 'limit': 1
@@ -58,7 +56,7 @@ var GB = _.defaults(O.argv, {
             'query': JSON.stringify({
               'name': o.name
             , 'vendor': {
-                '$exists': true
+                '$ne': '597e21e480620114c6721adc'
               }
             })
           , 'skip': 0
