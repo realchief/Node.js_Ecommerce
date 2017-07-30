@@ -28,7 +28,6 @@
   , "basic-auth": "*"
   , "its-thinking": "*"
   , "aws-sdk": "*"
-  , "stripe": "*"
   , "bcrypt": "*"
   , "mime": "*"
   , "basecmd": "git+ssh://git@github.com/sackio/basecmd.git#master"

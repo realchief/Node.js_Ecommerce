@@ -380,4 +380,130 @@
       ]
     }
   ]
+, "Pair of Thieves": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $50"
+    , "flat_price": 11
+    , "max_price": 50
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $50 and up"
+    , "free": true
+    , "min_price": 50
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 50
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "GucciGhost": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Pretty Girls Like Trap Music": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Puma": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Gucci": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Isaora": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $100"
+    , "flat_price": 15
+    , "max_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $100 and up"
+    , "free": true
+    , "min_price": 100
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Express"
+    , "description": "Express shipping for all US orders"
+    , "flat_price": 95
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Asphalt Yacht Club": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders up to $50"
+    , "flat_price": 8
+    , "max_price": 50
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  , {
+      "label": "Economy"
+    , "description": "Free economy shipping for all US orders $50 and up"
+    , "free": true
+    , "min_price": 50
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
+, "Wanderset": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
 }
