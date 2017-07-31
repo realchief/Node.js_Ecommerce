@@ -29,8 +29,12 @@ var CheckoutView = function(options, callback){
 
           $.post('/order/create.json', _.extend({}, self.get(), {
             'token': GB.token
-          }), function(){
-            document.location = '/checkout/complete';
+          }), function(res){
+            if (Belt.get(res, 'error')){
+              alert(res.error);
+            } else {
+              document.location = '/checkout/complete';
+            }
           });
         });
       }
