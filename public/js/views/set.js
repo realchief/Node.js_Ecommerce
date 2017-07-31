@@ -46,7 +46,7 @@ var LoadSetProducts = function(options, callback){
 
   Async.waterfall([
     function(cb){
-      ToggleLoader(true);
+      ToggleFooterLoader(true);
 
       if (a.o.sort || Belt.get(a.o.query, 'categories.$regex')) return cb();
 
@@ -111,7 +111,7 @@ var LoadSetProducts = function(options, callback){
       cb();
     }
   ], function(err){
-    ToggleLoader();
+    ToggleFooterLoader();
     a.cb(err, gb.data);
   });
 };
