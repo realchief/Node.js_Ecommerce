@@ -1,0 +1,49 @@
+<aside class="aside" data-view="CheckoutSidebar">
+  <button name="submit" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">PLACE ORDER</button>
+
+  <div class="checkout side-paddings--sm-visible-sm checkout--without-border-b-sm hidden-sm-down">
+    <dl class="dl-aligned">
+      <dt>YOUR ORDER</dt>
+      <dd><%= doc.products.length %> items</dd>
+    </dl>
+
+    <% doc['shipping_price'] = 0; %>
+
+    <% _.each(doc.shipping_groups, function(s){ %>
+      <% doc.shipping_price += s.selected_shipping_option.price; %>
+
+      <div class="divider mt35 mb30"></div>
+
+      <ul class="list-goods">
+        <% _.each(s.products, function(p){ %>
+          <%= Render('checkout_sidebar_product', _.extend({}, Locals, {
+            'doc': _.find(doc.products, function(p2){
+                    return p2._id.toString() === p.toString();
+                  })
+          })) %>
+        <% }) %>
+      </ul>
+
+      <dl class="dl-aligned">
+        <div class="divider mt35 mb30"></div>
+
+        <dt>shipping</dt>
+        <dd>$<%= s.selected_shipping_option.price %></dd>
+      </dl>
+    <% }) %>
+
+    <dl class="dl-aligned">
+      <div class="divider mt35 mb30"></div>
+
+      <dt>sales tax</dt>
+      <dd>$<%= ((doc.total_price + doc.shipping_price) * 0.07).toFixed(2) %></dd>
+
+      <div class="divider"></div>
+
+      <dt>total</dt>
+      <dd>$<%= ((doc.total_price + doc.shipping_price) * 1.07).toFixed(2) %></dd>
+    </dl>
+  </div>
+
+  <button name="submit" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">PLACE ORDER</button>
+</aside>

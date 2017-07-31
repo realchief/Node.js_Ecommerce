@@ -11,6 +11,9 @@
         <% if (Belt.get(doc, 'product.brands.0')){ %>
           <p class="goods__info-description"><%= doc.product.brands.join(', ') %></p>
         <% } %>
+        <% if (!Belt.isNull(Belt.get(doc, 'stock.price'))){ %>
+          <p class="goods__info-name">$<%= doc.stock.price * doc.quantity %> (<%= doc.quantity %> x $<%= doc.stock.price %>)</p>
+        <% } %>
       </div>
       <ul class="table__goods__details goods__details mb10">
         <% _.each(doc.options, function(v, k){ %>

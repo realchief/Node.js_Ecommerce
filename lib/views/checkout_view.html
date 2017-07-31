@@ -1,0 +1,333 @@
+<main class="main" data-view="CheckoutView">
+  <section class="section section--pt-0">
+    <div class="container">
+      <ul class="tabs tabs--centered tabs--has-dotted negative-side-margin-xs">
+        <li class="nav-item tabs__item">
+          <a class="tabs__link active" data-toggle="tab" href="#shipping-tab" role="tab">SHIPPING</a>
+        </li>
+        <li class="nav-item tabs__item">
+          <a class="tabs__link" data-toggle="tab" href="#billing-tab" role="tab">BILLING</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="shipping-tab" role="tabpanel">
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-8 push-md-down">
+              <h4 class="title-medium text-center-sm">SHIPPING ADDRESS</h4>
+              <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+              <form action="">
+                <fieldset class="side-paddings--sm-visible-sm">
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="shipping_first_name" class="form-group">
+                        <label class="hidden-sm-down">FIRST NAME</label>
+                        <input data-get="shipping_first_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="first name">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="shipping_last_name" class="form-group">
+                       <label class="hidden-sm-down">LAST NAME</label>
+                        <input data-get="shipping_last_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="last name">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="shipping_address" class="form-group">
+                        <label class="hidden-sm-down">ADDRESS</label>
+                        <input data-get="shipping_address" type="text" class="form-control form-control--placeholder-visible-md" placeholder="address">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="shipping_address_2" class="form-group">
+                        <label class="hidden-sm-down">ADDRESS LINE 2 (OPTIONAL)</label>
+                        <input data-get="shipping_address_2" type="text" class="form-control form-control--placeholder-visible-md" placeholder="address line 2 (optional)">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="shipping_city" class="form-group">
+                        <label class="hidden-sm-down">CITY</label>
+                        <input data-get="shipping_city" type="text" class="form-control form-control--placeholder-visible-md" placeholder="city">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="shipping_region" class="form-group">
+                        <label class="hidden-sm-down">STATE</label>
+                        <select data-get="shipping_region" class="form-control">
+                          <option value="">SELECT A STATE</option>
+                          <% _.each(Settings.us_regions, function(v, k){ %>
+                            <option value="<%= k %>"><%= v %></option>
+                          <% }) %>
+                        </select>
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="shipping_postal_code" class="form-group">
+                        <label class="hidden-sm-down">POSTAL CODE</label>
+                        <input data-get="shipping_postal_code" type="text" class="form-control form-control--placeholder-visible-md" placeholder="postal code">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="shipping_phone" class="form-group">
+                        <label class="hidden-sm-down">PHONE</label>
+                        <input data-get="shipping_phone" type="text" class="form-control form-control--placeholder-visible-md" placeholder="phone">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="divider divider--sm divider--dark hidden-md-up"></div>
+              </form>
+
+              <h4 class="title-medium text-center-sm">SHIPPING OPTIONS</h4>
+              <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+
+              <% _.each(doc.shipping_groups, function(v, k){ %>
+                <div class="row" data-shipping-group="<%= k %>" data-get="shipping_groups.<%= k %>" data-get-transformer="getShippingGroup">
+                  <div class="col-6">
+                    <ul class="list-goods">
+                      <% _.each(v.products, function(p2){ %>
+                        <% var p = _.find(doc.products, function(p3){
+                          return p3._id.toString() === p2.toString();
+                        }); %>
+                        <%= Render('checkout_shipping_product', _.extend({}, Locals, {
+                          'doc': p
+                        })) %>
+                      <% }) %>
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <% if (!Belt.get(v, 'selected_shipping_option.option._id')){ %>
+                      <h5 class="title-medium text-center-sm">NO SHIPPING OPTIONS AVAILABLE</h5>
+                    <% } else { %>
+                      <h5 class="title-medium text-center-sm">SHIPPING METHOD</h5>
+                      <div class="dropdown dropdown--border-thick dropdown--muted dropdown--inline-block">
+                        <button class="btn dropdown-toggle dropdown-toggle--has-arrow"
+                        type="button" data-toggle="dropdown"
+                        data-shipping-option="<%= Belt.get(v, 'selected_shipping_option.option._id') || '' %>">
+                          <%= (Belt.get(v, 'selected_shipping_option.option.label') || '')
+                          + (Belt.get(v, 'selected_shipping_option.price')
+                            ? ' - $' + v.selected_shipping_option.price
+                            : ' - FREE') %>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <% _.each(v.shipping_options, function(s2){ %>
+                            <a class="dropdown-item" href="#"
+                            data-shipping-option="<%= Belt.get(s2, 'option._id') || '' %>">
+                              <%= (Belt.get(s2, 'option.label') || '')
+                              + (Belt.get(s2, 'price') ? ' - $' + s2.price : ' - FREE') %>
+                            </a>
+                          <% }) %>
+                        </div>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="divider divider--sm divider--dark"></div>
+                </div>
+              <% }) %>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-4">
+              <aside class="aside">
+                <button name="next" class="btn btn-primary btn-lg btn-block hidden-sm-down">NEXT</button>
+              </aside>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="billing-tab" role="tabpanel">
+          <div class="row">
+            <div class="col-xl-9 col-lg-8 col-md-8">
+              <h4 class="title-medium text-center-sm">PAYMENT METHOD</h4>
+              <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+              <form action="">
+                <fieldset class="side-paddings--sm-visible-sm">
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_cardholder_name" class="form-group">
+                        <label class="hidden-sm-down">CARDHOLDER’S NAME</label>
+                        <input data-get="billing_cardholder_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="cardholder's name">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_cardnumber" class="form-group">
+                        <label class="hidden-sm-down">CARD NUMBER</label>
+                        <input type="text" class="form-control form-control--placeholder-visible-md" placeholder="card number">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-5 col-7 push-xs-down">
+                      <div name="billing_expiration_month" class="form-group">
+                        <label class="hidden-sm-down">EXPIRATION MONTH</label>
+                        <select data-get="billing_expiration_month" class="form-control">
+                          <% _.times(12, function(i){ %>
+                            <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
+                            <option value="<%= i %>"><%= i %></option>
+                          <% }) %>
+                        </select>
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-5 col-7 push-xs-down">
+                      <div name="billing_expiration_year" class="form-group">
+                        <label class="hidden-sm-down">EXPIRATION YEAR</label>
+                        <select data-get="billing_expiration_year" class="form-control">
+                          <% _.times(10, function(i){ %>
+                            <% i = new Date().getFullYear() + i; %>
+                            <option value="<%= i %>"><%= i %></option>
+                          <% }) %>
+                        </select>
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-5 col-7 push-xs-down">
+                      <div name="billing_cvc" class="form-group">
+                        <label class="hidden-sm-down">SECURITY CODE</label>
+                        <input type="text" class="form-control form-control--placeholder-visible-md" placeholder="security code">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="divider divider--sm divider--dark hidden-md-up"></div>
+
+                <fieldset>
+                  <h4 class="title-medium text-center-sm">BILLING ADDRESS</h4>
+                  <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+
+                  <div class="checkbox-holder">
+                    <label>
+                      <input data-get="billing_same" data-get-method="isChecked()" type="checkbox">
+                      <span class="label">SAME AS SHIPPING ADDRESS</span>
+                    </label>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_first_name" class="form-group">
+                        <label class="hidden-sm-down">FIRST NAME</label>
+                        <input data-get="billing_first_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="first name">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="billing_last_name" class="form-group">
+                       <label class="hidden-sm-down">LAST NAME</label>
+                        <input data-get="billing_last_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="last name">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_address" class="form-group">
+                        <label class="hidden-sm-down">ADDRESS</label>
+                        <input data-get="billing_address" type="text" class="form-control form-control--placeholder-visible-md" placeholder="address">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="billing_address_2" class="form-group">
+                        <label class="hidden-sm-down">ADDRESS LINE 2 (OPTIONAL)</label>
+                        <input data-get="billing_address_2" type="text" class="form-control form-control--placeholder-visible-md" placeholder="address line 2 (optional)">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_city" class="form-group">
+                        <label class="hidden-sm-down">CITY</label>
+                        <input data-get="billing_city" type="text" class="form-control form-control--placeholder-visible-md" placeholder="city">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="billing_region" class="form-group">
+                        <label class="hidden-sm-down">STATE</label>
+                        <select data-get="billing_region" class="form-control">
+                          <option value="">SELECT A STATE</option>
+                          <% _.each(Settings.us_regions, function(v, k){ %>
+                            <option value="<%= k %>"><%= v %></option>
+                          <% }) %>
+                        </select>
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_postal_code" class="form-group">
+                        <label class="hidden-sm-down">POSTAL CODE</label>
+                        <input data-get="billing_postal_code" type="text" class="form-control form-control--placeholder-visible-md" placeholder="postal code">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div name="billing__phone" class="form-group">
+                        <label class="hidden-sm-down">PHONE</label>
+                        <input data-get="billing__phone" type="text" class="form-control form-control--placeholder-visible-md" placeholder="phone">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div name="billing_email" class="form-group">
+                        <label class="hidden-sm-down">EMAIL</label>
+                        <input data-get="billing_email" type="text" class="form-control form-control--placeholder-visible-md" placeholder="email">
+                        <p class="form-group-error-label"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6 push-xs-down">
+                      <div class="checkbox-holder side-paddings--sm-visible-sm hidden-sm-down">
+                        <label>
+                          <input data-get="email_subscribe" data-get-method="isChecked()" type="checkbox">
+                          <span class="label">PLEASE ADD ME TO WANDERSET’S EMAIL LIST</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="divider divider--sm divider--dark hidden-md-up"></div>
+              </form>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-4">
+              <%= Render('checkout_sidebar', Locals) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
