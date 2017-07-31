@@ -33,7 +33,7 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/Wanderset Product Categories - 3 - Sheet1.csv'
+  'csv_path': '/home/ben/Downloads/export (15) (2).csv'
 , 'category_fields': [
     'Cat 1'
   , 'Cat 2'

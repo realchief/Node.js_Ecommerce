@@ -90,19 +90,18 @@
                   <div class="row row--flex" data-set="products">
 
                   </div>
-                </div><!-- col -->
-              </div><!-- row -->
-            </div><!-- container-fluid -->
-          </div><!-- tab-pane -->
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="tab-pane" id="shop-lifestyle-tab" role="tabpanel">
             <div class="container">
               <div class="masonry-grid" data-set="media">
-                <% _.each(doc.shown_media, function(m){ %>
-                  <%= Render('media_item', _.extend({}, Locals, {
-                    'doc': m
-                  })) %>
-                <% }) %>
+
+              </div>
+              <div id="footer-loader" style="display:none;">
+                <%= Render('footer_loader', Locals) %>
               </div>
             </div>
           </div>

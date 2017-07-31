@@ -4,13 +4,13 @@ var LoadMedia = function(options, callback){
     , gb = {};
   a.o = _.defaults(a.o, {
     //skip
-    'limit': 10
+    'limit': Belt.isMobile() ? 3 : 10
   , 'query': {}
   });
 
   Async.waterfall([
     function(cb){
-      //ToggleLoader(true);
+      ToggleFooterLoader(true);
 
       $.post('/list/media.json', {
         'limit': a.o.limit
@@ -32,12 +32,14 @@ var LoadMedia = function(options, callback){
                 });
       });
 
-      $('.masonry-grid').isotope('insert', $(html));
-
-      cb();
+      var $html = $(html);
+      $html.imagesLoaded(function(){
+        $('.masonry-grid').isotope('insert', $(html));
+        cb();
+      });
     }
   ], function(err){
-    ToggleLoader();
+    ToggleFooterLoader();
     a.cb(err, gb.data);
   });
 };

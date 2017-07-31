@@ -14,7 +14,7 @@ GB['product_filter'] = {
 
 GB['media_filter'] = {
   'skip': 0
-, 'limit': 5
+, 'limit': Belt.isMobile() ? 3 : 10
 , 'query': {
     '_id': {
       '$in': GB.doc.media
@@ -128,7 +128,7 @@ var LoadSetMedia = function(options, callback){
 
   Async.waterfall([
     function(cb){
-      //ToggleLoader(true);
+      ToggleFooterLoader(true);
 
       $.post('/list/media.json', {
         'limit': a.o.limit
@@ -150,12 +150,14 @@ var LoadSetMedia = function(options, callback){
                 });
       });
 
-      $('.masonry-grid').isotope('insert', $(html));
-
-      cb();
+      var $html = $(html);
+      $html.imagesLoaded(function(){
+        $('.masonry-grid').isotope('insert', $(html));
+        cb();
+      });
     }
   ], function(err){
-    ToggleLoader();
+    ToggleFooterLoader();
     a.cb(err, gb.data);
   });
 };

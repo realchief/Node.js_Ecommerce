@@ -26,6 +26,7 @@
   , "jquery": "jQuery#1.11.0"
   , "sticky-kit": "^1.1.2"
   , "lightslider": "^1.1.6"
+  , "imagesloaded": "*"
   },
   "ignore": [
     "test",

@@ -92,3 +92,15 @@ var ToggleLoader = function(show){
     $('body').removeClass('overflow');
   }
 };
+
+var ToggleFooterLoader = function(show){
+  if (show){
+    $('#footer-loader').show();
+    $('footer').hide();
+  }
+
+  if (!show){
+    $('#footer-loader').hide();
+    $('footer').show();
+  }
+};
