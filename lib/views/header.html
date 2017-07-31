@@ -97,29 +97,8 @@
       </div>
 
       <ul class="navbar-nav justify-content-center w-100 hidden-sm-down <% if (typeof hide_navbar !== 'undefined' && hide_navbar){ %>hidden-xs-up<% } %>">
-        <li class="nav-item dropdown dropdown--large">
+        <li class="nav-item">
           <a class="nav-link" href="/products/new">new</a>
-        </li>
-
-        <li class="nav-item dropdown dropdown--large">
-          <a class="nav-link" href="/sets">the set</a>
-          <div class="dropdown-menu dropdown-menu--large">
-            <div class="container">
-              <div class="row">
-                <% _.each(Belt.splitArray(Instance.setmember_sets, Math.ceil(Instance.setmember_sets.length / 4)), function(s){ %>
-                  <div class="col-sm-3">
-                    <ul class="list-dropdown-menu">
-                      <% _.each(s, function(s2){ %>
-                        <li class="list-dropdown-menu__item">
-                          <a href="/set/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
-                        </li>
-                      <% }) %>
-                    </ul>
-                  </div>
-                <% }) %>
-              </div>
-            </div>
-          </div>
         </li>
 
         <li class="nav-item dropdown dropdown--large">
@@ -174,7 +153,33 @@
         </li>
 
         <li class="nav-item dropdown dropdown--large">
+          <a class="nav-link" href="/sets">the set</a>
+          <div class="dropdown-menu dropdown-menu--large">
+            <div class="container">
+              <div class="row">
+                <% _.each(Belt.splitArray(Instance.setmember_sets, Math.ceil(Instance.setmember_sets.length / 4)), function(s){ %>
+                  <div class="col-sm-3">
+                    <ul class="list-dropdown-menu">
+                      <% _.each(s, function(s2){ %>
+                        <li class="list-dropdown-menu__item">
+                          <a href="/set/<%= encodeURIComponent(s2.slug || s2.name) %>" class="list-dropdown-menu__link"><%= Belt.get(s2, 'listing_label.us') || Str.stripTags(Belt.get(s2, 'label.us') || Belt.get(s2, 'name') || '') %></a>
+                        </li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </li>
+
+
+        <li class="nav-item">
           <a class="nav-link" href="/lifestyle">lifestyle</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="http://blog.wanderset.com/" target="_blank">blog</a>
         </li>
       </ul>
     </div>
