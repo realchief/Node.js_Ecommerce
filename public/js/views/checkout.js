@@ -22,8 +22,16 @@ var CheckoutView = function(options, callback){
         });
       }
     , 'click [name="submit"]': function(e){
-        $.post('/order/create.json', this.get(), function(){
-          document.location = '/checkout/complete';
+        var self = this;
+
+        self.ValidateBilling(function(err){
+          if (err) return;
+
+          $.post('/order/create.json', _.extend({}, self.get(), {
+            'token': GB.token
+          }), function(){
+            document.location = '/checkout/complete';
+          });
         });
       }
     , 'change [data-get]': function(e){
@@ -141,6 +149,130 @@ var CheckoutView = function(options, callback){
           self.$el.find('[name="shipping_phone"]').addClass('form-group--has-error');
           self.$el.find('[name="shipping_phone"] .form-group-error-label').html('Phone is required');
           return cb(new Error('Phone is required'));
+        }
+
+        cb();
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  gb.view['ValidateBilling'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    Async.waterfall([
+      function(cb){
+        self.$el.find('.form-group').removeClass('form-group--has-error');
+
+        if (!self.get('billing_cardholder_name')){
+          self.$el.find('[name="billing_cardholder_name"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_cardholder_name"] .form-group-error-label').html('Cardholder name is required');
+          return cb(new Error('Cardholder name is required'));
+        }
+
+        if (!self.get('billing_cardnumber')){
+          self.$el.find('[name="billing_cardnumber"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_cardnumber"] .form-group-error-label').html('Card number is required');
+          return cb(new Error('Card number is required'));
+        }
+
+        if (!self.get('billing_expiration_month')){
+          self.$el.find('[name="billing_expiration_month"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_expiration_month"] .form-group-error-label').html('Expirtation month is required');
+          return cb(new Error('Expiration month is required'));
+        }
+
+        if (!self.get('billing_expiration_year')){
+          self.$el.find('[name="billing_expiration_year"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_expiration_year"] .form-group-error-label').html('Expirtation year is required');
+          return cb(new Error('Expiration year is required'));
+        }
+
+        if (!self.get('billing_cvc')){
+          self.$el.find('[name="billing_cvc"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_cvc"] .form-group-error-label').html('Security code is required');
+          return cb(new Error('Security code is required'));
+        }
+
+        Stripe.createToken({
+          'number': self.get('billing_cardnumber')
+        , 'cvc': self.get('billing_cvc')
+        , 'exp_month': Belt.cast(self.get('billing_expiration_month'), 'number')
+        , 'exp_year': Belt.cast(self.get('billing_expiration_year'), 'number')
+        }, function(status, res){
+          GB['token'] = Belt.get(res, 'id');
+
+          if (!GB.token){
+            var err = Belt.get(res, 'error.message') || 'Billing information is invalid. Please check and re-try.';
+
+            self.$el.find('[name="billing_cardnumber"]').addClass('form-group--has-error');
+            self.$el.find('[name="billing_cardnumber"] .form-group-error-label').html(err);
+            return cb(new Error(err));
+          }
+
+          cb();
+        });
+      }
+    , function(cb){
+
+        if (!self.get('billing_first_name')){
+          self.$el.find('[name="billing_first_name"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_first_name"] .form-group-error-label').html('First name is required');
+          return cb(new Error('First name is required'));
+        }
+
+        if (!self.get('billing_last_name')){
+          self.$el.find('[name="billing_last_name"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_last_name"] .form-group-error-label').html('Last name is required');
+          return cb(new Error('Last name is required'));
+        }
+
+        if (!self.get('billing_address')){
+          self.$el.find('[name="billing_address"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_address"] .form-group-error-label').html('Address is required');
+          return cb(new Error('Address is required'));
+        }
+
+        if (!self.get('billing_city')){
+          self.$el.find('[name="billing_city"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_city"] .form-group-error-label').html('City is required');
+          return cb(new Error('City is required'));
+        }
+
+        if (!self.get('billing_region')){
+          self.$el.find('[name="billing_region"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_region"] .form-group-error-label').html('State is required');
+          return cb(new Error('State is required'));
+        }
+
+        if (!self.get('billing_postal_code')){
+          self.$el.find('[name="billing_postal_code"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_postal_code"] .form-group-error-label').html('Postal code is required');
+          return cb(new Error('Postal code is required'));
+        }
+
+        if (!self.get('billing_phone')){
+          self.$el.find('[name="billing_phone"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_phone"] .form-group-error-label').html('Phone is required');
+          return cb(new Error('Phone is required'));
+        }
+
+        if (!self.get('billing_email')){
+          self.$el.find('[name="billing_email"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_email"] .form-group-error-label').html('Email is required');
+          return cb(new Error('Email is required'));
+        }
+
+        if (!self.get('billing_email').match(Belt.email_regexp)){
+          self.$el.find('[name="billing_email"]').addClass('form-group--has-error');
+          self.$el.find('[name="billing_email"] .form-group-error-label').html('Email is invalid');
+          return cb(new Error('Email is invalid'));
         }
 
         cb();
