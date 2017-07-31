@@ -9,7 +9,7 @@ GB['product_filter'] = {
       '$ne': true
     }
   }
-, 'sort': '-created_at'
+//, 'sort': '-created_at'
 };
 
 GB['media_filter'] = {
