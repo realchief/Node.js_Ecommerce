@@ -26,6 +26,8 @@ var LoadMedia = function(options, callback){
   , function(cb){
       var html = '';
       _.each(gb.data.docs, function(d){
+        if ($('[data-id="' + d._id + '"]').length) return;
+
         html += Render('media_item', {
                   'doc': d
                 , 'Instance': Instance

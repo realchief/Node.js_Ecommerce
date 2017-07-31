@@ -95,6 +95,8 @@ var LoadSetProducts = function(options, callback){
   , function(cb){
       var html = '';
       _.each(gb.data.docs, function(d){
+        if ($('[data-id="' + d._id + '"]').length) return;
+
         html += '<div class="col-md-3 col-sm-4 col-6">'
               + Render('product_item', {
                   'doc': d
