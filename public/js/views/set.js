@@ -25,6 +25,15 @@ GB['media_filter'] = {
   }
 };
 
+var ProductFilterQuery = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+    //query
+  });
+};
+
 var LoadSetProducts = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
@@ -38,6 +47,39 @@ var LoadSetProducts = function(options, callback){
   Async.waterfall([
     function(cb){
       ToggleLoader(true);
+
+      if (a.o.sort || Belt.get(a.o.query, 'categories.$regex')) return cb();
+
+      _.extend(a.o.query, {
+        '_id': {
+          '$in': GB.doc.products.slice(a.o.skip, a.o.skip + a.o.limit)
+        }
+      });
+
+      $.post('/list/products.json', {
+        'q': Belt.stringify(a.o.query)
+      , 'sort': a.o.sort
+      }, function(res){
+        gb['data'] = Belt.get(res, 'data') || {};
+        gb.data['count'] = GB.doc.products.length;
+
+        gb.data.docs = _.sortBy(gb.data.docs, function(d){
+          return _.findIndex(a.o.query._id.$in, function(i){
+            return d._id === i;
+          });
+        });
+
+        return cb();
+      });
+    }
+  , function(cb){
+      if (!a.o.sort && !Belt.get(a.o.query, 'categories.$regex')) return cb();
+
+      _.extend(a.o.query, {
+        '_id': {
+          '$in': GB.doc.products
+        }
+      });
 
       $.post('/list/products.json', {
         'limit': a.o.limit
@@ -175,6 +217,8 @@ $(document).ready(function(){
     , '$options': 'i'
     });
 
+    GB.product_filter.skip = 0;
+
     LoadSetProducts(GB.product_filter);
   });
 
@@ -182,6 +226,8 @@ $(document).ready(function(){
     e.preventDefault();
 
     Belt.set(GB.product_filter, 'sort', $(this).attr('data-sort'));
+
+    GB.product_filter.skip = 0;
 
     LoadSetProducts(GB.product_filter);
   });
