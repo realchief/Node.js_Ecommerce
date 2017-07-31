@@ -179,6 +179,7 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
 
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
   window.location.hash = 'lifestyle';
+  $('[data-set="pagination.desktop"]').html('');
   ThrottleLoadSetMedia();
 });
 
