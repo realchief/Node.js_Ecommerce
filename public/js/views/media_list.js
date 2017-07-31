@@ -62,4 +62,5 @@ $(window).scroll(function() {
   }
 });
 
+ToggleFooterLoader(true);
 ThrottleLoadMedia();
