@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%= Render('head', Locals) %>
-</head>
+  <head>
+    <%= Render('head', Locals) %>
+  </head>
+  <body>
+    <%= Render('header', _.extend({}, Locals, {
+      'hide_navbar': true
+    })) %>
 
-<body>
-  <%= Render('header', _.extend({}, Locals, {
-    'hide_navbar': true
-  })) %>
+    <%= Render('checkout_view', Locals) %>
 
-  <%= Render('checkout_view', Locals) %>
-
-  <%= Render('javascript', Locals) %>
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-  <script>
-    Stripe.setPublishableKey('<%= Settings.stripe.key %>');
-  </script>
-
-</body>
+    <%= Render('javascript', Locals) %>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+      Stripe.setPublishableKey('<%= Settings.stripe.key %>');
+    </script>
+  </body>
 </html>

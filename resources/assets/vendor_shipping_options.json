@@ -506,4 +506,14 @@
       ]
     }
   ]
+, "Perennial Collections": [
+    {
+      "label": "Economy"
+    , "description": "Economy shipping for all US orders"
+    , "flat_price": 10
+    , "allowed_countries": [
+        "US"
+      ]
+    }
+  ]
 }

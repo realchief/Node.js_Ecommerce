@@ -1,4 +1,4 @@
-<aside class="aside" data-view="CheckoutSidebar">
+<aside class="aside">
   <button name="submit" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">PLACE ORDER</button>
 
   <div class="checkout side-paddings--sm-visible-sm checkout--without-border-b-sm hidden-sm-down">
@@ -27,7 +27,7 @@
       <dl class="dl-aligned">
         <div class="divider mt35 mb30"></div>
 
-        <dt>shipping</dt>
+        <dt>shipping - <%= s.selected_shipping_option.option.label %></dt>
         <dd>$<%= s.selected_shipping_option.price %></dd>
       </dl>
     <% }) %>

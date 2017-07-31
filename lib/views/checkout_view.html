@@ -3,10 +3,10 @@
     <div class="container">
       <ul class="tabs tabs--centered tabs--has-dotted negative-side-margin-xs">
         <li class="nav-item tabs__item">
-          <a class="tabs__link active" data-toggle="tab" href="#shipping-tab" role="tab">SHIPPING</a>
+          <a class="tabs__link active" href="#shipping-tab">SHIPPING</a>
         </li>
         <li class="nav-item tabs__item">
-          <a class="tabs__link" data-toggle="tab" href="#billing-tab" role="tab">BILLING</a>
+          <a class="tabs__link" href="#billing-tab">BILLING</a>
         </li>
       </ul>
 
@@ -30,6 +30,7 @@
                       <div name="shipping_last_name" class="form-group">
                        <label class="hidden-sm-down">LAST NAME</label>
                         <input data-get="shipping_last_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="last name">
+                        <p class="form-group-error-label"></p>
                       </div>
                     </div>
                   </div>
@@ -117,7 +118,7 @@
                     <% } else { %>
                       <h5 class="title-medium text-center-sm">SHIPPING METHOD</h5>
                       <div class="dropdown dropdown--border-thick dropdown--muted dropdown--inline-block">
-                        <button class="btn dropdown-toggle dropdown-toggle--has-arrow"
+                        <button class="btn dropdown-toggle dropdown-toggle--has-arrow selected-shipping-option"
                         type="button" data-toggle="dropdown"
                         data-shipping-option="<%= Belt.get(v, 'selected_shipping_option.option._id') || '' %>">
                           <%= (Belt.get(v, 'selected_shipping_option.option.label') || '')
@@ -127,7 +128,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                           <% _.each(v.shipping_options, function(s2){ %>
-                            <a class="dropdown-item" href="#"
+                            <a class="dropdown-item shipping-option" href="#"
                             data-shipping-option="<%= Belt.get(s2, 'option._id') || '' %>">
                               <%= (Belt.get(s2, 'option.label') || '')
                               + (Belt.get(s2, 'price') ? ' - $' + s2.price : ' - FREE') %>
@@ -322,7 +323,7 @@
               </form>
             </div>
 
-            <div class="col-xl-3 col-lg-4 col-md-4">
+            <div class="col-xl-3 col-lg-4 col-md-4" data-view="CheckoutSidebar">
               <%= Render('checkout_sidebar', Locals) %>
             </div>
           </div>
