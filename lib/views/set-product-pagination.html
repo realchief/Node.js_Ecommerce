@@ -2,6 +2,9 @@
   var index = Math.ceil(((skip || 0) + 1) / limit)
     , max = Math.ceil(count / limit);
 %>
+<%
+  var sort = typeof sort !== 'undefined' ? sort : false;
+%>
 
 <div class="dropdown dropdown--border-thick dropdown--muted dropdown--inline-block" name="filter">
   <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
