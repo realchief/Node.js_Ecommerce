@@ -164,6 +164,21 @@ define({ "api": [
     "groupTitle": "Media"
   },
   {
+    "type": "get",
+    "url": "/order/count.json",
+    "title": "Count Order",
+    "name": "CountOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin, public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
     "type": "post",
     "url": "/order/create.json",
     "title": "Create Order",
@@ -172,6 +187,66 @@ define({ "api": [
     "permission": [
       {
         "name": "admin, current user"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:_id/delete.json",
+    "title": "Delete Order",
+    "name": "DeleteOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "get",
+    "url": "/order/list.json",
+    "title": "List Orders",
+    "name": "ListOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "get",
+    "url": "/order/:_id/read.json",
+    "title": "Read Order",
+    "name": "ReadOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "put",
+    "url": "/order/:_id/update.json",
+    "title": "Update Order",
+    "name": "UpdateOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "admin"
       }
     ],
     "version": "0.0.0",

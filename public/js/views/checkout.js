@@ -24,8 +24,13 @@ var CheckoutView = function(options, callback){
     , 'click [name="submit"]': function(e){
         var self = this;
 
+        ToggleLoader(true);
+
         self.ValidateBilling(function(err){
-          if (err) return;
+          if (err){
+            ToggleLoader();
+            return;
+          }
 
           var data = _.extend({}, self.get(), {
             'token': GB.token
@@ -39,6 +44,7 @@ var CheckoutView = function(options, callback){
 
           $.post('/order/create.json', data, function(res){
             if (Belt.get(res, 'error')){
+              ToggleLoader();
               alert(res.error);
             } else {
               document.location = '/checkout/complete';
