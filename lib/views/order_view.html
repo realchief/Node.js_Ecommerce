@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= Render('head', Locals) %>
+</head>
+
+<body>
+  <%= Render('header', _.extend({}, Locals, {
+    'hide_navbar': true
+  })) %>
+
+  <main class="main">
+    <section class="section section--pt-30">
+
+      <div class="container container--xs">
+
+        <h1 class="order__title">thank you for shopping<br class="hidden-sm-down"> with wanderset!</h1>
+
+        <div class="order__number">
+          <p class="order__number__inner">
+            your order number: <span><%= doc._id %></span>
+          </p>
+        </div>
+
+        <h4 class="order__subtitle">You will recieve an order confirmation email shortly.</h4>
+
+        <h4 class="font-base-bold mb10 mb25-sm text-primary">YOUR ORDER</h4>
+        <div class="table-responsive hidden-sm-down">
+          <table class="table mb35">
+            <thead>
+              <tr>
+                <th>ITEM</th>
+                <th>ITEM DETAILS</th>
+                <th>QUANTITY</th>
+                <th>COST</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% _.each(doc.products, function(p){ %>
+                <%= Render('order_confirmation_product', _.extend({}, Locals, {
+                  'doc': p
+                })) %>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 flex flex-column">
+            <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
+              <span class="address__item address__title">SHIPPING ADDRESS</span>
+              <span class="address__item">Drew McCarver</span>
+              <span class="address__item">30 Ridgecrest Road</span>
+              <span class="address__item">Wallingford, CT 06492</span>
+              <span class="address__item">United States</span>
+              <span class="address__item">860-857-2037</span>
+            </address>
+          </div>
+
+          <div class="side-paddings--md-visible-xs hidden-lg-up">
+            <div class="divider divider--sm divider--dark"></div>
+          </div>
+
+          <div class="col-lg-4 flex flex-column">
+            <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
+              <span class="address__item address__title">BILLING ADDRESS</span>
+              <span class="address__item">Drew McCarver</span>
+              <span class="address__item">30 Ridgecrest Road</span>
+              <span class="address__item">Wallingford, CT 06492</span>
+              <span class="address__item">United States</span>
+              <span class="address__item">860-857-2037</span>
+              <span class="address__item">Drewdesigns@gmail.com</span>
+            </address>
+          </div><!-- col -->
+
+          <div class="side-paddings--md-visible-xs hidden-lg-up">
+            <div class="divider divider--sm divider--dark"></div>
+          </div>
+
+          <div class="col-lg-4 flex flex-column">
+            <address class="flex flex-column flex-1 mb0-sm flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
+              <span class="address__item address__title">PAYMENT DETAILS</span>
+              <span class="address__item">Drew McCarver</span>
+              <span class="address__item">VISA</span>
+              <span class="address__item">XXXX-XXXX-XXXX-1234</span>
+              <span class="address__item">Exp. January 2017</span>
+            </address>
+          </div><!-- col -->
+
+          <div class="side-paddings--md-visible-xs hidden-lg-up">
+            <div class="divider divider--sm divider--dark"></div>
+          </div>
+        </div><!-- row -->
+
+        <div class="divider hidden-md-down mb40"></div>
+
+        <p class="fs17 font-secondary text-center mb35">
+          If you have any questions, please contact<br>
+          <a href="mailto:support@wanderset.com" class="text-lowercase link-blue">support@wanderset.com</a>
+        </p>
+
+        <div class="text-center">
+          <a href="/" class="btn btn-primary btn-lg btn-narrow--lg">continue shopping</a>
+        </div>
+
+      </div><!-- container -->
+    </section>
+  </main>
+
+  <%= Render('javascript', Locals) %>
+
+</body>
+</html>
