@@ -178,6 +178,7 @@ var ThrottleLoadSetMedia = _.throttle(function(){
 
 $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
   window.location.hash = 'product';
+  $('[data-set="pagination.desktop"]').html('');
   LoadSetProducts(GB.product_filter);
 });
 
