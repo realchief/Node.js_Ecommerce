@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
   <%= Render('head', Locals) %>
+
+  <meta property="og:title" content="<%= Belt.get(doc, 'label.us') %>" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="<%= Settings.host + '/product/' + (doc.slug || doc._id) %>" />
+  <% if (Belt.get(doc, 'media.0')){ %>
+    <meta property="og:image" content="<%= doc.media[0].downloaded ? (doc.media[0].downsample_url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>  %>" />
+  <% } %>
+
   <script>
     var DOC = <%= Belt.stringify(doc) %>;
   </script>
@@ -137,11 +145,13 @@
                         <i class="wanderset-icon-pinterest list-icons__icon"></i>
                       </a>
                     </li>
+                    <!--
                     <li class="list-icons__item">
                       <a href="mailto:mail@mail.com" class="list-icons__link">
                         <i class="wanderset-icon-email list-icons__icon"></i>
                       </a>
                     </li>
+                    -->
                     <!--<li class="list-icons__item ml-auto hidden-sm-down">
                       <a href="#" class="list-icons__link">
                         <i class="wanderset-icon-heart-empty list-icons__icon"></i>

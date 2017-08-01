@@ -72,7 +72,7 @@
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><%= k %></a>
               <div class="dropdown-menu">
                 <% _.each(v, function(v2, k2){ %>
-                  <a class="dropdown-item" href="/products/<%= k %>/<%= k2 %>"><%= k2 %></a>
+                  <a class="dropdown-item" href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>"><%= k2 %></a>
                 <% }) %>
               </div>
             </li>
