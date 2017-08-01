@@ -9,7 +9,6 @@ GB['product_filter'] = {
       '$ne': true
     }
   }
-//, 'sort': '-created_at'
 };
 
 GB['media_filter'] = {
@@ -95,8 +94,6 @@ var LoadSetProducts = function(options, callback){
   , function(cb){
       var html = '';
       _.each(gb.data.docs, function(d){
-        if ($('[data-id="' + d._id + '"]').length) return;
-
         html += '<div class="col-md-3 col-sm-4 col-6">'
               + Render('product_item', {
                   'doc': d
@@ -178,7 +175,20 @@ var ThrottleLoadSetMedia = _.throttle(function(){
 
 $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
   window.location.hash = 'product';
-  $('[data-set="pagination.desktop"]').html('');
+
+  GB.product_filter = {
+    'skip': 0
+  , 'limit': 20
+  , 'query': {
+      '_id': {
+        '$in': GB.doc.products
+      }
+    , 'hide': {
+        '$ne': true
+      }
+    }
+  };
+
   LoadSetProducts(GB.product_filter);
 });
 
