@@ -446,6 +446,8 @@ var SetView = function(options, callback){
 
     return Async.waterfall([
       function(cb){
+        if (!a.o.data.vendor) a.o.data.vendor = undefined;
+
         var fd = new FormData()
           , ocb = _.once(cb)
           , data = Belt.copy(a.o.data);
@@ -462,8 +464,6 @@ var SetView = function(options, callback){
         if (a.o.data.mobile_file) fd.append('mobile_file', a.o.data.mobile_file, a.o.data.mobile_filename);
         if (a.o.data.logo_file) fd.append('logo_file', a.o.data.logo_file, a.o.data.logo_filename);
         if (a.o.data.landing_file) fd.append('logo_file', a.o.data.landing_file, a.o.data.landing_file);
-
-        if (!a.o.data.vendor) a.o.data.vendor = undefined;
 
         $.ajax({
           'url': '/set/create.json'

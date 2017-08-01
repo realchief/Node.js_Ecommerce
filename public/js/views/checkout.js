@@ -27,9 +27,17 @@ var CheckoutView = function(options, callback){
         self.ValidateBilling(function(err){
           if (err) return;
 
-          $.post('/order/create.json', _.extend({}, self.get(), {
+          var data = _.extend({}, self.get(), {
             'token': GB.token
-          }), function(res){
+          });
+
+          delete data.billing_cardnumber;
+          delete data.billing_cardholder_name;
+          delete data.billing_cvc;
+          delete data.billing_expiration_month;
+          delete data.billing_expiration_year;
+
+          $.post('/order/create.json', data, function(res){
             if (Belt.get(res, 'error')){
               alert(res.error);
             } else {
