@@ -130,11 +130,11 @@ var LoadSetProducts = function(options, callback){
     }
   , function(cb){
       simple.scrollTo({
-        'target': '[data-set="products"]'
+        'target': '[href="#shop-product-tab"]'
       , 'animation': true
       , 'duration': 300
       , 'offset': {
-          'y': 300
+      //    'y': 300
         }
       });
 
