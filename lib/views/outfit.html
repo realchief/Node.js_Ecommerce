@@ -16,19 +16,25 @@
 
             <div class="col-lg-5 col-md-7">
               <div class="row">
-                <% _.each(doc.products, function(p){ %>
-                  <% if (doc.products.length >= 3){ %>
-                    <div class="col-4">
-                  <% } else if (doc.products.length <= 2){ %>
-                    <div class="col-6">
-                  <% } else { %>
-                    <div class="col-12">
-                  <% } %>
-                    <%= Render('outfit_product_preview', _.extend({}, Locals, {
-                      'doc': p.product
-                    })) %>
-                  </div>
-                <% }) %>
+                <% if (Belt.get(doc, 'products.length') === 1){ %>
+                  <%= Render('outfit_product_item', _.extend({}, Locals, {
+                    'doc': p.product
+                  })) %>
+                <% } else { %>
+                  <% _.each(doc.products, function(p){ %>
+                    <% if (doc.products.length >= 3){ %>
+                      <div class="col-4">
+                    <% } else if (doc.products.length <= 2){ %>
+                      <div class="col-6">
+                    <% } else { %>
+                      <div class="col-12">
+                    <% } %>
+                      <%= Render('outfit_product_preview', _.extend({}, Locals, {
+                        'doc': p.product
+                      })) %>
+                    </div>
+                  <% }) %>
+                <% } %>
               </div>
             </div>
           </div>

@@ -106,7 +106,7 @@ var ToggleFooterLoader = function(show){
 };
 
 var AppendToHash = function(obj){
-  window.location.hash = window.location.hash ? window.location.hash + '&' + _.map(obj, function(v, k){
+  window.location.hash = (window.location.hash ? window.location.hash + '&' : '') + _.map(obj, function(v, k){
     return encodeURIComponent(k) + '=' + encodeURIComponent(v);
   }).join('&');
 };
