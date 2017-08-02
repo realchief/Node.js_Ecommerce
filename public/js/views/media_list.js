@@ -4,7 +4,7 @@ var LoadMedia = function(options, callback){
     , gb = {};
   a.o = _.defaults(a.o, {
     //skip
-    'limit': true || Belt.isMobile() ? 3 : 10
+    'limit': true || Belt.isMobile() ? 6 : 10
   , 'query': {}
   });
 

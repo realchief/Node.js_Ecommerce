@@ -13,7 +13,7 @@ GB['product_filter'] = {
 
 GB['media_filter'] = {
   'skip': 0
-, 'limit': true || Belt.isMobile() ? 3 : 10
+, 'limit': true || Belt.isMobile() ? 6 : 10
 , 'query': {
     '_id': {
       '$in': GB.doc.media
