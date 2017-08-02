@@ -100,7 +100,7 @@
 
               <% _.each(doc.shipping_groups, function(v, k){ %>
                 <div class="row" data-shipping-group="<%= k %>" data-get="shipping_groups.<%= k %>" data-get-transformer="getShippingGroup">
-                  <div class="col-md-6 md-3 mb-md-0">
+                  <div class="col-md-6 mb-3 mb-md-0">
                     <ul class="list-goods">
                       <% _.each(v.products, function(p2){ %>
                         <% var p = _.find(doc.products, function(p3){
