@@ -100,7 +100,7 @@
 
               <% _.each(doc.shipping_groups, function(v, k){ %>
                 <div class="row" data-shipping-group="<%= k %>" data-get="shipping_groups.<%= k %>" data-get-transformer="getShippingGroup">
-                  <div class="col-6">
+                  <div class="col-md-6 mb-3 mb-md-0">
                     <ul class="list-goods">
                       <% _.each(v.products, function(p2){ %>
                         <% var p = _.find(doc.products, function(p3){
@@ -112,7 +112,7 @@
                       <% }) %>
                     </ul>
                   </div>
-                  <div class="col-6">
+                  <div class="col-md-6">
                     <% if (!Belt.get(v, 'selected_shipping_option.option._id')){ %>
                       <h5 class="title-medium text-center-sm">NO SHIPPING OPTIONS AVAILABLE</h5>
                     <% } else { %>
