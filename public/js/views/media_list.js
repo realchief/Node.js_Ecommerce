@@ -59,7 +59,7 @@ var ThrottleLoadMedia = _.throttle(function(){
 });
 
 $(window).scroll(function() {
-  if ($(window).scrollTop() + $(window).height() > $(document).height() - 400){
+  if ($(window).scrollTop() + $(window).height() > ($(document).height() * 0.66)){
     ThrottleLoadMedia();
   }
 });
