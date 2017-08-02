@@ -128,6 +128,18 @@ var LoadSetProducts = function(options, callback){
 
       cb();
     }
+  , function(cb){
+      simple.scrollTo({
+        'target': '[data-set="products"]'
+      , 'animation': true
+      , 'duration': 300
+      , 'offset': {
+          'y': 300
+        }
+      });
+
+      cb();
+    }
   ], function(err){
     ToggleFooterLoader();
     a.cb(err, gb.data);
