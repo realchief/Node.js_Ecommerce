@@ -4,6 +4,7 @@
       <div class="ibox-content">
         <div class="pull-right">
           <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+          <a href="/vendor/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
         </div>
         <h1><%= title %></h1>
         <div class="hr-line-dashed"></div>
