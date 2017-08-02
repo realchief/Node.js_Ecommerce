@@ -105,12 +105,31 @@ var ToggleFooterLoader = function(show){
   }
 };
 
-var AppendToHash = function(obj){
-  window.location.hash = (window.location.hash ? window.location.hash + '&' : '') + _.map(obj, function(v, k){
+var ParseQueryString = function(str){
+  var query = {};
+  var a = (str[0] === '?' ? qstr.substr(1) : str).split('&');
+  for (var i = 0; i < a.length; i++) {
+    var b = a[i].split('=');
+    query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
+  }
+  return Belt.objDefalse(query);
+};
+
+var CreateHash = function(obj){
+  window.location.hash = _.map(obj, function(v, k){
     return encodeURIComponent(k) + '=' + encodeURIComponent(v);
   }).join('&');
 };
 
-var GetHashObj = function(){
+var ExtendHash = function(obj){
+  var o = _.extend({}, GetHashObj(), obj);
 
+  CreateHash(o);
 };
+
+var GetHashObj = function(){
+  return ParseQueryString((window.location.hash || '').replace(/^#/, ''));
+};
+
+var GB = GB || {};
+GB['hash_query'] = _.extend({}, queryObject.get(), GetHashObj());

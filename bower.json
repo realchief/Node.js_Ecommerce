@@ -27,6 +27,7 @@
   , "sticky-kit": "^1.1.2"
   , "lightslider": "^1.1.6"
   , "imagesloaded": "*"
+  , "simple-scrollTo": "*"
   },
   "ignore": [
     "test",

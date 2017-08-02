@@ -1,14 +1,20 @@
 GB['product_filter'] = {
-  'skip': 0
+  'skip': Belt.cast(GB.hash_query.skip, 'number') || 0
 , 'limit': 20
-, 'query': {
+, 'query': _.extend({
     '_id': {
       '$in': GB.doc.products
     }
   , 'hide': {
       '$ne': true
     }
-  }
+  }, GB.hash_query.category ? {
+    'categories': {
+      '$regex': GB.hash_query.category
+    , '$options': 'i'
+    }
+  } : {})
+, 'sort': GB.hash_query.sort || undefined
 };
 
 GB['media_filter'] = {
@@ -46,6 +52,19 @@ var LoadSetProducts = function(options, callback){
   Async.waterfall([
     function(cb){
       ToggleFooterLoader(true);
+
+      var hash = GetHashObj();
+      delete hash.skip;
+      delete hash.category;
+      delete hash.sort;
+
+      CreateHash(_.extend(a.o.skip ? {
+        'skip': a.o.skip
+      } : {}, a.o.sort ? {
+        'sort': a.o.sort
+      } : {}, Belt.get(a.o.query, 'categories.$regex') ? {
+        'category': a.o.query.categories.$regex
+      } : {}));
 
       if (a.o.sort || Belt.get(a.o.query, 'categories.$regex')) return cb();
 
@@ -174,7 +193,11 @@ var ThrottleLoadSetMedia = _.throttle(function(){
 });
 
 $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
-  window.location.hash = 'product';
+  var o = GetHashObj();
+  delete o.category;
+  o['tab'] = 'product';
+
+  CreateHash(o);
 
   GB.product_filter = {
     'skip': 0
@@ -193,7 +216,8 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
 });
 
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
-  window.location.hash = 'lifestyle';
+  ExtendHash({'tab': 'lifestyle'});
+
   $('[data-set="pagination.desktop"]').html('');
   ThrottleLoadSetMedia();
 });
@@ -205,7 +229,7 @@ $(window).scroll(function() {
 });
 
 $(document).ready(function(){
-  if (window.location.hash === '#lifestyle'){
+  if (Belt.get(GetHashObj(), 'tab') === 'lifestyle'){
     $('[href="#shop-lifestyle-tab"]').tab('show');
   } else {
     LoadSetProducts(GB.product_filter);
@@ -213,7 +237,7 @@ $(document).ready(function(){
 
   ThrottleLoadSetMedia();
 
-  if (window.location.hash === '#product'){
+  if (Belt.get(GetHashObj(), 'tab') === 'product'){
     $('[href="#shop-product-tab"]').tab('show');
   }
 
