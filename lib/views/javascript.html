@@ -27,7 +27,7 @@
     , Moment = moment
     , Str = s
     , Socket = io('/')
-    , GB = {};
+    , GB = GB || {};
 
   <% if (typeof doc !== 'undefined'){ %>
     GB['doc'] = <%= Belt.stringify(doc) %>;

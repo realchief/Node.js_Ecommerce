@@ -16,7 +16,7 @@
 
             <div class="col-lg-5 col-md-7">
               <div class="row">
-                <% if (false && Belt.get(doc, 'products.length') === 1){ %>
+                <% if (Belt.get(doc, 'products.length') === 1){ %>
                   <%= Render('outfit_product_item', _.extend({}, Locals, {
                     'doc': doc.products[0].product
                   })) %>
@@ -43,6 +43,10 @@
     </main>
 
     <%= Render('footer', Locals) %>
-    <%= Render('javascript', Locals) %>
+    <%= Render('javascript', _.extend({}, Locals, Belt.get(doc, 'products.length') === 1 ? {
+      'js_files': (Locals.js_files || []).concat([
+        '/public/js/views/product_view.js'
+      ])
+    } : {})) %>
   </body>
 </html>

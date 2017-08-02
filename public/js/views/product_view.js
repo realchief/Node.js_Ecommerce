@@ -120,7 +120,7 @@ var ProductView = function(options, callback){
 
 $(document).ready(function(){
   GB['view'] = new ProductView({
-    '_id': DOC._id
+    '_id': (GB.product || GB.doc)._id
   });
   setTimeout(function(){
     GB.view.getAvailability();
