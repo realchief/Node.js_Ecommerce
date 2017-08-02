@@ -16,9 +16,9 @@
 
             <div class="col-lg-5 col-md-7">
               <div class="row">
-                <% if (Belt.get(doc, 'products.length') === 1){ %>
+                <% if (false && Belt.get(doc, 'products.length') === 1){ %>
                   <%= Render('outfit_product_item', _.extend({}, Locals, {
-                    'doc': p.product
+                    'doc': doc.products[0].product
                   })) %>
                 <% } else { %>
                   <% _.each(doc.products, function(p){ %>
