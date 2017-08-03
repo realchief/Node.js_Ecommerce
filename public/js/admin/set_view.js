@@ -591,7 +591,7 @@ var SetView = function(options, callback){
     , 'media'
     , 'brand'
     , 'hide'
-    , 'homepage'
+    , 'show_stock_outs'
     ]);
 
     if (!gb.update.vendor) gb.update.vendor = undefined;
