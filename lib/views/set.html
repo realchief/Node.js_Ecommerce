@@ -26,7 +26,7 @@
                 </li>
               </ul>
 
-              <nav aria-label="" class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="pagination.desktop">
+              <nav class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="set_listing_nav">
               </nav>
             </div>
           </div>
@@ -60,9 +60,20 @@
                 </div>
 
                 <div class="col-xl-10 col-md-9">
+                  <div class="row row--flex hidden-md-up mb-30 mb-5">
+                    <nav class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="set_listing_nav">
+                    </nav>
+                  </div>
+
                   <div class="row row--flex" data-set="products">
 
                   </div>
+
+                  <div class="row row--flex hidden-md-up">
+                    <nav class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="set_listing_nav">
+                    </nav>
+                  </div>
+
                   <div id="footer-loader" style="display:none;">
                     <%= Render('footer_loader', Locals) %>
                   </div>

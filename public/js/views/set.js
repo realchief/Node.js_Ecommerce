@@ -122,8 +122,8 @@ var LoadSetProducts = function(options, callback){
 
       $('[data-set="products"]').html(html);
 
-      $('[data-set="pagination.desktop"]').html(
-        Render('set-product-pagination', _.extend({}, a.o, gb.data))
+      $('[data-set="set_listing_nav"]').html(
+        Render('set_product_nav', _.extend({}, a.o, gb.data))
       );
 
       cb();
@@ -134,7 +134,7 @@ var LoadSetProducts = function(options, callback){
       , 'animation': true
       , 'duration': 300
       , 'offset': {
-      //    'y': 300
+          'y': 100
         }
       });
 
@@ -230,7 +230,8 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
   ExtendHash({'tab': 'lifestyle'});
 
-  $('[data-set="pagination.desktop"]').html('');
+  $('[data-set="set_listing_nav"]').html('');
+
   ThrottleLoadSetMedia();
 });
 
