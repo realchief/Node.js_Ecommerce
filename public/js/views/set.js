@@ -1,12 +1,15 @@
 GB['product_filter'] = {
   'skip': Belt.cast(GB.hash_query.skip, 'number') || 0
-, 'limit': 20
+, 'limit': 30
 , 'query': _.extend({
     '_id': {
       '$in': GB.doc.products
     }
   , 'hide': {
       '$ne': true
+    }
+  , 'low_price': {
+      '$exists': true
     }
   }, GB.hash_query.category ? {
     'categories': {
@@ -47,6 +50,7 @@ var LoadSetProducts = function(options, callback){
     //skip
     //limit
     'query': {}
+  , 'append': false
   });
 
   Async.waterfall([
@@ -59,7 +63,7 @@ var LoadSetProducts = function(options, callback){
       delete hash.sort;
 
       CreateHash(_.extend(a.o.skip ? {
-        'skip': a.o.skip
+//        'skip': a.o.skip
       } : {}, a.o.sort ? {
         'sort': a.o.sort
       } : {}, Belt.get(a.o.query, 'categories.$regex') ? {
@@ -113,6 +117,8 @@ var LoadSetProducts = function(options, callback){
   , function(cb){
       var html = '';
       _.each(gb.data.docs, function(d){
+        if (a.o.append && $('.product-item[data-id="' + d._id + '"]').length) return;
+
         html += '<div class="col-md-3 col-sm-4 col-6">'
               + Render('product_item', {
                   'doc': d
@@ -120,7 +126,7 @@ var LoadSetProducts = function(options, callback){
               + '</div>'
       });
 
-      $('[data-set="products"]').html(html);
+      $('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
 
       $('[data-set="set_listing_nav"]').html(
         Render('set_product_nav', _.extend({}, a.o, gb.data))
@@ -129,8 +135,10 @@ var LoadSetProducts = function(options, callback){
       cb();
     }
   , function(cb){
+      if (a.o.append) return cb();
+
       simple.scrollTo({
-        'target': '[href="#shop-product-tab"]'
+        'target': 'body'
       , 'animation': true
       , 'duration': 300
       , 'offset': {
@@ -160,6 +168,39 @@ var LoadSetMedia = function(options, callback){
     function(cb){
       ToggleFooterLoader(true);
 
+      if (a.o.sort) return cb();
+
+      _.extend(a.o.query, {
+        '_id': {
+          '$in': GB.doc.media.slice(a.o.skip, a.o.skip + a.o.limit)
+        }
+      });
+
+      $.post('/list/media.json', {
+        'q': Belt.stringify(a.o.query)
+      , 'sort': a.o.sort
+      }, function(res){
+        gb['data'] = Belt.get(res, 'data') || {};
+        gb.data['count'] = GB.doc.media.length;
+
+        gb.data.docs = _.sortBy(gb.data.docs, function(d){
+          return _.findIndex(a.o.query._id.$in, function(i){
+            return d._id === i;
+          });
+        });
+
+        return cb();
+      });
+    }
+  , function(cb){
+      if (!a.o.sort) return cb();
+
+      _.extend(a.o.query, {
+        '_id': {
+          '$in': GB.doc.media
+        }
+      });
+
       $.post('/list/media.json', {
         'limit': a.o.limit
       , 'skip': a.o.skip
@@ -174,6 +215,8 @@ var LoadSetMedia = function(options, callback){
   , function(cb){
       var html = '';
       _.each(gb.data.docs, function(d){
+        if ($('.media-item[data-id="' + d._id + '"]').length) return;
+
         html += Render('media_item', {
                   'doc': d
                 , 'Instance': Instance
@@ -192,10 +235,26 @@ var LoadSetMedia = function(options, callback){
   });
 };
 
+var ThrottleLoadSetProducts = _.throttle(function(){
+  if (GB.product_filter.skip >= GB.product_filter.count) return;
+
+  LoadSetProducts(_.extend({}, GB.product_filter, {
+    'append': true
+  }), function(err, data){
+    GB.product_filter.skip += GB.product_filter.limit;
+    if (!Belt.isNull(data, 'count')) GB.product_filter.count = data.count;
+  });
+}, 500, {
+  'leading': true
+, 'trailing': false
+});
+
 var ThrottleLoadSetMedia = _.throttle(function(){
   if (GB.media_filter.skip >= GB.media_filter.count) return;
 
-  LoadSetMedia(GB.media_filter, function(err, data){
+  LoadSetMedia(_.extend({}, GB.media_filter, {
+    'append': true
+  }), function(err, data){
     GB.media_filter.skip += GB.media_filter.limit;
     if (!Belt.isNull(data, 'count')) GB.media_filter.count = data.count;
   });
@@ -237,7 +296,11 @@ $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
 
 $(window).scroll(function() {
   if ($(window).scrollTop() + $(window).height() > ($(document).height() * 0.66)){
-    ThrottleLoadSetMedia();
+    if (Belt.get(GetHashObj(), 'tab') === 'lifestyle'){
+      ThrottleLoadSetMedia();
+    } else {
+      ThrottleLoadSetProducts();
+    }
   }
 });
 
