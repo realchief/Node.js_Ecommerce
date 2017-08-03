@@ -8,7 +8,10 @@ GB['product_filter'] = {
   , 'hide': {
       '$ne': true
     }
-  , 'low_price': {
+  }, GB.doc.show_stock_outs ? {
+
+  } : {
+    'low_price': {
       '$exists': true
     }
   }, GB.hash_query.category ? {

@@ -33,13 +33,13 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/Wanderset Product Categories - 3 - Sheet1 (3).csv'
+  'csv_path': '/home/ben/Downloads/Wanderset Categories - Final - Sheet1 (1).csv'
 , 'category_fields': [
     'Cat 1'
   , 'Cat 2'
   , 'Cat 3'
   ]
-, 'remove_field': 'Remove'
+, 'remove_field': 'Hide'
 , 'auth': {
     'user': 'wanderset'
   , 'pass': 'wset2017'
