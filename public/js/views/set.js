@@ -62,8 +62,8 @@ var LoadSetProducts = function(options, callback){
       delete hash.category;
       delete hash.sort;
 
-      CreateHash(_.extend(a.o.skip ? {
-//        'skip': a.o.skip
+      CreateHash(_.extend(a.o.skip && (a.o.skip - a.o.limit) > 0 ? {
+        'skip': a.o.skip - a.o.limit
       } : {}, a.o.sort ? {
         'sort': a.o.sort
       } : {}, Belt.get(a.o.query, 'categories.$regex') ? {
@@ -308,7 +308,11 @@ $(document).ready(function(){
   if (Belt.get(GetHashObj(), 'tab') === 'lifestyle'){
     $('[href="#shop-lifestyle-tab"]').tab('show');
   } else {
-    LoadSetProducts(GB.product_filter);
+    var h_skip = GetHashObj().skip ? true : false;
+
+    LoadSetProducts(GB.product_filter, function(){
+      if (h_skip) GB.product_filter.skip = 0;
+    });
   }
 
   ThrottleLoadSetMedia();
