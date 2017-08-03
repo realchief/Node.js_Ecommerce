@@ -1,6 +1,6 @@
 GB['product_filter'] = {
   'skip': Belt.cast(GB.hash_query.skip, 'number') || 0
-, 'limit': 30
+, 'limit': Belt.isMobile() ? 10 : 50
 , 'query': _.extend({
     '_id': {
       '$in': GB.doc.products
