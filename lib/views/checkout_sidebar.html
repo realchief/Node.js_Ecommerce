@@ -12,7 +12,7 @@
     <% _.each(doc.shipping_groups, function(s){ %>
       <% doc.shipping_price += s.selected_shipping_option.price; %>
 
-      <div class="divider my-4"></div>
+      <div class="divider divider--dark my-4"></div>
 
       <ul class="list-goods">
         <% _.each(s.products, function(p){ %>
@@ -25,7 +25,7 @@
       </ul>
 
       <dl class="dl-aligned">
-        <div class="divider my-4"></div>
+        <div class="divider divider--dark my-4"></div>
 
         <dt>shipping - <%= s.selected_shipping_option.option.label %></dt>
         <dd>$<%= s.selected_shipping_option.price %></dd>
@@ -33,12 +33,12 @@
     <% }) %>
 
     <dl class="dl-aligned">
-      <div class="divider my-4"></div>
+      <div class="divider divider--dark my-4"></div>
 
       <dt>sales tax</dt>
       <dd>$<%= ((doc.total_price + doc.shipping_price) * 0.07).toFixed(2) %></dd>
 
-      <div class="divider my-4"></div>
+      <div class="divider divider--dark my-4"></div>
 
       <dt>total</dt>
       <dd>$<%= ((doc.total_price + doc.shipping_price) * 1.07).toFixed(2) %></dd>
