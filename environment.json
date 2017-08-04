@@ -104,7 +104,7 @@
       , "error": "https://2po.st/6fjcn6v_wVZk"
       }
     , "email": {
-        "from": "Wanderset <contact@wanderset.com>"
+        "from": "Wanderset <support@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -131,7 +131,7 @@
       , "error": "https://2po.st/6fjcn6v_wVZk"
       }
     , "email": {
-        "from": "WORKER Wanderset <contact@wanderset.com>"
+        "from": "WORKER Wanderset <support@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"

@@ -41,8 +41,8 @@ var GB = _.defaults(O.argv, {
   ]
 , 'remove_field': 'hide'
 , 'auth': {
-    'user': 'wanderset'
-  , 'pass': 'wset2017'
+    'user': _.keys(O.admin_users)[0]
+  , 'pass': _.values(O.admin_users)[0]
   }
 });
 
