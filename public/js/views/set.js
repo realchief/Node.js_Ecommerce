@@ -157,6 +157,10 @@ var LoadSetProducts = function(options, callback){
   });
 };
 
+var MediaLoadQueue = Async.queue(function(task, callback){
+  task(callback);
+}, 1);
+
 var LoadSetMedia = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
@@ -216,21 +220,26 @@ var LoadSetMedia = function(options, callback){
       });
     }
   , function(cb){
-      var html = '';
       _.each(gb.data.docs, function(d){
         if ($('.media-item[data-id="' + d._id + '"]').length) return;
 
-        html += Render('media_item', {
-                  'doc': d
-                , 'Instance': Instance
-                });
+        var s = Render('media_item', {
+          'doc': d
+        , 'Instance': Instance
+        });
+
+        s = $(s);
+        s.imagesLoaded(function(){
+          MediaLoadQueue.push(function(cb2){
+            if ($('.media-item[data-id="' + d._id + '"]').length) return cb2();
+
+            $('.masonry-grid').isotope('insert', s);
+            cb2();
+          });
+        });
       });
 
-      var $html = $(html);
-      $html.imagesLoaded(function(){
-        $('.masonry-grid').isotope('insert', $(html));
-        cb();
-      });
+      cb();
     }
   ], function(err){
     ToggleFooterLoader();

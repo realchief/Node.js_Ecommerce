@@ -1,3 +1,7 @@
+var MediaLoadQueue = Async.queue(function(task, callback){
+  task(callback);
+}, 1);
+
 var LoadMedia = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
@@ -24,21 +28,24 @@ var LoadMedia = function(options, callback){
       });
     }
   , function(cb){
-      var html = '';
       _.each(gb.data.docs, function(d){
-        if ($('[data-id="' + d._id + '"]').length) return;
+        var s = Render('media_item', {
+          'doc': d
+        , 'Instance': Instance
+        });
 
-        html += Render('media_item', {
-                  'doc': d
-                , 'Instance': Instance
-                });
+        s = $(s);
+        s.imagesLoaded(function(){
+          MediaLoadQueue.push(function(cb2){
+            if ($('.media-item[data-id="' + d._id + '"]').length) return cb2();
+
+            $('.masonry-grid').isotope('insert', s);
+            cb2();
+          });
+        });
       });
 
-      var $html = $(html);
-      $html.imagesLoaded(function(){
-        $('.masonry-grid').isotope('insert', $(html));
-        cb();
-      });
+      cb();
     }
   ], function(err){
     ToggleFooterLoader();
