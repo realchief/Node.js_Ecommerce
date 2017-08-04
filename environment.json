@@ -104,11 +104,39 @@
       , "error": "https://2po.st/6fjcn6v_wVZk"
       }
     , "email": {
-        "from": "Wanderset <no-reply@wanderset.com>"
+        "from": "Wanderset <contact@wanderset.com>"
       }
     , "s3": {
-        "bucket": "assets.wanderset.com"
+        "bucket": "staging.assets.wanderset.com"
       }
+    }
+  , "production-worker": {
+      "host": "http://wanderset.com:8852"
+    , "domain": "wanderset.com:8852"
+    , "express": {
+        "port": 8852
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "worker.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "error": "https://2po.st/6fjcn6v_wVZk"
+      }
+    , "email": {
+        "from": "WORKER Wanderset <contact@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "create_rest_routes": false
     }
   }
 }
