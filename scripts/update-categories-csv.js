@@ -33,7 +33,7 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/export.csv'
+  'csv_path': '/home/ben/Downloads/export (1) (2).csv'
 , 'category_fields': [
     'Cat 1'
   , 'Cat 2'
@@ -63,7 +63,7 @@ Async.waterfall([
             return v.replace(/^\s*|\s*$/g, '');
           }).join(' > ').toLowerCase();
 
-          if (cats.match(/\?/) || !cats) return;
+          //if (cats.match(/\?/) || !cats) return;
 
           GB.queue.push(function(cb2){
 
