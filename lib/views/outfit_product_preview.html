@@ -1,5 +1,5 @@
 <div class="goods__item" data-id="<%= doc._id %>">
-  <a href="/product/<%= doc.slug || doc._id %>" class="goods__item__link lifestyle--highlighted lifestyle--highlighted--<%= doc.target_color %>">
+  <a href="<%= Belt.get(doc, 'low_price') ? '/product/' + (doc.slug || doc._id) : '' %>" class="goods__item__link lifestyle--highlighted lifestyle--highlighted--<%= doc.target_color %>">
     <% if (Belt.get(doc, 'media.0.url') || Belt.get(doc, 'media.0.remote_url')){ %>
       <img src="<%= doc.media[0].downloaded ? (doc.media[0].downsample_url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" class="goods__img">
     <% } %>
