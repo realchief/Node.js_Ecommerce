@@ -33,14 +33,14 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'name': 'Perennial Collections'
+    'name': 'Streetammo'
   }
 , 'shipping_options': require(Path.join(O.__dirname, './resources/assets/vendor_shipping_options.json'))
 , 'skip': 0
 , 'limit': 1
 , 'auth': {
-    'user': 'wanderset'
-  , 'pass': 'wset2017'
+    'user': _.keys(O.admin_users)[0]
+  , 'pass': _.values(O.admin_users)[0]
   }
 , 'model': 'vendor'
 , 'iterator': function(o, cb){

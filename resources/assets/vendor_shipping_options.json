@@ -264,7 +264,7 @@
     {
       "label": "Standard"
     , "description": "Standard shipping for all US orders"
-    , "flat_price": 20
+    , "flat_price": 5
     , "allowed_countries": [
         "US"
       ]
