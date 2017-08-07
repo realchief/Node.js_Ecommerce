@@ -324,7 +324,9 @@ $(document).on('click', 'a.shipping-option', function(e){
     'doc': GB.doc
   , 'Locals': {
       'doc': GB.doc
+    , 'Instance': Instance
     }
+  , 'Instance': Instance
   }));
 
   $sg.find('.selected-shipping-option').attr('data-shipping-option', o).html(l);

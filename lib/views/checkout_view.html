@@ -123,7 +123,7 @@
                         data-shipping-option="<%= Belt.get(v, 'selected_shipping_option.option._id') || '' %>">
                           <%= (Belt.get(v, 'selected_shipping_option.option.label') || '')
                           + (Belt.get(v, 'selected_shipping_option.price')
-                            ? ' - $' + v.selected_shipping_option.price
+                            ? ' - $' + Instance.priceString(v.selected_shipping_option.price)
                             : ' - FREE') %>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
