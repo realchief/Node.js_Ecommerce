@@ -53,6 +53,7 @@ var ProductView = function(options, callback){
         , Belt.cs(cb, gb, 'price', 0, 'data.price'));
       }
     , function(cb){
+console.log(gb)
         if (gb.price){
           gb.price = '$' + Instance.priceString(gb.price);
           self.$el.find('[name="add_to_bag"]').removeClass('disabled');
