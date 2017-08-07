@@ -3,7 +3,7 @@
     , max = Math.ceil(count / limit);
 %>
 
-<div class="dropdown dropdown--border-thick dropdown--muted d-inline-flex mb-4 mb-sm-0">
+<div class="dropdown dropdown--border-thick dropdown--muted d-inline-flex">
   <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
     <% if (sort === '-created_at'){ %>
       NEWEST
@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<nav class="d-block d-sm-inline-flex ml-0 ml-sm-2 <%= max === 1 ? 'hidden-xs-up' : '' %>">
+<nav class="d-block d-sm-inline-flex ml-2 <%= max === 1 ? 'hidden-xs-up' : '' %>">
   <ul class="pagination justify-content-center justify-content-sm-end">
     <% if (index > 1){ %>
       <li class="page-item">
