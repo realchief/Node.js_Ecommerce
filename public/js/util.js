@@ -68,6 +68,14 @@ var EscapeRegExp = function(val){
 
 var Instance = {};
 
+Instance['priceString'] = function(val){
+  val = Belt.cast(val, 'number');
+  if (!val) return '0';
+  if (Math.floor(val) === val) return Belt.cast(val, 'string');
+
+  return val.toFixed(2);
+};
+
 Instance['toPercentage'] = function(val){
   val = Belt.cast(val, 'number') || 0;
   return (val * 100).toFixed(2);

@@ -54,7 +54,7 @@ var ProductView = function(options, callback){
       }
     , function(cb){
         if (gb.price){
-          gb.price = '$' + Belt.cast(gb.price, 'string');
+          gb.price = '$' + Instance.priceString(gb.price);
           self.$el.find('[name="add_to_bag"]').removeClass('disabled');
         } else {
           gb.price = 'Sold Out';

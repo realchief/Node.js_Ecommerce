@@ -31,7 +31,7 @@
   </td>
   <td>
     <div class="table__divider"></div>
-    <p class="table__cost">$<%= doc.quantity * doc.stock.price %></p>
-    <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= doc.stock.price %>)</p>
+    <p class="table__cost">$<%= Instance.priceString(doc.quantity * doc.stock.price) %></p>
+    <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= Instance.priceString(doc.stock.price) %>)</p>
   </td>
 </tr>

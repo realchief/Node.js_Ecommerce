@@ -11,7 +11,7 @@
         <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
       <% } %>
       <% if (Belt.get(doc, 'low_price')){ %>
-        <p class="goods__info-price">$<%= doc.low_price %></p>
+        <p class="goods__info-price">$<%= Instance.priceString(doc.low_price) %></p>
       <% } else { %>
         <p class="goods__info-price">Sold out</p>
       <% } %>

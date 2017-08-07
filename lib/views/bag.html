@@ -52,7 +52,7 @@
               <div class="checkout checkout--without-border-b-t-sm side-paddings--sm-visible-sm">
                 <dl class="dl-aligned">
                   <dt>subtotal</dt>
-                  <dd>$<%= doc.total_price %></dd>
+                  <dd>$<%= Instance.priceString(doc.total_price) %></dd>
                 </dl>
 
                 <a href="/checkout" class="btn btn-primary btn-lg btn-block <%= !doc.total_price ? 'disabled' : '' %>">checkout</a>

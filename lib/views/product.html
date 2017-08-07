@@ -15,7 +15,7 @@
     <meta property="product:brand" content="<%= doc.brands[0] %>" />
   <% } %>
   <% if (Belt.get(doc, 'low_price')){ %>
-    <meta property="product:price" content="<%= doc.low_price %>" />
+    <meta property="product:price" content="<%= Instance.priceString(doc.low_price) %>" />
   <% } %>
 
   <script>
