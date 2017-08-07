@@ -1,27 +1,41 @@
-GB['product_filter'] = {
-  'skip': Belt.cast(GB.hash_query.skip, 'number') || 0
-, 'limit': Belt.isMobile() ? 10 : 50
-, 'query': _.extend({
-    '_id': {
-      '$in': GB.doc.products
-    }
-  , 'hide': {
-      '$ne': true
-    }
-  }, GB.doc.show_stock_outs ? {
+var LoadProductFilter = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+    //skip
+    //category
+    //sort
+    'limit': Belt.isMobile() ? 10 : 50
+  });
 
-  } : {
-    'low_price': {
-      '$exists': true
-    }
-  }, GB.hash_query.category ? {
-    'categories': {
-      '$regex': GB.hash_query.category
-    , '$options': 'i'
-    }
-  } : {})
-, 'sort': GB.hash_query.sort || undefined
+  GB['product_filter'] = {
+    'skip': a.o.skip ? Belt.cast(a.o.skip, 'number') || 0 : 0
+  , 'limit': a.o.limit
+  , 'query': _.extend({
+      '_id': {
+        '$in': GB.doc.products
+      }
+    , 'hide': {
+        '$ne': true
+      }
+    }, GB.doc.show_stock_outs ? {
+
+    } : {
+      'low_price': {
+        '$exists': true
+      }
+    }, a.o.category ? {
+      'categories': {
+        '$regex': a.o.category
+      , '$options': 'i'
+      }
+    } : {})
+  , 'sort': a.o.sort || undefined
+  };
 };
+
+LoadProductFilter(GB.hash_query);
 
 GB['media_filter'] = {
   'skip': 0
@@ -34,15 +48,6 @@ GB['media_filter'] = {
       '$ne': true
     }
   }
-};
-
-var ProductFilterQuery = function(options, callback){
-  var a = Belt.argulint(arguments)
-    , self = this
-    , gb = {};
-  a.o = _.defaults(a.o, {
-    //query
-  });
 };
 
 var LoadSetProducts = function(options, callback){
@@ -282,18 +287,9 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
 
   CreateHash(o);
 
-  GB.product_filter = {
+  LoadProductFilter({
     'skip': 0
-  , 'limit': 20
-  , 'query': {
-      '_id': {
-        '$in': GB.doc.products
-      }
-    , 'hide': {
-        '$ne': true
-      }
-    }
-  };
+  });
 
   LoadSetProducts(GB.product_filter);
 });
