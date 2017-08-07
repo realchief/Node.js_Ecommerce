@@ -182,7 +182,8 @@ module.exports = function(options, Instance){
           return _.indexOf(a.o.product.images, m.remote_url);
         });
 
-        gb['price'] = (a.o.product.price || '').replace(/^\D*|\D*$/g, '').replace(/\D/g, '');
+        //gb['price'] = (a.o.product.price || '').replace(/^\D*|\D*$/g, '').replace(/\D/g, '');
+        gb['price'] = a.o.product.price;
         gb.price = Belt.cast(gb.price, 'number') || 0;
         gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
 
@@ -396,12 +397,18 @@ module.exports = function(options, Instance){
           }
         }, Belt.cs(cb, gb, 'remove_products', 1, 0));
       }
-/*    , function(cb){
+    , function(cb){
         Async.eachSeries(gb.remove_products || [], function(e, cb2){
-          e.remove(Belt.cw(cb2));
+          e.set({
+            'hide': true
+          });
+
+          e.save(Belt.cw(cb2));
+
+          //e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
       }
-  */  , function(cb){
+    , function(cb){
         Instance.db.model('stock').find({
           'vendor': a.o.vendor.get('_id')
         , 'last_sync': {
@@ -409,11 +416,11 @@ module.exports = function(options, Instance){
           }
         }, Belt.cs(cb, gb, 'remove_stocks', 1, 0));
       }
-    /*, function(cb){
+    , function(cb){
         Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
           e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
-      }*/
+      }
     ], function(err){
       a.cb(err);
     });

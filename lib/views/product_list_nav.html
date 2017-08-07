@@ -49,16 +49,6 @@
       </li>
     <% } %>
 
-    <% if (index - 2 >= 1){ %>
-      <li class="page-item">
-        <a class="page-link" href="<%=
-          Instance.paginationUrl(_.extend({}, Locals, {
-            'skip': ((index - 3) * limit)
-          }))
-        %>"><%= index - 2 %></a>
-      </li>
-    <% } %>
-
     <% if (index - 1 >= 1){ %>
       <li class="page-item">
         <a class="page-link" href="<%=
