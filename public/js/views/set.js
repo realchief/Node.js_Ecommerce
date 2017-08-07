@@ -295,7 +295,9 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
 });
 
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
-  ExtendHash({'tab': 'lifestyle'});
+  ExtendHash({
+    'tab': 'lifestyle'
+  });
 
   $('[data-set="set_listing_nav"]').html('');
 
