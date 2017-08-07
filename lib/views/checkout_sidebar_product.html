@@ -12,7 +12,7 @@
           <p class="goods__info-description"><%= doc.product.brands.join(', ') %></p>
         <% } %>
         <% if (!Belt.isNull(Belt.get(doc, 'stock.price'))){ %>
-          <p class="goods__info-name">$<%= doc.stock.price * doc.quantity %> (<%= doc.quantity %> x $<%= doc.stock.price %>)</p>
+          <p class="goods__info-name">$<%= Instance.priceString(doc.stock.price * doc.quantity) %> (<%= doc.quantity %> x $<%= Instance.priceString(doc.stock.price) %>)</p>
         <% } %>
       </div>
       <ul class="table__goods__details goods__details mb10">

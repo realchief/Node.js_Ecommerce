@@ -20,6 +20,7 @@
             'doc': _.find(doc.products, function(p2){
                     return p2._id.toString() === p.toString();
                   })
+          , 'Instance': Instance
           })) %>
         <% }) %>
       </ul>
@@ -28,7 +29,7 @@
         <div class="divider divider--dark my-4"></div>
 
         <dt>shipping - <%= s.selected_shipping_option.option.label %></dt>
-        <dd>$<%= s.selected_shipping_option.price %></dd>
+        <dd>$<%= Instance.priceString(s.selected_shipping_option.price) %></dd>
       </dl>
     <% }) %>
 
@@ -36,12 +37,12 @@
       <div class="divider divider--dark my-4"></div>
 
       <dt>sales tax</dt>
-      <dd>$<%= ((doc.total_price + doc.shipping_price) * 0.07).toFixed(2) %></dd>
+      <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 0.07) %></dd>
 
       <div class="divider divider--dark my-4"></div>
 
       <dt>total</dt>
-      <dd>$<%= ((doc.total_price + doc.shipping_price) * 1.07).toFixed(2) %></dd>
+      <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 1.07) %></dd>
     </dl>
   </div>
 
