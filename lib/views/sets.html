@@ -11,24 +11,26 @@
         <div class="container">
           <% var set_rows = Belt.splitArray(Instance.setmember_sets, 4); %>
           <% _.each(set_rows, function(a, i){ %>
-            <div class="set-row">
+            <div class="row row--5">
               <% _.each(a, function(s){ %>
-                <a href="/set/<%= encodeURIComponent(s.slug || s.name) %>" class="set__item">
-                  <div class="set__item__holder">
-                    <img src="<%=
-                       Belt.get(s, 'landing_media.downsample_url')
-                    || Belt.get(s, 'landing_media.url')
-                    || Belt.get(s, 'logo_media.url')
-                    || Belt.get(s, 'mobile_featured_media.url')
-                    || Belt.get(s, 'featured_media.url')
-                    || '' %>"
-                    alt="<%=
-                       Belt.get(s, 'landing_label.us')
-                    || Instance.sanitizeLabel(Belt.get(s, 'label.us')
-                    || '') %>" class="set__item__img">
-                  </div>
-                  <span class="set__item__title"><%= Belt.get(s, 'landing_label.us') || (Belt.get(s, 'label.us') || '') %></span>
-                </a>
+                <div class="col-md-3 col-6">
+                  <a href="/set/<%= encodeURIComponent(s.slug || s.name) %>" class="set__item">
+                    <div class="set__item__holder">
+                      <img src="<%=
+                         Belt.get(s, 'landing_media.downsample_url')
+                      || Belt.get(s, 'landing_media.url')
+                      || Belt.get(s, 'logo_media.url')
+                      || Belt.get(s, 'mobile_featured_media.url')
+                      || Belt.get(s, 'featured_media.url')
+                      || '' %>"
+                      alt="<%=
+                         Belt.get(s, 'landing_label.us')
+                      || Instance.sanitizeLabel(Belt.get(s, 'label.us')
+                      || '') %>" class="set__item__img">
+                    </div>
+                    <span class="set__item__title"><%= Belt.get(s, 'landing_label.us') || (Belt.get(s, 'label.us') || '') %></span>
+                  </a>
+                </div>
               <% }) %>
             </div>
           <% }) %>
