@@ -1,0 +1,22 @@
+<tr data-view="OrderConfirmationLineItemView" data-id="<%= doc._id %>">
+  <td>
+    <div class="table__goods__info goods__info">
+      <% if (Belt.get(doc, 'label')){ %>
+        <p class="goods__info-name text-uppercase"><%= doc.label %></p>
+      <% } %>
+    </div>
+  </td>
+  <td>
+    <% if (Belt.get(doc, 'description')){ %>
+      <div class="table__goods__info goods__info">
+        <p class="goods__info-name text-uppercase"><%= doc.description %></p>
+      </div>
+    <% } %>
+  </td>
+  <td>
+  </td>
+  <td>
+    <div class="table__divider"></div>
+    <p class="table__cost text-uppercase">$<%= Instance.priceString(doc.amount) %></p>
+  </td>
+</tr>

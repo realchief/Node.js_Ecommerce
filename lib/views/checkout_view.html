@@ -95,11 +95,11 @@
                 <div class="divider divider--sm divider--dark hidden-md-up"></div>
               </form>
 
-              <h4 class="title-medium text-center-sm">SHIPPING OPTIONS</h4>
-              <div class="divider divider--sm divider--dark hidden-sm-down"></div>
+              <h4 class="title-medium text-center-sm hidden-xs-up">SHIPPING OPTIONS</h4>
+              <div class="divider divider--sm divider--dark hidden-sm-down hidden-xs-up"></div>
 
               <% _.each(doc.shipping_groups, function(v, k){ %>
-                <div class="row" data-shipping-group="<%= k %>" data-get="shipping_groups.<%= k %>" data-get-transformer="getShippingGroup">
+                <div class="row hidden-xs-up" data-shipping-group="<%= k %>" data-get="shipping_groups.<%= k %>" data-get-transformer="getShippingGroup">
                   <div class="col-md-6 mb-3 mb-md-0">
                     <ul class="list-goods">
                       <% _.each(v.products, function(p2){ %>

@@ -8,22 +8,30 @@
     </dl>
 
     <% doc['shipping_price'] = 0; %>
-    <div class="divider divider--dark my-4"></div>
-    <ul class="list-goods">
-      <% _.each(doc.products, function(p){ %>
-        <%= Render('checkout_sidebar_product', _.extend({}, Locals, {
-          'doc': p
-        , 'Instance': Instance
-        })) %>
-      <% }) %>
-    </ul>
 
-    <dl class="dl-aligned">
+    <% _.each(doc.shipping_groups, function(s){ %>
+      <% doc.shipping_price += s.selected_shipping_option.price; %>
+
       <div class="divider divider--dark my-4"></div>
 
-      <dt>shipping</dt>
-      <dd>FREE</dd>
-    </dl>
+      <ul class="list-goods">
+        <% _.each(s.products, function(p){ %>
+          <%= Render('checkout_sidebar_product', _.extend({}, Locals, {
+            'doc': _.find(doc.products, function(p2){
+                    return p2._id.toString() === p.toString();
+                  })
+          , 'Instance': Instance
+          })) %>
+        <% }) %>
+      </ul>
+
+      <dl class="dl-aligned">
+        <div class="divider divider--dark my-4"></div>
+
+        <dt>shipping - <%= s.selected_shipping_option.option.label %></dt>
+        <dd>$<%= Instance.priceString(s.selected_shipping_option.price) %></dd>
+      </dl>
+    <% }) %>
 
     <dl class="dl-aligned">
       <div class="divider divider--dark my-4"></div>

@@ -1,16 +1,16 @@
-<tr data-view="BagProductMobileView" data-id="<%= doc._id %>">
+<tr data-view="OrderConfirmationProductView" data-id="<%= doc._id %>">
   <td>
-    <% if (Belt.get(doc, 'product.media.0.url') || Belt.get(doc, 'product.media.0.remote_url')){ %>
-      <img src="<%= doc.product.media[0].downloaded ? (doc.product.media[0].downsample_url || doc.product.media[0].url) : (doc.product.media[0].remote_url || doc.product.media[0].url) %>" class="table__img">
+    <% if (Belt.get(doc, 'source.product.media.0.url') || Belt.get(doc, 'source.product.media.0.remote_url')){ %>
+      <img src="<%= doc.source.product.media[0].downloaded ? (doc.source.product.media[0].downsample_url || doc.source.product.media[0].url) : (doc.source.product.media[0].remote_url || doc.source.product.media[0].url) %>" class="table__img">
     <% } %>
   </td>
   <td>
     <div class="table__goods__info goods__info">
-      <% if (Belt.get(doc, 'product.label.us')){ %>
-        <p class="goods__info-name"><%= doc.product.label.us %></p>
+      <% if (Belt.get(doc, 'source.product.label.us')){ %>
+        <p class="goods__info-name"><%= doc.source.product.label.us %></p>
       <% } %>
-      <% if (Belt.get(doc, 'product.brands.0')){ %>
-        <p class="goods__info-description"><%= doc.product.brands.join(', ') %></p>
+      <% if (Belt.get(doc, 'source.product.brands.0')){ %>
+        <p class="goods__info-description"><%= doc.source.product.brands.join(', ') %></p>
       <% } %>
     </div>
     <ul class="table__goods__details goods__details">
@@ -23,11 +23,11 @@
   </td>
   <td>
     <div class="table__divider"></div>
-    <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>">
+    <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>" readonly="readonly">
   </td>
   <td>
     <div class="table__divider"></div>
-    <p class="table__cost">$<%= doc.quantity * doc.stock.price %></p>
-    <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= doc.stock.price %>)</p>
+    <p class="table__cost">$<%= Instance.priceString(doc.quantity * doc.price) %></p>
+    <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= Instance.priceString(doc.price) %>)</p>
   </td>
 </tr>

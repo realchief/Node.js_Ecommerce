@@ -18,9 +18,9 @@
 
         <div class="order__number">
           <p class="order__number__inner">
-            your order number: <span><%= order_number %></span>
-          </p><!-- order__number__inner -->
-        </div><!-- order__number -->
+            your order number: <span><%= doc.slug %></span>
+          </p>
+        </div>
 
         <h4 class="order__subtitle">You will recieve an order confirmation email shortly.</h4>
 
@@ -40,58 +40,65 @@
               <% _.each(doc.products, function(p){ %>
                 <%= Render('order_confirmation_product', _.extend({}, Locals, {
                   'doc': p
+                , 'Instance': Instance
                 })) %>
               <% }) %>
+              <% _.each(doc.line_items, function(p){ %>
+                <%= Render('order_confirmation_line_item', _.extend({}, Locals, {
+                  'doc': p
+                , 'Instance': Instance
+                })) %>
+              <% }) %>
+              <tr data-view="OrderConfirmationTotaliew">
+                <td>
+                  <div class="table__goods__info goods__info">
+                    <p class="goods__info-name text-uppercase"><strong>TOTAL</strong></p>
+                  </div>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <p class="goods__info-name text-uppercase"><strong>$<%= Instance.priceString(doc.total_price) %></strong></p>
+                </td>
+              </tr>
             </tbody>
-          </table><!-- table -->
-        </div><!-- table-responsive -->
+          </table>
+        </div>
 
-        <div class="row hidden-xs-up">
-          <div class="col-lg-4 flex flex-column">
+        <div class="row">
+          <div class="col-lg-6 flex flex-column">
             <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
               <span class="address__item address__title">SHIPPING ADDRESS</span>
-              <span class="address__item">Drew McCarver</span>
-              <span class="address__item">30 Ridgecrest Road</span>
-              <span class="address__item">Wallingford, CT 06492</span>
-              <span class="address__item">United States</span>
-              <span class="address__item">860-857-2037</span>
+              <span class="address__item"><%= doc.recipient.first_name + ' ' + doc.recipient.last_name %></span>
+              <span class="address__item"><%= doc.recipient.street %></span>
+              <% if (doc.recipient.street_b){ %>
+                <span class="address__item"><%= doc.recipient.street_b %></span>
+              <% } %>
+              <span class="address__item"><%= doc.recipient.city %>, <%= doc.recipient.region %> <%= doc.recipient.postal_code %></span>
+              <span class="address__item"><%= doc.recipient.phone %></span>
             </address>
-          </div><!-- col -->
+          </div>
 
           <div class="side-paddings--md-visible-xs hidden-lg-up">
             <div class="divider divider--sm divider--dark"></div>
           </div>
 
-          <div class="col-lg-4 flex flex-column">
+          <div class="col-lg-6 flex flex-column">
             <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
               <span class="address__item address__title">BILLING ADDRESS</span>
-              <span class="address__item">Drew McCarver</span>
-              <span class="address__item">30 Ridgecrest Road</span>
-              <span class="address__item">Wallingford, CT 06492</span>
-              <span class="address__item">United States</span>
-              <span class="address__item">860-857-2037</span>
-              <span class="address__item">Drewdesigns@gmail.com</span>
+              <span class="address__item"><%= doc.buyer.first_name + ' ' + doc.buyer.last_name %></span>
+              <span class="address__item"><%= doc.buyer.street %></span>
+              <% if (doc.buyer.street_b){ %>
+                <span class="address__item"><%= doc.buyer.street_b %></span>
+              <% } %>
+              <span class="address__item"><%= doc.buyer.city %>, <%= doc.buyer.region %> <%= doc.buyer.postal_code %></span>
+              <span class="address__item"><%= doc.buyer.phone %></span>
+              <span class="address__item"><%= doc.buyer.email %></span>
             </address>
-          </div><!-- col -->
-
-          <div class="side-paddings--md-visible-xs hidden-lg-up">
-            <div class="divider divider--sm divider--dark"></div>
           </div>
-
-          <div class="col-lg-4 flex flex-column">
-            <address class="flex flex-column flex-1 mb0-sm flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
-              <span class="address__item address__title">PAYMENT DETAILS</span>
-              <span class="address__item">Drew McCarver</span>
-              <span class="address__item">VISA</span>
-              <span class="address__item">XXXX-XXXX-XXXX-1234</span>
-              <span class="address__item">Exp. January 2017</span>
-            </address>
-          </div><!-- col -->
-
-          <div class="side-paddings--md-visible-xs hidden-lg-up">
-            <div class="divider divider--sm divider--dark"></div>
-          </div>
-        </div><!-- row -->
+        </div>
 
         <div class="divider hidden-md-down mb40"></div>
 
