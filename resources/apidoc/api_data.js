@@ -239,6 +239,21 @@ define({ "api": [
     "groupTitle": "Order"
   },
   {
+    "type": "get",
+    "url": "/order/:_id/confirmation/send.json",
+    "title": "Send Order Confirmation",
+    "name": "SendConfirmationOrder",
+    "group": "Order",
+    "permission": [
+      {
+        "name": "public"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "lib/controllers/order.js",
+    "groupTitle": "Order"
+  },
+  {
     "type": "put",
     "url": "/order/:_id/update.json",
     "title": "Update Order",
