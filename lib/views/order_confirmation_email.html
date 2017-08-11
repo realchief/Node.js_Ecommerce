@@ -469,8 +469,8 @@
                                                     <p>
                                                         <span style="font-family: 'DroidItalic'; letter-spacing: normal;">Contact our support staff at
                                       </span>
-                                                        <a href="mailto:<%= Settings.email.order %>" style="text-decoration: none; color: inherit; font-family: 'DroidItalic'; letter-spacing: normal;">
-                                        <span style="display:block; color:#8f9fbf;"><%= Settings.email.order %>
+                                                        <a href="mailto:<%= Instance.parseEmailAddress(Settings.email.order) %>" style="text-decoration: none; color: inherit; font-family: 'DroidItalic'; letter-spacing: normal;">
+                                        <span style="display:block; color:#8f9fbf;"><%= _.escape(Instance.parseEmailAddress(Settings.email.order)) %>
                                         </span>
                                       </a>
                                                     </p>
@@ -485,7 +485,7 @@
                                       </span>
                                                         <span style="display:block; color:#adadad;">To ensure delivery to your inbox, please add
                                       </span>
-                                                        <span style="display:block; color:#adadad;"><%= _.escape(Settings.email.order) %> to your address book.
+                                                        <span style="display:block; color:#adadad;"><%= _.escape(Instance.parseEmailAddress(Settings.email.order)) %> to your address book.
                                       </span>
                                                     </p>
                                                 </div>
