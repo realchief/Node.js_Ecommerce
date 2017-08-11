@@ -21,8 +21,8 @@
       , "order": "https://2po.st/hwU18Eioy4Ti"
       }
     , "email": {
-        "from": "DEVELOPMENT Wanderset <development-no-reply@wanderset.com>"
-      , "order": "DEVELOPMENT Wanderset <development-orders@wanderset.com>"
+        "from": "DEVELOPMENT Wanderset <Ben+orders@wanderset.com>"
+      , "order": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -51,8 +51,8 @@
       , "order": "https://2po.st/hwU18Eioy4Ti"
       }
     , "email": {
-        "from": "STAGING Wanderset <staging-no-reply@wanderset.com>"
-      , "order": "STAGING Wanderset <staging-orders@wanderset.com>"
+        "from": "STAGING Wanderset <ben+orders@wanderset.com>"
+      , "order": "STAGING Wanderset <ben+orders@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -81,8 +81,8 @@
       , "order": "https://2po.st/hwU18Eioy4Ti"
       }
     , "email": {
-        "from": "STAGING WORKER Wanderset <staging-no-reply@wanderset.com>"
-      , "order": "STAGING Wanderset <staging-orders@wanderset.com>"
+        "from": "STAGING WORKER Wanderset <ben+orders@wanderset.com>"
+      , "order": "STAGING Wanderset <ben+orders@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -141,7 +141,7 @@
       }
     , "email": {
         "from": "WORKER Wanderset <support@wanderset.com>"
-      , "order": "Wanderset <orders@wanderset.com>"
+      , "order": "WORKER Wanderset <orders@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
