@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'GothamThinRegular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('GothamThinRegular.woff2'), local('GothamThinRegular.woff2'), url(GothamThinRegular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'GothamBook';
+  font-style: normal;
+  font-weight: normal;
+  src: local('GothamBook'), local('GothamBook'), url(GothamBook.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Gotham-Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Gotham-Medium'), local('Gotham-Medium'), url(Gotham-Medium.woff) format('woff2');
+}
+
+@font-face {
+	font-family: 'Gotham-Bold';
+	font-weight: bold;
+	font-style: normal;
+  src: local('Gotham-Bold'), local('Gotham-Bold'), url(Gotham-Bold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Gotham-Black';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Gotham-Black'), local('Gotham-Black'), url(Gotham-Black.woff2) format('woff2');
+}
