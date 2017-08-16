@@ -146,6 +146,7 @@
               <div class="pull-right">
                 <% if (data.button_title !== 'Create'){ %>
                   <a href="/product/<%= Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
+                  <a href="/product/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
                   <button name="refresh_media" class="btn btn-default" type="submit">Refresh Images</button>
                 <% } %>
                 <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>

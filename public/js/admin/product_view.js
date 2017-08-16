@@ -678,6 +678,8 @@ var ProductView = function(options, callback){
       }
     , function(cb){
         Async.eachSeries(gb.new_stocks, function(e, cb2){
+          if (!e.vendor) delete e.vendor;
+
           $.post('/product/' + gb.doc._id + '/stock/create.json', e, function(json){
             if (Belt.get(json, 'error')) return cb2(new Error(json.error));
 
