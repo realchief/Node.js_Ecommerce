@@ -2,7 +2,9 @@
   <% _.each(Instance.categories, function(v, k){ %>
     <% if (!_.size(v)) return; %>
     <ul class="list aside__item">
-      <li class="list__item list__title"><%= k %></li>
+      <li class="list__item list__title">
+        <a href="/products/category/<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="list__link"><%= k %></a>
+      </li>
       <% _.each(v, function(v2, k2){ %>
         <li class="list__item">
           <a href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" data-category="<%= k + ' > ' + k2 %>" class="list__link"><%= k2 %></a>
