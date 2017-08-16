@@ -34,15 +34,13 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'vendor': {
-      '$exists': false
-    }
+    'vendor': '5963cc7339f45549679993d3'
   })
 , 'skip': 0
 , 'limit': 500
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wset2017'
+  , 'pass': '13carrots!$'
   }
 , 'iterator': function(o, cb){
     console.log('Updating product [' + o._id + ']...');
@@ -51,7 +49,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'vendor': '597e21e480620114c6721adc'
+        'hide': false
       }
     , 'json': true
     , 'method': 'post'

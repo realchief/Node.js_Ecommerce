@@ -4,7 +4,7 @@
       <div class="ibox-content">
         <div class="pull-right">
           <% if (data.button_title !== 'Create'){ %>
-            <a href="/product/<%= Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
+            <a href="/product/<%= Request.data().slug || Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
             <a href="/product/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
             <button name="refresh_media" class="btn btn-default" type="submit">Refresh Images</button>
           <% } %>
@@ -145,7 +145,7 @@
             <div class="col-sm-6 col-sm-offset-6">
               <div class="pull-right">
                 <% if (data.button_title !== 'Create'){ %>
-                  <a href="/product/<%= Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
+                  <a href="/product/<%= Request.data().slug || Request.data()._id %>" target="_blank" class="btn btn-default">Preview</a>
                   <a href="/product/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
                   <button name="refresh_media" class="btn btn-default" type="submit">Refresh Images</button>
                 <% } %>

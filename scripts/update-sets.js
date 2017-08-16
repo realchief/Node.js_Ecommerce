@@ -34,13 +34,13 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-
+    'slug': 'pair-of-thieves'
   }
 , 'skip': 0
 , 'limit': 100
 , 'auth': {
     'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+  , 'pass': '13carrots!$'
   }
 , 'model': 'set'
 , 'iterator': function(o, cb){
@@ -50,7 +50,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'name': o.name
+        'products': GB.products
       }
     , 'json': true
     , 'method': 'post'
@@ -62,6 +62,25 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
+    Request({
+      'url': O.host + '/product/list.json'
+    , 'auth': GB.auth
+    , 'qs': {
+        'query': Belt.stringify({
+          'vendor': '597e21c580620114c6721ad9'
+        })
+      , 'skip': 0
+      , 'limit': 5000
+      }
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB.products = _.pluck(Belt.get(json, 'data'), '_id');
+
+      cb();
+    });
+  }
+, function(cb){
     var cont;
 
     return Async.doWhilst(function(next){
