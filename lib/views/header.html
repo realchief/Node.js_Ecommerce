@@ -62,7 +62,9 @@
                   <% if (!_.size(v)) return; %>
                   <div class="col-sm-3">
                     <ul class="list-dropdown-menu">
-                      <li class="list-dropdown-menu__item list-dropdown-menu__item--heading"><%= k %></li>
+                      <li class="list-dropdown-menu__item list-dropdown-menu__item--heading">
+                        <a href="/products/category/<%= encodeURIComponent(k) %>" class=""><%= k %></a>
+                      </li>
                       <% _.each(v, function(v2, k2){ %>
                         <li class="list-dropdown-menu__item">
                           <a href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" class="list-dropdown-menu__link"><%= k2 %></a>
