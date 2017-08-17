@@ -38,5 +38,6 @@
   , "stripe": "*"
   , "shortid": "*"
   , "shopify-node-api": "*"
+  , "woocommerce": "*"
   }
 }
