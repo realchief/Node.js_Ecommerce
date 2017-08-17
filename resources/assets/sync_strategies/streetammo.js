@@ -36,6 +36,7 @@ module.exports = function(options, Instance){
     , 'brand_regex': new RegExp([
         'just water'
       , 'london sock company'
+      , 'flexfit'
       , 'eton'
       , 'tom ford'
       , 'new era'
@@ -79,6 +80,7 @@ module.exports = function(options, Instance){
 
         Instance.db.model('product').findOne({
           'sku': gb.sku
+        , 'vendor': a.o.vendor.get('_id')
         }, Belt.cs(cb, gb, 'doc', 1, 0));
       }
 /*    , function(cb){
@@ -222,10 +224,14 @@ module.exports = function(options, Instance){
                       }
                     }
                   ]
+                , 'vendor': a.o.vendor.get('_id')
+                , 'product': gb.doc.get('_id')
                 }, Belt.cs(cb3, gb2, 'stock', 1, 0));
               } else {
                 Instance.db.model('stock').findOne({
                   'options': gb2.options
+                , 'vendor': a.o.vendor.get('_id')
+                , 'product': gb.doc.get('_id')
                 }, Belt.cs(cb3, gb2, 'stock', 1, 0));
               }
             }

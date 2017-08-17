@@ -34,7 +34,12 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'name': 'Pretty Girls Like Trap Music'
+    'name': 'Pair of Thieves'
+  , 'woocommerce': {
+      'url': 'https://pairofthieves.com'
+    , 'consumer_key': 'ck_3d8668cfb507ed9d0f962a009a2674e44c8989f3'
+    , 'secret': 'cs_94ebee422771635a1edee5a08a5d58bf6127240d'
+    }
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
