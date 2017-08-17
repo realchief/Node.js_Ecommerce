@@ -301,6 +301,15 @@ $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
 
   $('[data-set="set_listing_nav"]').html('');
 
+  simple.scrollTo({
+    'target': 'body'
+  , 'animation': true
+  , 'duration': 300
+  , 'offset': {
+      'y': 100
+    }
+  });
+
   ThrottleLoadSetMedia();
 });
 
