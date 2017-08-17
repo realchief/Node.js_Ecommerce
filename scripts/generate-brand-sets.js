@@ -31,8 +31,8 @@ var GB = _.defaults(O.argv, {
 , 'db': 'staging_wanderset'
 //, 'brand_regex': /Publish Brand/i
 , 'auth': {
-    'user': 'wanderset'
-  , 'pass': 'wanderset1234'
+    'user': _.keys(O.admin_users)[0]
+  , 'pass': _.values(O.admin_users)[0]
   }
 });
 

@@ -39,8 +39,8 @@ var GB = _.defaults(O.argv, {
 , 'skip': 0
 , 'limit': 100
 , 'auth': {
-    'user': 'wanderset'
-  , 'pass': '13carrots!$'
+    'user': _.keys(O.admin_users)[0]
+  , 'pass': _.values(O.admin_users)[0]
   }
 , 'model': 'set'
 , 'iterator': function(o, cb){

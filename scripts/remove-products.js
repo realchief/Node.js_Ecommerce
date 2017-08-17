@@ -40,8 +40,8 @@ var GB = _.defaults(O.argv, {
 , 'skip': 0
 , 'limit': 100
 , 'auth': {
-    'user': 'wanderset'
-  , 'pass': 'wset2017'
+    'user': _.keys(O.admin_users)[0]
+  , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
     Request({

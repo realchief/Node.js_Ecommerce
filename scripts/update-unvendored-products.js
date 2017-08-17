@@ -39,8 +39,8 @@ var GB = _.defaults(O.argv, {
 , 'skip': 0
 , 'limit': 1
 , 'auth': {
-    'user': 'wanderset'
-  , 'pass': 'wset2017'
+    'user': _.keys(O.admin_users)[0]
+  , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
     //console.log('Updating product [' + o._id + ']...');
