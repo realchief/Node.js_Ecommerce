@@ -48,14 +48,18 @@
             </div>
 
             <div class="col-lg-6 col-md-8">
-              <% if (Belt.get(doc, 'label.us')){ %>
-                <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
-              <% } %>
               <% if (Belt.get(doc, 'brands.0')){ %>
-                <h3 class="font-secondary mb25 text-center-sm"><%= _.map(doc.brands, function(b){
+                <h1 class="mb5 text-center-sm l-n"><%= _.map(doc.brands, function(b){
                   return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular text-muted">' + b + '</a>' : b;
-                }).join(', ') %></h3>
+                }).join(', ') %></h1>
               <% } %>
+
+
+              <% if (Belt.get(doc, 'label.us')){ %>
+                <h3 class="font-secondary mb25 text-center-sm"><%= doc.label.us %></h3>
+              <% } %>
+
+
               <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb25 mb25-sm text-center-sm"></h2>
               <form action="" class="mb50 side-paddings--visible-sm">
                 <% _.each(doc.options, function(v, k){ %>
