@@ -38,7 +38,7 @@
                 <% }) %>
               </div>
 
-              <div class="gallery__thumbnail hidden-sm-down mt15" data-slick='{"asNavFor": ".gallery"}'>
+              <div class="gallery__thumbnail hidden-sm-down mt10" data-slick='{"asNavFor": ".gallery"}'>
                 <% _.each(doc.media, function(m, i){ %>
                   <div data-slick-index="<%= i %>" class="gallery__thumbnail-item">
                     <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100">
