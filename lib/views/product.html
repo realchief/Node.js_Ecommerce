@@ -33,7 +33,7 @@
               <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
                 <% _.each(doc.media, function(m){ %>
                   <div>
-                    <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
+                    <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100">
                   </div>
                 <% }) %>
               </div>
