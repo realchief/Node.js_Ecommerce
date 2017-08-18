@@ -50,13 +50,13 @@
             <div class="col-lg-6 col-md-8">
               <% if (Belt.get(doc, 'brands.0')){ %>
                 <h1 class="mb5 text-center-sm l-n"><%= _.map(doc.brands, function(b){
-                  return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular text-muted">' + b + '</a>' : b;
+                  return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular text-primary">' + b + '</a>' : b;
                 }).join(', ') %></h1>
               <% } %>
 
 
               <% if (Belt.get(doc, 'label.us')){ %>
-                <h3 class="font-secondary mb25 text-center-sm"><%= doc.label.us %></h3>
+                <h3 class="font-secondary mb25 text-center-sm text-muted"><%= doc.label.us %></h3>
               <% } %>
 
 
