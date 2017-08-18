@@ -52,24 +52,24 @@
                 <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
               <% } %>
               <% if (Belt.get(doc, 'brands.0')){ %>
-                <h3 class="font-secondary text-muted mb12 text-center-sm"><%= _.map(doc.brands, function(b){
-                  return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '">' + b + '</a>' : b;
+                <h3 class="font-secondary mb25 text-center-sm"><%= _.map(doc.brands, function(b){
+                  return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular text-muted">' + b + '</a>' : b;
                 }).join(', ') %></h3>
               <% } %>
-              <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm"></h2>
-              <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+              <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb25 mb25-sm text-center-sm"></h2>
+              <form action="" class="mb50 side-paddings--visible-sm">
                 <% _.each(doc.options, function(v, k){ %>
                   <% var val = Belt.get(v, 'values.us.0'); %>
                   <% if (!val) return; %>
                   <div class="form-group" data-option="<%= k %>">
                     <div class="row">
-                      <div class="col-lg-6 col-md-7">
+                      <div class="col-lg-7 col-md-9">
                         <label><%= k %></label>
-                        <div class="dropdown dropdown--full">
-                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
-                          <div class="dropdown-menu">
+                        <div class="dropdown dropdown--full dropdown--gray">
+                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn btn-xl text-regular btn-regular l-n dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
+                          <div class="dropdown-menu dropdown-menu--gray font-base-book l-n">
                             <% _.each(v.values.us, function(o){ %>
-                              <a class="dropdown-item" href="#" data-value="<%= o %>"><%= o %></a>
+                              <a class="dropdown-item text-regular" href="#" data-value="<%= o %>"><%= o %></a>
                             <% }) %>
                           </div>
                         </div>
@@ -78,10 +78,10 @@
                   </div>
                 <% }) %>
 
-                <div class="form-group mt40">
+                <div class="form-group mt50">
                   <div class="row">
-                    <div class="col-lg-6 col-md-7">
-                      <button name="add_to_bag" class="btn btn-primary btn-lg btn-block disabled">ADD TO BAG</button>
+                    <div class="col-lg-7 col-md-9">
+                      <button name="add_to_bag" class="btn btn-blueberry btn-huge btn-block disabled">ADD TO BAG</button>
                     </div>
                   </div>
                 </div>
@@ -132,7 +132,7 @@
                     <% } %>
                   </div>
 
-                  <ul class="list-icons mt40-sm">
+                  <ul class="list-icons justify-content-center justify-content-md-start mt40-sm ml-md-2">
                     <!--<li class="list-icons__item">
                       <a href="https://www.instagram.com/" target="_blank" class="list-icons__link">
                         <i class="wanderset-icon-instagram list-icons__icon"></i>
