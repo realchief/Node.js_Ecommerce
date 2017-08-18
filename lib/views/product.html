@@ -54,14 +54,12 @@
                 }).join(', ') %></h1>
               <% } %>
 
-
               <% if (Belt.get(doc, 'label.us')){ %>
-                <h3 class="font-secondary mb25 text-center-sm text-muted"><%= doc.label.us %></h3>
+                <h3 class="mb15 text-center-sm font-base-light l-n"><%= doc.label.us %></h3>
               <% } %>
 
-
-              <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb25 mb25-sm text-center-sm"></h2>
-              <form action="" class="mb50 side-paddings--visible-sm">
+              <h2 data-set="price" data-set-method="html" class="font-base-book mb15 text-center-sm l-n"></h2>
+              <form action="" class="mb40 side-paddings--visible-sm">
                 <% _.each(doc.options, function(v, k){ %>
                   <% var val = Belt.get(v, 'values.us.0'); %>
                   <% if (!val) return; %>
@@ -70,10 +68,10 @@
                       <div class="col-lg-7 col-md-9">
                         <label class="font-base-book text-capitalaze fs14 mb-1 l-n"><%= k %>:</label>
                         <div class="dropdown dropdown--full dropdown--gray">
-                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn btn-xl text-regular btn-regular l-n dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
+                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn btn-xl text-regular btn-regular l-n dropdown-toggle dropdown-toggle--has-arrow fs13" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
                           <div class="dropdown-menu dropdown-menu--gray font-base-book l-n">
                             <% _.each(v.values.us, function(o){ %>
-                              <a class="dropdown-item text-regular" href="#" data-value="<%= o %>"><%= o %></a>
+                              <a class="dropdown-item text-regular fs13" href="#" data-value="<%= o %>"><%= o %></a>
                             <% }) %>
                           </div>
                         </div>
@@ -82,7 +80,7 @@
                   </div>
                 <% }) %>
 
-                <div class="form-group mt50">
+                <div class="form-group mt40">
                   <div class="row">
                     <div class="col-lg-7 col-md-9">
                       <button name="add_to_bag" class="btn btn-blueberry btn-huge btn-block disabled">ADD TO BAG</button>
@@ -98,7 +96,7 @@
                       <div class="card accordion__item">
                         <div class="accordion__header" role="tab" id="headingOne">
                           <a data-toggle="collapse" class="collapsed accordion__title" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            PRODUCT DETAILS
+                            Product Details
                             <i class="accordion__icon"></i>
                           </a>
                         </div>
@@ -111,7 +109,7 @@
                       <div class="card accordion__item">
                         <div class="accordion__header" role="tab" id="headingTwo">
                           <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            EDITORIAL NOTES
+                            Editorial Notes
                             <i class="accordion__icon"></i>
                           </a>
                         </div>
@@ -124,7 +122,7 @@
                       <div class="card accordion__item">
                         <div class="accordion__header" role="tab" id="headingThree">
                           <a class="collapsed accordion__title" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            SHIPPING &amp; RETURNS
+                            Shipping &amp; returns
                             <i class="accordion__icon"></i>
                           </a>
                         </div>
