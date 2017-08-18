@@ -30,17 +30,17 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-4">
-              <div class="carousel-with-thumbnails carousel--with-thumbnails">
+              <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
                 <% _.each(doc.media, function(m){ %>
-                  <div class="gallery__item">
+                  <div>
                     <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
                   </div>
                 <% }) %>
               </div>
 
-              <div class="gallery__thumbnails hidden-sm-down">
+              <div class="gallery__thumbnail hidden-sm-down" data-slick='{"asNavFor": ".gallery"}'>
                 <% _.each(doc.media, function(m, i){ %>
-                  <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
+                  <div data-slick-index="<%= i %>" class="gallery__thumbnail-item">
                     <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
                   </div>
                 <% }) %>
