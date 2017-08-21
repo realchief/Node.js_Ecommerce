@@ -25,17 +25,26 @@
       <dd>FREE</dd>
     </dl>
 
-    <dl class="dl-aligned">
-      <div class="divider divider--dark my-4"></div>
+    <% if (typeof shipping_region !== 'undefined' && (shipping_region === 'MA' || shipping_region === 'CA')){ %>
+      <dl class="dl-aligned">
+        <div class="divider divider--dark my-4"></div>
 
-      <dt>sales tax</dt>
-      <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 0.07) %></dd>
+        <dt>sales tax</dt>
+        <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 0.07) %></dd>
 
-      <div class="divider divider--dark my-4"></div>
+        <div class="divider divider--dark my-4"></div>
 
-      <dt>total</dt>
-      <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 1.07) %></dd>
-    </dl>
+        <dt>total</dt>
+        <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 1.07) %></dd>
+      </dl>
+    <% } else { %>
+      <dl class="dl-aligned">
+        <div class="divider divider--dark my-4"></div>
+
+        <dt>total</dt>
+        <dd>$<%= Instance.priceString((doc.total_price + doc.shipping_price) * 1) %></dd>
+      </dl>
+    <% } %>
   </div>
 
   <button name="submit" class="btn btn-primary btn-lg btn-block mb20 mt10-sm">PLACE ORDER</button>

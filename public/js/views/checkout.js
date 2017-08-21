@@ -14,6 +14,16 @@ var CheckoutView = function(options, callback){
         self.ValidateShipping(function(err){
           if (err) return;
 
+          GB.view.$el.find('[data-view="CheckoutSidebar"]').html(Render('checkout_sidebar', {
+            'doc': GB.doc
+          , 'Locals': {
+              'doc': GB.doc
+            , 'Instance': Instance
+            }
+          , 'shipping_region': GB.view.get('shipping_region')
+          , 'Instance': Instance
+          }));
+
           self.$el.find('.tab-pane').removeClass('active');
           self.$el.find('#billing-tab.tab-pane').addClass('active');
 
@@ -63,6 +73,16 @@ var CheckoutView = function(options, callback){
         var self = this;
         self.ValidateShipping(function(err){
           if (err) return;
+
+          GB.view.$el.find('[data-view="CheckoutSidebar"]').html(Render('checkout_sidebar', {
+            'doc': GB.doc
+          , 'Locals': {
+              'doc': GB.doc
+            , 'Instance': Instance
+            }
+          , 'shipping_region': GB.view.get('shipping_region')
+          , 'Instance': Instance
+          }));
 
           self.$el.find('.tab-pane').removeClass('active');
           self.$el.find('#billing-tab.tab-pane').addClass('active');
@@ -326,6 +346,7 @@ $(document).on('click', 'a.shipping-option', function(e){
       'doc': GB.doc
     , 'Instance': Instance
     }
+  , 'shipping_region': GB.view.get('shipping_region')
   , 'Instance': Instance
   }));
 

@@ -34,8 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'vendor': '597e21e480620114c6721adc'
-  , 'brands': 'HAN KJØBENHAVN'
+    'brands': 'FLEXFIT'
   })
 , 'skip': 0
 , 'limit': 100
