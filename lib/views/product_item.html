@@ -4,11 +4,11 @@
       <img src="<%= doc.media[0].downloaded ? (doc.media[0].downsample_url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" class="goods__img">
     <% } %>
     <div class="goods__info">
-      <% if (Belt.get(doc, 'label.us')){ %>
-        <p class="goods__info-name"><%= doc.label.us %></p>
-      <% } %>
       <% if (Belt.get(doc, 'brands.0')){ %>
         <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
+      <% } %>
+      <% if (Belt.get(doc, 'label.us')){ %>
+        <p class="goods__info-name"><%= doc.label.us %></p>
       <% } %>
       <% if (Belt.get(doc, 'low_price')){ %>
         <p class="goods__info-price">$<%= Instance.priceString(doc.low_price) %></p>
