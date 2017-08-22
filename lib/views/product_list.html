@@ -14,12 +14,12 @@
               <div class="row align-items-center">
                 <div class="col-md-6">
                   <% if (typeof page_title !== 'undefined'){ %>
-                    <h5 class="search-result__subtitle text-truncate"><%= page_title %></h5>
+                    <h5 class="search-result__subtitle"><%= page_title %></h5>
                   <% } %>
                 </div>
 
                 <div class="col-md-6 hidden-sm-down flex flex-item-center justify-content-md-end">
-                  <%= Render('product_list_nav', Locals) %>
+                  <%= Render('listing-nav', Locals) %>
                 </div>
               </div>
             </div>
@@ -31,8 +31,12 @@
             <div class="row align-items-center">
               <div class="col-lg-6">
                 <% if (typeof page_title !== 'undefined'){ %>
-                  <h5 class="search-result__subtitle text-truncate"><%= page_title %></h5>
+                  <h5 class="search-result__subtitle"><%= page_title %></h5>
                 <% } %>
+              </div>
+
+              <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
+                <%= Render('listing-nav', Locals) %>
               </div>
             </div>
           </div>
@@ -41,21 +45,6 @@
         <div class="tab-content">
           <div class="tab-pane active" id="shop-product-tab" role="tabpanel">
             <%= Render('product_filter.mobile', Locals) %>
-
-            <div class="filter hidden-md-up">
-              <div class="container">
-                <div class="filter__inner">
-                  <div class="row align-items-center">
-                    <div class="col-md-6">
-                    </div>
-
-                    <div class="col-md-6 flex flex-item-center justify-content-center justify-content-md-end mb-5">
-                      <%= Render('product_list_nav', Locals) %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div class="container">
               <div class="row">
@@ -73,20 +62,6 @@
                       </div>
                     <% }) %>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="filter hidden-md-up">
-          <div class="container">
-            <div class="filter__inner">
-              <div class="row align-items-center">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6 flex flex-item-center justify-content-center justify-content-md-end">
-                  <%= Render('product_list_nav', Locals) %>
                 </div>
               </div>
             </div>

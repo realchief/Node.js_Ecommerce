@@ -4,44 +4,45 @@
 </script>
 
 <div class="col-12" data-view="ProductView" data-id="<%= doc._id %>">
-  <div class="carousel-with-thumbnails carousel--with-thumbnails">
+  <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
     <% _.each(doc.media, function(m){ %>
-      <div class="gallery__item">
-        <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
+      <div>
+        <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100">
       </div>
     <% }) %>
   </div>
 
-  <div class="gallery__thumbnails hidden-sm-down">
+  <div class="gallery__thumbnail hidden-sm-down mt10" data-slick='{"asNavFor": ".gallery"}'>
     <% _.each(doc.media, function(m, i){ %>
-      <div data-slick-index="<%= i %>" class="gallery__thumbnails__item">
-        <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="gallery__img">
+      <div data-slick-index="<%= i %>" class="gallery__thumbnail-item">
+        <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100">
       </div>
     <% }) %>
   </div>
+
+  <% if (Belt.get(doc, 'brands.0')){ %>
+    <h1 class="mb5 text-center-sm l-n"><%= _.map(doc.brands, function(b){
+      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular link-dark">' + b + '</a>' : b;
+    }).join(', ') %></h1>
+  <% } %>
 
   <% if (Belt.get(doc, 'label.us')){ %>
-    <h1 class="mb5 text-center-sm l-n"><%= doc.label.us %></h1>
+    <h3 class="mb15 text-center-sm font-base-light l-n"><%= doc.label.us %></h3>
   <% } %>
-  <% if (Belt.get(doc, 'brands.0')){ %>
-    <h3 class="font-secondary text-muted mb12 text-center-sm"><%= _.map(doc.brands, function(b){
-      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '">' + b + '</a>' : b;
-    }).join(', ') %></h3>
-  <% } %>
-  <h2 data-set="price" data-set-method="html" class="font-base-medium l-n-sm mb35 mb25-sm text-center-sm"></h2>
-  <form action="" class="mb60 mb40-sm side-paddings--visible-sm">
+  <h2 data-set="price" data-set-method="html" class="font-base-book mb15 text-center-sm l-n"></h2>
+  <form action="" class="mb40 side-paddings--visible-sm">
     <% _.each(doc.options, function(v, k){ %>
       <% var val = Belt.get(v, 'values.us.0'); %>
       <% if (!val) return; %>
       <div class="form-group" data-option="<%= k %>">
         <div class="row">
           <div class="col-lg-8 col-md-12">
-            <label><%= k %></label>
-            <div class="dropdown dropdown--full">
-              <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn dropdown-toggle dropdown-toggle--has-arrow btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
-              <div class="dropdown-menu">
+            <label class="font-base-book text-capitalaze fs14 mb-1 l-n"><%= k %></label>
+            <div class="dropdown dropdown--full dropdown--gray">
+              <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn btn-xl text-regular btn-regular l-n dropdown-toggle dropdown-toggle--has-arrow fs13" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
+              <div class="dropdown-menu dropdown-menu--gray font-base-book l-n">
                 <% _.each(v.values.us, function(o){ %>
-                  <a class="dropdown-item" href="#" data-value="<%= o %>"><%= o %></a>
+                  <a class="dropdown-item text-regular fs12" href="#" data-value="<%= o %>"><%= o %></a>
                 <% }) %>
               </div>
             </div>
@@ -53,7 +54,7 @@
     <div class="form-group mt40">
       <div class="row">
         <div class="col-lg-8 col-md-12">
-          <button name="add_to_bag" class="btn btn-primary btn-lg btn-block disabled">ADD TO BAG</button>
+          <button name="add_to_bag" class="btn btn-blueberry btn-huge btn-block disabled">ADD TO BAG</button>
         </div>
       </div>
     </div>
