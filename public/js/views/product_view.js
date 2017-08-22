@@ -49,11 +49,12 @@ var ProductView = function(options, callback){
 
     Async.waterfall([
       function(cb){
+        if (_.size(a.o.options) !== _.size(GB.doc.options)) return cb();
+
         $.post('/product/' + self._id + '/availability.json', a.o
         , Belt.cs(cb, gb, 'price', 0, 'data.price'));
       }
     , function(cb){
-console.log(gb)
         if (gb.price){
           gb.price = '$' + Instance.priceString(gb.price);
           self.$el.find('[name="add_to_bag"]').removeClass('disabled');
