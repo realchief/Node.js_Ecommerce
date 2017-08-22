@@ -65,7 +65,7 @@
                     return _.some(doc.configurations, function(c){
                       return c.options[k].value === o && c.available_quantity > 0;
                     });
-                  }) %>
+                  }); %>
 
                   <% var val = Belt.get(vals, '0'); %>
                   <% if (!val) return; %>
