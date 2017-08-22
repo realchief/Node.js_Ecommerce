@@ -6,7 +6,7 @@ var LoadProductFilter = function(options, callback){
     //skip
     //category
     //sort
-    'limit': Belt.isMobile() ? 10 : 50
+    'limit': Belt.isMobile() ? 10 : 48
   });
 
   GB['product_filter'] = {
@@ -17,6 +17,9 @@ var LoadProductFilter = function(options, callback){
         '$in': GB.doc.products
       }
     , 'hide': {
+        '$ne': true
+      }
+    , 'sync_hide': {
         '$ne': true
       }
     }, GB.doc.show_stock_outs ? {
