@@ -32,7 +32,12 @@
   <h2 data-set="price" data-set-method="html" class="font-base-book mb15 text-center-sm l-n"></h2>
   <form action="" class="mb40 side-paddings--visible-sm">
     <% _.each(doc.options, function(v, k){ %>
-      <% var val = Belt.get(v, 'values.us.0'); %>
+      <% var vals = _.filter(Belt.get(v, 'values.us') || [], function(o){
+        return _.some(doc.configurations, function(c){
+          return c.options[k].value === o && c.available_quantity > 0;
+        });
+      }); %>
+      <% var val = Belt.get(vals, '0'); %>
       <% if (!val) return; %>
       <div class="form-group" data-option="<%= k %>">
         <div class="row">
@@ -41,7 +46,7 @@
             <div class="dropdown dropdown--full dropdown--gray">
               <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn btn-xl text-regular btn-regular l-n dropdown-toggle dropdown-toggle--has-arrow fs13" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
               <div class="dropdown-menu dropdown-menu--gray font-base-book l-n">
-                <% _.each(v.values.us, function(o){ %>
+                <% _.each(vals, function(o){ %>
                   <a class="dropdown-item text-regular fs12" href="#" data-value="<%= o %>"><%= o %></a>
                 <% }) %>
               </div>
