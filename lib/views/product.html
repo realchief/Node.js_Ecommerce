@@ -63,6 +63,7 @@
                 <% _.each(doc.options, function(v, k){ %>
                   <% var vals = _.filter(Belt.get(v, 'values.us') || [], function(o){
                     return _.some(doc.configurations, function(c){
+                      if (!Belt.get(c.options, k + '.value')) return false;
                       return c.options[k].value === o && c.available_quantity > 0;
                     });
                   }); %>
