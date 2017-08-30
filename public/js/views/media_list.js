@@ -67,7 +67,7 @@ var ThrottleLoadMedia = _.throttle(function(){
     GB.skip += GB.limit;
     if (!Belt.isNull(data, 'count')) GB.count = data.count;
 
-    if (data.load_count < GB.limit) ThrottleLoadMedia();
+    if (data.load_count < GB.limit) LoadMedia(GB);
   });
 }, 500, {
   'leading': true

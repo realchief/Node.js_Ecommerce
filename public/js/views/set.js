@@ -284,7 +284,7 @@ var ThrottleLoadSetMedia = _.throttle(function(){
     GB.media_filter.skip += GB.media_filter.limit;
     if (!Belt.isNull(data, 'count')) GB.media_filter.count = data.count;
 
-    if (data.load_count < GB.media_filter.limit) ThrottleLoadSetMedia();
+    if (GB.media_filter.skip <= GB.media_filter.count && data.load_count < GB.media_filter.limit) LoadMedia(GB);
   });
 }, 500, {
   'leading': true
