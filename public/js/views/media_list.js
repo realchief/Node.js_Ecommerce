@@ -37,7 +37,9 @@ var LoadMedia = function(options, callback){
         s = $(s);
         s.imagesLoaded(function(){
           MediaLoadQueue.push(function(cb2){
-            if ($('.media-item[data-id="' + d._id + '"]').length) return cb2();
+            if ($('.media-item[data-id="' + d._id + '"]').length || !_.some(d.products, function(p){
+              return Belt.get(p, 'product.low_price');
+            })) return cb2();
 
             $('.masonry-grid').isotope('insert', s);
             cb2();

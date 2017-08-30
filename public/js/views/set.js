@@ -229,7 +229,9 @@ var LoadSetMedia = function(options, callback){
     }
   , function(cb){
       _.each(gb.data.docs, function(d){
-        if ($('.media-item[data-id="' + d._id + '"]').length) return;
+        if ($('.media-item[data-id="' + d._id + '"]').length || !_.some(d.products, function(p){
+          return Belt.get(p, 'product.low_price');
+        })) return;
 
         var s = Render('media_item', {
           'doc': d
