@@ -35,11 +35,16 @@ var LoadMedia = function(options, callback){
         });
 
         s = $(s);
+
+        gb.data['load_count'] = 0;
+
         s.imagesLoaded(function(){
           MediaLoadQueue.push(function(cb2){
             if ($('.media-item[data-id="' + d._id + '"]').length || !_.some(d.products, function(p){
               return Belt.get(p, 'product.low_price');
             })) return cb2();
+
+            gb.data.load_count++;
 
             $('.masonry-grid').isotope('insert', s);
             cb2();
@@ -61,6 +66,8 @@ var ThrottleLoadMedia = _.throttle(function(){
   LoadMedia(GB, function(err, data){
     GB.skip += GB.limit;
     if (!Belt.isNull(data, 'count')) GB.count = data.count;
+
+    if (data.load_count < GB.limit) ThrottleLoadMedia();
   });
 }, 500, {
   'leading': true
@@ -74,4 +81,5 @@ $(window).scroll(function() {
 });
 
 ToggleFooterLoader(true);
+
 ThrottleLoadMedia();
