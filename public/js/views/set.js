@@ -83,9 +83,17 @@ var LoadSetProducts = function(options, callback){
 
       if (a.o.sort || Belt.get(a.o.query, 'categories.$regex')) return cb();
 
+/*
       _.extend(a.o.query, {
         '_id': {
           '$in': GB.doc.products.slice(a.o.skip, a.o.skip + a.o.limit)
+        }
+      });
+*/
+
+      _.extend(a.o.query, {
+        '_id': {
+          '$in': GB.doc.products
         }
       });
 
@@ -126,8 +134,12 @@ var LoadSetProducts = function(options, callback){
       });
     }
   , function(cb){
+      gb.data['load_count'] = 0;
+
       var html = '';
       _.each(gb.data.docs, function(d){
+        gb.data.load_count++;
+
         if (a.o.append && $('.product-item[data-id="' + d._id + '"]').length) return;
 
         html += '<div class="col-md-3 col-sm-4 col-6">'
@@ -269,6 +281,8 @@ var ThrottleLoadSetProducts = _.throttle(function(){
   }), function(err, data){
     GB.product_filter.skip += GB.product_filter.limit;
     if (!Belt.isNull(data, 'count')) GB.product_filter.count = data.count;
+
+    if (GB.product_filter.skip <= GB.product_filter.count && data.load_count < GB.product_filter.limit) ThrottleLoadSetProducts();
   });
 }, 500, {
   'leading': true
@@ -284,7 +298,7 @@ var ThrottleLoadSetMedia = _.throttle(function(){
     GB.media_filter.skip += GB.media_filter.limit;
     if (!Belt.isNull(data, 'count')) GB.media_filter.count = data.count;
 
-    if (GB.media_filter.skip <= GB.media_filter.count && data.load_count < GB.media_filter.limit) LoadMedia(GB);
+    if (GB.media_filter.skip <= GB.media_filter.count && data.load_count < GB.media_filter.limit) ThrottleLoadSetMedia();
   });
 }, 500, {
   'leading': true
