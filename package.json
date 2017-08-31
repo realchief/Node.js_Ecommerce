@@ -39,5 +39,6 @@
   , "shortid": "*"
   , "shopify-node-api": "*"
   , "woocommerce": "*"
+  , "natural": "*"
   }
 }
