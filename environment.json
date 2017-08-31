@@ -119,7 +119,7 @@
       }
     }
   , "production-worker": {
-      "host": "http://wanderset.com:8852"
+      "host": "http://localhost:8852"
     , "domain": "wanderset.com:8852"
     , "express": {
         "port": 8852
