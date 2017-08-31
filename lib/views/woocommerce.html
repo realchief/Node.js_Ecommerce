@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= Render('head', Locals) %>
+    <title>Wanderset + Woocommerce</title>
+  </head>
+  <body>
+    <%= Render('header', Locals) %>
+
+    <main class="main">
+      <section class="section section--pt-40">
+
+        <div class="container">
+
+          <div class="d-flex align-items-center justify-content-center mb30">
+            <img src="/public/assets/images/elements/logo.svg" alt="" class="img-fluid shopify-logo">
+            <p class="fs13 mx-4 mb-0">x</p>
+            <img src="/public/static/Woocommerce-Logo.png" alt="" class="img-fluid shopify-logo">
+          </div><!--d-flex-->
+
+          <p class="text-center fs16 font-base-book text-muted l-n">If you sell through Woocommerce, you can start selling on Wanderset in seconds.<br>We make connecting your Woocommerce store to Wanderset a snap.</p>
+
+          <div class="divider divider--content--sm mb45 mt45"></div>
+
+          <h2 class="text-center title-bold">how it works</h2>
+
+          <ul class="list-counter text-muted fs16 font-base-book l-n box-wrapper  box-wrapper--xs">
+            <li class="list-counter__item">We automatically load your Woocommerce product inventory into Wanderset and keep it updated in realtime. </li>
+            <li class="list-counter__item">When customers order your products on Wanderset, orders appear in your Woocommerce account.</li>
+            <li class="list-counter__item">Ship your orders directly to the customer and collect payment from Wanderset.</li>
+          </ul>
+
+          <div class="divider divider--content--sm mb45 mt45"></div>
+
+          <p class="text-center fs16 font-base-book text-muted l-n mb30">To get started, all you need to do is fill out the form below.<br>Enter your Woocommerce information below.<br>(A guide to turning on the Woocommerce API and generating access credentials can be found <a href="https://docs.woocommerce.com/document/woocommerce-rest-api/" target="_blank">here</a>)</p>
+
+          <form action="" class="box-wrapper box-wrapper--sm">
+            <div class="form-group mb-md-3 mr-md-3 w-100">
+              <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="Your store name" name="name">
+            </div>
+            <div class="form-group mb-md-3 mr-md-3 w-100">
+              <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="Your store URL (begins with http:// or https://)" name="url">
+            </div>
+            <div class="form-group mb-md-3 mr-md-3 w-100">
+              <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="Consumer key for your API" name="consumer_key">
+            </div>
+            <div class="form-group mb-md-3 mr-md-3 w-100">
+              <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="Secret token for your API" name="secret">
+            </div>
+            <button type="submit" class="btn btn-blueberry btn-narrow--md btn-block-sm w-100" name="submit">submit</button>
+          </form>
+
+        </div><!-- container -->
+
+
+      </section><!-- section -->
+    </main>
+
+    <a href="#" class="btn-scroll-top">
+      <i class="wanderset-icon-up-open btn-scroll-top__icon"></i>
+    </a>
+
+    <%= Render('footer', Locals) %>
+    <%= Render('javascript', Locals) %>
+    <script>
+      $('[name="submit"]').on('click', function(e){
+        e.preventDefault();
+
+        var name = $('[name="name"]').val()
+          , url = $('[name="url"]').val()
+          , key = $('[name="consumer_key"]').val()
+          , secret = $('[name="secret"]').val();
+
+        if (!name) return alert('Store name is required');
+        if (!url) return alert('Store URL is required');
+        if (!url.match(/^https?:\/\//)) return alert('Store URL must start with http:// or https://');
+        if (!key) return alert('Consumer key is required');
+        if (!secret) return alert('Secret token is required');
+
+        $.post('/woocommerce/authorize.json', {
+          'name': name
+        , 'url': url
+        , 'key': key
+        , 'secret': secret
+        }, function(res){
+          if (Belt.get(res, 'error')) return alert(res.error);
+
+          $('input').val('');
+          alert('Thank you! Your store has been added to Wanderset and we will be in contact shortly.');
+        });
+
+      });
+    </script>
+  </body>
+</html>
