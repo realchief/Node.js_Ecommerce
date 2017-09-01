@@ -83,19 +83,19 @@ var LoadSetProducts = function(options, callback){
 
       if (a.o.sort || Belt.get(a.o.query, 'categories.$regex')) return cb();
 
-/*
       _.extend(a.o.query, {
         '_id': {
           '$in': GB.doc.products.slice(a.o.skip, a.o.skip + a.o.limit)
         }
       });
-*/
 
+/*
       _.extend(a.o.query, {
         '_id': {
           '$in': GB.doc.products
         }
       });
+*/
 
       $.post('/list/products.json', {
         'q': Belt.stringify(a.o.query)
