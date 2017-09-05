@@ -22,6 +22,40 @@ module.exports = function(options, Instance){
   var S = {};
   S['settings'] = o;
 
+  S['brand_regex'] = new RegExp([
+    'just water'
+  , 'london sock company'
+  , 'flexfit'
+  , 'eton'
+  , 'tom ford'
+  , 'new era'
+  , 'chance the rapper'
+  , 'ricta'
+  , 'element'
+  , 'birkenstock'
+  , 'converse'
+  , 'nike sb'
+  , 'stüssy'
+  , 'stussy'
+  , 'nike sportswear'
+  , 'urban classics'
+  , '40s & shorties'
+  , 'mister tee'
+  , 'obey'
+  , 'huf'
+  , 'cheap monday'
+  , 'clarks originals'
+  , 'dickies'
+  , 'threads'
+  , 'unmarked'
+  , 'spitfire'
+  , 'defend paris'
+  , 'usgoodz'
+  , 'supra'
+  , 'other'
+  , 'nike'
+  ].join('|'), 'i');
+
   S['UpdateProduct'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -33,38 +67,7 @@ module.exports = function(options, Instance){
       //synced_at
       'base_quantity': 3
     , 'dkk_to_usd': 0.15
-    , 'brand_regex': new RegExp([
-        'just water'
-      , 'london sock company'
-      , 'flexfit'
-      , 'eton'
-      , 'tom ford'
-      , 'new era'
-      , 'chance the rapper'
-      , 'ricta'
-      , 'element'
-      , 'birkenstock'
-      , 'converse'
-      , 'nike sb'
-      , 'stüssy'
-      , 'nike sportswear'
-      , 'urban classics'
-      , '40s & shorties'
-      , 'mister tee'
-      , 'obey'
-      , 'huf'
-      , 'cheap monday'
-      , 'clarks originals'
-      , 'dickies'
-      , 'threads'
-      , 'unmarked'
-      , 'spitfire'
-      , 'defend paris'
-      , 'usgoodz'
-      , 'supra'
-      , 'other'
-      , 'nike'
-      ].join('|'), 'i')
+    , 'brand_regex': S.brand_regex
     });
 
     Async.waterfall([
@@ -177,11 +180,16 @@ module.exports = function(options, Instance){
 
           gb.doc.media.push({
             'remote_url': i
+          , 'skip_processing': true
           });
         });
 
         gb.doc.media = _.sortBy(gb.doc.media, function(m){
           return _.indexOf(a.o.product.images, m.remote_url);
+        });
+
+        _.each(gb.doc.media, function(m){
+          m['skip_processing'] = true;
         });
 
         //gb['price'] = (a.o.product.price || '').replace(/^\D*|\D*$/g, '').replace(/\D/g, '');
@@ -314,6 +322,8 @@ module.exports = function(options, Instance){
 
     Async.waterfall([
       function(cb){
+        gb['prod_cache'] = [];
+
         return Async.eachSeries(a.o.categories, function(c, cb2){
           gb['index'] = 0;
           gb['category'] = c;
@@ -340,6 +350,9 @@ module.exports = function(options, Instance){
 
               gb.urls = Belt.get(json, 'data.response.products') || [];
               gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
+              gb.urls = _.filter(gb.urls, function(u){
+                return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
+              });
 
               Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb3){
                 var e
@@ -359,14 +372,27 @@ module.exports = function(options, Instance){
                     prod = Belt.get(json, 'data.response') || {};
                     prod['url'] = u;
 
+                    if (!e) console.log('[STREETAMMO] Added "' + u + '" to sync cache...');
+
                     next2();
                   });
                 }, function(){ return e; }, function(err){
+                  gb.prod_cache.push(prod);
+                  //cb3();
                   a.o.progress_cb(prod, cb3);
                 });
               }, Belt.cw(next, 0));
             });
           }, function(){ return gb.next || _.any(gb.urls); }, Belt.cw(cb2, 0));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        return cb();
+
+        gb.prod_cache = _.uniq(gb.prod_cache, 'url');
+
+        return Async.eachSeries(gb.prod_cache, function(p, cb2){
+          a.o.progress_cb(p, cb2);
         }, Belt.cw(cb, 0));
       }
     ], function(err){
