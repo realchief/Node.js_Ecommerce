@@ -329,6 +329,9 @@ module.exports = function(options, Instance){
           gb['category'] = c;
           gb['urls'] = [];
 
+
+          var tries = 0;
+
           Async.doWhilst(function(next){
             Request({
               'url': a.o.host + '/method'
@@ -340,7 +343,10 @@ module.exports = function(options, Instance){
               }
             , 'json': true
             }, function(err, res, json){
-              if (err){
+              tries++;
+              gb.urls = Belt.get(json, 'data.response.products') || [];
+
+              if (err || (!_.any(gb.urls) && tries < 3)){
                 gb.next = true;
                 return setTimeout(next, 5000);
               } else {
@@ -348,7 +354,6 @@ module.exports = function(options, Instance){
                 gb.index++;
               }
 
-              gb.urls = Belt.get(json, 'data.response.products') || [];
               gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
               gb.urls = _.filter(gb.urls, function(u){
                 return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
