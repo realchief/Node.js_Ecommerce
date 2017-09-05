@@ -351,6 +351,7 @@ module.exports = function(options, Instance){
                 return setTimeout(next, 5000);
               } else {
                 gb.next = false;
+                tries = 0;
                 gb.index++;
               }
 
