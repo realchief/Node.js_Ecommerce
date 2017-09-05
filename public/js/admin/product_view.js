@@ -451,6 +451,8 @@ var ProductView = function(options, callback){
       }
     , function(cb){
         Async.eachSeries(a.o.data.stocks, function(e, cb2){
+          if (!e.vendor) delete e.vendor;
+
           $.post('/product/' + gb.doc._id + '/stock/create.json', e, function(json){
             if (Belt.get(json, 'error')) return cb2(new Error(json.error));
 
@@ -665,6 +667,8 @@ var ProductView = function(options, callback){
       }
     , function(cb){
         Async.eachSeries(gb.update_stocks, function(e, cb2){
+          if (!e.vendor) delete e.vendor;
+
           $.post('/product/' + gb.doc._id + '/stock/' + e._id + '/update.json', _.omit(e, [
             '_id'
           ]), function(json){
