@@ -14,7 +14,7 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
+  , Shopify = require('shopify-node-api')
 ;
 
 var O = new Optionall({
@@ -33,60 +33,66 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'query': {
-    'vendor': '597e21c580620114c6721ad9'
-  }
+  'query': Belt.stringify({
+    '_id': '597272c2b826f7364c54e4ba'
+  })
 , 'skip': 0
 , 'limit': 1
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
+, 'model': 'vendor'
+, 'order': {
+    'billing_address': {
+      'address1': '550 Sarabrook Pl'
+    , 'city': 'Atlanta'
+    , 'province': 'GA'
+    , 'country': 'US'
+    , 'zip': '30342'
+    , 'first_name': 'Cedric'
+    , 'last_name': 'Rogers'
+    , 'phone': '4044317161'
+    }
+  , 'buyer_accepts_marketing': false
+  , 'financial_status': 'authorized'
+  , 'tags': 'wanderset'
+  , 'email': 'orders@wanderset.com'
+  , 'line_items': [
+      {
+        'product_id': 9860239954
+      , 'quantity': 1
+      , 'price': '3.00'
+      , 'variant_id': 37232927314
+      }
+    ]
+  , 'note': 'wanderset dropship order #RYDNH4WF'
+  , 'phone': '6173000585'
+  , 'shipping_address': {
+      'address1': '550 Sarabrook Pl'
+    , 'city': 'Atlanta'
+    , 'province': 'GA'
+    , 'country': 'US'
+    , 'zip': '30342'
+    , 'first_name': 'Cedric'
+    , 'last_name': 'Rogers'
+    , 'phone': '4044317161'
+    }
+  , 'total_price': '3.00'
+  }
 , 'iterator': function(o, cb){
-    //console.log('Updating product [' + o._id + ']...');
+    var shopify = new Shopify({
+      'shop': o.shopify.shop
+    , 'shopify_api_key': O.shopify.key
+    , 'access_token': '19514f1ede6491e695a0588989d626aa' //o.shopify.access_token
+    });
 
-    var gb = {};
+    shopify.post('/admin/orders.json', {
+      'order': GB.order
+    }, function(err, data){
+      console.log(Belt.stringify(arguments));
 
-    Async.waterfall([
-      function(cb2){
-        Request({
-          'url': O.host + '/product/list.json'
-        , 'auth': GB.auth
-        , 'qs': {
-            'query': JSON.stringify({
-              'name': o.name
-            , 'vendor': {
-                '$ne': '597e21c580620114c6721ad9'
-              }
-            })
-          , 'skip': 0
-          , 'limit': 1
-          }
-        , 'method': 'get'
-        , 'json': true
-        }, Belt.cs(cb2, gb, 'matched_product', 2, 'data.0'));
-      }
-    , function(cb2){
-        if (!gb.matched_product) return cb2();
-
-        console.log('...found match: ' + o._id + ' ' + gb.matched_product._id);
-
-        Request({
-          'url': O.host + '/product/old/' + o._id + '/new/' + gb.matched_product._id + '/replace.json'
-        , 'auth': GB.auth
-        , 'method': 'post'
-        , 'json': true
-        }, Belt.cw(cb2, gb, 'res', 2, 0));
-      }
-    , function(cb2){
-        if (!gb.matched_product) return cb2();
-
-        console.log(gb.res)
-
-        cb2();
-      }
-    ], function(err){
-      cb(err);
+      cb();
     });
   }
 });
@@ -99,13 +105,12 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/product/list.json'
+        'url': O.host + '/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
-          'query': JSON.stringify(GB.query)
+          'query': GB.query
         , 'skip': GB.skip
         , 'limit': GB.limit
-        , 'sort': '-created_at'
         }
       , 'method': 'get'
       , 'json': true

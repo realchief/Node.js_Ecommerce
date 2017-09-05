@@ -18,12 +18,14 @@
           <div class="container">
             <div class="filter__inner d-lg-flex justify-content-md-between align-items-center">
               <ul class="tabs tabs--has-divider tabs--desktop-btn-view tabs--full-md mb-lg-0" role="tablist">
-                <li class="nav-item tabs__item tabs__item--btn">
-                  <a class="tabs__link tabs__link--btn btn-filter-show-pagination active" data-toggle="tab" href="#shop-product-tab" role="tab">SHOP PRODUCT</a>
-                </li>
-                <li class="nav-item tabs__item tabs__item--btn">
-                  <a class="tabs__link tabs__link--btn btn-filter-hide-pagination" data-toggle="tab" href="#shop-lifestyle-tab" role="tab">SHOP LIFESTYLE</a>
-                </li>
+                <% if (_.any(doc.media)){ %>
+                  <li class="nav-item tabs__item tabs__item--btn">
+                    <a class="tabs__link tabs__link--btn btn-filter-show-pagination active" data-toggle="tab" href="#shop-product-tab" role="tab">SHOP PRODUCT</a>
+                  </li>
+                  <li class="nav-item tabs__item tabs__item--btn">
+                    <a class="tabs__link tabs__link--btn btn-filter-hide-pagination" data-toggle="tab" href="#shop-lifestyle-tab" role="tab">SHOP LIFESTYLE</a>
+                  </li>
+                <% } %>
               </ul>
 
               <nav class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="set_listing_nav">
