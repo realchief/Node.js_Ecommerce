@@ -356,7 +356,8 @@ module.exports = function(options, Instance){
 
               Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb3){
                 var e
-                  , prod;
+                  , prod
+                  , tries = 0;
 
                 Async.doWhilst(function(next2){
                   Request({
@@ -372,11 +373,13 @@ module.exports = function(options, Instance){
                     prod = Belt.get(json, 'data.response') || {};
                     prod['url'] = u;
 
+                    tries++;
+
                     if (!e) console.log('[STREETAMMO] Added "' + u + '" to sync cache...');
 
                     next2();
                   });
-                }, function(){ return e; }, function(err){
+                }, function(){ return e || (!Belt.get(prod, 'title') && tries < 3); }, function(err){
                   gb.prod_cache.push(prod);
                   //cb3();
                   a.o.progress_cb(prod, cb3);
