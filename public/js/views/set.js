@@ -26,7 +26,7 @@ var LoadProductFilter = function(options, callback){
 
     } : {
       'low_price': {
-        '$exists': true
+        '$gt': 0
       }
     }, a.o.category ? {
       'categories': {
@@ -140,7 +140,7 @@ var LoadSetProducts = function(options, callback){
       _.each(gb.data.docs, function(d){
         gb.data.load_count++;
 
-        if (a.o.append && $('.product-item[data-id="' + d._id + '"]').length) return;
+        if (a.o.append && $('.product-item[data-id="' + d._id + '"]').length || !d.low_price) return;
 
         html += '<div class="col-md-3 col-sm-4 col-6">'
               + Render('product_item', {
