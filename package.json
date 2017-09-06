@@ -40,5 +40,6 @@
   , "shopify-node-api": "*"
   , "woocommerce": "*"
   , "natural": "*"
+  , "xml": "*"
   }
 }
