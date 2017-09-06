@@ -45,6 +45,7 @@ var ProductView = function(options, callback){
     a.o = _.defaults(a.o, {
       'available_quantity': 1
     , 'options': self.get().options || {}
+      //record_analytics
     });
 
     Async.waterfall([
@@ -63,6 +64,14 @@ var ProductView = function(options, callback){
           self.$el.find('[name="add_to_bag"]').addClass('disabled');
         }
 
+        if (a.o.record_analytics){
+          try {
+            ga('send', 'event', 'CheckAvailability', 'click', self._id, gb.price ? 1 : 0);
+          } catch (e) {
+
+          }
+        }
+
         self.set({
           'price': gb.price
         });
@@ -75,7 +84,9 @@ var ProductView = function(options, callback){
   };
 
   gb.view['throttledGetAvailability'] = _.throttle(function(){
-    gb.view.getAvailability();
+    gb.view.getAvailability({
+      'record_analytics': true
+    });
   }, 100, {
     'leading': false
   , 'trailing': true
@@ -95,6 +106,13 @@ var ProductView = function(options, callback){
       function(cb){
         $.post('/cart/session/product/create.json', a.o, function(res){
           console.log(res);
+
+          try {
+            ga('send', 'event', 'AddToBag', 'click', self._id);
+          } catch (e) {
+
+          }
+
           cb();
         });
       }
