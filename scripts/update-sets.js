@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'slug': 'pair-of-thieves'
+
   }
 , 'skip': 0
 , 'limit': 100
@@ -50,7 +50,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'products': GB.products
+        'logo_label': o.name
       }
     , 'json': true
     , 'method': 'post'
