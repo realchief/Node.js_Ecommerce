@@ -81,6 +81,33 @@ Instance['toPercentage'] = function(val){
   return (val * 100).toFixed(2);
 };
 
+
+Instance['paginationUrl'] = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+    //sort
+    //skip
+  });
+
+  var url = document.location.href
+    , qs = ParseQueryString(url.split('?')[1] || '') || {};
+
+  url = url.replace(/\?.*$/, '');
+
+  if (!Belt.isNull(a.o.skip)){
+    qs['skip'] = a.o.skip;
+  }
+  if (!Belt.isNull(a.o.sort)){
+    qs['sort'] = a.o.sort;
+  }
+
+  url += '?' + CreateQueryString(qs);
+
+  return url;
+};
+
 $(document).ready(function(){
   GetCartCount();
 
@@ -115,7 +142,7 @@ var ToggleFooterLoader = function(show){
 
 var ParseQueryString = function(str){
   var query = {};
-  var a = (str[0] === '?' ? qstr.substr(1) : str).split('&');
+  var a = (str[0] === '?' ? str.substr(1) : str).split('&');
   for (var i = 0; i < a.length; i++) {
     var b = a[i].split('=');
     query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
@@ -123,10 +150,15 @@ var ParseQueryString = function(str){
   return Belt.objDefalse(query);
 };
 
-var CreateHash = function(obj){
-  window.location.hash = _.map(obj, function(v, k){
+var CreateQueryString = function(obj){
+  return _.map(obj, function(v, k){
     return encodeURIComponent(k) + '=' + encodeURIComponent(v);
   }).join('&');
+};
+
+
+var CreateHash = function(obj){
+  window.location.hash = CreateQueryString(obj);
 };
 
 var ExtendHash = function(obj){

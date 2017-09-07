@@ -18,7 +18,7 @@
                   <% } %>
                 </div>
 
-                <div class="col-md-6 hidden-sm-down flex flex-item-center justify-content-md-end">
+                <div class="col-md-6 hidden-sm-down flex flex-item-center justify-content-md-end" data-set="product_listing_nav">
                   <%= Render('product_list_nav', Locals) %>
                 </div>
               </div>
@@ -35,7 +35,7 @@
                 <% } %>
               </div>
 
-              <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center">
+              <div class="col-lg-6 push-md-top hidden-sm-down flex flex-item-center justify-content-lg-end justify-content-md-center" data-set="product_listing_nav">
                 <%= Render('product_list_nav', Locals) %>
               </div>
             </div>
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="col-xl-10 col-md-9">
-                  <div class="row row--flex">
+                  <div class="row row--flex" data-set="products">
                     <% _.each(docs, function(p){ %>
                       <div class="col-md-3 col-sm-4 col-6">
                         <%= Render('product_item', _.extend({}, Locals, {
@@ -70,7 +70,7 @@
 
         <div class="filter hidden-md-up mt-4 mb-3">
           <div class="container">
-              <div class="col-lg-6 push-md-top flex flex-item-center justify-content-lg-end justify-content-md-center">
+              <div class="col-lg-6 push-md-top flex flex-item-center justify-content-lg-end justify-content-md-center" data-set="product_listing_nav">
                 <%= Render('product_list_nav', Locals) %>
               </div>
             </div>
