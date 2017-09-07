@@ -28,6 +28,7 @@
   , "lightslider": "^1.1.6"
   , "imagesloaded": "*"
   , "simple-scrollTo": "*"
+  , "lazyload": "*"
   },
   "ignore": [
     "test",

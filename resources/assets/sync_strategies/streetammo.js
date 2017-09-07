@@ -317,6 +317,7 @@ module.exports = function(options, Instance){
         '/men/apparel'
       , '/men/footwear'
       , '/streetammo'
+      , '/mister-tee'
       ]
     });
 
