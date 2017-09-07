@@ -12,6 +12,12 @@ var CheckoutView = function(options, callback){
         var self = this;
 
         self.ValidateShipping(function(err){
+          try {
+            ga('send', 'event', 'ValidateShipping', 'click', Belt.get(err, 'message') ? err.message : 'valid');
+          } catch (e) {
+
+          }
+
           if (err) return;
 
           GB.view.$el.find('[data-view="CheckoutSidebar"]').html(Render('checkout_sidebar', {
@@ -37,6 +43,13 @@ var CheckoutView = function(options, callback){
         ToggleLoader(true);
 
         self.ValidateBilling(function(err){
+          try {
+            ga('send', 'event', 'ValidateBilling', 'click', Belt.get(err, 'message') ? err.message : 'valid');
+          } catch (e) {
+
+          }
+
+
           if (err){
             ToggleLoader();
             return;
