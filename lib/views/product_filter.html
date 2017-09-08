@@ -1,5 +1,6 @@
 <aside class="aside">
-  <% _.each(Instance.categories, function(v, k){ %>
+  <% var cats = typeof doc !== 'undefined' && doc._id && Instance.set_categories[doc._id] ? Instance.set_categories[doc._id] : Instance.categories; %>
+  <% _.each(cats, function(v, k){ %>
     <% if (!_.size(v)) return; %>
     <ul class="list aside__item">
       <li class="list__item list__title">
