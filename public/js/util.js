@@ -175,5 +175,5 @@ var GB = GB || {};
 GB['hash_query'] = _.extend({}, queryObject.get(), GetHashObj());
 
 $(function() {
-  $('.lazy').lazy();
+  Belt.get($('.lazy'), 'lazy()');
 });
