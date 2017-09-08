@@ -314,10 +314,10 @@ module.exports = function(options, Instance){
       'progress_cb': Belt.np
     , 'host': o.crawler_host
     , 'categories': [
-        '/men/apparel'
+        '/mister-tee'
+      , '/men/apparel'
       , '/men/footwear'
       , '/streetammo'
-      , '/mister-tee'
       ]
     });
 
