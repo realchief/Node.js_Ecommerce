@@ -156,7 +156,6 @@ var CreateQueryString = function(obj){
   }).join('&');
 };
 
-
 var CreateHash = function(obj){
   window.location.hash = CreateQueryString(obj);
 };
