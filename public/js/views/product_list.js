@@ -113,6 +113,9 @@ var LoadProducts = function(options, callback){
     }
   ], function(err){
     ToggleFooterLoader();
+
+    $('.lazy').lazy();
+
     a.cb(err, gb.data);
   });
 };

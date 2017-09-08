@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '597272c2b826f7364c54e4ba'
+    '_id': '5977e586791c56613ff81c00'
   })
 , 'skip': 0
 , 'limit': 1
@@ -45,14 +45,14 @@ var GB = _.defaults(O.argv, {
 , 'model': 'vendor'
 , 'order': {
     'billing_address': {
-      'address1': '550 Sarabrook Pl'
-    , 'city': 'Atlanta'
-    , 'province': 'GA'
+      'address1': '166 Moss Hill Rd'
+    , 'city': 'Boston'
+    , 'province': 'MA'
     , 'country': 'US'
-    , 'zip': '30342'
-    , 'first_name': 'Cedric'
-    , 'last_name': 'Rogers'
-    , 'phone': '4044317161'
+    , 'zip': '02130'
+    , 'first_name': 'Dennis'
+    , 'last_name': 'Selkoe'
+    , 'phone': '617 680-6681'
     }
   , 'buyer_accepts_marketing': false
   , 'financial_status': 'authorized'
@@ -60,31 +60,37 @@ var GB = _.defaults(O.argv, {
   , 'email': 'orders@wanderset.com'
   , 'line_items': [
       {
-        'product_id': 9860239954
+        'product_id': 8038882760
       , 'quantity': 1
-      , 'price': '3.00'
-      , 'variant_id': 37232927314
+      , 'price': '88.00'
+      , 'variant_id': 26494202696
+      }
+    , {
+        'product_id': 8038883784
+      , 'quantity': 1
+      , 'price': '36.00'
+      , 'variant_id': 26494206344
       }
     ]
-  , 'note': 'wanderset dropship order #RYDNH4WF'
+  , 'note': 'wanderset dropship order #RJPQJVY9B'
   , 'phone': '6173000585'
   , 'shipping_address': {
-      'address1': '550 Sarabrook Pl'
-    , 'city': 'Atlanta'
-    , 'province': 'GA'
+      'address1': '166 Moss Hill Rd'
+    , 'city': 'Boston'
+    , 'province': 'MA'
     , 'country': 'US'
-    , 'zip': '30342'
-    , 'first_name': 'Cedric'
-    , 'last_name': 'Rogers'
-    , 'phone': '4044317161'
+    , 'zip': '02130'
+    , 'first_name': 'Dennis'
+    , 'last_name': 'Selkoe'
+    , 'phone': '617 680-6681'
     }
-  , 'total_price': '3.00'
+  , 'total_price': '124.00'
   }
 , 'iterator': function(o, cb){
     var shopify = new Shopify({
       'shop': o.shopify.shop
     , 'shopify_api_key': O.shopify.key
-    , 'access_token': '19514f1ede6491e695a0588989d626aa' //o.shopify.access_token
+    , 'access_token': o.shopify.access_token
     });
 
     shopify.post('/admin/orders.json', {
@@ -105,7 +111,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/' + GB.model + '/list.json'
+        'url': O.host + '/admin/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
