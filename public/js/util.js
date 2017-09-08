@@ -173,3 +173,5 @@ var GetHashObj = function(){
 
 var GB = GB || {};
 GB['hash_query'] = _.extend({}, queryObject.get(), GetHashObj());
+
+lazyload();
