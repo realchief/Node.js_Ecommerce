@@ -83,7 +83,20 @@ var LoadProducts = function(options, callback){
               + Render('product_item', {
                   'doc': d
                 })
-              + '</div>'
+              + '</div>';
+
+/*
+        var $el = $('<div class="col-md-3 col-sm-4 col-6">'
+                      + Render('product_item', {
+                        'doc': d
+                      })
+                    + '</div>');
+
+        $('[data-set="products"]')[a.o.append ? 'append' : 'html']($el);
+
+        inViewport($el, function(){
+          console.log(d._id);
+        });*/
       });
 
       $('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);

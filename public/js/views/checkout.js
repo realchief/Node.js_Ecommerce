@@ -49,7 +49,6 @@ var CheckoutView = function(options, callback){
 
           }
 
-
           if (err){
             ToggleLoader();
             return;
@@ -65,11 +64,31 @@ var CheckoutView = function(options, callback){
           delete data.billing_expiration_month;
           delete data.billing_expiration_year;
 
+          try {
+            ga('send', 'event', 'OrderAttempt', 'submit');
+          } catch (e) {
+
+          }
+
           $.post('/order/create.json', data, function(res){
             if (Belt.get(res, 'error')){
               ToggleLoader();
+
+              try {
+                ga('send', 'event', 'OrderError', 'result');
+              } catch (e) {
+
+              }
+
               alert(res.error);
             } else {
+
+              try {
+                ga('send', 'event', 'OrderSuccess', 'result', Belt.get(res, 'data.total_price'));
+              } catch (e) {
+
+              }
+
               document.location = '/checkout/complete';
             }
           });
