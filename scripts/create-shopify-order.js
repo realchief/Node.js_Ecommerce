@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '5977e586791c56613ff81c00'
+    '_id': '5963c81039f45549679993c6'
   })
 , 'skip': 0
 , 'limit': 1
@@ -45,14 +45,14 @@ var GB = _.defaults(O.argv, {
 , 'model': 'vendor'
 , 'order': {
     'billing_address': {
-      'address1': '166 Moss Hill Rd'
-    , 'city': 'Boston'
-    , 'province': 'MA'
+      'address1': '17258 haynes st'
+    , 'city': 'Van Nuys'
+    , 'province': 'CA'
     , 'country': 'US'
-    , 'zip': '02130'
-    , 'first_name': 'Dennis'
-    , 'last_name': 'Selkoe'
-    , 'phone': '617 680-6681'
+    , 'zip': '91406'
+    , 'first_name': 'Elad'
+    , 'last_name': 'Sinay'
+    , 'phone': '8187303916'
     }
   , 'buyer_accepts_marketing': false
   , 'financial_status': 'authorized'
@@ -60,31 +60,25 @@ var GB = _.defaults(O.argv, {
   , 'email': 'orders@wanderset.com'
   , 'line_items': [
       {
-        'product_id': 8038882760
+        'product_id': 9936268749
       , 'quantity': 1
-      , 'price': '88.00'
-      , 'variant_id': 26494202696
-      }
-    , {
-        'product_id': 8038883784
-      , 'quantity': 1
-      , 'price': '36.00'
-      , 'variant_id': 26494206344
+      , 'price': '80.00'
+      , 'variant_id': 37239699213
       }
     ]
-  , 'note': 'wanderset dropship order #RJPQJVY9B'
+  , 'note': 'wanderset dropship order #BKRJNCE9B'
   , 'phone': '6173000585'
   , 'shipping_address': {
-      'address1': '166 Moss Hill Rd'
-    , 'city': 'Boston'
-    , 'province': 'MA'
+      'address1': '17258 haynes st'
+    , 'city': 'Van Nuys'
+    , 'province': 'CA'
     , 'country': 'US'
-    , 'zip': '02130'
-    , 'first_name': 'Dennis'
-    , 'last_name': 'Selkoe'
-    , 'phone': '617 680-6681'
+    , 'zip': '91406'
+    , 'first_name': 'Elad'
+    , 'last_name': 'Sinay'
+    , 'phone': '8187303916'
     }
-  , 'total_price': '124.00'
+  , 'total_price': '80.00'
   }
 , 'iterator': function(o, cb){
     var shopify = new Shopify({
