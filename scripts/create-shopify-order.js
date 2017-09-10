@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '5963c7fa39f45549679993c3'
+    '_id': '5977e586791c56613ff81c00'
   })
 , 'skip': 0
 , 'limit': 1
@@ -44,41 +44,43 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'vendor'
 , 'order': {
-    'billing_address': {
-      'first_name': 'Victor D.'
-    , 'last_name': 'Lombard'
-    , 'address1': '16 Henry Street'
-    , 'city': 'Cranston'
-    , 'province': 'RI'
-    , 'country': 'US'
-    , 'zip': '02905'
-    , 'phone': '6464884989'
-    }
-  , 'buyer_accepts_marketing': false
-  , 'financial_status': 'authorized'
-  , 'tags': 'wanderset'
-  , 'email': 'orders@wanderset.com'
-  , 'line_items': [
-      {
-        'product_id': 7057737409
-      , 'quantity': 1
-      , 'price': '169.99'
-      , 'variant_id': 24751268545
-      }
-    ]
-  , 'note': 'wanderset dropship order #H1NAENGQ'
-  , 'phone': '6173000585'
-  , 'shipping_address': {
-      'first_name': 'Victor D.'
-    , 'last_name': 'Lombard'
-    , 'address1': '16 Henry Street'
-    , 'city': 'Cranston'
-    , 'province': 'RI'
-    , 'country': 'US'
-    , 'zip': '02905'
-    , 'phone': '6464884989'
-    }
-  , 'total_price': '169.99'
+billing_address: {
+first_name: "dennis",
+last_name: "selkoe",
+address1: "166 moss hill rd",
+address2: "",
+city: "Boston",
+province: "MA",
+country: "US",
+zip: "02130",
+phone: "6175245019"
+},
+shipping_address: {
+first_name: "Frank",
+last_name: "Santopietro",
+address1: "19 Malcolm Road",
+address2: "",
+city: "Boston",
+province: "MA",
+country: "US",
+zip: "02130",
+phone: "6179472864"
+},
+note: "wanderset dropship order #S1ILVXX5W",
+phone: "6173000585",
+buyer_accepts_marketing: false,
+financial_status: "authorized",
+tags: "wanderset",
+email: "orders@wanderset.com",
+line_items: [
+{
+product_id: 8727611089,
+quantity: 1,
+price: "28.00",
+variant_id: 30885048657
+}
+],
+total_price: "28.00"
   }
 , 'iterator': function(o, cb){
     var shopify = new Shopify({
