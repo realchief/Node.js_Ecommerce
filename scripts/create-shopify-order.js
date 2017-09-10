@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '5963c81039f45549679993c6'
+    '_id': '5963c7fa39f45549679993c3'
   })
 , 'skip': 0
 , 'limit': 1
@@ -45,14 +45,14 @@ var GB = _.defaults(O.argv, {
 , 'model': 'vendor'
 , 'order': {
     'billing_address': {
-      'address1': '17258 haynes st'
-    , 'city': 'Van Nuys'
-    , 'province': 'CA'
+      'first_name': 'Victor D.'
+    , 'last_name': 'Lombard'
+    , 'address1': '16 Henry Street'
+    , 'city': 'Cranston'
+    , 'province': 'RI'
     , 'country': 'US'
-    , 'zip': '91406'
-    , 'first_name': 'Elad'
-    , 'last_name': 'Sinay'
-    , 'phone': '8187303916'
+    , 'zip': '02905'
+    , 'phone': '6464884989'
     }
   , 'buyer_accepts_marketing': false
   , 'financial_status': 'authorized'
@@ -60,25 +60,25 @@ var GB = _.defaults(O.argv, {
   , 'email': 'orders@wanderset.com'
   , 'line_items': [
       {
-        'product_id': 9936268749
+        'product_id': 7057737409
       , 'quantity': 1
-      , 'price': '80.00'
-      , 'variant_id': 37239699213
+      , 'price': '169.99'
+      , 'variant_id': 24751268545
       }
     ]
-  , 'note': 'wanderset dropship order #BKRJNCE9B'
+  , 'note': 'wanderset dropship order #H1NAENGQ'
   , 'phone': '6173000585'
   , 'shipping_address': {
-      'address1': '17258 haynes st'
-    , 'city': 'Van Nuys'
-    , 'province': 'CA'
+      'first_name': 'Victor D.'
+    , 'last_name': 'Lombard'
+    , 'address1': '16 Henry Street'
+    , 'city': 'Cranston'
+    , 'province': 'RI'
     , 'country': 'US'
-    , 'zip': '91406'
-    , 'first_name': 'Elad'
-    , 'last_name': 'Sinay'
-    , 'phone': '8187303916'
+    , 'zip': '02905'
+    , 'phone': '6464884989'
     }
-  , 'total_price': '80.00'
+  , 'total_price': '169.99'
   }
 , 'iterator': function(o, cb){
     var shopify = new Shopify({
