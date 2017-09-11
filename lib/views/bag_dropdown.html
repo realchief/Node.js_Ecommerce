@@ -1,0 +1,38 @@
+<div class="dropdown-menu dropdown-menu--checkout dropdown-menu--has-arrow dropdown-menu-right" data-view="BagDropdown">
+  <h4 class="dropdown-menu--checkout__title">1 ITEM ADDED TO BAG</h4>
+  <p class="dropdown-menu--checkout__info">(you have 3 items in your shopping bag)</p>
+  <div class="box-sm">
+    <div class="row">
+      <div class="col-sm-6 col-5">
+        <% if (Belt.get(doc, 'media.0.url') || Belt.get(doc, 'media.0.remote_url')){ %>
+          <img src="<%= doc.media[0].downloaded ? (doc.media[0].downsample_url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" class="img-fluid" alt="">
+        <% } %>
+      </div>
+
+      <div class="col-sm-6 col-7">
+        <div class="goods__info">
+          <% if (Belt.get(doc, 'label.us')){ %>
+            <p class="goods__info-name"><%= doc.label.us %></p>
+          <% } %>
+          <% if (Belt.get(doc, 'brands.0')){ %>
+            <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
+          <% } %>
+        </div>
+
+        <ul class="goods__details">
+          <% _.each(options, function(v, k){ %>
+            <li class="goods__details__item">
+              <span><%= k %>:</span> <span><%= v %></span>
+            </li>
+          <% }) %>
+          <li class="goods__details__item">
+            <span>cost:</span> <span>$<%= Instance.priceString(price) %></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <form action="">
+    <a href="/bag" class="btn btn-primary btn-block">checkout</a>
+  </form>
+</div>

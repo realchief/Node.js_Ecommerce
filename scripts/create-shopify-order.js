@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '5965339639f4554967999477'
+    '_id': '5963cc7339f45549679993d3'
   })
 , 'skip': 0
 , 'limit': 1
@@ -45,28 +45,28 @@ var GB = _.defaults(O.argv, {
 , 'model': 'vendor'
 , 'order': {
 billing_address: {
-first_name: "Sadia",
-last_name: "Halpern",
-address1: "1936 Laguna St",
+first_name: "Drew",
+last_name: "McCarver",
+address1: "30 Ridgecrest Road",
 address2: "",
-city: "Santa Barbara",
-province: "CA",
+city: "Wallingford",
+province: "CT",
 country: "US",
-zip: "93101",
-phone: "805 563 5392"
+zip: "06492",
+phone: "8608572037"
 },
 shipping_address: {
-first_name: "Sadia",
-last_name: "Halpern",
-address1: "1936 Laguna St",
+first_name: "Drew",
+last_name: "McCarver",
+address1: "30 Ridgecrest Road",
 address2: "",
-city: "Santa Barbara",
-province: "CA",
+city: "Wallingford",
+province: "CT",
 country: "US",
-zip: "93101",
-phone: "805 563 5392"
+zip: "06492",
+phone: "8608572037"
 },
-note: "wanderset dropship order #BJLVRX9B",
+note: "wanderset dropship order #RJ1FLPQ5",
 phone: "6173000585",
 buyer_accepts_marketing: false,
 financial_status: "authorized",
@@ -74,13 +74,13 @@ tags: "wanderset",
 email: "orders@wanderset.com",
 line_items: [
 {
-product_id: 329644813,
+product_id: 10505352966,
 quantity: 1,
-price: "26.00",
-variant_id: 794774065
+price: "59.95",
+variant_id: 42266532038
 }
 ],
-total_price: "26.00"
+total_price: "59.95"
   }
 , 'iterator': function(o, cb){
     var shopify = new Shopify({
@@ -93,6 +93,8 @@ total_price: "26.00"
       'order': GB.order
     }, function(err, data){
       console.log(Belt.stringify(arguments));
+
+      console.log(o.name + ' order ' + Belt.get(data, 'order.id'));
 
       cb();
     });

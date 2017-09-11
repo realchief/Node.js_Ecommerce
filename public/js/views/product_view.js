@@ -57,6 +57,7 @@ var ProductView = function(options, callback){
       }
     , function(cb){
         if (gb.price){
+          self.price = gb.price;
           gb.price = '$' + Instance.priceString(gb.price);
           self.$el.find('[name="add_to_bag"]').removeClass('disabled');
         } else {
@@ -99,6 +100,7 @@ var ProductView = function(options, callback){
     a.o = _.defaults(a.o, {
       'quantity': 1
     , 'product': self._id
+    , 'price': self.price
     , 'options': self.get().options || {}
     });
 
@@ -118,6 +120,17 @@ var ProductView = function(options, callback){
       }
     , function(cb){
         GetCartCount(Belt.cw(cb, 0));
+      }
+    , function(cb){
+        $('[data-view="BagDropdown"]').remove();
+
+        $('[name="cart"].dropdown.show').append(Render('bag_dropdown', _.extend({
+          'doc': GB.product || GB.doc
+        }, a.o)));
+
+        setTimeout(function(){
+          $('[data-view="BagDropdown"]').remove();
+        }, 10000);
       }
     ], function(err){
       a.cb(err);
