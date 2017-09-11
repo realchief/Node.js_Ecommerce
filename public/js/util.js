@@ -50,9 +50,12 @@ var GetCartCount = function(options, callback){
       $('[data-set="cart_product_count"]').html(gb.products.length);
 
       if (gb.products.length){
-        $('[name="cart"]').removeClass('hidden-xs-up');
+        $('[name="cart"] a').attr('href', '/bag');
+        $('[name="cart"] [data-set="cart_product_count"]').removeClass('hidden-xs-up');
+
       } else {
-        $('[name="cart"]').addClass('hidden-xs-up');
+        $('[name="cart"] a').attr('href', '#');
+        $('[name="cart"] [data-set="cart_product_count"]').addClass('hidden-xs-up');
       }
 
       cb();

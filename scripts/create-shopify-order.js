@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '5977e586791c56613ff81c00'
+    '_id': '5965339639f4554967999477'
   })
 , 'skip': 0
 , 'limit': 1
@@ -45,28 +45,28 @@ var GB = _.defaults(O.argv, {
 , 'model': 'vendor'
 , 'order': {
 billing_address: {
-first_name: "dennis",
-last_name: "selkoe",
-address1: "166 moss hill rd",
+first_name: "Sadia",
+last_name: "Halpern",
+address1: "1936 Laguna St",
 address2: "",
-city: "Boston",
-province: "MA",
+city: "Santa Barbara",
+province: "CA",
 country: "US",
-zip: "02130",
-phone: "6175245019"
+zip: "93101",
+phone: "805 563 5392"
 },
 shipping_address: {
-first_name: "Frank",
-last_name: "Santopietro",
-address1: "19 Malcolm Road",
+first_name: "Sadia",
+last_name: "Halpern",
+address1: "1936 Laguna St",
 address2: "",
-city: "Boston",
-province: "MA",
+city: "Santa Barbara",
+province: "CA",
 country: "US",
-zip: "02130",
-phone: "6179472864"
+zip: "93101",
+phone: "805 563 5392"
 },
-note: "wanderset dropship order #S1ILVXX5W",
+note: "wanderset dropship order #BJLVRX9B",
 phone: "6173000585",
 buyer_accepts_marketing: false,
 financial_status: "authorized",
@@ -74,13 +74,13 @@ tags: "wanderset",
 email: "orders@wanderset.com",
 line_items: [
 {
-product_id: 8727611089,
+product_id: 329644813,
 quantity: 1,
-price: "28.00",
-variant_id: 30885048657
+price: "26.00",
+variant_id: 794774065
 }
 ],
-total_price: "28.00"
+total_price: "26.00"
   }
 , 'iterator': function(o, cb){
     var shopify = new Shopify({

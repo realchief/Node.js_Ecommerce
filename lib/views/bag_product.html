@@ -1,13 +1,17 @@
 <tr data-view="BagProductMobileView" data-id="<%= doc._id %>">
   <td>
     <% if (Belt.get(doc, 'product.media.0.url') || Belt.get(doc, 'product.media.0.remote_url')){ %>
-      <img src="<%= doc.product.media[0].downloaded ? (doc.product.media[0].downsample_url || doc.product.media[0].url) : (doc.product.media[0].remote_url || doc.product.media[0].url) %>" class="table__img">
+      <a href="/product/<%= doc.product.slug || doc.product._id %>">
+        <img src="<%= doc.product.media[0].downloaded ? (doc.product.media[0].downsample_url || doc.product.media[0].url) : (doc.product.media[0].remote_url || doc.product.media[0].url) %>" class="table__img">
+      </a>
     <% } %>
   </td>
   <td>
     <div class="table__goods__info goods__info">
       <% if (Belt.get(doc, 'product.label.us')){ %>
-        <p class="goods__info-name"><%= doc.product.label.us %></p>
+        <a href="/product/<%= doc.product.slug || doc.product._id %>">
+          <p class="goods__info-name"><%= doc.product.label.us %></p>
+        </a>
       <% } %>
       <% if (Belt.get(doc, 'product.brands.0')){ %>
         <p class="goods__info-description"><%= doc.product.brands.join(', ') %></p>
