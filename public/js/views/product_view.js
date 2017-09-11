@@ -119,13 +119,14 @@ var ProductView = function(options, callback){
         });
       }
     , function(cb){
-        GetCartCount(Belt.cw(cb, 0));
+        GetCartCount(Belt.cs(cb, gb, 'products_length', 1, 'length', 0));
       }
     , function(cb){
         $('[data-view="BagDropdown"]').remove();
 
         $('[name="cart"].dropdown.show').append(Render('bag_dropdown', _.extend({
           'doc': GB.product || GB.doc
+        , 'product_count': gb.products_length || 0
         }, a.o)));
 
         setTimeout(function(){

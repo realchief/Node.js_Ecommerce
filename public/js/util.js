@@ -61,7 +61,7 @@ var GetCartCount = function(options, callback){
       cb();
     }
   ], function(err){
-    a.cb(err);
+    a.cb(err, gb.products);
   });
 };
 
