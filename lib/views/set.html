@@ -57,12 +57,16 @@
           <div class="tab-pane active" id="shop-product-tab" role="tabpanel">
             <%= Render('product_filter.mobile', Locals) %>
 
-            <div class="row row--flex hidden-md-up">
-              <nav class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="set_listing_nav">
-              </nav>
-            </div>
+
 
             <div class="container">
+
+              <div class="row row--flex hidden-md-up mb-3">
+                <nav class="d-flex justify-content-center justify-content-lg-end align-items-center flex-1" data-set="set_listing_nav">
+                </nav>
+              </div>
+
+
               <div class="row">
                 <div class="col-xl-2 col-sm-3 hidden-sm-down">
                   <%= Render('product_filter', Locals) %>
