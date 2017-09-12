@@ -179,3 +179,19 @@ GB['hash_query'] = _.extend({}, queryObject.get(), GetHashObj());
 $(function() {
   Belt.get($('.lazy'), 'lazy()');
 });
+
+var GetElementOffset = function(el){
+  var top = 0
+    , left = 0;
+
+  do {
+    top += el.offsetTop  || 0;
+    left += el.offsetLeft || 0;
+    el = el.offsetParent;
+  } while(el);
+
+  return {
+    'top': top
+  , 'left': left
+  };
+};

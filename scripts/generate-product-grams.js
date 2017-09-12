@@ -14,7 +14,8 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Shopify = require('shopify-node-api')
+  , Cheerio = require('cheerio')
+  , Natural = require('natural')
 ;
 
 var O = new Optionall({
@@ -34,70 +35,29 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    '_id': '596404a139f4554967999401'
+
   })
+, 'grams': {}
 , 'skip': 0
-, 'limit': 1
+, 'limit': 500
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'model': 'vendor'
-, 'order': {
-billing_address: {
-first_name: "greg",
-last_name: "selkoe",
-address1: "400 Stuart Street",
-address2: "19D",
-city: "boston",
-province: "MA",
-country: "US",
-zip: "02116",
-phone: "617-216-1013"
-},
-shipping_address: {
-first_name: "greg",
-last_name: "selkoe",
-address1: "1182 Sunset Hills Rd",
-address2: "",
-city: "West Hollywood",
-province: "CA",
-country: "US",
-zip: "90006",
-phone: "6172161013"
-},
-note: "wanderset dropship order #SJUDR2N5Z",
-phone: "6173000585",
-buyer_accepts_marketing: false,
-financial_status: "authorized",
-tags: "wanderset",
-email: "orders@wanderset.com",
-line_items: [
-{
-product_id: 9148811337,
-quantity: 1,
-price: "95.00",
-variant_id: 33510250505
-}
-],
-total_price: "95.00"
-  }
 , 'iterator': function(o, cb){
-    var shopify = new Shopify({
-      'shop': o.shopify.shop
-    , 'shopify_api_key': O.shopify.key
-    , 'access_token': o.shopify.access_token
+    var slug = Belt.arrayDefalse([o.brands.join(' '), Belt.get(o, 'label.us')]).join(' ').toLowerCase().replace(/\W+/g, ' ')
+      , grams = [];
+
+    _.times(3, function(i){
+      grams = grams.concat(Natural.NGrams.ngrams(slug, i + 1));
     });
 
-    shopify.post('/admin/orders.json', {
-      'order': GB.order
-    }, function(err, data){
-      console.log(Belt.stringify(arguments));
-
-      console.log(o.name + ' order ' + Belt.get(data, 'order.id'));
-
-      cb();
+    _.each(grams, function(g){
+      g = g.join(' ');
+      GB.grams[g] = (GB.grams[g] || 0) + 1;
     });
+
+    cb();
   }
 });
 
@@ -109,7 +69,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/admin/' + GB.model + '/list.json'
+        'url': O.host + '/product/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
@@ -129,7 +89,28 @@ Async.waterfall([
       })
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
+, function(cb){
+    var cs = CSV.createWriteStream({
+               'headers': true
+             })
+      , fs = FS.createWriteStream(GB.outpath);
+
+    fs.on('finish', Belt.cw(cb));
+
+    cs.pipe(fs);
+
+    _.each(GB.grams, function(v, k){
+      cs.write({
+        'gram': k
+      , 'count': v
+      });
+    });
+
+    cs.end();
+  }
 ], function(err){
+  console.log(GB.grams)
+
   Spin.stop();
   if (err) Log.error(err);
   return process.exit(err ? 1 : 0);

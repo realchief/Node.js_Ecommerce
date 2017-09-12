@@ -1,3 +1,5 @@
+GB['index'] = GB.skip;
+
 var LoadProductFilter = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
@@ -79,27 +81,23 @@ var LoadProducts = function(options, callback){
 
         if (a.o.append && $('.product-item[data-id="' + d._id + '"]').length || !d.low_price) return;
 
-        html += '<div class="col-md-3 col-sm-4 col-6">'
+        /*html += '<div class="col-md-3 col-sm-4 col-6">'
               + Render('product_item', {
                   'doc': d
                 })
-              + '</div>';
+              + '</div>';*/
 
-/*
         var $el = $('<div class="col-md-3 col-sm-4 col-6">'
                       + Render('product_item', {
                         'doc': d
+                      , 'index': GB.index++
                       })
                     + '</div>');
 
         $('[data-set="products"]')[a.o.append ? 'append' : 'html']($el);
-
-        inViewport($el, function(){
-          console.log(d._id);
-        });*/
       });
 
-      $('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
+      //$('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
 
       $('[data-set="product_listing_nav"]').html(
         Render('product_list_nav', _.extend({}, a.o, gb.data, {
@@ -147,10 +145,37 @@ var ThrottleLoadProducts = _.throttle(function(){
 , 'trailing': false
 });
 
+GB['product_coordinates'] = {};
+
+var GetProductCoordinates = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+
+  });
+
+  $('.product-item').each(function(i, e){
+    GB.product_coordinates[e.getAttribute('data-index')] = GetElementOffset(e);
+  });
+};
+
+var ThrottleGetProductCoordinates = _.throttle(function(){
+  GetProductCoordinates();
+}, 250, {
+  'leading': true
+, 'trailing': false
+});
+
+/*setInterval(function(){
+  GetProductCoordinates();
+}, 300);*/
+
 $(window).scroll(function() {
   if ($(window).scrollTop() + $(window).height() > ($(document).height() * 0.66)){
     ThrottleLoadProducts();
   }
+  ThrottleGetProductCoordinates();
 });
 
 $(document).ready(function(){
