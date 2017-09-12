@@ -43,47 +43,44 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'vendor'
 , 'order': {
-billing_address: {
-first_name: "Drew",
-last_name: "McCarver",
-address1: "30 Ridgecrest Road",
-address2: "",
-city: "Wallingford",
-province: "CT",
-country: "US",
-zip: "06492",
-phone: "8608572037"
-},
-shipping_address: {
-first_name: "Drew",
-last_name: "McCarver",
-address1: "30 Ridgecrest Road",
-address2: "",
-city: "Wallingford",
-province: "CT",
-country: "US",
-zip: "06492",
-phone: "8608572037"
-},
-note: "wanderset dropship order #RJ1FLPQ5",
-phone: "6173000585",
-buyer_accepts_marketing: false,
-financial_status: "authorized",
-tags: "wanderset",
+externalid: "SYEVH9XQZ",
+origin: "wanderset",
+comments: "wanderset dropship order #SYEVH9XQZ",
 email: "orders@wanderset.com",
-line_items: [
+phone: "6173000585",
+firstname: "clinton ",
+surname: "sparks",
+address: "20873, Bridlewood Drive",
+zip: "91384",
+city: "Castaic",
+country: "US",
+recipientfirstname: "clinton ",
+recipientsurname: "sparks",
+recipientaddress: "20873, Bridlewood Drive",
+recipientzip: "91384",
+recipientcity: "Castaic",
+recipientcountry: "US",
+orderlines: [
 {
-product_id: 10505352966,
-quantity: 1,
-price: "59.95",
-variant_id: 42266532038
+item_id: 1,
+quanity: 1,
+productprice: 400,
+totalprice: 400,
+title: "ADIDAS ORIGINALS / X BY O LS TEE / L / BLACK"
+},
+{
+item_id: 2,
+quanity: 1,
+productprice: 500,
+totalprice: 500,
+title: "ADIDAS ORIGINALS / TREFOIL CREW / L / MGREYH/BLACK"
 }
 ],
-total_price: "59.95"
+total: 900
   }
 , 'iterator': function(o, cb){
     Request({
-      'url': 'http://www.sumoshop.dk/api/rest/ordercreate'
+      'url': 'https://www.streetammo.dk/api/rest/ordercreate'
     , 'method': 'post'
     , 'auth': {
         'user': o.custom_sync.details.auth.user

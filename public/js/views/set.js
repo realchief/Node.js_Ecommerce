@@ -346,7 +346,7 @@ $(window).scroll(function() {
     if (Belt.get(GetHashObj(), 'tab') === 'lifestyle'){
       ThrottleLoadSetMedia();
     } else {
-      ThrottleLoadSetProducts();
+      //ThrottleLoadSetProducts();
     }
   }
 });

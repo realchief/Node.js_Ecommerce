@@ -8,7 +8,7 @@ var LoadProductFilter = function(options, callback){
     //skip
     //category
     //sort
-    'limit': Belt.isMobile() ? 48 : 48
+    'limit': Belt.isMobile() ? 24 : 24
   });
 
   GB['product_filter'] = {
@@ -99,12 +99,14 @@ var LoadProducts = function(options, callback){
 
       //$('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
 
+      /*
       $('[data-set="product_listing_nav"]').html(
         Render('product_list_nav', _.extend({}, a.o, gb.data, {
           'Locals': _.extend({}, a.o, gb.data)
         , 'Instance': Instance
         }))
       );
+      */
 
       cb();
     }
@@ -158,6 +160,35 @@ var GetProductCoordinates = function(options, callback){
   $('.product-item').each(function(i, e){
     GB.product_coordinates[e.getAttribute('data-index')] = GetElementOffset(e);
   });
+
+  var doc = document.documentElement
+    , top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+
+  GB['scroll_index'] = _.chain(GB.product_coordinates)
+                        .pick(function(v, k){
+                           return (v.height + v.top) >= top;
+                         })
+                        .keys()
+                        .min(function(k){
+                           return k;
+                         })
+                        .value();
+
+  GB.scroll_index = Belt.cast(GB.scroll_index, 'number');
+
+  $('[data-set="product_listing_nav"]').html(
+    Render('product_list_nav', _.extend({
+      'count': Infinity
+    }, a.o, GB.product_filter, {
+      'skip': GB.scroll_index
+    , 'Locals': _.extend({
+        'count': Infinity
+      }, a.o, GB.product_filter, {
+        'skip': GB.scroll_index
+      })
+    , 'Instance': Instance
+    }))
+  );
 };
 
 var ThrottleGetProductCoordinates = _.throttle(function(){
@@ -172,10 +203,10 @@ var ThrottleGetProductCoordinates = _.throttle(function(){
 }, 300);*/
 
 $(window).scroll(function() {
-  if ($(window).scrollTop() + $(window).height() > ($(document).height() * 0.66)){
+  /*if ($(window).scrollTop() + $(window).height() > ($(document).height() * 0.66)){
     ThrottleLoadProducts();
   }
-  ThrottleGetProductCoordinates();
+  ThrottleGetProductCoordinates();*/
 });
 
 $(document).ready(function(){

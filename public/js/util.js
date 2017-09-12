@@ -182,7 +182,8 @@ $(function() {
 
 var GetElementOffset = function(el){
   var top = 0
-    , left = 0;
+    , left = 0
+    , height = $(el).height();
 
   do {
     top += el.offsetTop  || 0;
@@ -193,5 +194,6 @@ var GetElementOffset = function(el){
   return {
     'top': top
   , 'left': left
+  , 'height': height
   };
 };
