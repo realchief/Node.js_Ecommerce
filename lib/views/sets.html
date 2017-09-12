@@ -16,7 +16,7 @@
                 <div class="col-md-3 col-6">
                   <a href="/set/<%= encodeURIComponent(s.slug || s.name) %>" class="set__item">
                     <div class="set__item__holder">
-                      <img src="<%=
+                      <img data-src="<%=
                          Belt.get(s, 'landing_media.downsample_url')
                       || Belt.get(s, 'landing_media.url')
                       || Belt.get(s, 'logo_media.url')
@@ -26,7 +26,7 @@
                       alt="<%=
                          Belt.get(s, 'landing_label.us')
                       || Instance.sanitizeLabel(Belt.get(s, 'label.us')
-                      || '') %>" class="set__item__img">
+                      || '') %>" class="set__item__img lazy">
                     </div>
                     <span class="set__item__title"><%= Belt.get(s, 'landing_label.us') || (Belt.get(s, 'label.us') || '') %></span>
                   </a>

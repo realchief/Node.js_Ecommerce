@@ -14,13 +14,13 @@
           <% _.each(docs, function(d){ %>
             <div class="col-md-3 col-6">
               <a href="/brand/<%= encodeURIComponent(Belt.get(d, 'slug') || Belt.get(d, 'label.us') || d.name) %>" class="brands__item">
-                 <img src="<%=
+                 <img data-src="<%=
                     Belt.get(d, 'landing_media.url')
                  || Belt.get(d, 'logo_media.url')
                  || Belt.get(d, 'mobile_featured_media.url')
                  || Belt.get(d, 'featured_media.url')
                  %>"
-                 class="brands__item__img"
+                 class="brands__item__img lazy"
                  alt="<%= Belt.get(d, 'slug') || Belt.get(d, 'landing_label.us') || Belt.get(d, 'label.us') || d.name %>"
                  >
               </a>
