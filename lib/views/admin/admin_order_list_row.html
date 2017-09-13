@@ -1,6 +1,9 @@
 <tr class="order" data-id="<%= _id %>">
   <td><%= slug %></td>
   <td>
+    <%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %>
+  </td>
+  <td>
     <% _.each(buyer, function(v, k){ %>
       <p><%= k %>: <strong><%= v %></strong></p>
     <% }) %>
@@ -16,27 +19,49 @@
     <% }) %>
   </td>
   <td>
-    <% _.each(products, function(v){ %>
-      <p>
-        <a href="/product/<%= v.source.product.slug %>" target="_blank">
-          <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
-        </a>
-      </p>
-      <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
-      <p>qty: <%= v.quantity %> | total price: $<%= Instance.priceString(v.price) %> | unit: $<%= Instance.priceString(v.unit_price) %></p>
-      <p>
-        <% if (Instance.vendor_ids[v.source.product.vendor]){ %>
-          <span class="label label-info"><%= Instance.vendor_ids[v.source.product.vendor].name %></span>
-        <% } %>
+    <% _.each(vendor_products, function(v2, k){ %>
+      <% if (Instance.vendor_ids[k]){ %>
+        <p>
+          <span class="label label-info"><%= Instance.vendor_ids[k].name %></span>
+        </p>
+      <% } %>
+      <% _.each(v2, function(v){ %>
+        <p>
+          <a href="/product/<%= v.source.product.slug %>" target="_blank">
+            <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
+          </a>
+        </p>
+        <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
+        <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
         <% if (v.source.order){ %>
-          <span class="label label-success">Order #<%= Belt.get(v, 'source.order.order.id') %></span>
-          <span class="label label-danger">Total Paid $<%= Belt.get(v, 'source.order.order.total_price') %></span>
+          <p>
+            <span class="label label-success">Order #<%= Belt.get(v, 'source.order.order.id') %></span>
+          </p>
         <% } %>
-      </p>
+      <% }) %>
       <hr>
     <% }) %>
   </td>
   <td>
-    <%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %>
+    <% _.each(vendor_orders, function(v2, k){ %>
+      <% if (Instance.vendor_ids[k]){ %>
+        <p>
+          <span class="label label-danger"><%= Instance.vendor_ids[k].name %></span>
+        </p>
+      <% } %>
+      <% _.each(v2, function(v){ %>
+        <p>Order #<%= Belt.get(v, 'order.id') %></p>
+        <p>Total Price $<%= Belt.get(v, 'order.total_price') %></p>
+        <% _.each(Belt.get(v, 'order.line_items'), function(i){ %>
+          <p><%= i.name %> (SKU #<%= i.sku %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price %>)</p>
+        <% }) %>
+        <% _.each(Belt.get(v, 'order.fulfillments'), function(f){ %>
+          <p>
+            <span class="label label-info"><%= Belt.arrayDefalse([f.tracking_company, f.tracking_number]).join(' - ') %></span>
+          </p>
+        <% }) %>
+      <% }) %>
+      <hr>
+    <% }) %>
   </td>
 </tr>
