@@ -29,7 +29,7 @@
   , "its-thinking": "*"
   , "aws-sdk": "*"
   , "bcrypt": "*"
-  , "mime": "*"
+  , "mime": "1.*"
   , "basecmd": "git+ssh://git@github.com/sackio/basecmd.git#master"
   , "wanderset-design": "git+ssh://git@github.com/tinkerpartners/wanderset-design.git#master"
   , "fast-csv": "*"
