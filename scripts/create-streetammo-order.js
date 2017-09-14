@@ -43,40 +43,33 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'vendor'
 , 'order': {
-externalid: "SYEVH9XQZ",
+externalid: "RJQOYG8CB",
 origin: "wanderset",
-comments: "wanderset dropship order #SYEVH9XQZ",
+comments: "wanderset dropship order #RJQOYG8CB",
 email: "orders@wanderset.com",
 phone: "6173000585",
-firstname: "clinton ",
-surname: "sparks",
-address: "20873, Bridlewood Drive",
-zip: "91384",
-city: "Castaic",
+firstname: "carissa",
+surname: "rossi",
+address: "50 Stanhope St., Apt. 3L",
+zip: "11221",
+city: "BROOKLYN",
 country: "US",
-recipientfirstname: "clinton ",
-recipientsurname: "sparks",
-recipientaddress: "20873, Bridlewood Drive",
-recipientzip: "91384",
-recipientcity: "Castaic",
+recipientfirstname: "Carissa",
+recipientsurname: "Rossi",
+recipientaddress: "10 W. 33rd St. Suite 418",
+recipientzip: "10001",
+recipientcity: "New York",
 recipientcountry: "US",
 orderlines: [
 {
 item_id: 1,
 quanity: 1,
-productprice: 400,
-totalprice: 400,
-title: "ADIDAS ORIGINALS / X BY O LS TEE / L / BLACK"
-},
-{
-item_id: 2,
-quanity: 1,
-productprice: 500,
-totalprice: 500,
-title: "ADIDAS ORIGINALS / TREFOIL CREW / L / MGREYH/BLACK"
+productprice: 225,
+totalprice: 225,
+title: "HIGH CALIBER / THE RAW EDGE HOODIE / S / MOSS"
 }
 ],
-total: 900
+total: 225
   }
 , 'iterator': function(o, cb){
     Request({
@@ -86,6 +79,8 @@ total: 900
         'user': o.custom_sync.details.auth.user
       , 'pass': o.custom_sync.details.auth.password
       }
+    , 'body': GB.order
+    , 'json': true
     }, function(err, res, json){
       console.log(err);
       console.log(Belt.stringify(json));
