@@ -149,7 +149,7 @@
     , "create_rest_routes": false
     }
   , "production-daemon": {
-      "host": "https://wanderset.com"
+      "host": "localhost:8853"
     , "domain": "wanderset.com:8853"
     , "express": {
         "port": 8853

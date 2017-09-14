@@ -63,6 +63,7 @@
 
                 <div class="col-xl-10 col-md-9">
                   <div class="row row--flex" data-set="products">
+                    <% Locals.orig_skip = Locals.skip %>
                     <% _.each(docs, function(p){ %>
                       <div class="col-md-3 col-sm-4 col-6">
                         <%= Render('product_item', _.extend({}, Locals, {
@@ -78,10 +79,17 @@
           </div>
         </div>
 
-        <div class="filter hidden-md-up mt-4 mb-3">
+        <div class="filter mt-4 mb-3">
           <div class="container">
+<<<<<<< HEAD
               <div class="d-flex justify-content-md-end" data-set="product_listing_nav">
                 <%= Render('product_list_nav', Locals) %>
+=======
+              <div class="col-lg-6 push-md-top flex flex-item-right justify-content-lg-end justify-content-md-end" data-set="product_listing_nav">
+                <%= Render('product_list_nav', _.extend({}, Locals, {
+                  'skip': Locals.orig_skip
+                })) %>
+>>>>>>> d33260211ad5af1d753dd22a65c3d2d018283d98
               </div>
             </div>
           </div>

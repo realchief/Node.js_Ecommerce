@@ -43,33 +43,54 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'vendor'
 , 'order': {
-externalid: "RJQOYG8CB",
+externalid: "S1OGDMU5Z",
 origin: "wanderset",
-comments: "wanderset dropship order #RJQOYG8CB",
+comments: "wanderset dropship order #S1OGDMU5Z",
 email: "orders@wanderset.com",
 phone: "6173000585",
-firstname: "carissa",
-surname: "rossi",
-address: "50 Stanhope St., Apt. 3L",
-zip: "11221",
-city: "BROOKLYN",
+firstname: "Sylvia",
+surname: "Zurlo",
+address: "223 Powder Point Avenue",
+zip: "02332",
+city: "Duxbury",
 country: "US",
-recipientfirstname: "Carissa",
-recipientsurname: "Rossi",
-recipientaddress: "10 W. 33rd St. Suite 418",
-recipientzip: "10001",
-recipientcity: "New York",
+recipientfirstname: "Sylvia",
+recipientsurname: "Zurlo",
+recipientaddress: "223 Powder Point Avenue",
+recipientzip: "02332",
+recipientcity: "Duxbury",
 recipientcountry: "US",
 orderlines: [
 {
 item_id: 1,
 quanity: 1,
-productprice: 225,
-totalprice: 225,
-title: "HIGH CALIBER / THE RAW EDGE HOODIE / S / MOSS"
+productprice: 120,
+totalprice: 120,
+title: "HIGH CALIBER / THE CLASSIC ENZYME TEE / L / BLACK"
+},
+{
+item_id: 2,
+quanity: 1,
+productprice: 120,
+totalprice: 120,
+title: "HIGH CALIBER / SCOUT TEE / L / ASH GRAY"
+},
+{
+item_id: 3,
+quanity: 1,
+productprice: 50,
+totalprice: 50,
+title: "STREETAMMO / 2-PACKS URBAN ANKLE / OS / BLACK"
+},
+{
+item_id: 4,
+quanity: 1,
+productprice: 130,
+totalprice: 130,
+title: "STREETAMMO / WEATHER SPORT / OS / NAVY"
 }
 ],
-total: 225
+total: 420
   }
 , 'iterator': function(o, cb){
     Request({
@@ -84,6 +105,10 @@ total: 225
     }, function(err, res, json){
       console.log(err);
       console.log(Belt.stringify(json));
+      console.log(json);
+      console.log(res);
+      console.log(Belt.stringify(res));
+      console.log(_.keys(res));
 
       cb();
     });
