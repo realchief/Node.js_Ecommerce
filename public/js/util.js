@@ -84,6 +84,9 @@ Instance['toPercentage'] = function(val){
   return (val * 100).toFixed(2);
 };
 
+Instance['escapeRegExp'] = function(val){
+  return (val || '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+};
 
 Instance['paginationUrl'] = function(options, callback){
   var a = Belt.argulint(arguments)

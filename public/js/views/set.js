@@ -29,10 +29,20 @@ var LoadProductFilter = function(options, callback){
         '$gt': 0
       }
     }, a.o.category ? {
-      'categories': {
-        '$regex': a.o.category
-      , '$options': 'i'
-      }
+      '$or': [
+        {
+          'categories': {
+            '$regex': Instance.escapeRegExp(a.o.category)
+          , '$options': 'i'
+          }
+        }
+      , {
+          'auto_category': {
+            '$regex': Instance.escapeRegExp(a.o.category)
+          , '$options': 'i'
+          }
+        }
+      ]
     } : {})
   , 'sort': a.o.sort || undefined
   };
@@ -77,11 +87,11 @@ var LoadSetProducts = function(options, callback){
         'skip': a.o.skip
       } : {}, a.o.sort ? {
         'sort': a.o.sort
-      } : {}, Belt.get(a.o.query, 'categories.$regex') ? {
-        'category': a.o.query.categories.$regex
+      } : {}, Belt.get(a.o.query, '$or.categories.$regex') ? {
+        'category': a.o.query.$or.categories.$regex
       } : {}));
 
-      if (a.o.sort || Belt.get(a.o.query, 'categories.$regex')) return cb();
+      if (a.o.sort || Belt.get(a.o.query, '$or.categories.$regex')) return cb();
 
       _.extend(a.o.query, {
         '_id': {
@@ -114,7 +124,7 @@ var LoadSetProducts = function(options, callback){
       });
     }
   , function(cb){
-      if (!a.o.sort && !Belt.get(a.o.query, 'categories.$regex')) return cb();
+      if (!a.o.sort && !Belt.get(a.o.query, '$or.categories.$regex')) return cb();
 
       _.extend(a.o.query, {
         '_id': {
@@ -379,10 +389,20 @@ $(document).ready(function(){
   $(document).on('click', 'a[data-category]', function(e){
     e.preventDefault();
 
-    Belt.set(GB.product_filter, 'query.categories', {
-      '$regex': $(this).attr('data-category')
-    , '$options': 'i'
-    });
+    Belt.set(GB.product_filter, 'query.$or', [
+      {
+        'categories': {
+          '$regex': Instance.escapeRegExp($(this).attr('data-category'))
+        , '$options': 'i'
+        }
+      }
+    , {
+        'auto_category': {
+          '$regex': Instance.escapeRegExp($(this).attr('data-category'))
+        , '$options': 'i'
+        }
+      }
+    ]);
 
     GB.product_filter.skip = 0;
 

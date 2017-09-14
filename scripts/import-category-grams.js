@@ -14,6 +14,8 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
+  , Cheerio = require('cheerio')
+  , Natural = require('natural')
 ;
 
 var O = new Optionall({
@@ -33,68 +35,81 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'custom_sync.strategy': 'streetammo'
+
   })
 , 'skip': 0
-, 'limit': 1
+, 'limit': 500
+, 'cat_count': 0
+, 'hide_count': 0
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'model': 'vendor'
-, 'order': {
-externalid: "BJYV3F5B",
-origin: "wanderset",
-comments: "wanderset dropship order #BJYV3F5B",
-email: "orders@wanderset.com",
-phone: "6173000585",
-firstname: "Dannie",
-surname: "Fite",
-address: "4243 Don Felipe Dr.",
-zip: "90008",
-city: "Los Angeles",
-country: "US",
-recipientfirstname: "Dannie",
-recipientsurname: "Fite",
-recipientaddress: "4243 Don Felipe Dr.",
-recipientzip: "90008",
-recipientcity: "Los Angeles",
-recipientcountry: "US",
-orderlines: [
-{
-item_id: 1,
-quanity: 1,
-productprice: 1100,
-totalprice: 1100,
-title: "ADIDAS ORIGINALS / NMD_R2 / US: 10 - UK: 9,5 - EU: 44 / FUTURE HARVEST/FUTURE HARVEST"
-},
-{
-item_id: 2,
-quanity: 1,
-productprice: 1500,
-totalprice: 1500,
-title: "ADIDAS ORIGINALS / NMD_R1 PRIMEKNIT / US: 10 - UK: 9,5 - EU: 44 / CORE BLACK/FOOTWEAR WHITE"
-}
-],
-total: 2600
-  }
 , 'iterator': function(o, cb){
+    var slug = _.map(Belt.arrayDefalse([
+                o.brands.join(' ')
+              , Belt.get(o, 'label.us')
+              , Belt.get(o, 'source.record.product_type')
+              , Belt.get(o, 'source.record.tags')
+              , Belt.get(o, 'source.record.categories')
+              ]), function(k){
+                return Belt.cast(k, 'string');
+              }).join(' ').toLowerCase().replace(/\W+/g, ' ')
+      , grams = [];
+
+    _.times(3, function(i){
+      grams = grams.concat(Natural.NGrams.ngrams(slug, i + 1));
+    });
+
+    _.each(grams, function(g){
+      g = g.join(' ');
+    });
+
+    grams = _.flatten(grams);
+
+    var mgrams = _.filter(GB.grams, function(g){
+          return _.some(grams, function(g2){
+            return g2 === g.gram;
+          });
+        })
+    ;
+
+    if (!_.any(mgrams)) return cb();
+
+    var update = {};
+
+    if (_.some(mgrams, function(m){
+      return m.hide;
+    })){
+      update['hide'] = true;
+    }
+
+    var match = _.max(mgrams, function(m){
+      return (m.category_1 ? 1 : 0)
+           + (m.category_2 ? 1 : 0)
+           + (m.category_3 ? 1 : 0);
+    });
+
+    if (match){
+      match = Belt.arrayDefalse([
+        match.category_1
+      , match.category_2
+      , match.category_3
+      ]).join(' > ');
+
+      if (match) update['auto_category'] = match;
+    }
+
+    if (!_.size(update)) return cb();
+
     Request({
-      'url': 'https://www.streetammo.dk/api/rest/ordercreate'
-    , 'method': 'post'
-    , 'auth': {
-        'user': o.custom_sync.details.auth.user
-      , 'pass': o.custom_sync.details.auth.password
-      }
-    , 'body': GB.order
+      'url': O.host + '/product/' + o._id + '/update.json'
+    , 'auth': GB.auth
+    , 'body': update
     , 'json': true
+    , 'method': 'post'
     }, function(err, res, json){
-      console.log(err);
       console.log(Belt.stringify(json));
-      console.log(json);
-      console.log(res);
-      console.log(Belt.stringify(res));
-      console.log(_.keys(res));
 
       cb();
     });
@@ -105,11 +120,26 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
+    var fs = FS.createReadStream(O.argv.infile);
+
+    GB.grams = [];
+
+    CSV.fromStream(fs, {
+          'headers': true
+        })
+       .on('data', function(d){
+          if (!d.category_1 && !d.category_2 && !d.category_3 && !d.hide) return;
+
+          GB.grams.push(d);
+        })
+       .on('end', Belt.cw(cb));
+  }
+, function(cb){
     var cont;
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/admin/' + GB.model + '/list.json'
+        'url': O.host + '/product/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
