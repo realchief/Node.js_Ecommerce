@@ -11,7 +11,11 @@
           <a href="<%= url + '?t=' + Belt.uuid() %>" target="_blank">
             <img class="img-responsive thumbnail" src="<%= url %>" data-get="<%= path_prefix %>remote_url" data-get-method="attr('src')">
           </a>
-        <% } else { %>
+        <% } else if (typeof remote_url !== 'undefined'){ %>
+          <a href="<%= remote_url %>" target="_blank">
+            <img class="img-responsive thumbnail" src="<%= remote_url %>" data-get="<%= path_prefix %>remote_url" data-get-method="attr('src')">
+          </a>
+        <% } else if (typeof data !== 'undefined'){ %>
           <img class="img-responsive thumbnail" src="<%= data %>" data-get="<%= path_prefix %>file" data-get-method="attr('src')" data-get-transformer="to_blob">
         <% } %>
         <input type="hidden" value="<%= filename %>" data-get="<%= path_prefix %>filename" data-get-method="val()">
