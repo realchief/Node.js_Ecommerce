@@ -43,40 +43,33 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'vendor'
 , 'order': {
-externalid: "BJYV3F5B",
+externalid: "HJVDCO5Z",
 origin: "wanderset",
-comments: "wanderset dropship order #BJYV3F5B",
+comments: "wanderset dropship order #HJVDCO5Z",
 email: "orders@wanderset.com",
 phone: "6173000585",
-firstname: "Dannie",
-surname: "Fite",
-address: "4243 Don Felipe Dr.",
-zip: "90008",
-city: "Los Angeles",
+firstname: "Devin",
+surname: "Hill",
+address: "254 Commonwealth Avenue, #3",
+zip: "02116",
+city: "Boston",
 country: "US",
-recipientfirstname: "Dannie",
-recipientsurname: "Fite",
-recipientaddress: "4243 Don Felipe Dr.",
-recipientzip: "90008",
-recipientcity: "Los Angeles",
+recipientfirstname: "Devin",
+recipientsurname: "Hill",
+recipientaddress: "254 Commonwealth Avenue, #3",
+recipientzip: "02116",
+recipientcity: "Boston",
 recipientcountry: "US",
 orderlines: [
 {
 item_id: 1,
 quanity: 1,
-productprice: 1100,
-totalprice: 1100,
-title: "ADIDAS ORIGINALS / NMD_R2 / US: 10 - UK: 9,5 - EU: 44 / FUTURE HARVEST/FUTURE HARVEST"
-},
-{
-item_id: 2,
-quanity: 1,
-productprice: 1500,
-totalprice: 1500,
-title: "ADIDAS ORIGINALS / NMD_R1 PRIMEKNIT / US: 10 - UK: 9,5 - EU: 44 / CORE BLACK/FOOTWEAR WHITE"
+productprice: 262.5,
+totalprice: 262.5,
+title: "THRASHER / FLAME TEE / M / WHITE"
 }
 ],
-total: 2600
+total: 262.5
   }
 , 'iterator': function(o, cb){
     Request({

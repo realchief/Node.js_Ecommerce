@@ -45,7 +45,15 @@ var GB = _.defaults(O.argv, {
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
-    var slug = Belt.arrayDefalse([o.brands.join(' '), Belt.get(o, 'label.us')]).join(' ').toLowerCase().replace(/\W+/g, ' ')
+    var slug = _.map(Belt.arrayDefalse([
+                o.brands.join(' ')
+              , Belt.get(o, 'label.us')
+              , Belt.get(o, 'source.record.product_type')
+              , Belt.get(o, 'source.record.tags')
+              , Belt.get(o, 'source.record.categories')
+              ]), function(k){
+                return Belt.cast(k, 'string');
+              }).join(' ').toLowerCase().replace(/\W+/g, ' ')
       , grams = [];
 
     _.times(3, function(i){
@@ -54,7 +62,14 @@ var GB = _.defaults(O.argv, {
 
     _.each(grams, function(g){
       g = g.join(' ');
-      GB.grams[g] = (GB.grams[g] || 0) + 1;
+      GB.grams[g] = {
+        'gram': g
+      , 'count': (Belt.get(GB.grams[g], 'count') || 0) + 1
+      , 'category_1': ''
+      , 'category_2': ''
+      , 'category_3': ''
+      , 'hide': ''
+      };
     });
 
     cb();
@@ -65,6 +80,23 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
+    if (!O.argv.infile);
+
+    var fs = FS.createReadStream(O.argv.infile);
+
+    GB.old_grams = {};
+
+    CSV.fromStream(fs, {
+          'headers': true
+        })
+       .on('data', function(d){
+          if (!d.category_1 && !d.category_2 && !d.category_3 && !d.hide) return;
+
+          GB.old_grams[d.gram] = d;
+        })
+       .on('end', Belt.cw(cb));
+  }
+, function(cb){
     var cont;
 
     return Async.doWhilst(function(next){
@@ -90,20 +122,24 @@ Async.waterfall([
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
+    if (!O.argv.infile);
+
+    _.extend(GB.grams, GB.old_grams);
+
+    cb();
+  }
+, function(cb){
     var cs = CSV.createWriteStream({
                'headers': true
              })
-      , fs = FS.createWriteStream(GB.outpath);
+      , fs = FS.createWriteStream(GB.outfile);
 
     fs.on('finish', Belt.cw(cb));
 
     cs.pipe(fs);
 
     _.each(GB.grams, function(v, k){
-      cs.write({
-        'gram': k
-      , 'count': v
-      });
+      cs.write(v);
     });
 
     cs.end();
