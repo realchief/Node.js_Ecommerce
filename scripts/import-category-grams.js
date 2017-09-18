@@ -14,7 +14,6 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
   , Natural = require('natural')
 ;
 
