@@ -14,6 +14,9 @@ var Path = require('path')
   , CP = require('child_process')
   , OS = require('os')
   , XML = require('xml')
+  , Request = require('request')
+  , CSV = require('fast-csv')
+  , Crypto = require('crypto')
 ;
 
 var O = new Optionall({
@@ -34,13 +37,10 @@ var GB = _.defaults(O.argv, {
   , 'sync_hide': {
       '$ne': true
     }
-  /*, 'low_price': {
-      '$gt': 0
-    }*/
-  , 'slug': {
+  , 'label.us': {
       '$exists': true
     }
-  , 'label.us': {
+  , 'media.0': {
       '$exists': true
     }
   }
@@ -50,12 +50,26 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
+, 'google_categories_csv_path': Path.join(O.__dirname, '/resources/assets/google-shopping-categories.csv')
 });
 
 Spin.start();
 
 Async.waterfall([
   function(cb){
+    var fs = FS.createReadStream(GB.google_categories_csv_path);
+
+    GB.google_categories = {};
+
+    CSV.fromStream(fs, {
+          'headers': true
+        })
+       .on('data', function(d){
+          GB.google_categories[d.wanderset_category] = d.google_category_id;
+        })
+       .on('end', Belt.cw(cb));
+  }
+, function(cb){
     if (!O.argv.output) return cb(new Error('output is required'));
 
     var cont;
@@ -67,7 +81,7 @@ Async.waterfall([
         'url': O.host + '/product/list.json'
       , 'auth': GB.auth
       , 'qs': {
-          'query': GB.query
+          'query': Belt.stringify(GB.query)
         , 'skip': GB.skip
         , 'limit': GB.limit
         }
@@ -80,12 +94,83 @@ Async.waterfall([
 
         Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
           GB.products.push(d);
+          cb2();
         }, Belt.cw(next, 0));
       })
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
     GB.time = Moment().format('YYYY-MM-DDTHH:mm:ss.SZ');
+
+    GB.items = [];
+
+    _.each(GB.products, function(p){
+      var brand = (p.brands || []).join(', ') || '';
+      brand += brand ? ' ' : '';
+
+      var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
+
+      var slug = p.slug || p._id;
+
+      _.each(p.configurations, function(v, k){
+        if (!v.price) return;
+
+        var id = Crypto.createHash('md5');
+        id.update(p._id + '::' + k);
+        id = id.digest('hex');
+
+        var item = {
+          'id': id
+        , 'title': brand + p.label.us
+        , 'description': Belt.get(p, 'description.us')
+                      || (_.map(v.options, function(v2, k2){
+                           return k2 + ': ' + v2.value;
+                         }) || []).join(', ')
+                      || cat
+        , 'link': O.host + '/product/' + slug
+                + (!_.size(v.options) ? ''
+                   : '?' + _.map(v.options, function(v2, k2){
+                        return encodeURIComponent(k2) + '=' + encodeURIComponent(v2.value);
+                      }).join('&')
+                  )
+        , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
+        , 'additional_image_link': Belt.get(p, 'media.1.url') || Belt.get(p, 'media.1.remote_url')
+        , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
+        , 'price': v.price.toFixed(2) + ' USD'
+        , 'google_product_category': GB.google_categories[cat]
+        , 'product_type': cat
+        , 'brand': brand || 'Wanderset'
+        , 'identifier_exists': 'no'
+        , 'condition': 'new'
+        , 'adult': 'no'
+        , 'age_group': 'adult'
+        , 'gender': 'male'
+        , 'color': Belt.get(_.find(v.options, function(v2, k2){
+                    return k2.match(/color/i);
+                  }), 'value') || 'one color'
+        , 'size': Belt.get(_.find(v.options, function(v2, k2){
+                    return k2.match(/size/i);
+                  }), 'value') || 'one size'
+        , 'material': Belt.get(_.find(v.options, function(v2, k2){
+                    return k2.match(/material/i);
+                  }), 'value')
+        , 'pattern': Belt.get(_.find(v.options, function(v2, k2){
+                    return k2.match(/pattern/i);
+                  }), 'value')
+        , 'item_group_id': p._id
+        , 'adwords_redirect': O.host + '/product/' + slug
+                + (!_.size(v.options) ? '?utm_source=google_adwords'
+                   : '?' + _.map(v.options, function(v2, k2){
+                        return encodeURIComponent(k2) + '=' + encodeURIComponent(v2.value);
+                      }).join('&') + '&utm_source=google_adwords'
+                  )
+        };
+
+        item = Belt.objDefalse(item);
+
+        GB.items.push(item);
+      });
+    });
 
     var feed = [
       {
@@ -99,28 +184,19 @@ Async.waterfall([
         , {
             'link': 'https://wanderset.com'
           }
-        ].concat(_.map(GB.products, function(s){
+        ].concat(_.map(GB.items, function(s){
           return {
-            'item': [
-              {
-                'id': s.slug
-              }
-            , {
-                'title': s.label.us
-              }
-            , {
-                'description': Belt.get(s, 'description.us') || (s.brands.join(', ') + ' ' + s.label.us)
-              }
-            , {
-                'link': O.host + '/product/' + encodeURIComponent(s.slug)
-              }
-            ]
+            'item': _.map(s, function(v, k){
+              var o = {};
+              o['g:' + k] = v;
+              return o;
+            })
           };
-        })))
+        }))
       }
     ];
 
-    var feed = '<?xml version="1.0"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n' + XML(xml, {'indent': '  '}) + '\n</rss>';
+    var feed = '<?xml version="1.0"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n' + XML(feed, {'indent': '  '}) + '\n</rss>';
 
     return FS.writeFile(O.argv.output, feed, Belt.cw(cb, 0));
   }
