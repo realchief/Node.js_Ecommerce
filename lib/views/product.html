@@ -1,3 +1,7 @@
+<% var conf = _.find(doc.configurations, function(v, k){
+  return true; //_.every(v.options)
+}) %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
@@ -22,14 +26,9 @@
   {
     "@context": "http://schema.org/",
     "@type": "Product",
-    "image": "http://example.com/test.jpg",
+    "image": "",
     "name": "Example Test",
     "description": "This is just a boring example",
-      "offers": {
-      "@type": "Offer",
-      "priceCurrency": "USD",
-      "price": "199.99"
-    }
   }
   </script>
 
@@ -105,7 +104,7 @@
                 <div class="form-group mt40">
                   <div class="row">
                     <div class="col-lg-7 col-md-9">
-                      <button name="add_to_bag" class="btn btn-blueberry btn-huge btn-block disabled">ADD TO BAG</button>
+                      <button name="add_to_bag" class="btn btn-blueberry btn-huge btn-block">ADD TO BAG</button>
                     </div>
                   </div>
                 </div>
