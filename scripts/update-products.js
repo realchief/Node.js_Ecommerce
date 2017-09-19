@@ -34,7 +34,9 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'vendor': '5963cc7339f45549679993d3'
+    'categories.0': {
+      '$exists': true
+    }
   })
 , 'skip': 0
 , 'limit': 500
@@ -49,7 +51,9 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'hide': false
+        'categories': _.map(o.categories, function(c){
+          return c.toLowerCase();
+        })
       }
     , 'json': true
     , 'method': 'post'
