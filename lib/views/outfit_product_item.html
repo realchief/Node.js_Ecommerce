@@ -39,7 +39,7 @@
           return c.options[k].value === o && c.available_quantity > 0;
         });
       }); %>
-      <% var val = Belt.get(vals, '0'); %>
+      <% var val = Request.data()[k] || Belt.get(vals, '0'); %>
       <% if (!val) return; %>
       <div class="form-group" data-option="<%= k %>">
         <div class="row">
