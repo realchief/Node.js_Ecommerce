@@ -162,7 +162,7 @@
                     <div class="col-lg-6">
                       <div name="billing_cardholder_name" class="form-group">
                         <label class="hidden-sm-down">CARDHOLDER’S NAME</label>
-                        <input data-get="billing_cardholder_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="cardholder's name">
+                        <input data-get="billing_cardholder_name" type="text" class="form-control form-control--placeholder-visible-md" placeholder="cardholder's name" data-redact="true">
                         <p class="form-group-error-label"></p>
                       </div>
                     </div>
@@ -172,7 +172,7 @@
                     <div class="col-lg-6">
                       <div name="billing_cardnumber" class="form-group">
                         <label class="hidden-sm-down">CARD NUMBER</label>
-                        <input data-get="billing_cardnumber" type="text" class="form-control form-control--placeholder-visible-md" placeholder="card number">
+                        <input data-get="billing_cardnumber" type="text" class="form-control form-control--placeholder-visible-md" placeholder="card number" data-redact="true">
                         <p class="form-group-error-label"></p>
                       </div>
                     </div>
@@ -182,7 +182,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6">
                       <div name="billing_expiration_month" class="form-group">
                         <label class="hidden-sm-down">EXPIRATION MONTH</label>
-                        <select data-get="billing_expiration_month" class="form-control">
+                        <select data-get="billing_expiration_month" class="form-control" data-redact="true">
                           <% _.times(12, function(i){ %>
                             <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
                             <option value="<%= i %>"><%= i %></option>
@@ -194,7 +194,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6">
                       <div name="billing_expiration_year" class="form-group">
                         <label class="hidden-sm-down">EXPIRATION YEAR</label>
-                        <select data-get="billing_expiration_year" class="form-control">
+                        <select data-get="billing_expiration_year" class="form-control" data-redact="true">
                           <% _.times(10, function(i){ %>
                             <% i = new Date().getFullYear() + i; %>
                             <option value="<%= i %>"><%= i %></option>
@@ -206,7 +206,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-12">
                       <div name="billing_cvc" class="form-group">
                         <label class="hidden-sm-down">SECURITY CODE</label>
-                        <input data-get="billing_cvc" type="text" class="form-control form-control--placeholder-visible-md" placeholder="security code">
+                        <input data-get="billing_cvc" type="text" class="form-control form-control--placeholder-visible-md" placeholder="security code" data-redact="true">
                         <p class="form-group-error-label"></p>
                       </div>
                     </div>
