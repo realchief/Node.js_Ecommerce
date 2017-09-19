@@ -16,6 +16,7 @@ var Path = require('path')
   , XML = require('xml')
   , Request = require('request')
   , CSV = require('fast-csv')
+  , Str = require('underscore.string')
   , Crypto = require('crypto')
 ;
 
@@ -125,7 +126,7 @@ Async.waterfall([
 
         var item = {
           'id': id
-        , 'title': brand + p.label.us
+        , 'title': Str.titleize(brand + p.label.us)
         , 'description': Belt.get(p, 'description.us')
                       || (_.map(v.options, function(v2, k2){
                            return k2 + ': ' + v2.value;
@@ -143,7 +144,7 @@ Async.waterfall([
         , 'price': v.price.toFixed(2) + ' USD'
         , 'google_product_category': GB.google_categories[cat]
         , 'product_type': cat
-        , 'brand': brand || 'Wanderset'
+        , 'brand': Str.titleize(brand) || 'Wanderset'
         , 'identifier_exists': 'no'
         , 'condition': 'new'
         , 'adult': 'no'
@@ -151,13 +152,13 @@ Async.waterfall([
         , 'gender': 'male'
         , 'color': Belt.get(_.find(v.options, function(v2, k2){
                     return k2.match(/color/i);
-                  }), 'value') || 'one color'
+                  }), 'value.toLowerCase()') || 'one color'
         , 'size': Belt.get(_.find(v.options, function(v2, k2){
                     return k2.match(/size/i);
-                  }), 'value') || 'one size'
+                  }), 'value.toLowerCase()') || 'one size'
         , 'material': Belt.get(_.find(v.options, function(v2, k2){
                     return k2.match(/material/i);
-                  }), 'value')
+                  }), 'value.toLowerCase()')
         , 'pattern': Belt.get(_.find(v.options, function(v2, k2){
                     return k2.match(/pattern/i);
                   }), 'value')
