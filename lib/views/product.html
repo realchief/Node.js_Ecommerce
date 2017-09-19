@@ -18,6 +18,21 @@
     <meta property="product:price" content="<%= Instance.priceString(doc.low_price) %>" />
   <% } %>
 
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "image": "http://example.com/test.jpg",
+    "name": "Example Test",
+    "description": "This is just a boring example",
+      "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "199.99"
+    }
+  }
+  </script>
+
   <script>
     var DOC = <%= Belt.stringify(doc) %>;
   </script>
