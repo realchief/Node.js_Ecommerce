@@ -51,6 +51,8 @@ var GB = _.defaults(O.argv, {
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'google_categories_csv_path': Path.join(O.__dirname, '/resources/assets/google-shopping-categories.csv')
+, 'output_path': Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.xml')
+, 'domain': 'https://wanderset.com'
 });
 
 Spin.start();
@@ -70,6 +72,8 @@ Async.waterfall([
        .on('end', Belt.cw(cb));
   }
 , function(cb){
+    O.argv.output = O.argv.output || GB.output_path;
+
     if (!O.argv.output) return cb(new Error('output is required'));
 
     var cont;
@@ -127,7 +131,7 @@ Async.waterfall([
                            return k2 + ': ' + v2.value;
                          }) || []).join(', ')
                       || cat
-        , 'link': O.host + '/product/' + slug
+        , 'link': GB.domain + '/product/' + slug
                 + (!_.size(v.options) ? ''
                    : '?' + _.map(v.options, function(v2, k2){
                         return encodeURIComponent(k2) + '=' + encodeURIComponent(v2.value);
@@ -158,7 +162,7 @@ Async.waterfall([
                     return k2.match(/pattern/i);
                   }), 'value')
         , 'item_group_id': p._id
-        , 'adwords_redirect': O.host + '/product/' + slug
+        , 'adwords_redirect': GB.domain + '/product/' + slug
                 + (!_.size(v.options) ? '?utm_source=google_adwords'
                    : '?' + _.map(v.options, function(v2, k2){
                         return encodeURIComponent(k2) + '=' + encodeURIComponent(v2.value);
@@ -182,7 +186,7 @@ Async.waterfall([
             'description': 'Products on wanderset.com'
           }
         , {
-            'link': 'https://wanderset.com'
+            'link': GB.domain
           }
         ].concat(_.map(GB.items, function(s){
           return {
