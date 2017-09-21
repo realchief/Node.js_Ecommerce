@@ -51,7 +51,7 @@
       <% } %>
       <% _.each(v2, function(v){ %>
         <p>Order #<%= Belt.get(v, 'order.id') %></p>
-        <p>Total Price $<%= Belt.get(v, 'order.total_price') %></p>
+        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') %></p>
         <% _.each(Belt.get(v, 'order.line_items'), function(i){ %>
           <p><%= i.name %> (SKU #<%= i.sku %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price %>)</p>
         <% }) %>

@@ -1,5 +1,8 @@
-<% var conf = _.find(doc.configurations, function(v, k){
-  return true; //_.every(v.options)
+<% var conf = true || _.find(doc.configurations, function(v, k){
+  return _.every(v.options, function(v2, k2){
+    var d = Request.data()[k2];
+    return Belt.isNull(d) || d === v2.value;
+  }) && v.available_quantity > 0;
 }) %>
 
 <!DOCTYPE html>
@@ -32,7 +35,6 @@
 </head>
   <body>
     <%= Render('header', Locals) %>
-
     <main class="main" data-view="ProductView" data-id="<%= doc._id %>">
       <section class="section">
         <div class="container">
