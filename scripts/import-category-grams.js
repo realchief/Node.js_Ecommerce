@@ -80,7 +80,7 @@ var GB = _.defaults(O.argv, {
     if (_.some(mgrams, function(m){
       return m.hide;
     })){
-      update['hide'] = true;
+      update['sync_hide'] = true;
     }
 
     var match = _.max(mgrams, function(m){
