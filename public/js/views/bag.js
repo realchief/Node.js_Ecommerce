@@ -24,7 +24,8 @@ $(document).on('click', '[name="cart_product_save"]', function(e){
 
   }
 
-  $.getJSON('/cart/session/product/' + prod.attr('data-id') + '/quantity/' + qty + '/update.json', function(){
+  $.getJSON('/cart/session/product/' + prod.attr('data-id') + '/quantity/' + qty + '/update.json', function(res){
+    if (Belt.get(res, 'error')) return alert(res.error);
     document.location.reload();
   });
 });
