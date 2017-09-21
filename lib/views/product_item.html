@@ -6,7 +6,7 @@
 >
   <a href="<%= Belt.get(doc, 'low_price') ? '/product/' + (doc.slug || doc._id) : '' %>" class="goods__item__link">
     <% if (Belt.get(doc, 'media.0.url') || Belt.get(doc, 'media.0.remote_url')){ %>
-      <img data-src="<%= doc.media[0].downloaded ? (doc.media[0].downsample_url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" class="goods__img lazy">
+      <img data-src="<%= doc.media[0].downloaded ? (doc.media[0][!(Belt.get(doc, 'brands.0') || '').match(/surf/i) ? 'downsample_url' : 'url'] || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" class="goods__img lazy">
     <% } %>
     <div class="goods__info">
       <% if (Belt.get(doc, 'brands.0')){ %>
