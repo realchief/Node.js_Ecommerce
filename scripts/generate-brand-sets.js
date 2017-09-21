@@ -28,8 +28,8 @@ var Spin = new Spinner(4);
 var GB = _.defaults(O.argv, {
   'mongodb': O.mongodb
 , 'host': 'wanderset.com'
-, 'db': 'staging_wanderset'
-//, 'brand_regex': /Publish Brand/i
+, 'db': 'wanderset'
+, 'brand_regex': /Surf is Dead/i
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
@@ -106,6 +106,7 @@ Async.waterfall([
       var products = _.sample(_.pluck(GB.brands[e], '_id'), 40);
 
       if (set) products = set.products.concat(products);
+console.log(products)
 
       products = _.uniq(products);
 
