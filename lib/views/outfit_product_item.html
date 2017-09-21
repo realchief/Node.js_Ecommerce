@@ -7,7 +7,7 @@
   <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
     <% _.each(doc.media, function(m){ %>
       <div>
-        <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100">
+        <img data-lazy="<%= m.downloaded ? (m.url || m.url) : (m.remote_url || m.url) %>" class="w-100">
       </div>
     <% }) %>
   </div>
@@ -15,7 +15,7 @@
   <div class="gallery__thumbnail gallery__thumbnail--arrow-narrow hidden-sm-down mt10 mb-4" data-slick='{"asNavFor": ".gallery"}'>
     <% _.each(doc.media, function(m, i){ %>
       <div data-slick-index="<%= i %>" class="gallery__thumbnail-item">
-        <img data-lazy="<%= m.downloaded ? (m.downsample_url || m.url) : (m.remote_url || m.url) %>" class="w-100">
+        <img data-lazy="<%= m.downloaded ? (m.url || m.url) : (m.remote_url || m.url) %>" class="w-100">
       </div>
     <% }) %>
   </div>
