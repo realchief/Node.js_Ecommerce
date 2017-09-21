@@ -442,6 +442,7 @@ module.exports = function(options, Instance){
         Async.eachSeries(gb.remove_products || [], function(e, cb2){
           e.set({
             'sync_hide': true
+          , 'hide_note': 'sync - removed when not synced'
           });
 
           e.save(Belt.cw(cb2));

@@ -77,10 +77,13 @@ var GB = _.defaults(O.argv, {
 
     var update = {};
 
-    if (_.some(mgrams, function(m){
+    var hgrams = _.filter(mgrams, function(m){
       return m.hide;
-    })){
+    });
+
+    if (_.any(hgrams)){
       update['sync_hide'] = true;
+      update['hide_note'] = 'grams check: ' + hgrams.join(', ');
     }
 
     var match = _.max(mgrams, function(m){
