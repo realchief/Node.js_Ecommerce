@@ -200,3 +200,24 @@ var GetElementOffset = function(el){
   , 'height': height
   };
 };
+
+var SubscribeEmail = function(){
+  $.post('/email/subscribe.json', {
+    'email': $('[name="subscribe-email"]').val()
+  }, Belt.np);
+
+  $('.modal').modal('hide');
+  alert('Thank you for subscribing!');
+};
+
+$(document).on('submit', '.modal form', function(e){
+  e.preventDefault();
+
+  SubscribeEmail();
+});
+
+$(document).on('click', '[name="email-submit"]', function(e){
+  e.preventDefault();
+
+  SubscribeEmail();
+});
