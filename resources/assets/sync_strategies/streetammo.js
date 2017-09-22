@@ -40,7 +40,7 @@ module.exports = function(options, Instance){
   //, 'nike sportswear'
   , 'urban classics'
   , '40s & shorties'
-  , 'mister tee'
+  //, 'mister tee'
   , 'obey'
   , 'huf'
   //, 'cheap monday'
