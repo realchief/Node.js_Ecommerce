@@ -202,12 +202,21 @@ var GetElementOffset = function(el){
 };
 
 var SubscribeEmail = function(){
+  var email = $('[name="subscribe-email"]').val();
+
+  if (!email) return;
+
   $.post('/email/subscribe.json', {
-    'email': $('[name="subscribe-email"]').val()
+    'email': email
   }, Belt.np);
 
-  $('.modal').modal('hide');
-  alert('Thank you for subscribing!');
+  $('.modal h3').html('Thank you for subscribing!');
+  $('.modal form').hide();
+
+  setTimeout(function(){
+    $('.modal').modal('hide');
+  }, 1000);
+  //alert('Thank you for subscribing!');
 };
 
 $(document).on('submit', '.modal form', function(e){
