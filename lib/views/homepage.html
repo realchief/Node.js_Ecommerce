@@ -264,10 +264,12 @@
     <%= Render('footer', Locals) %>
 
     <%= Render('javascript', Locals) %>
-    <script type="text/javascript" charset="utf-8">
-      setTimeout(function(){
-        $('.modal').modal('show');
-      }, 1000);
-    </script>
+    <% if (!Belt.get(Request, 'session.viewed_homepage')){ %>
+      <script type="text/javascript" charset="utf-8">
+        setTimeout(function(){
+          $('.modal').modal('show');
+        }, 1000);
+      </script>
+    <% } %>
   </body>
 </html>
