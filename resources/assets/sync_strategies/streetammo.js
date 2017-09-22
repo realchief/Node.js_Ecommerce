@@ -34,10 +34,10 @@ module.exports = function(options, Instance){
   , 'element'
   , 'birkenstock'
   , 'converse'
-  , 'nike sb'
+  //, 'nike sb'
   , 'stüssy'
   , 'stussy'
-  , 'nike sportswear'
+  //, 'nike sportswear'
   , 'urban classics'
   , '40s & shorties'
   , 'mister tee'
@@ -53,7 +53,7 @@ module.exports = function(options, Instance){
   , 'usgoodz'
   , 'supra'
   , 'other'
-  , 'nike'
+//  , 'nike'
   ].join('|'), 'i');
 
   S['UpdateProduct'] = function(options, callback){
