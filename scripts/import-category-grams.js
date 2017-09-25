@@ -108,6 +108,8 @@ var GB = _.defaults(O.argv, {
 
     if (!_.size(update)) return cb();
 
+    update['skip_media_processing'] = true;
+
     Request({
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
