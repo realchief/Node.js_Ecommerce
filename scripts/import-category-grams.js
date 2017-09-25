@@ -38,6 +38,7 @@ var GB = _.defaults(O.argv, {
   })
 , 'skip': 0
 , 'limit': 500
+, 'sort': '-created_at'
 , 'cat_count': 0
 , 'hide_count': 0
 , 'auth': {
@@ -149,6 +150,7 @@ Async.waterfall([
           'query': GB.query
         , 'skip': GB.skip
         , 'limit': GB.limit
+        , 'sort': GB.sort
         }
       , 'method': 'get'
       , 'json': true
