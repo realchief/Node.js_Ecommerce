@@ -67,11 +67,14 @@ var GB = _.defaults(O.argv, {
 
     grams = _.flatten(grams);
 
-    var mgrams = _.filter(GB.grams, function(g){
-          return _.some(grams, function(g2){
-            return g2 === g.gram;
-          });
-        })
+    var mgrams = _.chain(grams)
+                  .filter(function(g){
+                    return GB.grams[g];
+                   })
+                  .map(function(g){
+                    return GB.grams[g];
+                   })
+                  .value()
     ;
 
     if (!_.any(mgrams)) return cb();
@@ -127,7 +130,7 @@ Async.waterfall([
   function(cb){
     var fs = FS.createReadStream(O.argv.infile);
 
-    GB.grams = [];
+    GB['grams'] = {};
 
     CSV.fromStream(fs, {
           'headers': true
@@ -135,7 +138,7 @@ Async.waterfall([
        .on('data', function(d){
           if (!d.category_1 && !d.category_2 && !d.category_3 && !d.hide) return;
 
-          GB.grams.push(d);
+          GB.grams[d.gram] = d;
         })
        .on('end', Belt.cw(cb));
   }
