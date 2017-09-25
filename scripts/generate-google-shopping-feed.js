@@ -145,6 +145,7 @@ Async.waterfall([
         , 'google_product_category': GB.google_categories[cat]
         , 'product_type': cat
         , 'brand': Str.titleize(brand) || 'Wanderset'
+        , 'gtin': 'no'
         , 'identifier_exists': 'no'
         , 'condition': 'new'
         , 'adult': 'no'

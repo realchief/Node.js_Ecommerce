@@ -43,33 +43,33 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'vendor'
 , 'order': {
-externalid: "HJVDCO5Z",
+externalid: "BYIEJASZ",
 origin: "wanderset",
-comments: "wanderset dropship order #HJVDCO5Z",
+comments: "wanderset dropship order #BYIEJASZ",
 email: "orders@wanderset.com",
 phone: "6173000585",
-firstname: "Devin",
-surname: "Hill",
-address: "254 Commonwealth Avenue, #3",
-zip: "02116",
-city: "Boston",
+firstname: "Garrett",
+surname: "Gaston",
+address: "11 Marbella",
+zip: "92673",
+city: "San Clemente",
 country: "US",
-recipientfirstname: "Devin",
-recipientsurname: "Hill",
-recipientaddress: "254 Commonwealth Avenue, #3",
-recipientzip: "02116",
-recipientcity: "Boston",
+recipientfirstname: "Garrett",
+recipientsurname: "Gaston",
+recipientaddress: "1769 East Walnut Street , Apartment #4011",
+recipientzip: "91106",
+recipientcity: "Pasadena",
 recipientcountry: "US",
 orderlines: [
 {
 item_id: 1,
-quanity: 1,
-productprice: 262.5,
-totalprice: 262.5,
-title: "THRASHER / FLAME TEE / M / WHITE"
+quantity: 1,
+productprice: 400,
+totalprice: 400,
+title: "PUMA / ARCHIVE T7 TRACK PANTS / L / OLIVE"
 }
 ],
-total: 262.5
+total: 400
   }
 , 'iterator': function(o, cb){
     Request({
