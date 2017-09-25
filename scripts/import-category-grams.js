@@ -68,6 +68,8 @@ var GB = _.defaults(O.argv, {
 
     var mgrams = _.filter(GB.grams, function(g){
           return _.some(grams, function(g2){
+if (g2.match(/gift card/i)) console.log(g)
+
             return g2 === g.gram;
           });
         })
@@ -111,12 +113,14 @@ var GB = _.defaults(O.argv, {
     , 'json': true
     , 'method': 'post'
     }, function(err, res, json){
-      console.log(Belt.stringify(json));
+      //console.log(Belt.stringify(json));
 
       cb();
     });
   }
 });
+
+O.argv.infile = O.argv.infile || Path.join(O.__dirname, '/resources/assets/category-grams.csv');
 
 Spin.start();
 
