@@ -84,7 +84,7 @@ var GB = _.defaults(O.argv, {
 
     if (_.any(hgrams)){
       update['sync_hide'] = true;
-      update['hide_note'] = 'grams check: ' + hgrams.join(', ');
+      update['hide_note'] = 'grams check: ' + _.pluck(hgrams, 'gram').join(', ');
     }
 
     var match = _.max(mgrams, function(m){
