@@ -60,16 +60,14 @@ var GB = _.defaults(O.argv, {
       grams = grams.concat(Natural.NGrams.ngrams(slug, i + 1));
     });
 
-    _.each(grams, function(g){
-      g = g.join(' ');
+    grams = _.map(grams, function(g){
+      return g.join(' ');
     });
 
     grams = _.flatten(grams);
 
     var mgrams = _.filter(GB.grams, function(g){
           return _.some(grams, function(g2){
-if (g2.match(/gift card/i)) console.log(g)
-
             return g2 === g.gram;
           });
         })
