@@ -34,8 +34,11 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'categories.0': {
-      '$exists': true
+    'slug': {
+      '$in': [
+"mister-tee-bitch-please-hoody-gra-rym88zatb", "mister-tee-99-problems-crew-sort-s1uilbcy", "mister-tee-chill-hoody-sort-s1dxo9ycb", "mister-tee-deadline-tee-black-l-hyfafo19w", "mister-tee-99-problems-t-shirt-b1hvxik5z", "mister-tee-amk-tee-black-l-skppqij9b", "mister-tee-chilluminati-2-0-hoody-black-l-hk9xei1qb", "mister-tee-thug-life-skull-tee-black-l-s1-zvojc", "mister-tee-99-problems-bandana-crewneck-black-l-sk-sgjxqz", "mister-tee-99-problems-block-camo-tee-black-l-b18sgjgqb", "mister-tee-shit-is-dope-bucket-hat-black-one-size-b1nlwkxc", "mister-tee-pray-city-hoody-black-l-hyjd0yg5z", "mister-tee-hgh-hoody-charcoal-syarislcb", "mister-tee-dollar-tee-black-skinibx9b", "mister-tee-i-got-enemies-tee-black-3xl-hjp2nhe9w", "mister-tee-gangsta-rap-tee-white-l-skcw6req", "mister-tee-dope-shit-tee-black-l-rybhprx9w", "mister-tee-deadline-crewneck-black-l-hy0lthx9", "mister-tee-shit-is-dope-snapback-blk-silver-one-size-s1pkasgc", "mister-tee-chilluminati-snapback-one-size-bylo6hl9b"
+, "mister-tee-99-problems-cap-hksz0hlqb", "mister-tee-99-problems-desert-camo-tee-white-l-bjauasecb", "mister-tee-99-problems-bandana-tee-white-l-bylccblc", "mister-tee-i-got-enemies-hoody-rjjjrrl5b", "mister-tee-thug-life-old-english-tee-white-l-sy8klue5w", "mister-tee-dollar-snapback-green-one-size-bj4mjhlcb", "mister-tee-switch-dope-tee-black-l-r1umi2eq", "mister-tee-thug-life-cities-tee-black-l-h1cls2g9b"
+]
     }
   })
 , 'skip': 0
@@ -51,9 +54,8 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/product/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'categories': _.map(o.categories, function(c){
-          return c.toLowerCase();
-        })
+        'hide': true
+      , 'hide_note': 'Requested mister tee hide'
       }
     , 'json': true
     , 'method': 'post'
