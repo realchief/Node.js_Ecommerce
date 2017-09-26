@@ -28,6 +28,8 @@ var Spin = new Spinner(4);
 
 var GB = {};
 
+O.host = 'https://wanderset.com';
+
 Spin.start();
 
 Async.waterfall([
