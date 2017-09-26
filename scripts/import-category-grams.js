@@ -34,7 +34,9 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-
+    'show': {
+      '$ne': true
+    }
   })
 , 'skip': 0
 , 'limit': 500
