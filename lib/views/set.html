@@ -12,7 +12,7 @@
           return {
             "@type": "ListItem",
             "position": i + 1,
-            "url": Settings.host + '/product/' + encodeURIComponent(d.slug || d._id)
+            "url": Settings.host + '/product/' + encodeURIComponent(d)
           };
         })) %>
       }
@@ -28,7 +28,7 @@
           return {
             "@type": "ListItem",
             "position": i + 1,
-            "url": Settings.host + '/media/' + encodeURIComponent(d.slug || d._id)
+            "url": Settings.host + '/media/' + encodeURIComponent(d)
           };
         })) %>
       }
