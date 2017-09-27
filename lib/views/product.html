@@ -15,11 +15,11 @@
   <% var cat = Belt.get(doc, 'categories.0') || Belt.get(doc, 'auto_category'); %>
   <% var brand = (doc.brands || []).join(', '); %>
   <% var title =  Belt.get(doc, 'label.us') || doc.name; %>
-  <% var desc = Belt.get(doc, 'description.us')
+  <% var desc = Str.stripTags(Belt.get(doc, 'description.us')
                 || _.map(Belt.get(configuration, 'options'), function(v, k){
                      return k + ': ' + v.value;
                    }).join(', ')
-                || cat;  %>
+                || cat);  %>
   <% var price = Instance.priceString(configuration.price); %>
   <% var in_stock = Belt.get(configuration, 'available_quantity') > 0 ? true : false; %>
   <% var related_configurations = Belt.arrayDefalse(_.map(doc.configurations, function(v, k){
@@ -36,6 +36,7 @@
 
   <meta property="og:title" content="<%= title %>" />
   <meta property="og:type" content="product" />
+  <meta property="og:description" content="<%= desc %>" />
   <meta property="og:url" content="<%= Settings.host + Request.originalUrl %>" />
   <% _.each(doc.media, function(m){ %>
     <meta property="og:image" content="<%= m.url || m.remote_url %>" />
