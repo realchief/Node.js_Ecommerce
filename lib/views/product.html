@@ -49,33 +49,33 @@
     <meta property="og:image:height" content="<%= Belt.get(m, 'metadata.height') %>" />
   <% }) %>
   <meta property="og:site_name" content="Wanderset" />
-  <meta property="product:brand" content="<%= brand %>" />
+  <meta property="og:brand" content="<%= brand %>" />
   <% if (cat){ %>
-    <meta property="product:category" content="<%= cat %>" />
+    <meta property="og:category" content="<%= cat %>" />
   <% } %>
   <% if (color){ %>
-    <meta property="product:color" content="<%= color %>" />
+    <meta property="og:color" content="<%= color %>" />
   <% } %>
   <% if (size){ %>
-    <meta property="product:size" content="<%= size %>" />
+    <meta property="og:size" content="<%= size %>" />
   <% } %>
   <% if (material){ %>
-    <meta property="product:material" content="<%= material %>" />
+    <meta property="og:material" content="<%= material %>" />
   <% } %>
-  <meta property="product:condition" content="new" />
+  <meta property="og:condition" content="new" />
   <% if (configuration){ %>
-    <meta property="product:upc" content="<%= configuration.sku %>" />
-    <meta property="product:price:amount" content="<%= price %>" />
-    <meta property="product:price:currency" content="USD" />
-    <meta property="product:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
+    <meta property="og:upc" content="<%= configuration.sku %>" />
+    <meta property="og:price:amount" content="<%= price %>" />
+    <meta property="og:price:currency" content="USD" />
+    <meta property="og:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
   <% } %>
-  <meta property="product:is_product_shareable" content="true" />
-  <meta property="product:retailer" content="196413280801734" />
-  <meta property="product:retailer_category" content="clothing" />
-  <meta property="product:retailer_title" content="Wanderset" />
-  <meta property="product:shipping_cost:amount" content="0.00" />
-  <meta property="product:shipping_cost:currency" content="USD" />
-  <meta property="product:target_gender" content="male" />
+  <meta property="og:is_og_shareable" content="true" />
+  <meta property="og:retailer" content="196413280801734" />
+  <meta property="og:retailer_category" content="clothing" />
+  <meta property="og:retailer_title" content="Wanderset" />
+  <meta property="og:shipping_cost:amount" content="0.00" />
+  <meta property="og:shipping_cost:currency" content="USD" />
+  <meta property="og:target_gender" content="male" />
   <% _.each(related_configurations, function(c){ %>
     <meta property="og:see_also" content="<%= c.url %>" />
   <% }) %>
