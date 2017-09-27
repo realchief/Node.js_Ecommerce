@@ -120,24 +120,22 @@ Async.waterfall([
       _.each(p.configurations, function(v, k){
         if (!v.price) return;
 
-        var id = Crypto.createHash('md5');
-        id.update(p._id + '::' + k);
-        id = id.digest('hex');
+        var url = GB.domain + '/product/' + slug
+                + (!_.size(v.options) ? ''
+                   :  _.map(v.options, function(v2, k2){
+                        return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
+                      }).join('')
+                  );
 
         var item = {
-          'id': id
+          'id': v.sku
         , 'title': Str.titleize(brand + p.label.us)
         , 'description': Belt.get(p, 'description.us')
                       || (_.map(v.options, function(v2, k2){
                            return k2 + ': ' + v2.value;
                          }) || []).join(', ')
                       || cat
-        , 'link': GB.domain + '/product/' + slug
-                + (!_.size(v.options) ? ''
-                   :  _.map(v.options, function(v2, k2){
-                        return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
-                      }).join('')
-                  )
+        , 'link': url
         , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
         , 'additional_image_link': Belt.get(p, 'media.1.url') || Belt.get(p, 'media.1.remote_url')
         , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
@@ -164,12 +162,7 @@ Async.waterfall([
                     return k2.match(/pattern/i);
                   }), 'value')
         , 'item_group_id': p._id
-        , 'adwords_redirect': GB.domain + '/product/' + slug
-                + (!_.size(v.options) ? '?utm_source=google_adwords'
-                   :  _.map(v.options, function(v2, k2){
-                        return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
-                      }).join('') + '?utm_source=google_adwords'
-                  )
+        , 'adwords_redirect': url + '?utm_source=google_adwords'
         };
 
         item = Belt.objDefalse(item);

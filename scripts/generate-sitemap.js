@@ -39,7 +39,7 @@ Async.waterfall([
     GB['server'] = new require(O.__dirname + '/lib/server.js')(O);
     GB.server.on('ready', Belt.cw(cb));
   }
-, function(cb){
+/*, function(cb){
     return GB.server.db.model('product').find({
       'hide': {
         '$ne': true
@@ -54,6 +54,51 @@ Async.waterfall([
         '$exists': true
       }
     }, {'slug': 1}, Belt.cs(cb, GB, 'products', 1, 0));
+  }*/
+  }
+, function(cb){
+    var cont;
+
+    GB['products'] = [];
+
+    return Async.doWhilst(function(next){
+      Request({
+        'url': O.host + '/product/list.json'
+      , 'auth': {
+          'user': _.keys(O.admin_users)[0]
+        , 'pass': _.values(O.admin_users)[0]
+        }
+      , 'qs': {
+          'query': Belt.stringify({
+            'hide': {
+              '$ne': true
+            }
+          , 'sync_hide': {
+              '$ne': true
+            }
+          , 'label.us': {
+              '$exists': true
+            }
+          , 'media.0': {
+              '$exists': true
+            }
+          })
+        , 'skip': 0
+        , 'limit': 500
+        }
+      , 'method': 'get'
+      , 'json': true
+      }, function(err, res, json){
+        cont = _.any(Belt.get(json, 'data')) ? true : false;
+        GB.skip += GB.limit;
+        console.log(GB.skip);
+
+        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
+          GB.products.push(d);
+          cb2();
+        }, Belt.cw(next, 0));
+      })
+    }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
     return GB.server.db.model('set').find({
@@ -193,18 +238,22 @@ Async.waterfall([
             ]
           };
         }));
-      }))).concat(_.map(GB.products, function(s){
-        return {
-          'url': [
-            {
-              'loc': O.host + '/product/' + encodeURIComponent(s.slug)
-            }
-          , {
-              'lastmod': GB.time
-            }
-          ]
-        };
-      })).concat(_.map(GB.media, function(s){
+      }))).concat(_.flatten(_.map(GB.products, function(s){
+        return _.map(s.configurations, function(v, k){
+          return {
+            'url': [
+              {
+                'loc': O.host + '/product/' + encodeURIComponent(s.slug) + _.map(v.options, function(v2, k2){
+                  return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
+                }).join('')
+              }
+            , {
+                'lastmod': GB.time
+              }
+            ]
+          };
+        });
+      }))).concat(_.map(GB.media, function(s){
         return {
           'url': [
             {
