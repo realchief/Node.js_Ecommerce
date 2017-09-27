@@ -19,22 +19,6 @@
       </script>
     <% } %>
 
-    <% if (_.any(doc.media)){ %>
-      <script type="application/ld+json">
-      {
-        "@context":"http://schema.org",
-        "@type":"ItemList",
-        "itemListElement": <%= Belt.stringify(_.map(doc.media, function(d, i){
-          return {
-            "@type": "ListItem",
-            "position": i + 1,
-            "url": Settings.host + '/media/' + encodeURIComponent(d)
-          };
-        })) %>
-      }
-      </script>
-    <% } %>
-
   </head>
   <body>
     <%= Render('header', Locals) %>
