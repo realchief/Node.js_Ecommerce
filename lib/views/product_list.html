@@ -2,6 +2,21 @@
 <html lang="en">
   <head>
     <%= Render('head', Locals) %>
+
+    <script type="application/ld+json">
+    {
+      "@context":"http://schema.org",
+      "@type":"ItemList",
+      "itemListElement": <%= Belt.stringify(_.map(docs, function(d, i){
+        return {
+          "@type": "ListItem",
+          "position": i + 1,
+          "url": Settings.host + '/product/' + encodeURIComponent(d.slug || d._id)
+        };
+      })) %>
+    }
+    </script>
+
   </head>
   <body>
     <%= Render('header', Locals) %>

@@ -28,7 +28,7 @@
     return {
       "@type": "Product",
       "sku": v.sku,
-      "url": Settings.host + '/product/' + (doc.slug || doc._id) + _.map(v.options, function(v2, k2){
+      "url": Settings.host + '/product/' + encodeURIComponent(doc.slug || doc._id) + _.map(v.options, function(v2, k2){
         return '/' + k2 + '/' + v2.value;
       }).join('')
     };
