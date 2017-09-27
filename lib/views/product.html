@@ -19,7 +19,48 @@
   <% } %>
 
   <script type="application/ld+json">
-
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "name": "<%= Belt.get(doc, 'label.us') || doc.name %>",
+      "url": "<%= Settings.host + Request.originalUrl %>",
+      "image": <%= Belt.stringify(_.map(doc.media, function(m){
+        return m.url || m.remote_url
+      })) %>,
+      "description": "<%= Belt.get(doc, 'description.us') || _.map(Belt.get(configuration, 'options'), function(v, k){ return k + ': ' + v.value; }).join(', ') || Belt.get(doc, 'categories.0') || Belt.get(doc, 'auto_category') %>",
+      "brand": {
+        "@type": "Thing",
+        "name": "<%= doc.brands.join(', ') %>"
+      },
+      <% if (Belt.get(doc, 'categories.0') || doc.auto_category){ %>
+        "category": "<%= Belt.get(doc, 'categories.0') || doc.auto_category %>"
+      <% } %>
+      <% if (configuration){ %>
+        <% var color = _.find(configuration.options, function(v, k){
+          return k.match(/color/i);
+        }); %>
+        <% if (color){ %>
+          "color": "<%= color.value %>",
+        <% } %>
+        <% var material = _.find(configuration.options, function(v, k){
+          return k.match(/material/i);
+        }); %>
+        <% if (material){ %>
+          "material": "<%= material.value %>",
+        <% } %>
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "price": "<%= Instance.priceString(configuration.price) %>",
+          "itemCondition": "http://schema.org/NewCondition",
+          "availability": "http://schema.org/<%= configuration.available_quantity > 0 ? 'InStock' : 'OutOfStock' %>",
+          "seller": {
+            "@type": "Organization",
+            "name": "Wanderset"
+          }
+        }
+      <% } %>
+    }
   </script>
 
   <script>
