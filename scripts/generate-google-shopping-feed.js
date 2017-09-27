@@ -134,9 +134,9 @@ Async.waterfall([
                       || cat
         , 'link': GB.domain + '/product/' + slug
                 + (!_.size(v.options) ? ''
-                   : '?' + _.map(v.options, function(v2, k2){
-                        return encodeURIComponent(k2) + '=' + encodeURIComponent(v2.value);
-                      }).join('&')
+                   :  _.map(v.options, function(v2, k2){
+                        return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
+                      }).join('')
                   )
         , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
         , 'additional_image_link': Belt.get(p, 'media.1.url') || Belt.get(p, 'media.1.remote_url')
@@ -166,9 +166,9 @@ Async.waterfall([
         , 'item_group_id': p._id
         , 'adwords_redirect': GB.domain + '/product/' + slug
                 + (!_.size(v.options) ? '?utm_source=google_adwords'
-                   : '?' + _.map(v.options, function(v2, k2){
-                        return encodeURIComponent(k2) + '=' + encodeURIComponent(v2.value);
-                      }).join('&') + '&utm_source=google_adwords'
+                   :  _.map(v.options, function(v2, k2){
+                        return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
+                      }).join('') + '?utm_source=google_adwords'
                   )
         };
 
