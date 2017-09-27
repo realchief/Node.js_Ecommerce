@@ -3,57 +3,109 @@
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
   <%= Render('head', Locals) %>
 
-  <meta property="og:title" content="<%= Belt.get(doc, 'label.us') %>" />
+  <% var color = _.find(Belt.get(configuration, 'options'), function(v, k){
+    return k.match(/color/i);
+  }); %>
+  <% var material = _.find(Belt.get(configuration, 'options'), function(v, k){
+    return k.match(/material/i);
+  }); %>
+  <% var size = _.find(Belt.get(configuration, 'size'), function(v, k){
+    return k.match(/size/i);
+  }); %>
+  <% var cat = Belt.get(doc, 'categories.0') || Belt.get(doc, 'auto_category'); %>
+  <% var brand = (doc.brands || []).join(', '); %>
+  <% var title =  Belt.get(doc, 'label.us') || doc.name; %>
+  <% var desc = Belt.get(doc, 'description.us')
+                || _.map(Belt.get(configuration, 'options'), function(v, k){
+                     return k + ': ' + v.value;
+                   }).join(', ')
+                || cat;  %>
+  <% var price = Instance.priceString(configuration.price); %>
+  <% var in_stock = Belt.get(configuration, 'available_quantity') > 0 ? true : false; %>
+  <% var related_configurations = Belt.arrayDefalse(_.map(doc.configurations, function(v, k){
+    if (v.sku === Belt.get(configuration, 'sku')) return false;
+
+    return {
+      "@type": "Product",
+      "sku": v.sku,
+      "url": Settings.host + '/product/' + (doc.slug || doc._id) + _.map(v.options, function(v2, k2){
+        return '/' + k2 + '/' + v2.value;
+      }).join('')
+    };
+  })); %>
+
+  <meta property="og:title" content="<%= title %>" />
   <meta property="og:type" content="product" />
   <meta property="og:url" content="<%= Settings.host + Request.originalUrl %>" />
-  <% if (Belt.get(doc, 'media.0')){ %>
-    <meta property="og:image" content="<%= doc.media[0].downloaded ? (doc.media[0].url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" />
+  <% _.each(doc.media, function(m){ %>
+    <meta property="og:image" content="<%= m.url || m.remote_url %>" />
+  <% }) %>
+  <meta property="og:site_name" content="Wanderset" />
+  <meta property="product:brand" content="<%= brand %>" />
+  <% if (cat){ %>
+    <meta property="product:category" content="<%= cat %>" />
   <% } %>
-  <meta property="og:site_name" content="WANDERSET" />
-  <meta property="product:availability" content="instock" />
-  <% if (Belt.get(doc, 'brands.0')){ %>
-    <meta property="product:brand" content="<%= doc.brands[0] %>" />
+  <% if (color){ %>
+    <meta property="product:color" content="<%= color %>" />
   <% } %>
+  <% if (size){ %>
+    <meta property="product:size" content="<%= size %>" />
+  <% } %>
+  <% if (material){ %>
+    <meta property="product:material" content="<%= material %>" />
+  <% } %>
+  <meta property="product:condition" content="new" />
   <% if (configuration){ %>
-    <meta property="product:price" content="<%= Instance.priceString(configuration.price) %>" />
+    <meta property="product:upc" content="<%= configuration.sku %>" />
+    <meta property="product:price:amount" content="<%= price %>" />
+    <meta property="product:price:currency" content="USD" />
+    <meta property="product:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
   <% } %>
+  <meta property="product:is_product_shareable" content="true" />
+  <meta property="product:retailer" content="196413280801734" />
+  <meta property="product:retailer_category" content="clothing" />
+  <meta property="product:retailer_title" content="Wanderset" />
+  <meta property="product:shipping_cost:amount" content="0.00" />
+  <meta property="product:shipping_cost:currency" content="USD" />
+  <meta property="product:target_gender" content="male" />
+  <% _.each(related_configurations, function(c){ %>
+    <meta property="og:see_also" content="<%= c.url %>" />
+  <% }) %>
 
   <script type="application/ld+json">
     {
       "@context": "http://schema.org/",
       "@type": "Product",
-      "name": "<%= Belt.get(doc, 'label.us') || doc.name %>",
+      "name": "<%= title %>",
       "url": "<%= Settings.host + Request.originalUrl %>",
       "image": <%= Belt.stringify(_.map(doc.media, function(m){
         return m.url || m.remote_url
       })) %>,
-      "description": "<%= Belt.get(doc, 'description.us') || _.map(Belt.get(configuration, 'options'), function(v, k){ return k + ': ' + v.value; }).join(', ') || Belt.get(doc, 'categories.0') || Belt.get(doc, 'auto_category') %>",
+      "description": "<%= desc %>",
       "brand": {
         "@type": "Thing",
-        "name": "<%= doc.brands.join(', ') %>"
+        "name": "<%= brand %>"
       },
-      <% if (Belt.get(doc, 'categories.0') || doc.auto_category){ %>
-        "category": "<%= Belt.get(doc, 'categories.0') || doc.auto_category %>",
+      <% if (cat){ %>
+        "category": "<%= cat %>",
+      <% } %>
+      <% if (_.any(related_configurations)){ %>
+        "isRelatedTo": <%= Belt.stringify(related_configurations) %>
+      <% } %>
+      <% if (color){ %>
+        "color": "<%= color.value %>",
+      <% } %>
+      <% if (material){ %>
+        "material": "<%= material.value %>",
       <% } %>
       <% if (configuration){ %>
-        <% var color = _.find(configuration.options, function(v, k){
-          return k.match(/color/i);
-        }); %>
-        <% if (color){ %>
-          "color": "<%= color.value %>",
-        <% } %>
-        <% var material = _.find(configuration.options, function(v, k){
-          return k.match(/material/i);
-        }); %>
-        <% if (material){ %>
-          "material": "<%= material.value %>",
-        <% } %>
+        "sku": "<%= configuration.sku %>",
         "offers": {
           "@type": "Offer",
           "priceCurrency": "USD",
-          "price": "<%= Instance.priceString(configuration.price) %>",
+          "price": "<%= price %>",
           "itemCondition": "http://schema.org/NewCondition",
-          "availability": "http://schema.org/<%= configuration.available_quantity > 0 ? 'InStock' : 'OutOfStock' %>",
+          "availability": "http://schema.org/<%= in_stock ? 'InStock' : 'OutOfStock' %>",
           "seller": {
             "@type": "Organization",
             "name": "Wanderset"
@@ -62,7 +114,6 @@
       <% } %>
     }
   </script>
-
   <script>
     var DOC = <%= Belt.stringify(doc) %>;
   </script>
@@ -77,7 +128,7 @@
               <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
                 <% _.each(doc.media, function(m){ %>
                   <div>
-                    <img data-lazy="<%= m.downloaded ? (m.url || m.url) : (m.remote_url || m.url) %>" class="w-100">
+                    <img data-lazy="<%= m.url || m.remote_url %>" class="w-100">
                   </div>
                 <% }) %>
               </div>
@@ -85,7 +136,7 @@
               <div class="gallery__thumbnail hidden-sm-down mt10" data-slick='{"asNavFor": ".gallery"}'>
                 <% _.each(doc.media, function(m, i){ %>
                   <div data-slick-index="<%= i %>" class="gallery__thumbnail-item">
-                    <img data-lazy="<%= m.downloaded ? (m.url || m.url) : (m.remote_url || m.url) %>" class="w-100">
+                    <img data-lazy="<%= m.url || m.remote_url %>" class="w-100">
                   </div>
                 <% }) %>
               </div>
