@@ -3,9 +3,9 @@
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
   <%= Render('head', Locals) %>
 
-  <meta property="og:title" content="<%= Belt.get(doc, 'label.us') %> | WANDERSET" />
+  <meta property="og:title" content="<%= Belt.get(doc, 'label.us') %>" />
   <meta property="og:type" content="product" />
-  <meta property="og:url" content="<%= Settings.host + '/product/' + (doc.slug || doc._id) %>" />
+  <meta property="og:url" content="<%= Settings.host + Request.originalUrl %>" />
   <% if (Belt.get(doc, 'media.0')){ %>
     <meta property="og:image" content="<%= doc.media[0].downloaded ? (doc.media[0].url || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" />
   <% } %>
@@ -14,8 +14,8 @@
   <% if (Belt.get(doc, 'brands.0')){ %>
     <meta property="product:brand" content="<%= doc.brands[0] %>" />
   <% } %>
-  <% if (Belt.get(doc, 'low_price')){ %>
-    <meta property="product:price" content="<%= Instance.priceString(doc.low_price) %>" />
+  <% if (configuration){ %>
+    <meta property="product:price" content="<%= Instance.priceString(configuration.price) %>" />
   <% } %>
 
   <script type="application/ld+json">
@@ -33,7 +33,7 @@
         "name": "<%= doc.brands.join(', ') %>"
       },
       <% if (Belt.get(doc, 'categories.0') || doc.auto_category){ %>
-        "category": "<%= Belt.get(doc, 'categories.0') || doc.auto_category %>"
+        "category": "<%= Belt.get(doc, 'categories.0') || doc.auto_category %>",
       <% } %>
       <% if (configuration){ %>
         <% var color = _.find(configuration.options, function(v, k){
