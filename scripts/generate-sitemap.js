@@ -27,7 +27,10 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 
 var Spin = new Spinner(4);
 
-var GB = {};
+var GB = {
+  'skip': 0
+, 'limit': 500
+};
 
 O.host = 'https://wanderset.com';
 
@@ -83,8 +86,8 @@ Async.waterfall([
               '$exists': true
             }
           })
-        , 'skip': 0
-        , 'limit': 500
+        , 'skip': GB.skip
+        , 'limit': GB.limit
         }
       , 'method': 'get'
       , 'json': true
