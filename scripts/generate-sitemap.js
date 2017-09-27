@@ -55,7 +55,6 @@ Async.waterfall([
       }
     }, {'slug': 1}, Belt.cs(cb, GB, 'products', 1, 0));
   }*/
-  }
 , function(cb){
     var cont;
 
