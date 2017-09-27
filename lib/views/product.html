@@ -91,7 +91,7 @@
         "category": "<%= cat %>",
       <% } %>
       <% if (_.any(related_configurations)){ %>
-        "isRelatedTo": <%= Belt.stringify(related_configurations) %>
+        "isRelatedTo": <%= Belt.stringify(related_configurations) %>,
       <% } %>
       <% if (color){ %>
         "color": "<%= color.value %>",
