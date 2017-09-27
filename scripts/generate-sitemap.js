@@ -14,6 +14,7 @@ var Path = require('path')
   , CP = require('child_process')
   , OS = require('os')
   , XML = require('xml')
+  , Request = require('request')
 ;
 
 var O = new Optionall({
