@@ -37,7 +37,6 @@
   <meta property="og:title" content="<%= title %>" />
   <meta property="og:type" content="product" />
   <meta property="og:description" content="<%= desc %>" />
-  <meta property="og:url" content="<%= Settings.host + Request.originalUrl %>" />
   <% _.each(doc.media, function(m, i){ %>
     <% if (i === 0){ %>
       <meta property="twitter:image" content="<%= m.url || m.remote_url %>" />
@@ -48,7 +47,6 @@
     <meta property="og:image:width" content="<%= Belt.get(m, 'metadata.width') %>" />
     <meta property="og:image:height" content="<%= Belt.get(m, 'metadata.height') %>" />
   <% }) %>
-  <meta property="og:site_name" content="Wanderset" />
   <meta property="product:brand" content="<%= brand %>" />
   <% if (cat){ %>
     <meta property="product:category" content="<%= cat %>" />
