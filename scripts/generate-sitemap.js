@@ -66,7 +66,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/product/list.json'
+        'url': O.host + ':8854' + '/product/list.json'
       , 'auth': {
           'user': _.keys(O.admin_users)[0]
         , 'pass': _.values(O.admin_users)[0]
