@@ -102,6 +102,30 @@ var SetView = function(options, callback){
           });
         }
       }
+    , 'click [name="products_bulk_update"]': function(e){
+        e.preventDefault();
+        var self = this;
+
+        self.bulkUpdate(function(err, gb){
+          if (err) return bootbox.alert(err.message);
+
+          self.loadDoc({
+            'doc': gb.doc
+          });
+        });
+      }
+    , 'click [name="media_bulk_update"]': function(e){
+        e.preventDefault();
+        var self = this;
+
+        self.bulkUpdate(function(err, gb){
+          if (err) return bootbox.alert(err.message);
+
+          self.loadDoc({
+            'doc': gb.doc
+          });
+        });
+      }
     }
   , 'transformers': {
       'split_lines': function(val){
@@ -152,7 +176,7 @@ var SetView = function(options, callback){
         });
         return vals;
       }
-    , 'set:products': function(val){
+    , 'product_subviews': function(val){
         var count = 0;
         return _.map(val, function(v, k){
           return Templates.admin_set_product({
@@ -160,6 +184,9 @@ var SetView = function(options, callback){
           , '_id': v._id
           });
         });
+      }
+    , 'bulk_items': function(val){
+        return _.pluck(val, '_id').join('\n');
       }
     , 'get:media': function(val, $el){
         var vals = [];
@@ -169,7 +196,7 @@ var SetView = function(options, callback){
         });
         return vals;
       }
-    , 'set:media': function(val){
+    , 'media_subviews': function(val){
         var count = 0;
         return _.map(val, function(v, k){
           return Templates.admin_set_media({
@@ -640,6 +667,78 @@ var SetView = function(options, callback){
         if (gb.update.mobile_file) fd.append('mobile_file', gb.update.mobile_file, gb.update.mobile_filename);
         if (gb.update.logo_file) fd.append('logo_file', gb.update.logo_file, gb.update.logo_filename);
         if (gb.update.landing_file) fd.append('landing_file', gb.update.landing_file, gb.update.landing_filename);
+
+        $.ajax({
+          'url': '/set/' + self._id + '/update.json'
+        , 'type': 'POST'
+        , 'data': fd
+        , 'cache': false
+        , 'dataType': 'json'
+        , 'processData': false
+        , 'contentType': false
+        , 'success': function(json){
+            if (Belt.get(json, 'error')) return ocb(new Error(json.error));
+
+            gb['doc'] = Belt.get(json, 'data');
+
+            ocb();
+          }
+        });
+      }
+    ], function(err){
+      a.cb(err, gb);
+    });
+  };
+
+  gb.view['bulkUpdate'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    gb['data'] = self.get();
+
+    gb['update'] = {
+      'media': Belt.arrayDefalse(_.map(self.$el.find('[name="media_bulk"]').val().split(/\s*\n+\s*/), function(p){
+        if (!p) return;
+
+        return {
+          '_id': p.replace(/\W/g, '')
+        };
+      }))
+    , 'products': Belt.arrayDefalse(_.map(self.$el.find('[name="products_bulk"]').val().split(/\s*\n+\s*/), function(p){
+        if (!p) return;
+
+        return {
+          '_id': p.replace(/\W/g, '')
+        };
+      }))
+    };
+
+    gb.update = _.omit(gb.update, function(v, k){
+      return Belt.equal(v, self.doc[k]);
+    });
+
+    if (Belt.equal(gb.update.products, [])) gb.update.products = [''];
+    if (Belt.equal(gb.update.media, [])) gb.update.media = [''];
+
+    Async.waterfall([
+      function(cb){
+        var fd = new FormData()
+          , ocb = _.once(cb);
+
+        var data = Belt.copy(gb.update);
+
+        Belt.delete(data, 'file');
+        Belt.delete(data, 'mobile_file');
+        Belt.delete(data, 'logo_file');
+        Belt.delete(data, 'landing_file');
+
+        fd.append('json', JSON.stringify(_.omit(data, [
+
+        ])));
 
         $.ajax({
           'url': '/set/' + self._id + '/update.json'
