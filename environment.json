@@ -148,6 +148,66 @@
       }
     , "create_rest_routes": false
     }
+  , "production-worker-2": {
+      "host": "http://localhost:8854"
+    , "domain": "wanderset.com:8854"
+    , "express": {
+        "port": 8854
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "worker2.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "error": "https://2po.st/6fjcn6v_wVZk"
+      , "order": "https://2po.st/aX4qqfOhJzjk"
+      }
+    , "email": {
+        "from": "Wanderset <support@wanderset.com>"
+      , "order": "Wanderset <orders@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "create_rest_routes": false
+    }
+  , "production-worker-3": {
+      "host": "http://localhost:8855"
+    , "domain": "wanderset.com:8855"
+    , "express": {
+        "port": 8855
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "worker3.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "error": "https://2po.st/6fjcn6v_wVZk"
+      , "order": "https://2po.st/aX4qqfOhJzjk"
+      }
+    , "email": {
+        "from": "Wanderset <support@wanderset.com>"
+      , "order": "Wanderset <orders@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "create_rest_routes": false
+    }
   , "production-daemon": {
       "host": "localhost:8853"
     , "domain": "wanderset.com:8853"
