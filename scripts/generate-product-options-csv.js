@@ -14,7 +14,6 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
   , Natural = require('natural')
 ;
 
@@ -80,73 +79,64 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
-    if (!O.argv.infile) return cb();
+    Request({
+      'url': O.host + '/cache/product/options.json'
+    , 'auth': GB.auth
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB['option_keys'] = _.map(json, function(v, k){
+        return {
+          'option': k
+        };
+      });
 
-    var fs = FS.createReadStream(O.argv.infile);
+      GB['options'] = [];
+      _.each(json, function(v, k){
+        _.each(v, function(v2){
+          GB.options.push({
+            'option': k
+          , 'value': v2
+          });
+        });
+      });
 
-    GB.old_grams = {};
-
-    CSV.fromStream(fs, {
-          'headers': true
-        })
-       .on('data', function(d){
-          if (!d.category_1 && !d.category_2 && !d.category_3 && !d.hide) return;
-
-          GB.old_grams[d.gram] = d;
-        })
-       .on('end', Belt.cw(cb));
-  }
-, function(cb){
-    var cont;
-
-    return Async.doWhilst(function(next){
-      Request({
-        'url': O.host + '/product/list.json'
-      , 'auth': GB.auth
-      , 'qs': {
-          'query': GB.query
-        , 'skip': GB.skip
-        , 'limit': GB.limit
-        }
-      , 'method': 'get'
-      , 'json': true
-      }, function(err, res, json){
-        cont = _.any(Belt.get(json, 'data')) ? true : false;
-        GB.skip += GB.limit;
-        console.log(GB.skip);
-
-        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
-          GB.iterator(d, cb2);
-        }, Belt.cw(next, 0));
-      })
-    }, function(){ return cont; }, Belt.cw(cb, 0));
-  }
-, function(cb){
-    if (!O.argv.infile);
-
-    _.extend(GB.grams, GB.old_grams);
-
-    cb();
+      cb();
+    });
   }
 , function(cb){
     var cs = CSV.createWriteStream({
                'headers': true
              })
-      , fs = FS.createWriteStream(GB.outfile);
+      , fs = FS.createWriteStream(GB.option_keys_file);
 
     fs.on('finish', Belt.cw(cb));
 
     cs.pipe(fs);
 
-    _.each(GB.grams, function(v, k){
+    _.each(GB.option_keys, function(v, k){
+      cs.write(v);
+    });
+
+    cs.end();
+  }
+, function(cb){
+    var cs = CSV.createWriteStream({
+               'headers': true
+             })
+      , fs = FS.createWriteStream(GB.options_file);
+
+    fs.on('finish', Belt.cw(cb));
+
+    cs.pipe(fs);
+
+    _.each(GB.options, function(v, k){
       cs.write(v);
     });
 
     cs.end();
   }
 ], function(err){
-  console.log(GB.grams)
-
   Spin.stop();
   if (err) Log.error(err);
   return process.exit(err ? 1 : 0);
