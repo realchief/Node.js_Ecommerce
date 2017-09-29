@@ -19,6 +19,15 @@
     <% }) %>
   </td>
   <td>
+    <% _.each(line_items, function(v2, k){ %>
+      <p>
+      <%= v.amount %>
+      </p>
+
+      <hr>
+    <% }) %>
+  </td>
+  <td>
     <% _.each(vendor_products, function(v2, k){ %>
       <% if (Instance.vendor_ids[k]){ %>
         <p>
@@ -28,7 +37,7 @@
       <% _.each(v2, function(v){ %>
         <p>
           <a href="/product/<%= v.source.product.slug %>" target="_blank">
-            <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
+            <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %> (ID: <%= v._id %>)
           </a>
         </p>
         <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
@@ -61,6 +70,21 @@
           </p>
         <% }) %>
       <% }) %>
+      <hr>
+    <% }) %>
+  </td>
+  <td>
+    <% _.each(shipments, function(v2, k){ %>
+      <p>
+        <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> - <%= v2.tracking_number %></a> <span class="label label-success"><%= v2.status %></span>
+      </p>
+      <ul>
+        <% _.each(v2.products, function(p){ %>
+          <% p = _.find(products, function(p2){ return p2._id.toString() === p; }); %>
+          <% if (!p) return; %>
+          <li><%= Belt.get(p, 'source.product.label.us') %> (<%= p._id %>)</li>
+        <% }) %>
+      </ul>
       <hr>
     <% }) %>
   </td>

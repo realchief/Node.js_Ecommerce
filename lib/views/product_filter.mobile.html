@@ -21,14 +21,14 @@
           </div>
           <div id="body-accordion-<%= k %>" class="collapse" role="tabpanel" aria-labelledby="heading-accordion-<%= k %>">
             <div class="accordion__body">
+              <a class="accordion__title" data-category="<%= k %>" href="/products/category/<%= encodeURIComponent(k) %>" aria-expanded="true">
+                Shop All
+              </a>
               <% _.each(v, function(v2, k2){ %>
                 <a class="accordion__title" data-category="<%= k + ' > ' + k2 %>" href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" aria-expanded="true">
                   <%= k2 %>
                 </a>
               <% }) %>
-              <a class="accordion__title" data-category="<%= k %>" href="/products/category/<%= encodeURIComponent(k) %>" aria-expanded="true">
-                Shop All
-              </a>
             </div>
           </div>
         <% }) %>

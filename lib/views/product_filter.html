@@ -6,14 +6,14 @@
       <li class="list__item list__title">
         <a href="/products/category/<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="list__link"><%= k %></a>
       </li>
+      <li class="list__item">
+        <a href="/products/category/<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="list__link">Shop All</a>
+      </li>
       <% _.each(v, function(v2, k2){ %>
         <li class="list__item">
           <a href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" data-category="<%= k + ' > ' + k2 %>" class="list__link"><%= k2 %></a>
         </li>
       <% }) %>
-      <li class="list__item">
-        <a href="/products/category/<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="list__link">Shop All</a>
-      </li>
     </ul>
   <% }) %>
 </aside>

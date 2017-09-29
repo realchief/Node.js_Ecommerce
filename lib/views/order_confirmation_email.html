@@ -467,7 +467,7 @@
                                             <td style="word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:10px;padding-bottom:0px;padding-right:25px;padding-left:25px;" align="center">
                                                 <div style="cursor:auto;color:#29363b;font-family:GothamBook, Helvetica, sans-serif;font-size:15px;line-height:24px;letter-spacing:0.1rem;text-align:center;">
                                                     <p>
-                                                        <span style="font-family: 'DroidItalic'; letter-spacing: normal;">Contact our support staff at
+                                                        <span style="font-family: 'DroidItalic'; letter-spacing: normal;"><% if (_.size(doc, 'streetammo_order')){ %>Some items in your order are shipping from overseas and may take 6-10 business days to arrive.<% } %> Questions / issues with your order? Contact our support staff at
                                       </span>
                                                         <a href="mailto:<%= Instance.parseEmailAddress(Settings.email.order) %>" style="text-decoration: none; color: inherit; font-family: 'DroidItalic'; letter-spacing: normal;">
                                         <span style="display:block; color:#8f9fbf;"><%= _.escape(Instance.parseEmailAddress(Settings.email.order)) %>
