@@ -19,9 +19,9 @@
     <% }) %>
   </td>
   <td>
-    <% _.each(line_items, function(v2, k){ %>
+    <% _.each(line_items, function(v, k){ %>
       <p>
-      <%= v.amount %>
+      <%= v.label %> - $<%= Instance.priceString(v.amount) %>
       </p>
 
       <hr>
@@ -87,5 +87,8 @@
       </ul>
       <hr>
     <% }) %>
+  </td>
+  <td data-set="actions" data-set-method="html">
+    <a href="/admin/order/<%= _id %>/read" class="btn btn-default">Edit</a>
   </td>
 </tr>
