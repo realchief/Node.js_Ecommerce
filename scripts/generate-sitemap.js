@@ -179,7 +179,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host
+              'loc': GB.host
             }
           , {
               'lastmod': GB.time
@@ -189,7 +189,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/brands'
+              'loc': GB.host + '/brands'
             }
           , {
               'lastmod': GB.time
@@ -199,7 +199,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/sets'
+              'loc': GB.host + '/sets'
             }
           , {
               'lastmod': GB.time
@@ -209,7 +209,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/lifestyle'
+              'loc': GB.host + '/lifestyle'
             }
           , {
               'lastmod': GB.time
@@ -219,7 +219,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/products/new'
+              'loc': GB.host + '/products/new'
             }
           , {
               'lastmod': GB.time
@@ -230,7 +230,7 @@ Async.waterfall([
         return {
           'url': [
             {
-              'loc': O.host + '/set/' + encodeURIComponent(s.slug)
+              'loc': GB.host + '/set/' + encodeURIComponent(s.slug)
             }
           , {
               'lastmod': GB.time
@@ -241,7 +241,7 @@ Async.waterfall([
         return {
           'url': [
             {
-              'loc': O.host + '/brand/' + encodeURIComponent(s.slug)
+              'loc': GB.host + '/brand/' + encodeURIComponent(s.slug)
             }
           , {
               'lastmod': GB.time
@@ -253,7 +253,7 @@ Async.waterfall([
           {
             'url': [
               {
-                'loc': O.host + '/product/category/' + encodeURIComponent(k)
+                'loc': GB.host + '/product/category/' + encodeURIComponent(k)
               }
             , {
                 'lastmod': GB.time
@@ -264,7 +264,7 @@ Async.waterfall([
           return {
             'url': [
               {
-                'loc': O.host + '/product/' + encodeURIComponent(k) + '/' + encodeURIComponent(k2)
+                'loc': GB.host + '/product/' + encodeURIComponent(k) + '/' + encodeURIComponent(k2)
               }
             , {
                 'lastmod': GB.time
@@ -277,7 +277,7 @@ Async.waterfall([
           return {
             'url': [
               {
-                'loc': O.host + '/product/' + encodeURIComponent(s.slug) + _.map(v.options, function(v2, k2){
+                'loc': GB.host + '/product/' + encodeURIComponent(s.slug) + _.map(v.options, function(v2, k2){
                   return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
                 }).join('')
               }
@@ -291,7 +291,7 @@ Async.waterfall([
         return {
           'url': [
             {
-              'loc': O.host + '/media/' + encodeURIComponent(s.slug)
+              'loc': GB.host + '/media/' + encodeURIComponent(s.slug)
             }
           , {
               'lastmod': GB.time
