@@ -210,6 +210,12 @@ var SubscribeEmail = function(){
     'email': email
   }, Belt.np);
 
+  try {
+    ga('send', 'event', 'SubscribeEmail', 'submit', email);
+  } catch (e) {
+
+  }
+
   $('.modal h3').html('Thank you for subscribing!');
   $('.modal form').hide();
 

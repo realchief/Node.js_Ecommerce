@@ -32,7 +32,7 @@ var GB = {
 , 'limit': 500
 };
 
-O.host = 'https://wanderset.com';
+GB.host = 'https://wanderset.com';
 
 Spin.start();
 
@@ -40,26 +40,6 @@ Async.waterfall([
   function(cb){
     if (!O.argv.output) return cb(new Error('output is required'));
 
-    GB['server'] = new require(O.__dirname + '/lib/server.js')(O);
-    GB.server.on('ready', Belt.cw(cb));
-  }
-/*, function(cb){
-    return GB.server.db.model('product').find({
-      'hide': {
-        '$ne': true
-      }
-    , 'sync_hide': {
-        '$ne': true
-      }
-    , 'low_price': {
-        '$gt': 0
-      }
-    , 'slug': {
-        '$exists': true
-      }
-    }, {'slug': 1}, Belt.cs(cb, GB, 'products', 1, 0));
-  }*/
-, function(cb){
     var cont;
 
     GB['products'] = [];
@@ -100,42 +80,93 @@ Async.waterfall([
           GB.products.push(d);
           cb2();
         }, Belt.cw(next, 0));
-      })
+      });
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
-    return GB.server.db.model('set').find({
-      'hide': {
-        '$ne': true
+    Request({
+      'url': O.host + '/cache/set/setmembers.json'
+    , 'auth': {
+        'user': _.keys(O.admin_users)[0]
+      , 'pass': _.values(O.admin_users)[0]
       }
-    , 'brand': {
-        '$ne': true
-      }
-    , 'slug': {
-        '$exists': true
-      }
-    }, {'slug': 1}, Belt.cs(cb, GB, 'sets', 1, 0));
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB['sets'] = json;
+
+      cb();
+    });
   }
 , function(cb){
-    return GB.server.db.model('set').find({
-      'hide': {
-        '$ne': true
+    Request({
+      'url': O.host + '/cache/set/brands.json'
+    , 'auth': {
+        'user': _.keys(O.admin_users)[0]
+      , 'pass': _.values(O.admin_users)[0]
       }
-    , 'brand': true
-    , 'slug': {
-        '$exists': true
-      }
-    }, {'slug': 1}, Belt.cs(cb, GB, 'brands', 1, 0));
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB['brands'] = json;
+
+      cb();
+    });
   }
 , function(cb){
-    return GB.server.db.model('media').find({
-      'hide': {
-        '$ne': true
+    Request({
+      'url': O.host + '/cache/product/categories.json'
+    , 'auth': {
+        'user': _.keys(O.admin_users)[0]
+      , 'pass': _.values(O.admin_users)[0]
       }
-    , 'slug': {
-        '$exists': true
-      }
-    }, {'slug': 1}, Belt.cs(cb, GB, 'media', 1, 0));
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB['categories'] = json;
+
+      cb();
+    });
+  }
+, function(cb){
+    GB.skip = 0;
+
+    var cont;
+
+    GB['media'] = [];
+
+    return Async.doWhilst(function(next){
+      Request({
+        'url': O.host + '/media/list.json'
+      , 'auth': {
+          'user': _.keys(O.admin_users)[0]
+        , 'pass': _.values(O.admin_users)[0]
+        }
+      , 'qs': {
+          'query': Belt.stringify({
+            'hide': {
+              '$ne': true
+            }
+          , 'slug': {
+              '$exists': true
+            }
+          })
+        , 'skip': GB.skip
+        , 'limit': GB.limit
+        }
+      , 'method': 'get'
+      , 'json': true
+      }, function(err, res, json){
+        cont = _.any(Belt.get(json, 'data')) ? true : false;
+        GB.skip += GB.limit;
+        console.log(GB.skip);
+
+        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
+          GB.media.push(d);
+          cb2();
+        }, Belt.cw(next, 0));
+      });
+    }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
     GB.time = Moment().format('YYYY-MM-DDTHH:mm:ss.SZ');
@@ -148,7 +179,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host
+              'loc': GB.host
             }
           , {
               'lastmod': GB.time
@@ -158,7 +189,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/brands'
+              'loc': GB.host + '/brands'
             }
           , {
               'lastmod': GB.time
@@ -168,7 +199,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/sets'
+              'loc': GB.host + '/sets'
             }
           , {
               'lastmod': GB.time
@@ -178,7 +209,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/lifestyle'
+              'loc': GB.host + '/lifestyle'
             }
           , {
               'lastmod': GB.time
@@ -188,7 +219,7 @@ Async.waterfall([
       , {
           'url': [
             {
-              'loc': O.host + '/products/new'
+              'loc': GB.host + '/products/new'
             }
           , {
               'lastmod': GB.time
@@ -199,7 +230,7 @@ Async.waterfall([
         return {
           'url': [
             {
-              'loc': O.host + '/set/' + encodeURIComponent(s.slug)
+              'loc': GB.host + '/set/' + encodeURIComponent(s.slug)
             }
           , {
               'lastmod': GB.time
@@ -210,19 +241,19 @@ Async.waterfall([
         return {
           'url': [
             {
-              'loc': O.host + '/brand/' + encodeURIComponent(s.slug)
+              'loc': GB.host + '/brand/' + encodeURIComponent(s.slug)
             }
           , {
               'lastmod': GB.time
             }
           ]
         };
-      })).concat(_.flatten(_.map(GB.server.categories, function(v, k){
+      })).concat(_.flatten(_.map(GB.categories, function(v, k){
         return [
           {
             'url': [
               {
-                'loc': O.host + '/product/category/' + encodeURIComponent(k)
+                'loc': GB.host + '/product/category/' + encodeURIComponent(k)
               }
             , {
                 'lastmod': GB.time
@@ -233,7 +264,7 @@ Async.waterfall([
           return {
             'url': [
               {
-                'loc': O.host + '/product/' + encodeURIComponent(k) + '/' + encodeURIComponent(k2)
+                'loc': GB.host + '/product/' + encodeURIComponent(k) + '/' + encodeURIComponent(k2)
               }
             , {
                 'lastmod': GB.time
@@ -246,7 +277,7 @@ Async.waterfall([
           return {
             'url': [
               {
-                'loc': O.host + '/product/' + encodeURIComponent(s.slug) + _.map(v.options, function(v2, k2){
+                'loc': GB.host + '/product/' + encodeURIComponent(s.slug) + _.map(v.options, function(v2, k2){
                   return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
                 }).join('')
               }
@@ -260,7 +291,7 @@ Async.waterfall([
         return {
           'url': [
             {
-              'loc': O.host + '/media/' + encodeURIComponent(s.slug)
+              'loc': GB.host + '/media/' + encodeURIComponent(s.slug)
             }
           , {
               'lastmod': GB.time

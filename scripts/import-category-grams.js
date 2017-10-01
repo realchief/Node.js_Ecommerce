@@ -34,9 +34,9 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-    'show': {
-      '$ne': true
-    }
+    /*'categories.0': {
+      '$exists': false
+    }*/
   })
 , 'skip': 0
 , 'limit': 500
@@ -87,7 +87,7 @@ var GB = _.defaults(O.argv, {
       return m.hide;
     });
 
-    if (_.any(hgrams)){
+    if (_.any(hgrams) && !o.show){
       update['sync_hide'] = true;
       update['hide_note'] = 'grams check: ' + _.pluck(hgrams, 'gram').join(', ');
     }
@@ -98,7 +98,7 @@ var GB = _.defaults(O.argv, {
            + (m.category_3 ? 1 : 0);
     });
 
-    if (match){
+    if (match && !Belt.get(o, 'categories.0')){
       match = Belt.arrayDefalse([
         match.category_1
       , match.category_2

@@ -70,6 +70,7 @@
   "@context": "http://schema.org",
   "@type": "WebSite",
   "url": "https://wanderset.com/",
+  "image": "<%= Settings.host %>/public/static/wanderset.png",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://wanderset.com/products/search?q={search_term_string}",
@@ -86,6 +87,7 @@
   "name": "Wanderset",
   "logo": "https://wanderset.com/public/assets/images/elements/logo.svg",
   "email": "mailto:contact@wanderset.com",
+  "image": "<%= Settings.host %>/public/static/wanderset.png",
   "founder": {
     "@type": "Person",
     "name": "Greg Selkoe",
@@ -108,3 +110,6 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@shopwanderset" />
 <meta name="twitter:creator" content="@shopwanderset" />
+
+<meta property="og:url" content="<%= Settings.host + Request.originalUrl %>" />
+<meta property="og:site_name" content="Wanderset" />

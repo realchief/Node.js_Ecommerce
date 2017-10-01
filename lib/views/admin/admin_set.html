@@ -198,16 +198,36 @@
               <input name="logo_label" type="text" class="form-control" placeholder="logo_label" data-get="logo_label" data-get-method="val()" data-set="logo_label" data-set-method="val">
             </div>
           </div>
+          <% if (data.button_title !== 'Create'){ %>
+            <div class="hr-line-dashed"></div>
+            <fieldset>
+              <legend>Bulk Updates</legend>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Products</label>
+                <div class="col-sm-11">
+                  <textarea name="products_bulk" type="text" class="form-control" placeholder="set product skus (one per line)" data-set="products" data-set-method="val" data-set-transformer="bulk_items" rows="5"></textarea>
+                  <button name="products_bulk_update" class="btn btn-default" style="margin-top:5px;" type="submit">Save Products</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Media</label>
+                <div class="col-sm-11">
+                  <textarea name="media_bulk" type="text" class="form-control" placeholder="set media skus (one per line)" data-set="media" data-set-method="val" data-set-transformer="bulk_items" rows="5"></textarea>
+                  <button name="media_bulk_update" class="btn btn-default" style="margin-top:5px;" type="submit">Save Media</button>
+                </div>
+              </div>
+            </fieldset>
+          <% } %>
           <div class="hr-line-dashed"></div>
           <fieldset>
             <legend>Products <button name="product_create" class="btn btn-default">Add New</button></legend>
-            <div name="products" data-get="products" data-get-method="html()" data-set="products" data-set-method="html"></div>
+            <div name="products" data-get="products" data-get-method="html()" data-set="products" data-set-method="html" data-set-transformer="product_subviews"></div>
             <div class="hr-line-dashed"></div>
           </fieldset>
           <div class="hr-line-dashed"></div>
           <fieldset>
             <legend>Media <button name="media_create" class="btn btn-default">Add New</button></legend>
-            <div name="medias" data-get="media" data-get-method="html()" data-set="media" data-set-method="html"></div>
+            <div name="medias" data-get="media" data-get-method="html()" data-set="media" data-set-method="html" data-set-transformer="media_subviews"></div>
             <div class="hr-line-dashed"></div>
           </fieldset>
           <div class="hr-line-dashed"></div>
