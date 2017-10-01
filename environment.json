@@ -208,35 +208,5 @@
       }
     , "create_rest_routes": false
     }
-  , "production-daemon": {
-      "host": "localhost:8853"
-    , "domain": "wanderset.com:8853"
-    , "express": {
-        "port": 8853
-      }
-    , "redis": {
-        "host": "127.0.0.1"
-      , "port": "6379"
-      , "prefix": "daemon.wanderset.sess"
-      }
-    , "mongodb": {
-        "host": "127.0.0.1"
-      , "port": 27017
-      , "db": "wanderset"
-      }
-    , "notifications": {
-        "coming_soon": "https://2po.st/oySQBPndO5PX"
-      , "error": "https://2po.st/6fjcn6v_wVZk"
-      , "order": "https://2po.st/aX4qqfOhJzjk"
-      }
-    , "email": {
-        "from": "Wanderset <support@wanderset.com>"
-      , "order": "Wanderset <orders@wanderset.com>"
-      }
-    , "s3": {
-        "bucket": "staging.assets.wanderset.com"
-      }
-    , "create_rest_routes": false
-    }
   }
 }
