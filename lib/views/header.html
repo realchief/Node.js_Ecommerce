@@ -66,7 +66,7 @@
                         <a href="/products/category/<%= encodeURIComponent(k) %>" class=""><%= k %></a>
                       </li>
                       <li class="list-dropdown-menu__item">
-                        <a href="/products/category/<%= encodeURIComponent(k) %>" class="list-dropdown-menu__link">Shop All</a>
+                        <a href="/products/category/<%= encodeURIComponent(k) %>" class="list-dropdown-menu__link">All <%= k %></a>
                       </li>
                       <% _.each(v, function(v2, k2){ %>
                         <li class="list-dropdown-menu__item">
@@ -168,7 +168,7 @@
             <li class="nav-item">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><%= k %></a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/products/category/<%= encodeURIComponent(k) %>">Shop All</a>
+                <a class="dropdown-item" href="/products/category/<%= encodeURIComponent(k) %>">All <%= k %></a>
                 <% _.each(v, function(v2, k2){ %>
                   <a class="dropdown-item" href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>"><%= k2 %></a>
                 <% }) %>
