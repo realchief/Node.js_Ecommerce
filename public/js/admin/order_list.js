@@ -65,15 +65,15 @@ var BuildQuery = function(options, callback){
 $(document).ready(function(){
   GB['model'] = 'order';
 
-  GB['criteria'] = _.defaults(queryObject.get() || {}, {
+  GB['criteria'] = _.defaults(_.extend({}, GB.data || {}, queryObject.get() || {}), {
     'limit': 50
   , 'skip': 0
   , 'query': '{}'
   , 'sort': '{"_id": 1}'
   });
 
-  GB.criteria.query = JSON.parse(GB.criteria.query);
-  GB.criteria.sort = JSON.parse(GB.criteria.sort);
+  if (_.isString(GB.criteria.query)) GB.criteria.query = JSON.parse(GB.criteria.query);
+  if (_.isString(GB.criteria.sort)) GB.criteria.sort = JSON.parse(GB.criteria.sort);
   GB.criteria.skip = Belt.cast(GB.criteria.skip, 'number');
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
 

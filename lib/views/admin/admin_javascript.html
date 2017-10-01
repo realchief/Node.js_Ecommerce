@@ -15,6 +15,12 @@
     , Str = s
     , Socket = io('/')
     , GB = {};
+
+  <% if (typeof js_data !== 'undefined'){ %>
+    GB['data'] = <%= Belt.stringify(js_data) %>;
+  <% } else { %>
+    GB['data'] = {};
+  <% } %>
 </script>
 
 <script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
