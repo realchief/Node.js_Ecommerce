@@ -248,7 +248,7 @@ Async.waterfall([
             }
           ]
         };
-      })).concat(_.flatten(_.map(GB.server.categories, function(v, k){
+      })).concat(_.flatten(_.map(GB.categories, function(v, k){
         return [
           {
             'url': [
