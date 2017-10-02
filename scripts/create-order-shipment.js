@@ -35,6 +35,18 @@ var GB = _.defaults(O.argv, {
   'query': {
     'slug': 'B1CX5Z9DW'
   }
+, 'shipment': {
+    'created_at': new Date()
+  , 'id': '787488631462'
+  , 'carrier': 'Fedex'
+  , 'tracking_number':'787488631462'
+  , 'tracking_url': 'https://www.fedex.com/apps/fedextrack/?action=track&tracknumbers=787488631462&locale=en_US&cntry_code=us'
+  , 'products': [
+      '599c99f4e4834ed1c4f1027d'
+    ]
+  , 'status': 'delivered'
+  , 'sent_shipped_email': true
+  }
 , 'skip': 0
 , 'limit': 1
 , 'auth': {
@@ -49,18 +61,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/admin/' + GB.model + '/' + o.slug + '/shipment/create.json'
     , 'auth': GB.auth
     , 'body': {
-        'shipment': {
-          'created_at': new Date()
-        , 'id': '787488631462'
-        , 'carrier': 'Fedex'
-        , 'tracking_number':'787488631462'
-        , 'tracking_url': 'https://www.fedex.com/apps/fedextrack/?action=track&tracknumbers=787488631462&locale=en_US&cntry_code=us'
-        , 'products': [
-            '599c99f4e4834ed1c4f1027d'
-          ]
-        , 'status': 'delivered'
-        , 'sent_shipped_email': false
-        }
+        'shipment': GB.shipment
       }
     , 'json': true
     , 'method': 'post'
