@@ -4,17 +4,20 @@
 %>
 
 <div class="dropdown dropdown--border-thick dropdown--muted d-inline-flex">
-  <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
-    <% if (sort === '-created_at'){ %>
-      NEWEST
-    <% } else if (sort === 'low_price'){ %>
-      PRICE LOW TO HIGH
-    <% } else if (sort === '-high_price'){ %>
-      PRICE HIGH TO LOW
-    <% } else { %>
-      SORT
-    <% } %>
-  </button>
+  <% if (typeof hide_sort === 'undefined' || !hide_sort){ %>
+    <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
+      <% if (sort === '-created_at'){ %>
+        NEWEST
+      <% } else if (sort === 'low_price'){ %>
+        PRICE LOW TO HIGH
+      <% } else if (sort === '-high_price'){ %>
+        PRICE HIGH TO LOW
+      <% } else { %>
+        SORT
+      <% } %>
+    </button>
+  <% } %>
+
   <div class="dropdown-menu dropdown-menu-right">
     <a class="dropdown-item" href="<%=
       Instance.paginationUrl(_.extend({}, Locals, {

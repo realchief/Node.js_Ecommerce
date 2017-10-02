@@ -6,24 +6,26 @@
   var sort = typeof sort !== 'undefined' ? sort : false;
 %>
 
-<div class="dropdown dropdown--border-thick dropdown--muted dropdown--inline-block" name="filter">
-  <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
-    <% if (sort === '-created_at'){ %>
-      NEWEST
-    <% } else if (sort === 'low_price'){ %>
-      PRICE LOW TO HIGH
-    <% } else if (sort === '-high_price'){ %>
-      PRICE HIGH TO LOW
-    <% } else { %>
-      SORT
-    <% } %>
-  </button>
-  <div class="dropdown-menu dropdown-menu-right">
-    <a class="dropdown-item" href="#" data-sort="-created_at">Newest</a>
-    <a class="dropdown-item" href="#" data-sort="low_price">Price Low to High</a>
-    <a class="dropdown-item" href="#" data-sort="-high_price">Price High to Low</a>
+<% if (typeof hide_sort === 'undefined' || !hide_sort){ %>
+  <div class="dropdown dropdown--border-thick dropdown--muted dropdown--inline-block" name="filter">
+    <button class="btn dropdown-toggle dropdown-toggle--has-arrow" type="button" data-toggle="dropdown">
+      <% if (sort === '-created_at'){ %>
+        NEWEST
+      <% } else if (sort === 'low_price'){ %>
+        PRICE LOW TO HIGH
+      <% } else if (sort === '-high_price'){ %>
+        PRICE HIGH TO LOW
+      <% } else { %>
+        SORT
+      <% } %>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item" href="#" data-sort="-created_at">Newest</a>
+      <a class="dropdown-item" href="#" data-sort="low_price">Price Low to High</a>
+      <a class="dropdown-item" href="#" data-sort="-high_price">Price High to Low</a>
+    </div>
   </div>
-</div>
+<% } %>
 
 <% if (max > 1){ %>
   <ul class="pagination pagination--shop-product ml-2">
