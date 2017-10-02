@@ -17,6 +17,7 @@ var OrderView = function(options, callback){
     }
   , 'transformers': {
       'set:products': function(val){
+console.log(val)
         return _.map(val, function(v){
           return '<option value="' + v._id + '">' + Belt.get(v, 'source.product.label.us') + ' - ' + v._id + '</option>';
         }).join('\n')
@@ -99,9 +100,18 @@ var OrderView = function(options, callback){
     $.post('/admin/order/' + self._id + '/shipment/create.json', {
       'shipment': gb
     }, function(res){
-      alert('Shipment added!');
+      $('input, select').val('');
 
-      ('input, select').val('');
+      LoadDocs(GB.criteria, function(err, res){
+        if (err) return bootbox.alert(err.message);
+
+        $('tbody').html(_.map(res.docs, function(d){
+          d.options = d.options || {};
+          d.Instance = Instance;
+          return Templates['admin_' + GB.model + '_list_row'](d);
+        }).join('\n'));
+
+      });
     });
   };
 
