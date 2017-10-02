@@ -1,5 +1,11 @@
 <tr class="order" data-id="<%= _id %>">
-  <td><%= slug %></td>
+  <td><%= slug %><br>
+    <% if (shipping_status !== 'shipped'){ %>
+      <span class="label label-warning">NOT SHIPPED</span>
+    <% } else { %>
+      <span class="label label-success">SHIPPED</span>
+    <% } %>
+  </td>
   <td>
     <%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %>
   </td>
@@ -37,11 +43,21 @@
       <% _.each(v2, function(v){ %>
         <p>
           <a href="/product/<%= v.source.product.slug %>" target="_blank">
-            <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %> (ID: <%= v._id %>)
+            <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
+            <br><%= v._id %>
           </a>
         </p>
         <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
         <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
+        <p>
+          <% if (_.some(shipped_products, function(p){
+            return p.toString() === v._id.toString();
+          })){ %>
+            <span class="label label-success">SHIPPED</span>
+          <% } else { %>
+            <span class="label label-danger">NOT SHIPPED</span>
+          <% } %>
+        </p>
         <% if (v.source.order){ %>
           <p>
             <span class="label label-success">Order #<%= Belt.get(v, 'source.order.order.id') %></span>

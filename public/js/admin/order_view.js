@@ -8,23 +8,19 @@ var OrderView = function(options, callback){
       'submit form': function(e){
         e.preventDefault();
       }
-    , 'click [name="submit"]': function(e){
+    , 'click [name="add_shipment"]': function(e){
         e.preventDefault();
         var self = this;
 
-        if (self.method === 'update'){
-          self.update(function(err, gb){
-            if (err) return bootbox.alert(err.message);
-
-            self.loadDoc({
-              'doc': gb.doc
-            });
-          });
-        }
+        self.addShipment();
       }
     }
   , 'transformers': {
-
+      'set:products': function(val){
+        return _.map(val, function(v){
+          return '<option value="' + v._id + '">' + Belt.get(v, 'source.product.label.us') + ' - ' + v._id + '</option>';
+        }).join('\n')
+      }
     }
   });
 
@@ -42,7 +38,6 @@ var OrderView = function(options, callback){
 
     return obj;
   };
-
 
   gb.view['loadDoc'] = function(options, callback){
     var a = Belt.argulint(arguments)
@@ -83,6 +78,30 @@ var OrderView = function(options, callback){
       }
     ], function(err){
       a.cb(err, gb);
+    });
+  };
+
+  gb.view['addShipment'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    $('input, select').each(function(i, e){
+      var $e = $(e);
+      gb[$e.attr('name')] = $e.is('[type="checkbox"]') ? ($e.is(':checked') ? true : false) : $e.val();
+    });
+
+    gb['id'] = gb.tracking_number || gb.carrier;
+
+    $.post('/admin/order/' + self._id + '/shipment/create.json', {
+      'shipment': gb
+    }, function(res){
+      alert('Shipment added!');
+
+      ('input, select').val('');
     });
   };
 
