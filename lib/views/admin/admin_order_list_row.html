@@ -1,5 +1,11 @@
 <tr class="order" data-id="<%= _id %>">
-  <td><%= slug %></td>
+  <td><%= slug %><br>
+    <% if (shipping_status !== 'shipped'){ %>
+      <span class="label label-warning">NOT SHIPPED</span>
+    <% } else { %>
+      <span class="label label-success">SHIPPED</span>
+    <% } %>
+  </td>
   <td>
     <%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %>
   </td>
