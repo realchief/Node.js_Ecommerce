@@ -99,9 +99,18 @@ var OrderView = function(options, callback){
     $.post('/admin/order/' + self._id + '/shipment/create.json', {
       'shipment': gb
     }, function(res){
-      alert('Shipment added!');
-
       ('input, select').val('');
+
+      LoadDocs(GB.criteria, function(err, res){
+        if (err) return bootbox.alert(err.message);
+
+        $('tbody').html(_.map(res.docs, function(d){
+          d.options = d.options || {};
+          d.Instance = Instance;
+          return Templates['admin_' + GB.model + '_list_row'](d);
+        }).join('\n'));
+
+      });
     });
   };
 
