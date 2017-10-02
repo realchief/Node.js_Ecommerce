@@ -3,16 +3,59 @@
     <div class="ibox float-e-margins">
       <div class="ibox-content">
         <div class="pull-right">
-          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
           <a href="/order/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
         </div>
-        <h1><%= title %></h1>
+        <h1><%= title %> | <span data-set="slug" data-set-method="html"></span></h1>
         <div class="hr-line-dashed"></div>
         <form class="form-horizontal">
-
+          <fieldset>
+            <legend>Add Shipment</legend>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Carrier</label>
+              <div class="col-sm-11">
+                <input name="carrier" type="text" class="form-control" placeholder="carrier (i.e. Fedex)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Tracking Number</label>
+              <div class="col-sm-11">
+                <input name="tracking_number" type="text" class="form-control" placeholder="tracking number">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Tracking URL</label>
+              <div class="col-sm-11">
+                <input name="tracking_url" type="text" class="form-control" placeholder="tracking url">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Products</label>
+              <div class="col-sm-11">
+                <select name="products" data-set="products" data-set-method="html" class="form-control" multiple="multiple">
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 control-label">Status</label>
+              <div class="col-sm-11">
+                <input name="status" type="text" class="form-control" placeholder="status (i.e. delivered)">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div>
+                  <label> <input type="checkbox" class="i-checks" name="sent_shipped_email"> Skip Sending Email Notification?</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button name="add_shipment" class="btn btn-primary">Add Shipment</button>
+              </div>
+            </div>
+          </fieldset>
         </form>
         <div class="pull-right">
-          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
         </div>
       </div>
     </div>

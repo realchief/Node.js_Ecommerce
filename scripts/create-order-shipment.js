@@ -33,19 +33,19 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'slug': 'B1CX5Z9DW'
+    'slug': 'S1U6LBYIB'
   }
 , 'shipment': {
     'created_at': new Date()
-  , 'id': '787488631462'
-  , 'carrier': 'Fedex'
-  , 'tracking_number':'787488631462'
-  , 'tracking_url': 'https://www.fedex.com/apps/fedextrack/?action=track&tracknumbers=787488631462&locale=en_US&cntry_code=us'
+  , 'id': '1Z8R407F6793306470'
+  , 'carrier': 'UPS'
+  , 'tracking_number':'1Z8R407F6793306470'
+  , 'tracking_url': 'https://wwwapps.ups.com/WebTracking/processRequest?tracknum=1Z8R407F6793306470'
   , 'products': [
-      '599c99f4e4834ed1c4f1027d'
+      '59c1c0bdbc5389008a377964'
     ]
-  , 'status': 'delivered'
-  , 'sent_shipped_email': true
+  , 'status': 'in transit'
+  , 'sent_shipped_email': false
   }
 , 'skip': 0
 , 'limit': 1
