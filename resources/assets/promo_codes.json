@@ -12,6 +12,6 @@
 , "WNDRLNC20": {
     "label": "Free Shipping & 20% Off"
   , "discount_type": "percentage"
-  , "discount_amount": 0.25
+  , "discount_amount": 0.2
   }
 }
