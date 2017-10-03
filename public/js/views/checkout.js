@@ -399,8 +399,6 @@ var CheckoutView = function(options, callback){
         gb.$el.find('.checkout-step__edit').addClass('d-none');
       }
     }
-
-    self.ThrottleUpdateCart();
   };
 
   gb.view['FormControlValidation'] = function(options, calback){
