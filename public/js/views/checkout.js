@@ -169,7 +169,7 @@ var CheckoutView = function(options, callback){
           ToggleLoader();
         });
       }
-    , 'change [data-get]': function(e){
+    , 'change [data-get="buyer.region"]': function(e){
         var self = this;
 
         self.ThrottleUpdateCart();
@@ -230,6 +230,10 @@ var CheckoutView = function(options, callback){
     'leading': false
   , 'trailing': true
   });
+
+  setInterval(function(){
+    gb.view.ThrottleUpdateCart();
+  }, 3000);
 
   gb.view['CreateOrder'] = function(options, callback){
     var a = Belt.argulint(arguments)
