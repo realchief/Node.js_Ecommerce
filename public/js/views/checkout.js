@@ -226,13 +226,16 @@ var CheckoutView = function(options, callback){
 
   gb['view'] = new Bh.View(a.o);
 
-  gb.view['ThrottleUpdateCart'] = _.debounce(function(){
+  gb.view['ThrottleUpdateCart'] = _.throttle(function(){
     $.post('/cart/session/update.json', gb.view.get(), function(res){
       _.debounce(function(){
         gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
       })();
     });
-  }, 500, true);
+  }, 500, {
+    'leading': true
+  , 'trailing': false
+  });
 
   gb.view['CreateOrder'] = function(options, callback){
     var a = Belt.argulint(arguments)
