@@ -647,7 +647,7 @@ var CheckoutView = function(options, callback){
           return cb(new Error('Email is required'));
         }
 
-        if (!gb.buyer.email.match(Belt.email_regex)){
+        if (!gb.buyer.email.match(Belt.email_regexp)){
           gb['error_control'] = '[name="buyer.email"]';
           return cb(new Error('Email is invalid'));
         }
