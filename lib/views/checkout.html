@@ -5,415 +5,336 @@
   </head>
   <body>
     <%= Render('header', _.extend({}, Locals, {
-
+      'show_loader': true
     })) %>
 
+    <main class="main" data-view="CheckoutView">
+      <section class="section">
+        <div class="container">
 
-  <main class="main">
+          <h1 class="lead--lg text-center title-bold mb45">checkout</h1>
 
-    <section class="section">
-      <div class="container">
-
-        <h1 class="lead--lg text-center title-bold mb45">checkout</h1>
-
-        <div class="row row--md-60">
-          <div class="col-xl-8 col-lg-7 col-md-8 mb-3 mb-md-0 border-md-right">
-            <form action="">
-              <div id="shipping" class="step">
-                <div class="alert alert-danger" role="alert">
-                  Errors will go here
-                </div>
-
-                <div data-counter="1" class="checkout-step checkout-step--done d-flex align-items-center justify-content-between mb25">
-                  <span>shipping address</span>
-                  <a href="#" name="edit" class="checkout-step__edit">edit this</a>
-                </div>
-
-                <fieldset>
-                  <legend data-counter="1" class="legend-counter mb25">shipping address</legend>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6 mb-3 mb-md-0">
-                        <div class="form-group">
-                          <label for="recipient.first_name">First Name</label>
-                          <input name="recipient.first_name" data-get="recipient.first_name" data-set="recipient.first_name" type="text" class="form-control">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="recipient.last_name">Last Name</label>
-                          <input name="recipient.last_name" data-get="recipient.last_name" data-set="recipient.last_name" type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6 mb-3 mb-md-0">
-                        <div class="form-group">
-                          <label for="recipient.street">Address</label>
-                          <input name="recipient.street" data-get="recipient.street" data-set="recipient.street" type="text" class="form-control">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="recipient.street_b">Address Line 2 (optional)</label>
-                          <input name="recipient.street_b" data-get="recipient.street_b" data-set="recipient.street_b" type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6 mb-3 mb-md-0">
-                        <div class="form-group">
-                          <label for="recipient.city">City</label>
-                          <input name="recipient.city" data-get="recipient.city" data-set="recipient.city" type="text" class="form-control">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="recipient.region">State</label>
-                          <select name="recipient.region" data-get="recipient.region" data-set="recipient.region" class="form-control">
-                            <% _.each(Settings.us_regions, function(v, k){ %>
-                              <option value="<%= k %>"><%= v %></option>
-                            <% }) %>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6 mb-3 mb-md-0">
-                        <div class="form-group">
-                          <label for="recipient.postal_code">Postal Code</label>
-                          <input name="recipient.postal_code" data-get="recipient.postal_code" data-set="recipient.postal_code" type="text" class="form-control">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="recipient.phone">Phone</label>
-                          <input name="recipient.phone" data-get="recipient.phone" data-set="recipient.phone" type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
-                </fieldset>
-              </div>
-
-              <div id="payment">
-                <div class="alert alert-danger" role="alert">
-                  Errors will go here
-                </div>
-
-                <div data-counter="2" class="checkout-step checkout-step--done d-flex align-items-center justify-content-between mb25">
-                  <span>payment method</span>
-                  <a href="#" name="edit" class="checkout-step__edit">edit this</a>
-                </div>
-                <fieldset>
-                  <legend class="legend-counter mb25" data-counter="2">payment method</legend>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6 mb-3 mb-md-0">
-                        <div class="form-group">
-                          <label for="billing_cardholder_name">Cardholder’s Name</label>
-                          <input type="text" class="form-control" name="billing_cardholder_name" data-redact="true">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="field-card-number">Card Number</label>
-                          <input type="text" class="form-control" name="billing_cardnumber" data-redact="true">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-xl-3 col-md-4 mb-3 mb-md-0">
-                        <div class="form-group">
-                          <label for="billing_expiration_month">Expiration Month</label>
-                          <select name="billing_expiration_month" class="form-control" data-redact="true">
-                            <% _.times(12, function(i){ %>
-                              <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
-                              <option value="<%= i %>"><%= Moment(i, 'MM').format('MMM') %> - <%= i %></option>
-                            <% }) %>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-xl-3 col-md-4">
-                        <div class="form-group">
-                          <label for="billing_expiration_year">Expiration Year</label>
-                          <select name="billing_expiration_year" class="form-control" data-redact="true">
-                            <% _.times(10, function(i){ %>
-                              <% i = new Date().getFullYear() + i; %>
-                              <option value="<%= i %>"><%= i %></option>
-                            <% }) %>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="col-xl-3 col-md-4">
-                        <div class="form-group">
-                          <label for="billing_cvc">Security Code</label>
-                          <input type="text" class="form-control" name="billing_cvc" data-redact="true">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
-                </fieldset>
-              </div>
-
-              <div class="checkout-step d-flex align-items-center justify-content-between mb25" data-counter="3">
-                <span>billing address</span>
-                <a href="#" class="checkout-step__edit d-none">edit this</a>
-              </div>
-
-              <fieldset>
-                <legend class="legend-counter mb25" data-counter="3">billing address</legend>
-
-                <div class="checkbox-holder mb20">
-                  <label>
-                    <input name="same_as_shipping" type="checkbox">
-                    <span class="label">Same as shipping address</span>
-                  </label>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                      <div class="form-group">
-                        <label for="field-first-name-2">First Name</label>
-                        <input type="text" class="form-control" id="field-first-name-2" placeholder="Drew">
-                      </div><!--form-group-->
-                    </div><!--col-->
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="field-last-name-2">Last Name</label>
-                        <input type="text" class="form-control" id="field-last-name-2" placeholder="McCarver">
-                      </div><!--form-group-->
-                    </div><!--col-->
-                  </div><!--row-->
-                </div><!--form-group-->
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                      <div class="form-group">
-                        <label for="field-address-2">Address</label>
-                        <input type="text" class="form-control" id="field-address-2" placeholder="30 Ridgecrest Road">
-                      </div><!--form-group-->
-                    </div><!--col-->
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="field-address-second-2">Address Line 2 (optional)</label>
-                        <input type="text" class="form-control" id="field-address-second-2" placeholder="McCarver">
-                      </div><!--form-group-->
-                    </div><!--col-->
-                  </div><!--row-->
-                </div><!--form-group-->
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                      <div class="form-group">
-                        <label for="field-city-2">City</label>
-                        <input type="text" class="form-control" id="field-city-2" placeholder="Wallingford">
-                      </div><!--form-group-->
-                    </div><!--col-->
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="field-state-2">State</label>
-                        <select name="" id="field-state-2" class="form-control">
-                          <option value="">Connecticut</option>
-                          <option value="">Lorem</option>
-                        </select>
-                      </div><!--form-group-->
-                    </div><!--col-->
-                  </div><!--row-->
-                </div><!--form-group-->
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                      <div class="form-group">
-                        <label for="field-postal-code-2">Postal Code</label>
-                        <input type="text" class="form-control" id="field-postal-code-2" placeholder="06492">
-                      </div><!--form-group-->
-                    </div><!--col-->
-
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="field-phone-2">Phone</label>
-                        <input type="text" class="form-control" id="field-phone-2" placeholder="860-857-2037">
-                      </div><!--form-group-->
-                    </div><!--col-->
-                  </div><!--row-->
-                </div><!--form-group-->
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                      <div class="form-group">
-                        <label for="field-email-2">Email</label>
-                        <input type="text" class="form-control" id="field-email-2" placeholder="Drew@wanderset.com">
-                      </div><!--form-group-->
-                    </div><!--col-->
-                  </div><!--row-->
-                </div><!--form-group-->
-
-                <div class="checkbox-holder mt30">
-                  <label>
-                    <input type="checkbox">
-                    <span class="label">Please add me to Wanderset’s email list</span>
-                  </label>
-                </div><!-- checkbox-holder -->
-              </fieldset>
-            </form>
-          </div><!--col-->
-
-          <div class="col-xl-4 col-lg-5 col-md-4">
-            <aside class="aside">
-              <button class="btn btn-blueberry btn-huge btn-block">place order</button>
-
-              <div class="divider mt30 mb30"></div>
-
+          <div class="row row--md-60">
+            <div class="col-xl-8 col-lg-7 col-md-8 mb-3 mb-md-0 border-md-right">
               <form action="">
-                <div class="form-group">
-                  <label for="label-promo-code">Enter a Promo Code</label>
-                  <input type="text" class="form-control" id="label-promo-code">
-                </div><!--form-group-->
-                <div class="form-group">
-                  <button type="button" name="" class="btn btn-primary btn-lg btn-block">apply</button>
+                <div id="shipping" class="step">
+                  <div class="alert alert-danger" role="alert">
+                    Errors will go here
+                  </div>
+
+                  <div data-counter="1" class="checkout-step checkout-step--done d-flex align-items-center justify-content-between mb25">
+                    <span>shipping address</span>
+                    <a href="#" name="edit" class="checkout-step__edit">edit this</a>
+                  </div>
+
+                  <fieldset>
+                    <legend data-counter="1" class="legend-counter mb25">shipping address</legend>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.first_name">First Name</label>
+                            <input name="recipient.first_name" data-get="recipient.first_name" data-set="recipient.first_name" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.last_name">Last Name</label>
+                            <input name="recipient.last_name" data-get="recipient.last_name" data-set="recipient.last_name" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.street">Address</label>
+                            <input name="recipient.street" data-get="recipient.street" data-set="recipient.street" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.street_b">Address Line 2 (optional)</label>
+                            <input name="recipient.street_b" data-get="recipient.street_b" data-set="recipient.street_b" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.city">City</label>
+                            <input name="recipient.city" data-get="recipient.city" data-set="recipient.city" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.region">State</label>
+                            <select name="recipient.region" data-get="recipient.region" data-set="recipient.region" class="form-control">
+                              <% _.each(Settings.us_regions, function(v, k){ %>
+                                <option value="<%= k %>"><%= v %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.postal_code">Postal Code</label>
+                            <input name="recipient.postal_code" data-get="recipient.postal_code" data-set="recipient.postal_code" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.phone">Phone</label>
+                            <input name="recipient.phone" data-get="recipient.phone" data-set="recipient.phone" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
+                  </fieldset>
+                </div>
+
+                <div id="payment">
+                  <div class="alert alert-danger" role="alert">
+                    Errors will go here
+                  </div>
+
+                  <div data-counter="2" class="checkout-step checkout-step--done d-flex align-items-center justify-content-between mb25">
+                    <span>payment method</span>
+                    <a href="#" name="edit" class="checkout-step__edit">edit this</a>
+                  </div>
+                  <fieldset>
+                    <legend class="legend-counter mb25" data-counter="2">payment method</legend>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing_cardholder_name">Cardholder’s Name</label>
+                            <input type="text" class="form-control" name="billing_cardholder_name" data-redact="true">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="field-card-number">Card Number</label>
+                            <input type="text" class="form-control" name="billing_cardnumber" data-redact="true">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-xl-3 col-md-4 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing_expiration_month">Expiration Month</label>
+                            <select name="billing_expiration_month" class="form-control" data-redact="true">
+                              <% _.times(12, function(i){ %>
+                                <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
+                                <option value="<%= i %>"><%= Moment(i, 'MM').format('MMM') %> - <%= i %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4">
+                          <div class="form-group">
+                            <label for="billing_expiration_year">Expiration Year</label>
+                            <select name="billing_expiration_year" class="form-control" data-redact="true">
+                              <% _.times(10, function(i){ %>
+                                <% i = new Date().getFullYear() + i; %>
+                                <option value="<%= i %>"><%= i %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4">
+                          <div class="form-group">
+                            <label for="billing_cvc">Security Code</label>
+                            <input type="text" class="form-control" name="billing_cvc" data-redact="true">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
+                  </fieldset>
+                </div>
+
+                <div id="billing" class="step">
+                  <div class="alert alert-danger" role="alert">
+                    Errors will go here
+                  </div>
+
+                  <div data-counter="3" class="checkout-step checkout-step d-flex align-items-center justify-content-between mb25">
+                    <span>billing address</span>
+                    <a href="#" name="edit" class="checkout-step__edit hidden-xs-up">edit this</a>
+                  </div>
+
+                  <fieldset>
+                    <legend class="legend-counter mb25" data-counter="3">billing address</legend>
+
+                    <div class="checkbox-holder mb20">
+                      <label>
+                        <input name="same_as_shipping" type="checkbox">
+                        <span class="label">Same as shipping address</span>
+                      </label>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing.first_name">First Name</label>
+                            <input name="billing.first_name" data-get="billing.first_name" data-set="billing.first_name" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="billing.last_name">Last Name</label>
+                            <input name="billing.last_name" data-get="billing.last_name" data-set="billing.last_name" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing.street">Address</label>
+                            <input name="billing.street" data-get="billing.street" data-set="billing.street" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="billing.street_b">Address Line 2 (optional)</label>
+                            <input name="billing.street_b" data-get="billing.street_b" data-set="billing.street_b" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing.city">City</label>
+                            <input name="billing.city" data-get="billing.city" data-set="billing.city" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="billing.region">State</label>
+                            <select name="billing.region" data-get="billing.region" data-set="billing.region" class="form-control">
+                              <% _.each(Settings.us_regions, function(v, k){ %>
+                                <option value="<%= k %>"><%= v %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing.postal_code">Postal Code</label>
+                            <input name="billing.postal_code" data-get="billing.postal_code" data-set="billing.postal_code" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="billing.phone">Phone</label>
+                            <input name="billing.phone" data-get="billing.phone" data-set="billing.phone" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing.email">Email</label>
+                            <input type="text" class="form-control" data-get="billing.email" data-set="billing.email">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="checkbox-holder mt30">
+                      <label>
+                        <input name="billing.subscriber" type="checkbox" data-get="billing.subscriber" data-get-transformer="isChecked()" data-set="billing.subscriber" data-set-transformer="makeChecked">
+                        <span class="label">Please add me to Wanderset’s email list</span>
+                      </label>
+                    </div>
+
+                    <button name="place_order" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">place order</button>
+                  </fieldset>
                 </div>
               </form>
+            </div>
 
-              <div class="divider mt30 mb30"></div>
+            <div class="col-xl-4 col-lg-5 col-md-4">
+              <aside class="aside">
+                <button name="place_order" class="btn btn-blueberry btn-huge btn-block">place order</button>
 
-              <dl class="dl-aligned mb30">
-                <dt>shipping</dt>
-                <dd>free</dd>
+                <div class="divider mt30 mb30"></div>
 
-                <dt>sales tax</dt>
-                <dd>$1.75</dd>
+                <form action="">
+                  <div class="form-group">
+                    <label for="promo_code">Enter a Promo Code</label>
+                    <input type="text" class="form-control" name="promo_code">
+                    <p class="form-group-error-label"></p>
+                  </div>
+                  <div class="form-group">
+                    <button type="button" name="apply_promo_code" class="btn btn-primary btn-lg btn-block">apply</button>
+                  </div>
+                </form>
 
-                <dt>total</dt>
-                <dd>$26.75</dd>
+                <div class="divider mt30 mb30"></div>
 
-                <div class="divider mt28 mb30"></div>
+                <dl class="dl-aligned mb30" data-set="line_items">
 
-                <dt>your order</dt>
-                <dd>3 items</dd>
-              </dl>
+                </dl>
 
-              <ul class="list-goods">
-                <li class="list-goods__item">
-                  <div class="flex">
-                    <img src="/public/assets/images/temp/alpha-jacket.jpg" class="aside__produt-img" alt="">
+                <ul class="list-goods" data-set="products">
 
-                    <div class="text-truncate">
-                      <div class="goods__info">
-                        <p class="goods__info-name">Alpha Industries</p>
-                        <p class="goods__info-description">001 Destroy Jean-Stones Destroy Jean-Stones</p>
-                      </div><!-- goods__info -->
-                      <ul class="table__goods__details goods__details mb10">
-                        <li class="goods__details__item">
-                          <span>QTY:</span> <span>2</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>SIZE:</span> <span>Large</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>cost:</span> <span>$550</span>
-                        </li>
-                      </ul><!-- goods__details -->
-                    </div>
-                  </div><!-- flex -->
-                </li><!-- list-goods__item -->
+                </ul>
 
+                <div class="divider mt30 mb30"></div>
 
-                <li class="list-goods__item">
-                  <div class="flex">
-                    <img src="/public/assets/images/temp/pants.jpg" class="aside__produt-img" alt="">
-
-                    <div>
-                      <div class="goods__info">
-                        <p class="goods__info-name">10 Deep</p>
-                        <p class="goods__info-description">Cargo Skinny Fit Pants</p>
-                      </div><!-- goods__info -->
-                      <ul class="table__goods__details goods__details mb10">
-                        <li class="goods__details__item">
-                          <span>QTY:</span> <span>1</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>SIZE:</span> <span>Large</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>cost:</span> <span>$200</span>
-                        </li>
-                      </ul><!-- goods__details -->
-                    </div>
-                  </div><!-- flex -->
-                </li><!-- list-goods__item -->
-
-
-                <li class="list-goods__item">
-                  <div class="flex">
-                    <img src="/public/assets/images/temp/boot.jpg" class="aside__produt-img" alt="">
-
-                    <div>
-                      <div class="goods__info">
-                        <p class="goods__info-name">Timberland</p>
-                        <p class="goods__info-description">Classic 6-Inch Premium Boots</p>
-                      </div><!-- goods__info -->
-                      <ul class="table__goods__details goods__details mb10">
-                        <li class="goods__details__item">
-                          <span>QTY:</span> <span>1</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>SIZE:</span> <span>11</span>
-                        </li>
-                        <li class="goods__details__item">
-                          <span>cost:</span> <span>$175</span>
-                        </li>
-                      </ul><!-- goods__details -->
-                    </div>
-                  </div><!-- flex -->
-                </li><!-- list-goods__item -->
-              </ul><!-- list-goods -->
-
-              <div class="divider mt30 mb30"></div>
-
-              <button class="btn btn-blueberry btn-huge btn-block">place order</button>
-
-            </aside>
-          </div><!-- col -->
-        </div><!--row-->
-
-      </div><!-- container -->
-    </section><!-- section -->
-
-  </main>
+                <button name="place_order" class="btn btn-blueberry btn-huge btn-block">place order</button>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <%= Render('javascript', Locals) %>
   </body>

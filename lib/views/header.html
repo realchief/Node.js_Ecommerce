@@ -218,7 +218,7 @@
   </form>
 </div>
 
-<div class="loader hidden-xs-up">
+<div class="loader <% if (typeof show_loader === 'undefined' || !show_loader){ %>hidden-xs-up<% } %>">
   <div class="loader__inner">
     <span class="loader__dots"></span>
     <span class="loader__dots"></span>

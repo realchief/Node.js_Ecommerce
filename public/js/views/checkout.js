@@ -146,8 +146,21 @@ var CheckoutView = function(options, callback){
         }
         return v;
       }
-    , 'getShippingGroup': function(val, $el){
-        return $el.find('.selected-shipping-option').attr('data-shipping-option');
+    , 'set:line_items': function(val, $el, view){
+        return Render('checkout_line_items', {
+          'line_items': val
+        , 'Instance': Instance
+        , 'products_count': Belt.get(view, 'data.products.length') || 0
+        , 'total_price': Belt.get(view, 'data.total_price') || 0
+        });
+      }
+    , 'set:products': function(val){
+        return _.map(val, function(v){
+          return Render('checkout_product', {
+            'doc': v
+          , 'Instance': Instance
+          });
+        }).join('\n');
       }
     }
   , 'events': {
@@ -389,4 +402,8 @@ $(document).ready(function(){
   GB['view'] = new CheckoutView({
 
   });
+
+  GB.view.set(Belt.objFlatten(GB.doc));
+
+  ToggleLoader();
 });
