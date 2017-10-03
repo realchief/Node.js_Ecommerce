@@ -15,6 +15,7 @@ var CheckoutView = function(options, callback){
 
         self.ToggleStep({
           'show': false
+        , 'editable': true
         });
 
         self.ToggleStep({
@@ -52,7 +53,68 @@ var CheckoutView = function(options, callback){
           });
         });
       }
-    , 'click [name="submit"]': function(e){
+    , 'click #payment [name="edit"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        self.ToggleStep({
+          'show': false
+        , 'editable': true
+        });
+
+        self.ToggleStep({
+          'step': 'payment'
+        , 'show': true
+        , 'active': true
+        });
+      }
+    , 'click #payment [name="next"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        self.ValidatePayment(function(err){
+          try {
+            ga('send', 'event', 'ValidatePayment', 'click', Belt.get(err, 'message') ? err.message : 'valid');
+          } catch (e) {
+
+          }
+
+          if (err) return;
+
+          self.ToggleStep({
+            'step': 'payment'
+          , 'editable': true
+          , 'show': false
+          , 'error': false
+          , 'error_control': false
+          });
+
+          self.ToggleStep({
+            'step': 'billing'
+          , 'show': true
+          , 'active': true
+          });
+        });
+      }
+    , 'click #billing [name="edit"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        self.ToggleStep({
+          'show': false
+        , 'editable': true
+        });
+
+        self.ToggleStep({
+          'step': 'billing'
+        , 'show': true
+        , 'active': true
+        });
+      }
+    , 'click [name="place_order"]': function(e){
         var self = this;
 
         ToggleLoader(true);
@@ -114,9 +176,10 @@ var CheckoutView = function(options, callback){
 
         self.ThrottleUpdateCart();
       }
-    , 'change [data-get="billing_same"]': function(e){
+    , 'click [name="copy_shipping"]': function(e){
+        e.preventDefault();
+
         this.CopyShipping();
-        $(e.currentTarget).makeChecked(false);
       }
     , 'click [name="apply_promo_code"]': function(e){
         e.preventDefault();
@@ -304,12 +367,10 @@ var CheckoutView = function(options, callback){
   };
 
   gb.view['CopyShipping'] = function(){
-    var info = _.pick(this.get(), function(v, k){
-      return k.match(/^shipping/i);
-    });
+    var self = this;
 
-    _.each(info, function(v, k){
-      gb.view.$el.find('[data-get="' + k.replace(/^shipping/i, 'billing') + '"]').val(v);
+    _.each(self.get().recipient, function(v, k){
+      self.set(_.object(['buyer.' + k], [v]));
     });
   };
 
@@ -383,6 +444,80 @@ var CheckoutView = function(options, callback){
     });
   };
 
+  gb.view['ValidatePayment'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    Async.waterfall([
+      function(cb){
+        if (!$('[name="billing_cardholder_name"]').val()){
+          gb['error_control'] = '[name="billing_cardholder_name"]';
+          return cb(new Error('Cardholder\'s name is required'));
+        }
+
+        if (!$('[name="billing_cardnumber"]').val()){
+          gb['error_control'] = '[name="billing_cardnumber"]';
+          return cb(new Error('Card number is required'));
+        }
+
+        if (!$('[name="billing_expiration_month"]').val()){
+          gb['error_control'] = '[name="billing_expiration_month"]';
+          return cb(new Error('Expiration month is required'));
+        }
+
+        if (!$('[name="billing_expiration_year"]').val()){
+          gb['error_control'] = '[name="billing_expiration_year"]';
+          return cb(new Error('Expiration month is required'));
+        }
+
+        if (!$('[name="billing_cvc"]').val()){
+          gb['error_control'] = '[name="billing_cvc"]';
+          return cb(new Error('Security code is required'));
+        }
+
+        Stripe.createToken({
+          'number': $('[name="billing_cardnumber"]').val()
+        , 'cvc': $('[name="billing_cvc"]').val()
+        , 'exp_month': Belt.cast($('[name="billing_expiration_month"]').val(), 'number')
+        , 'exp_year': Belt.cast($('[name="billing_expiration_year"]').val(), 'number')
+        }, function(status, res){
+          GB['token'] = Belt.get(res, 'id');
+
+          if (!GB.token){
+            var err = Belt.get(res, 'error.message') || 'Billing information is invalid. Please check and re-try.';
+
+            gb['error_control'] = '[name="billing_cardnumber"]';
+            return cb(new Error(err));
+          }
+
+          cb();
+        });
+      }
+    ], function(err){
+      self.FormControlValidation();
+
+      if (err){
+        self.ToggleStep({
+          'error': err.message
+        , 'error_control': gb.error_control
+        , 'step': 'payment'
+        });
+      } else {
+        self.ToggleStep({
+          'error': false
+        , 'error_control': false
+        , 'step': 'payment'
+        });
+      }
+
+      a.cb(err);
+    });
+  };
+
   gb.view['ValidateBilling'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -393,116 +528,72 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        self.$el.find('.form-group').removeClass('form-group--has-error');
+        gb['buyer'] = self.get().buyer || {};
 
-        if (!self.get('billing_cardholder_name')){
-          self.$el.find('[name="billing_cardholder_name"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_cardholder_name"] .form-group-error-label').html('Cardholder name is required');
-          return cb(new Error('Cardholder name is required'));
-        }
-
-        if (!self.get('billing_cardnumber')){
-          self.$el.find('[name="billing_cardnumber"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_cardnumber"] .form-group-error-label').html('Card number is required');
-          return cb(new Error('Card number is required'));
-        }
-
-        if (!self.get('billing_expiration_month')){
-          self.$el.find('[name="billing_expiration_month"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_expiration_month"] .form-group-error-label').html('Expirtation month is required');
-          return cb(new Error('Expiration month is required'));
-        }
-
-        if (!self.get('billing_expiration_year')){
-          self.$el.find('[name="billing_expiration_year"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_expiration_year"] .form-group-error-label').html('Expirtation year is required');
-          return cb(new Error('Expiration year is required'));
-        }
-
-        if (!self.get('billing_cvc')){
-          self.$el.find('[name="billing_cvc"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_cvc"] .form-group-error-label').html('Security code is required');
-          return cb(new Error('Security code is required'));
-        }
-
-        Stripe.createToken({
-          'number': self.get('billing_cardnumber')
-        , 'cvc': self.get('billing_cvc')
-        , 'exp_month': Belt.cast(self.get('billing_expiration_month'), 'number')
-        , 'exp_year': Belt.cast(self.get('billing_expiration_year'), 'number')
-        }, function(status, res){
-          GB['token'] = Belt.get(res, 'id');
-
-          if (!GB.token){
-            var err = Belt.get(res, 'error.message') || 'Billing information is invalid. Please check and re-try.';
-
-            self.$el.find('[name="billing_cardnumber"]').addClass('form-group--has-error');
-            self.$el.find('[name="billing_cardnumber"] .form-group-error-label').html(err);
-            return cb(new Error(err));
-          }
-
-          cb();
-        });
-      }
-    , function(cb){
-
-        if (!self.get('billing_first_name')){
-          self.$el.find('[name="billing_first_name"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_first_name"] .form-group-error-label').html('First name is required');
+        if (!gb.buyer.first_name){
+          gb['error_control'] = '[name="buyer.first_name"]';
           return cb(new Error('First name is required'));
         }
 
-        if (!self.get('billing_last_name')){
-          self.$el.find('[name="billing_last_name"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_last_name"] .form-group-error-label').html('Last name is required');
+        if (!gb.buyer.last_name){
+          gb['error_control'] = '[name="buyer.last_name"]';
           return cb(new Error('Last name is required'));
         }
 
-        if (!self.get('billing_address')){
-          self.$el.find('[name="billing_address"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_address"] .form-group-error-label').html('Address is required');
+        if (!gb.buyer.street){
+          gb['error_control'] = '[name="buyer.street"]';
           return cb(new Error('Address is required'));
         }
 
-        if (!self.get('billing_city')){
-          self.$el.find('[name="billing_city"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_city"] .form-group-error-label').html('City is required');
+        if (!gb.buyer.city){
+          gb['error_control'] = '[name="buyer.city"]';
           return cb(new Error('City is required'));
         }
 
-        if (!self.get('billing_region')){
-          self.$el.find('[name="billing_region"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_region"] .form-group-error-label').html('State is required');
+        if (!gb.buyer.region){
+          gb['error_control'] = '[name="buyer.region"]';
           return cb(new Error('State is required'));
         }
 
-        if (!self.get('billing_postal_code')){
-          self.$el.find('[name="billing_postal_code"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_postal_code"] .form-group-error-label').html('Postal code is required');
+        if (!gb.buyer.postal_code){
+          gb['error_control'] = '[name="buyer.postal_code"]';
           return cb(new Error('Postal code is required'));
         }
 
-        if (!self.get('billing_phone')){
-          self.$el.find('[name="billing_phone"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_phone"] .form-group-error-label').html('Phone is required');
+        if (!gb.buyer.phone){
+          gb['error_control'] = '[name="buyer.phone"]';
           return cb(new Error('Phone is required'));
         }
 
-        if (!self.get('billing_email')){
-          self.$el.find('[name="billing_email"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_email"] .form-group-error-label').html('Email is required');
+        if (!gb.buyer.email){
+          gb['error_control'] = '[name="buyer.email"]';
           return cb(new Error('Email is required'));
         }
 
-        if (!self.get('billing_email').match(Belt.email_regexp)){
-          self.$el.find('[name="billing_email"]').addClass('form-group--has-error');
-          self.$el.find('[name="billing_email"] .form-group-error-label').html('Email is invalid');
+        if (!gb.buyer.email){
+          gb['error_control'] = '[name="buyer.email"]';
           return cb(new Error('Email is invalid'));
         }
 
         cb();
       }
     ], function(err){
+      self.FormControlValidation();
+
+      if (err){
+        self.ToggleStep({
+          'error': err.message
+        , 'error_control': gb.error_control
+        , 'step': 'billing'
+        });
+      } else {
+        self.ToggleStep({
+          'error': false
+        , 'error_control': false
+        , 'step': 'billing'
+        });
+      }
+
       a.cb(err);
     });
   };
