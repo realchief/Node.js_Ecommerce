@@ -400,7 +400,7 @@ var CheckoutView = function(options, callback){
       }
     }
 
-    gb.view.ThrottleUpdateCart();
+    self.ThrottleUpdateCart();
   };
 
   gb.view['FormControlValidation'] = function(options, calback){
