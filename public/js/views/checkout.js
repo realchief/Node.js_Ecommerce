@@ -157,7 +157,7 @@ var CheckoutView = function(options, callback){
                 });
 
                 self.ToggleStep({
-                  'step': 'shipping'
+                  'step': 'billing'
                 , 'show': true
                 , 'active': true
                 });
