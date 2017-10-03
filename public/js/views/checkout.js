@@ -406,7 +406,7 @@ var CheckoutView = function(options, callback){
       }
     }
 
-    self.ThrottleUpdateCart();
+    //self.ThrottleUpdateCart();
   };
 
   gb.view['FormControlValidation'] = function(options, calback){
@@ -582,6 +582,8 @@ var CheckoutView = function(options, callback){
         , 'step': 'payment'
         });
       }
+
+      self.ThrottleUpdateCart();
 
       try {
         ga('send', 'event', 'ValidatePayment', 'click', Belt.get(err, 'message') ? err.message : 'valid');
