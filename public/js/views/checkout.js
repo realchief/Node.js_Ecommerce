@@ -30,12 +30,6 @@ var CheckoutView = function(options, callback){
         var self = this;
 
         self.ValidateShipping(function(err){
-          try {
-            ga('send', 'event', 'ValidateShipping', 'click', Belt.get(err, 'message') ? err.message : 'valid');
-          } catch (e) {
-
-          }
-
           if (err) return;
 
           self.ToggleStep({
@@ -75,12 +69,6 @@ var CheckoutView = function(options, callback){
         var self = this;
 
         self.ValidatePayment(function(err){
-          try {
-            ga('send', 'event', 'ValidatePayment', 'click', Belt.get(err, 'message') ? err.message : 'valid');
-          } catch (e) {
-
-          }
-
           if (err) return;
 
           self.ToggleStep({
@@ -119,56 +107,66 @@ var CheckoutView = function(options, callback){
 
         ToggleLoader(true);
 
-        self.ValidateBilling(function(err){
-          try {
-            ga('send', 'event', 'ValidateBilling', 'click', Belt.get(err, 'message') ? err.message : 'valid');
-          } catch (e) {
+        return Async.waterfall([
+          function(cb){
+            self.ValidateShipping(function(err){
+              if (err){
+                self.ToggleStep({
+                  'show': false
+                , 'editable': true
+                });
 
-          }
-
-          if (err){
-            ToggleLoader();
-            return;
-          }
-
-          var data = _.extend({}, self.get(), {
-            'token': GB.token
-          });
-
-          delete data.billing_cardnumber;
-          delete data.billing_cardholder_name;
-          delete data.billing_cvc;
-          delete data.billing_expiration_month;
-          delete data.billing_expiration_year;
-
-          try {
-            ga('send', 'event', 'OrderAttempt', 'submit');
-          } catch (e) {
-
-          }
-
-          $.post('/order/create.json', data, function(res){
-            if (Belt.get(res, 'error')){
-              ToggleLoader();
-
-              try {
-                ga('send', 'event', 'OrderError', 'result');
-              } catch (e) {
-
+                self.ToggleStep({
+                  'step': 'shipping'
+                , 'show': true
+                , 'active': true
+                });
               }
 
-              alert(res.error);
-            } else {
+              cb(err);
+            });
+          }
+        , function(cb){
+            self.ValidatePayment(function(err){
+              if (err){
+                self.ToggleStep({
+                  'show': false
+                , 'editable': true
+                });
 
-              try {
-                ga('send', 'event', 'OrderSuccess', 'result', Belt.get(res, 'data.total_price'));
-              } catch (e) {
-
+                self.ToggleStep({
+                  'step': 'payment'
+                , 'show': true
+                , 'active': true
+                });
               }
 
-              document.location = '/checkout/complete';
-            }
-          });
+              cb(err);
+            });
+          }
+        , function(cb){
+            self.ValidateBilling(function(err){
+              if (err){
+                self.ToggleStep({
+                  'show': false
+                , 'editable': true
+                });
+
+                self.ToggleStep({
+                  'step': 'shipping'
+                , 'show': true
+                , 'active': true
+                });
+              }
+
+              cb(err);
+            });
+          }
+        , function(cb){
+            self.CreateOrder(Belt.cw(cb, 0));
+          }
+        ], function(err){
+          ToggleLoader();
         });
       }
     , 'change [data-get]': function(e){
@@ -226,12 +224,60 @@ var CheckoutView = function(options, callback){
 
   gb.view['ThrottleUpdateCart'] = _.throttle(function(){
     $.post('/cart/session/update.json', gb.view.get(), function(res){
-
+      gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
     });
-  }, 300, {
+  }, 500, {
     'leading': false
   , 'trailing': true
   });
+
+  gb.view['CreateOrder'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'data': _.extend({}, self.get(), {
+        'token': GB.token
+      })
+    });
+
+    Async.waterfall([
+      function(cb){
+        try {
+          ga('send', 'event', 'OrderAttempt', 'submit');
+        } catch (e) {
+
+        }
+
+        $.post('/order/create.json', a.o.data, function(res){
+          if (Belt.get(res, 'error')){
+            try {
+              ga('send', 'event', 'OrderError', 'result');
+            } catch (e) {
+
+            }
+
+            return cb(new Error(res.error));
+          } else {
+
+            try {
+              ga('send', 'event', 'OrderSuccess', 'result', Belt.get(res, 'data.total_price'));
+            } catch (e) {
+
+            }
+
+            document.location = '/checkout/complete';
+          }
+        });
+      }
+    ], function(err){
+      if (err){
+        self.$el.find('aside .alert').html(err.message).removeClass('d-none');
+      }
+
+      a.cb(err);
+    });
+  };
 
   gb.view['AddPromoCode'] = function(options, callback){
     var a = Belt.argulint(arguments)
@@ -270,6 +316,13 @@ var CheckoutView = function(options, callback){
         });
         self.$el.find('[name="promo_code"]').val('');
       }
+
+      try {
+        ga('send', 'event', 'AddPromoCode', 'click', a.o.code);
+      } catch (e) {
+
+      }
+
       ToggleLoader();
     });
   };
@@ -440,6 +493,12 @@ var CheckoutView = function(options, callback){
         });
       }
 
+      try {
+        ga('send', 'event', 'ValidateShipping', 'click', Belt.get(err, 'message') ? err.message : 'valid');
+      } catch (e) {
+
+      }
+
       a.cb(err);
     });
   };
@@ -514,6 +573,12 @@ var CheckoutView = function(options, callback){
         });
       }
 
+      try {
+        ga('send', 'event', 'ValidatePayment', 'click', Belt.get(err, 'message') ? err.message : 'valid');
+      } catch (e) {
+
+      }
+
       a.cb(err);
     });
   };
@@ -570,7 +635,7 @@ var CheckoutView = function(options, callback){
           return cb(new Error('Email is required'));
         }
 
-        if (!gb.buyer.email){
+        if (!gb.buyer.email.match(Belt.email_regex)){
           gb['error_control'] = '[name="buyer.email"]';
           return cb(new Error('Email is invalid'));
         }
@@ -592,6 +657,12 @@ var CheckoutView = function(options, callback){
         , 'error_control': false
         , 'step': 'billing'
         });
+      }
+
+      try {
+        ga('send', 'event', 'ValidateBilling', 'click', Belt.get(err, 'message') ? err.message : 'valid');
+      } catch (e) {
+
       }
 
       a.cb(err);
