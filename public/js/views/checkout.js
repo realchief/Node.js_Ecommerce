@@ -8,7 +8,24 @@ var CheckoutView = function(options, callback){
       'submit form': function(e){
         e.preventDefault();
       }
-    , 'click [name="next"]': function(e){
+    , 'click #shipping [name="edit"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        self.ToggleStep({
+          'show': false
+        });
+
+        self.ToggleStep({
+          'step': 'shipping'
+        , 'show': true
+        , 'active': true
+        });
+      }
+    , 'click #shipping [name="next"]': function(e){
+        e.preventDefault();
+
         var self = this;
 
         self.ValidateShipping(function(err){
@@ -20,21 +37,19 @@ var CheckoutView = function(options, callback){
 
           if (err) return;
 
-          GB.view.$el.find('[data-view="CheckoutSidebar"]').html(Render('checkout_sidebar', {
-            'doc': GB.doc
-          , 'Locals': {
-              'doc': GB.doc
-            , 'Instance': Instance
-            }
-          , 'shipping_region': GB.view.get('shipping_region')
-          , 'Instance': Instance
-          }));
+          self.ToggleStep({
+            'step': 'shipping'
+          , 'editable': true
+          , 'show': false
+          , 'error': false
+          , 'error_control': false
+          });
 
-          self.$el.find('.tab-pane').removeClass('active');
-          self.$el.find('#billing-tab.tab-pane').addClass('active');
-
-          self.$el.find('.tabs__link').removeClass('active');
-          self.$el.find('.tabs__link[href="#billing-tab"]').addClass('active');
+          self.ToggleStep({
+            'step': 'payment'
+          , 'show': true
+          , 'active': true
+          });
         });
       }
     , 'click [name="submit"]': function(e){
@@ -95,42 +110,18 @@ var CheckoutView = function(options, callback){
         });
       }
     , 'change [data-get]': function(e){
-        this.set(this.get());
+        var self = this;
+
+        self.ThrottleUpdateCart();
       }
     , 'change [data-get="billing_same"]': function(e){
         this.CopyShipping();
         $(e.currentTarget).makeChecked(false);
       }
-    , 'click [href="#billing-tab"]:not(.active)': function(e){
-        var self = this;
-        self.ValidateShipping(function(err){
-          if (err) return;
+    , 'click [name="apply_promo_code"]': function(e){
+        e.preventDefault();
 
-          GB.view.$el.find('[data-view="CheckoutSidebar"]').html(Render('checkout_sidebar', {
-            'doc': GB.doc
-          , 'Locals': {
-              'doc': GB.doc
-            , 'Instance': Instance
-            }
-          , 'shipping_region': GB.view.get('shipping_region')
-          , 'Instance': Instance
-          }));
-
-          self.$el.find('.tab-pane').removeClass('active');
-          self.$el.find('#billing-tab.tab-pane').addClass('active');
-
-          self.$el.find('.tabs__link').removeClass('active');
-          self.$el.find('.tabs__link[href="#billing-tab"]').addClass('active');
-        });
-      }
-    , 'click [href="#shipping-tab"]:not(.active)': function(e){
-        var self = this;
-
-        self.$el.find('.tab-pane').removeClass('active');
-        self.$el.find('#shipping-tab.tab-pane').addClass('active');
-
-        self.$el.find('.tabs__link').removeClass('active');
-        self.$el.find('.tabs__link[href="#shipping-tab"]').addClass('active');
+        this.AddPromoCode();
       }
     }
   , 'transformers': {
@@ -170,6 +161,130 @@ var CheckoutView = function(options, callback){
 
   gb['view'] = new Bh.View(a.o);
 
+  gb.view['ThrottleUpdateCart'] = _.throttle(function(){
+    $.post('/cart/session/update.json', gb.view.get(), function(res){
+
+    });
+  }, 300, {
+    'leading': false
+  , 'trailing': true
+  });
+
+  gb.view['AddPromoCode'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'code': self.$el.find('[name="promo_code"]').val()
+    });
+
+    ToggleLoader(true);
+
+    Async.waterfall([
+      function(cb){
+        if (!a.o.code) return cb(new Error('Promo code is missing'));
+
+        $.post('/cart/session/promo_code/' + a.o.code + '/create.json', {}, function(res){
+          var data = Belt.get(res, 'data');
+          if (data) self.set(Belt.objFlatten(data));
+
+          if (Belt.get(res, 'error')) return cb(new Error(res.error));
+
+          cb();
+        });
+      }
+    ], function(err){
+      if (err){
+        self.FormControlValidation({
+          'error': true
+        , 'message': err.message
+        , 'el': self.$el.find('[name="promo_code"]')
+        });
+      } else {
+        self.FormControlValidation({
+          'error': false
+        , 'el': self.$el.find('[name="promo_code"]')
+        });
+        self.$el.find('[name="promo_code"]').val('');
+      }
+      ToggleLoader();
+    });
+  };
+
+  gb.view['ToggleStep'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //error
+      //show
+      //editable
+      //active
+      //step
+      //error_control
+    });
+
+    if (!a.o.step){
+      self.ToggleStep(_.extend({}, a.o, {
+        'step': 'shipping'
+      }));
+      self.ToggleStep(_.extend({}, a.o, {
+        'step': 'payment'
+      }));
+      self.ToggleStep(_.extend({}, a.o, {
+        'step': 'billing'
+      }));
+      return;
+    }
+
+    gb['$el'] = self.$el.find('#' + a.o.step);
+
+    if (!Belt.isNull(a.o.show)){
+      if (a.o.show){
+        gb.$el.find('fieldset').removeClass('d-none');
+        gb.$el.find('.checkout-step').addClass('d-none').removeClass('d-flex');
+      } else {
+        gb.$el.find('fieldset').addClass('d-none');
+        gb.$el.find('.checkout-step').addClass('d-flex').removeClass('d-none');
+      }
+    }
+
+    if (!Belt.isNull(a.o.error_control)){
+      if (a.o.error_control){
+        self.FormControlValidation({
+          'error': true
+        , 'el': gb.$el.find(a.o.error_control)
+        });
+      } else {
+        self.FormControlValidation({
+          'error': false
+        });
+      }
+    }
+
+    if (!Belt.isNull(a.o.error)){
+      if (a.o.error){
+        gb.$el.find('.alert').html(a.o.error).removeClass('d-none');
+      } else {
+        gb.$el.find('.alert').addClass('d-none');
+      }
+    }
+
+    if (!Belt.isNull(a.o.editable)){
+      if (a.o.editable){
+        gb.$el.find('.checkout-step').addClass('checkout-step--done');
+        if (a.o.active){
+          gb.$el.find('.checkout-step__edit').addClass('d-none');
+        } else {
+          gb.$el.find('.checkout-step__edit').removeClass('d-none');
+        }
+      } else {
+        gb.$el.find('.checkout-step').removeClass('checkout-step--done');
+        gb.$el.find('.checkout-step__edit').addClass('d-none');
+      }
+    }
+  };
+
   gb.view['FormControlValidation'] = function(options, calback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -180,7 +295,9 @@ var CheckoutView = function(options, callback){
       //message
     });
 
-    gb['$group'] = $(a.o.el).parents('.form-group');
+    if (!a.o.el) return $('.form-group').removeClass('form-group--has-error');
+
+    gb['$group'] = $(a.o.el).parents('.form-group').first();
     gb.$group[a.o.error ? 'addClass' : 'removeClass']('form-group--has-error');
 
     if (a.o.message) gb.$group.find('.form-group-error-label').html(a.o.message);
@@ -206,53 +323,62 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        self.$el.find('.form-group').removeClass('form-group--has-error');
+        gb['recipient'] = self.get().recipient || {};
 
-        if (!self.get('shipping_first_name')){
-          self.$el.find('[name="shipping_first_name"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_first_name"] .form-group-error-label').html('First name is required');
+        if (!gb.recipient.first_name){
+          gb['error_control'] = '[name="recipient.first_name"]';
           return cb(new Error('First name is required'));
         }
 
-        if (!self.get('shipping_last_name')){
-          self.$el.find('[name="shipping_last_name"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_last_name"] .form-group-error-label').html('Last name is required');
+        if (!gb.recipient.last_name){
+          gb['error_control'] = '[name="recipient.last_name"]';
           return cb(new Error('Last name is required'));
         }
 
-        if (!self.get('shipping_address')){
-          self.$el.find('[name="shipping_address"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_address"] .form-group-error-label').html('Address is required');
+        if (!gb.recipient.street){
+          gb['error_control'] = '[name="recipient.street"]';
           return cb(new Error('Address is required'));
         }
 
-        if (!self.get('shipping_city')){
-          self.$el.find('[name="shipping_city"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_city"] .form-group-error-label').html('City is required');
+        if (!gb.recipient.city){
+          gb['error_control'] = '[name="recipient.city"]';
           return cb(new Error('City is required'));
         }
 
-        if (!self.get('shipping_region')){
-          self.$el.find('[name="shipping_region"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_region"] .form-group-error-label').html('State is required');
+        if (!gb.recipient.region){
+          gb['error_control'] = '[name="recipient.region"]';
           return cb(new Error('State is required'));
         }
 
-        if (!self.get('shipping_postal_code')){
-          self.$el.find('[name="shipping_postal_code"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_postal_code"] .form-group-error-label').html('Postal code is required');
+        if (!gb.recipient.postal_code){
+          gb['error_control'] = '[name="recipient.postal_code"]';
           return cb(new Error('Postal code is required'));
         }
 
-        if (!self.get('shipping_phone')){
-          self.$el.find('[name="shipping_phone"]').addClass('form-group--has-error');
-          self.$el.find('[name="shipping_phone"] .form-group-error-label').html('Phone is required');
+        if (!gb.recipient.phone){
+          gb['error_control'] = '[name="recipient.phone"]';
           return cb(new Error('Phone is required'));
         }
 
         cb();
       }
     ], function(err){
+      self.FormControlValidation();
+
+      if (err){
+        self.ToggleStep({
+          'error': err.message
+        , 'error_control': gb.error_control
+        , 'step': 'shipping'
+        });
+      } else {
+        self.ToggleStep({
+          'error': false
+        , 'error_control': false
+        , 'step': 'shipping'
+        });
+      }
+
       a.cb(err);
     });
   };
@@ -386,40 +512,18 @@ var CheckoutView = function(options, callback){
   return gb.view;
 };
 
-$(document).on('click', 'a.shipping-option', function(e){
-  e.preventDefault();
-
-  var $el = $(this)
-    , o = $el.attr('data-shipping-option')
-    , $sg = $el.parents('[data-shipping-group]')
-    , shipping_group_id = $sg.attr('data-shipping-group')
-    , l = $el.html();
-
-  var shipping_group = GB.doc.shipping_groups[shipping_group_id];
-
-  shipping_group.selected_shipping_option = Belt.copy(_.find(shipping_group.shipping_options, function(s){
-    return s.option._id === o;
-  }));
-
-  GB.view.$el.find('[data-view="CheckoutSidebar"]').html(Render('checkout_sidebar', {
-    'doc': GB.doc
-  , 'Locals': {
-      'doc': GB.doc
-    , 'Instance': Instance
-    }
-  , 'shipping_region': GB.view.get('shipping_region')
-  , 'Instance': Instance
-  }));
-
-  $sg.find('.selected-shipping-option').attr('data-shipping-option', o).html(l);
-});
-
 $(document).ready(function(){
   GB['view'] = new CheckoutView({
 
   });
 
   GB.view.set(Belt.objFlatten(GB.doc));
+
+  GB.view.ToggleStep({
+    'show': true
+  , 'active': true
+  , 'step': 'shipping'
+  });
 
   ToggleLoader();
 });

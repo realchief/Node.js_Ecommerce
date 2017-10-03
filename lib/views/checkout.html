@@ -18,16 +18,15 @@
             <div class="col-xl-8 col-lg-7 col-md-8 mb-3 mb-md-0 border-md-right">
               <form action="">
                 <div id="shipping" class="step">
-                  <div class="alert alert-danger" role="alert">
-                    Errors will go here
+                  <div class="alert alert-danger d-none mb20" role="alert">
                   </div>
 
-                  <div data-counter="1" class="checkout-step checkout-step--done d-flex align-items-center justify-content-between mb25">
+                  <div data-counter="1" class="checkout-step d-flex align-items-center justify-content-between mb25">
                     <span>shipping address</span>
-                    <a href="#" name="edit" class="checkout-step__edit">edit this</a>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
                   </div>
 
-                  <fieldset>
+                  <fieldset class="d-none">
                     <legend data-counter="1" class="legend-counter mb25">shipping address</legend>
 
                     <div class="form-group">
@@ -111,15 +110,14 @@
                 </div>
 
                 <div id="payment">
-                  <div class="alert alert-danger" role="alert">
-                    Errors will go here
+                  <div class="alert alert-danger d-none mb20" role="alert">
                   </div>
 
-                  <div data-counter="2" class="checkout-step checkout-step--done d-flex align-items-center justify-content-between mb25">
+                  <div data-counter="2" class="checkout-step d-flex align-items-center justify-content-between mb25">
                     <span>payment method</span>
-                    <a href="#" name="edit" class="checkout-step__edit">edit this</a>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
                   </div>
-                  <fieldset>
+                  <fieldset class="d-none">
                     <legend class="legend-counter mb25" data-counter="2">payment method</legend>
 
                     <div class="form-group">
@@ -180,22 +178,21 @@
                 </div>
 
                 <div id="billing" class="step">
-                  <div class="alert alert-danger" role="alert">
-                    Errors will go here
+                  <div class="alert alert-danger d-none mb20" role="alert">
                   </div>
 
-                  <div data-counter="3" class="checkout-step checkout-step d-flex align-items-center justify-content-between mb25">
+                  <div data-counter="3" class="checkout-step d-flex align-items-center justify-content-between mb25">
                     <span>billing address</span>
-                    <a href="#" name="edit" class="checkout-step__edit hidden-xs-up">edit this</a>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
                   </div>
 
-                  <fieldset>
+                  <fieldset class="d-none">
                     <legend class="legend-counter mb25" data-counter="3">billing address</legend>
 
                     <div class="checkbox-holder mb20">
                       <label>
                         <input name="same_as_shipping" type="checkbox">
-                        <span class="label">Same as shipping address</span>
+                        <button class="label">Same as shipping address</button>
                       </label>
                     </div>
 
@@ -203,15 +200,15 @@
                       <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
                           <div class="form-group">
-                            <label for="billing.first_name">First Name</label>
-                            <input name="billing.first_name" data-get="billing.first_name" data-set="billing.first_name" type="text" class="form-control">
+                            <label for="buyer.first_name">First Name</label>
+                            <input name="buyer.first_name" data-get="buyer.first_name" data-set="buyer.first_name" type="text" class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="billing.last_name">Last Name</label>
-                            <input name="billing.last_name" data-get="billing.last_name" data-set="billing.last_name" type="text" class="form-control">
+                            <label for="buyer.last_name">Last Name</label>
+                            <input name="buyer.last_name" data-get="buyer.last_name" data-set="buyer.last_name" type="text" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -221,15 +218,15 @@
                       <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
                           <div class="form-group">
-                            <label for="billing.street">Address</label>
-                            <input name="billing.street" data-get="billing.street" data-set="billing.street" type="text" class="form-control">
+                            <label for="buyer.street">Address</label>
+                            <input name="buyer.street" data-get="buyer.street" data-set="buyer.street" type="text" class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="billing.street_b">Address Line 2 (optional)</label>
-                            <input name="billing.street_b" data-get="billing.street_b" data-set="billing.street_b" type="text" class="form-control">
+                            <label for="buyer.street_b">Address Line 2 (optional)</label>
+                            <input name="buyer.street_b" data-get="buyer.street_b" data-set="buyer.street_b" type="text" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -239,15 +236,15 @@
                       <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
                           <div class="form-group">
-                            <label for="billing.city">City</label>
-                            <input name="billing.city" data-get="billing.city" data-set="billing.city" type="text" class="form-control">
+                            <label for="buyer.city">City</label>
+                            <input name="buyer.city" data-get="buyer.city" data-set="buyer.city" type="text" class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="billing.region">State</label>
-                            <select name="billing.region" data-get="billing.region" data-set="billing.region" class="form-control">
+                            <label for="buyer.region">State</label>
+                            <select name="buyer.region" data-get="buyer.region" data-set="buyer.region" class="form-control">
                               <% _.each(Settings.us_regions, function(v, k){ %>
                                 <option value="<%= k %>"><%= v %></option>
                               <% }) %>
@@ -261,15 +258,15 @@
                       <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
                           <div class="form-group">
-                            <label for="billing.postal_code">Postal Code</label>
-                            <input name="billing.postal_code" data-get="billing.postal_code" data-set="billing.postal_code" type="text" class="form-control">
+                            <label for="buyer.postal_code">Postal Code</label>
+                            <input name="buyer.postal_code" data-get="buyer.postal_code" data-set="buyer.postal_code" type="text" class="form-control">
                           </div>
                         </div>
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="billing.phone">Phone</label>
-                            <input name="billing.phone" data-get="billing.phone" data-set="billing.phone" type="text" class="form-control">
+                            <label for="buyer.phone">Phone</label>
+                            <input name="buyer.phone" data-get="buyer.phone" data-set="buyer.phone" type="text" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -279,8 +276,8 @@
                       <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
                           <div class="form-group">
-                            <label for="billing.email">Email</label>
-                            <input type="text" class="form-control" data-get="billing.email" data-set="billing.email">
+                            <label for="buyer.email">Email</label>
+                            <input type="text" class="form-control" data-get="buyer.email" data-set="buyer.email">
                           </div>
                         </div>
                       </div>
@@ -288,7 +285,7 @@
 
                     <div class="checkbox-holder mt30">
                       <label>
-                        <input name="billing.subscriber" type="checkbox" data-get="billing.subscriber" data-get-transformer="isChecked()" data-set="billing.subscriber" data-set-transformer="makeChecked">
+                        <input name="buyer.subscriber" type="checkbox" data-get="buyer.subscriber" data-get-transformer="isChecked()" data-set="buyer.subscriber" data-set-transformer="makeChecked">
                         <span class="label">Please add me to Wanderset’s email list</span>
                       </label>
                     </div>
