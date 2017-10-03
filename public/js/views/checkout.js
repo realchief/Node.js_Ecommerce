@@ -68,7 +68,11 @@ var CheckoutView = function(options, callback){
 
         var self = this;
 
+        ToggleLoader(true);
+
         self.ValidatePayment(function(err){
+          ToggleLoader();
+
           if (err) return;
 
           self.ToggleStep({
@@ -224,7 +228,9 @@ var CheckoutView = function(options, callback){
 
   gb.view['ThrottleUpdateCart'] = _.debounce(function(){
     $.post('/cart/session/update.json', gb.view.get(), function(res){
-      gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
+      _.debounce(function(){
+        gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
+      })();
     });
   }, 500, true);
 
