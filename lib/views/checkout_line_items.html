@@ -1,14 +1,20 @@
 <% _.each(line_items, function(l){ %>
-  <dt><%= l.label %></dt>
-  <dd><%= false && l.amount === 0 ? 'free' : '$' + Instance.priceString(l.amount) %></dd>
+  <div class="d-flex justify-content-between align-self-start text-uppercase fs11 text-muted py-1">
+    <span class="pr-1"><%= l.label %></span>
+    <span class="pl-1"><%= false && l.amount === 0 ? 'free' : '$' + Instance.priceString(l.amount) %></span>
+  </div>
 <% }) %>
 
-<dt>TOTAL</dt>
-<dd><%= '$' + Instance.priceString(total_price) %></dd>
+<div class="d-flex justify-content-between align-self-start text-uppercase fs11 text-muted py-1">
+  <span class="pr-1">TOTAL</span>
+  <span class="pl-1"><%= '$' + Instance.priceString(total_price) %></span>
+</div>
 
 <% if (true || _.any(line_items)){ %>
   <div class="divider mt28 mb30"></div>
 <% } %>
 
-<dt>your order</dt>
-<dd name="products_count"><%= products_count %> <%= products_count === 1 ? 'item' : 'items' %></dd>
+<div class="d-flex justify-content-between align-self-start text-uppercase fs11 text-muted py-1">
+  <span class="pr-1">YOUR ORDER</span>
+  <span class="pl-1" name="products_count"><%= products_count %> <%= products_count === 1 ? 'item' : 'items' %></span>
+</div>
