@@ -211,7 +211,7 @@ var SubscribeEmail = function(){
   }, Belt.np);
 
   try {
-    ga('send', 'event', 'SubscribeEmail', 'submit', email);
+    ga('send', 'event', 'SubscribeEmail', 'submit');
   } catch (e) {
 
   }

@@ -170,6 +170,22 @@ var CheckoutView = function(options, callback){
 
   gb['view'] = new Bh.View(a.o);
 
+  gb.view['FormControlValidation'] = function(options, calback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //el
+      //error
+      //message
+    });
+
+    gb['$group'] = $(a.o.el).parents('.form-group');
+    gb.$group[a.o.error ? 'addClass' : 'removeClass']('form-group--has-error');
+
+    if (a.o.message) gb.$group.find('.form-group-error-label').html(a.o.message);
+  };
+
   gb.view['CopyShipping'] = function(){
     var info = _.pick(this.get(), function(v, k){
       return k.match(/^shipping/i);
