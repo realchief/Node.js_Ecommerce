@@ -1,0 +1,17 @@
+{
+  "WNDRFAM20": {
+    "label": "Friends & Family - Free Shipping & 20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "WNDRSRY": {
+    "label": "25% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.25
+  }
+, "WNDRLNC20": {
+    "label": "Free Shipping & 20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.25
+  }
+}
