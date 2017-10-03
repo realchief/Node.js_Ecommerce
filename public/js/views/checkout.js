@@ -222,14 +222,11 @@ var CheckoutView = function(options, callback){
 
   gb['view'] = new Bh.View(a.o);
 
-  gb.view['ThrottleUpdateCart'] = _.throttle(function(){
+  gb.view['ThrottleUpdateCart'] = _.debounce(function(){
     $.post('/cart/session/update.json', gb.view.get(), function(res){
       gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
     });
-  }, 500, {
-    'leading': false
-  , 'trailing': true
-  });
+  }, 500, true);
 
   gb.view['CreateOrder'] = function(options, callback){
     var a = Belt.argulint(arguments)
@@ -399,6 +396,8 @@ var CheckoutView = function(options, callback){
         gb.$el.find('.checkout-step__edit').addClass('d-none');
       }
     }
+
+    self.ThrottleUpdateCart();
   };
 
   gb.view['FormControlValidation'] = function(options, calback){
@@ -425,6 +424,8 @@ var CheckoutView = function(options, callback){
     _.each(self.get().recipient, function(v, k){
       self.set(_.object(['buyer.' + k], [v]));
     });
+
+    self.ThrottleUpdateCart();
   };
 
   gb.view['ValidateShipping'] = function(options, callback){
