@@ -5,10 +5,334 @@
   </head>
   <body>
     <%= Render('header', _.extend({}, Locals, {
-      'hide_navbar': true
+      'show_loader': true
     })) %>
 
-    <%= Render('checkout_view', Locals) %>
+    <main class="main" data-view="CheckoutView">
+      <section class="section">
+        <div class="container">
+
+          <h1 class="lead--lg text-center title-bold mb45">checkout</h1>
+
+          <div class="row row--md-60">
+            <div class="col-xl-8 col-lg-7 col-md-8 mb-3 mb-md-0 border-md-right">
+              <form action="">
+                <div id="shipping" class="step">
+                  <div class="alert alert-danger d-none mb20" role="alert">
+                  </div>
+
+                  <div data-counter="1" class="checkout-step d-flex align-items-center justify-content-between mb25">
+                    <span>shipping address</span>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
+                  </div>
+
+                  <fieldset class="d-none">
+                    <legend data-counter="1" class="legend-counter mb25">shipping address</legend>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.first_name">First Name</label>
+                            <input name="recipient.first_name" data-get="recipient.first_name" data-set="recipient.first_name" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.last_name">Last Name</label>
+                            <input name="recipient.last_name" data-get="recipient.last_name" data-set="recipient.last_name" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.street">Address</label>
+                            <input name="recipient.street" data-get="recipient.street" data-set="recipient.street" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.street_b">Address Line 2 (optional)</label>
+                            <input name="recipient.street_b" data-get="recipient.street_b" data-set="recipient.street_b" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.city">City</label>
+                            <input name="recipient.city" data-get="recipient.city" data-set="recipient.city" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.region">State</label>
+                            <select name="recipient.region" data-get="recipient.region" data-set="recipient.region" class="form-control">
+                              <% _.each(Settings.us_regions, function(v, k){ %>
+                                <option value="<%= k %>"><%= v %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="recipient.postal_code">Postal Code</label>
+                            <input name="recipient.postal_code" data-get="recipient.postal_code" data-set="recipient.postal_code" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.phone">Phone</label>
+                            <input name="recipient.phone" data-get="recipient.phone" data-set="recipient.phone" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
+                  </fieldset>
+                </div>
+
+                <div id="payment">
+                  <div class="alert alert-danger d-none mb20" role="alert">
+                  </div>
+
+                  <div data-counter="2" class="checkout-step d-flex align-items-center justify-content-between mb25">
+                    <span>payment method</span>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
+                  </div>
+                  <fieldset class="d-none">
+                    <legend class="legend-counter mb25" data-counter="2">payment method</legend>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing_cardholder_name">Cardholder’s Name</label>
+                            <input type="text" class="form-control" name="billing_cardholder_name" data-redact="true">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="field-card-number">Card Number</label>
+                            <input type="text" class="form-control" name="billing_cardnumber" data-redact="true">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-xl-3 col-md-4 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing_expiration_month">Expiration Month</label>
+                            <select name="billing_expiration_month" class="form-control" data-redact="true">
+                              <% _.times(12, function(i){ %>
+                                <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
+                                <option value="<%= i %>"><%= Moment(i, 'MM').format('MMM') %> - <%= i %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4">
+                          <div class="form-group">
+                            <label for="billing_expiration_year">Expiration Year</label>
+                            <select name="billing_expiration_year" class="form-control" data-redact="true">
+                              <% _.times(10, function(i){ %>
+                                <% i = new Date().getFullYear() + i; %>
+                                <option value="<%= i %>"><%= i %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4">
+                          <div class="form-group">
+                            <label for="billing_cvc">Security Code</label>
+                            <input type="text" class="form-control" name="billing_cvc" data-redact="true">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
+                  </fieldset>
+                </div>
+
+                <div id="billing" class="step">
+                  <div class="alert alert-danger d-none mb20" role="alert">
+                  </div>
+
+                  <div data-counter="3" class="checkout-step d-flex align-items-center justify-content-between mb25">
+                    <span>billing address</span>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
+                  </div>
+
+                  <fieldset class="d-none">
+                    <legend class="legend-counter mb25" data-counter="3">billing address</legend>
+
+                    <div class="checkbox-holder mb20">
+                      <a name="copy_shipping" href="#" style="text-decoration:underline;font-weight:normal;" class="label">Same as shipping address</a>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="buyer.first_name">First Name</label>
+                            <input name="buyer.first_name" data-get="buyer.first_name" data-set="buyer.first_name" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="buyer.last_name">Last Name</label>
+                            <input name="buyer.last_name" data-get="buyer.last_name" data-set="buyer.last_name" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="buyer.street">Address</label>
+                            <input name="buyer.street" data-get="buyer.street" data-set="buyer.street" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="buyer.street_b">Address Line 2 (optional)</label>
+                            <input name="buyer.street_b" data-get="buyer.street_b" data-set="buyer.street_b" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="buyer.city">City</label>
+                            <input name="buyer.city" data-get="buyer.city" data-set="buyer.city" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="buyer.region">State</label>
+                            <select name="buyer.region" data-get="buyer.region" data-set="buyer.region" class="form-control">
+                              <% _.each(Settings.us_regions, function(v, k){ %>
+                                <option value="<%= k %>"><%= v %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="buyer.postal_code">Postal Code</label>
+                            <input name="buyer.postal_code" data-get="buyer.postal_code" data-set="buyer.postal_code" type="text" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="buyer.phone">Phone</label>
+                            <input name="buyer.phone" data-get="buyer.phone" data-set="buyer.phone" type="text" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="buyer.email">Email</label>
+                            <input type="text" class="form-control" data-get="buyer.email" data-set="buyer.email">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="checkbox-holder mt30">
+                      <label>
+                        <input name="buyer.subscriber" type="checkbox" data-get="buyer.subscriber" data-get-transformer="isChecked()" data-set="buyer.subscriber" data-set-transformer="makeChecked">
+                        <span class="label">Please add me to Wanderset’s email list</span>
+                      </label>
+                    </div>
+
+                    <button name="place_order" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">place order</button>
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-xl-4 col-lg-5 col-md-4">
+              <aside class="aside">
+                <div class="alert alert-danger d-none mb20 d-none" role="alert">
+                </div>
+                <button name="place_order" class="btn btn-blueberry btn-huge btn-block">place order</button>
+
+                <div class="divider mt30 mb30"></div>
+
+                <form action="">
+                  <div class="form-group">
+                    <label for="promo_code">Enter a Promo Code</label>
+                    <input type="text" class="form-control" name="promo_code">
+                    <p class="form-group-error-label"></p>
+                  </div>
+                  <div class="form-group">
+                    <button type="button" name="apply_promo_code" class="btn btn-primary btn-lg btn-block">apply</button>
+                  </div>
+                </form>
+
+                <div class="divider mt30 mb30"></div>
+
+                <dl class="dl-aligned mb30" data-set="line_items">
+
+                </dl>
+
+                <ul class="list-goods" data-set="products">
+
+                </ul>
+
+                <div class="divider mt30 mb30"></div>
+
+                <div class="alert alert-danger d-none mb20 d-none" role="alert">
+                </div>
+                <button name="place_order" class="btn btn-blueberry btn-huge btn-block">place order</button>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <%= Render('javascript', Locals) %>
   </body>

@@ -25,7 +25,7 @@
     <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>" readonly="readonly">
   </td>
   <td>
-    <p class="table__cost">$<%= Instance.priceString(doc.quantity * doc.price) %></p>
+    <p class="table__cost">$<%= Instance.priceString(doc.price) %></p>
     <p class="table__cost table__cost--sm">(<%= doc.quantity %> X $<%= Instance.priceString(doc.unit_price) %>)</p>
   </td>
 </tr>

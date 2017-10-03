@@ -1,0 +1,14 @@
+<% _.each(line_items, function(l){ %>
+  <dt><%= l.label %></dt>
+  <dd><%= false && l.amount === 0 ? 'free' : '$' + Instance.priceString(l.amount) %></dd>
+<% }) %>
+
+<dt>TOTAL</dt>
+<dd><%= '$' + Instance.priceString(total_price) %></dd>
+
+<% if (true || _.any(line_items)){ %>
+  <div class="divider mt28 mb30"></div>
+<% } %>
+
+<dt>your order</dt>
+<dd name="products_count"><%= products_count %> <%= products_count === 1 ? 'item' : 'items' %></dd>
