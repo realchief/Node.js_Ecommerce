@@ -223,8 +223,12 @@ var CheckoutView = function(options, callback){
   gb['view'] = new Bh.View(a.o);
 
   gb.view['ThrottleUpdateCart'] = _.throttle(function(){
+    var changed_data = gb.view.get()
+
     $.post('/cart/session/update.json', gb.view.get(), function(res){
-      gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
+      gb.view.set({
+        'line_items': Belt.get(res, 'data.line_items')
+      });
     });
   }, 500, {
     'leading': false
