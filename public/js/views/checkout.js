@@ -173,7 +173,7 @@ var CheckoutView = function(options, callback){
           ToggleLoader();
         });
       }
-    , 'change [data-get="buyer.region"]': function(e){
+    , 'change [data-get="buyer.email"], [data-get="buyer.region"]': function(e){
         var self = this;
 
         self.ThrottleUpdateCart();
