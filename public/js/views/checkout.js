@@ -224,18 +224,12 @@ var CheckoutView = function(options, callback){
 
   gb.view['ThrottleUpdateCart'] = _.throttle(function(){
     $.post('/cart/session/update.json', gb.view.get(), function(res){
-      gb.view.set({
-        'line_items': Belt.get(res, 'data.line_items')
-      });
+      gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
     });
   }, 500, {
     'leading': false
   , 'trailing': true
   });
-
-  setInterval(function(){
-    gb.view.ThrottleUpdateCart();
-  }, 3000);
 
   gb.view['CreateOrder'] = function(options, callback){
     var a = Belt.argulint(arguments)
@@ -405,6 +399,8 @@ var CheckoutView = function(options, callback){
         gb.$el.find('.checkout-step__edit').addClass('d-none');
       }
     }
+
+    gb.view.ThrottleUpdateCart();
   };
 
   gb.view['FormControlValidation'] = function(options, calback){
