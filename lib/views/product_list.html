@@ -34,7 +34,9 @@
                 </div>
 
                 <div class="col-md-6 hidden-sm-down flex flex-item-center justify-content-md-end <%= !_.any(docs) ? 'hidden-xs-up' : '' %>" data-set="product_listing_nav">
-                  <%= Render('product_list_nav', Locals) %>
+                  <%= Render('product_list_nav', _.extend({}, Locals, {
+
+                  })) %>
                 </div>
               </div>
             </div>
@@ -99,6 +101,7 @@
             <div class="d-flex justify-content-md-end <%= !_.any(docs) ? 'hidden-xs-up' : '' %>" data-set="product_listing_nav">
               <%= Render('product_list_nav', _.extend({}, Locals, {
                 'skip': Locals.orig_skip
+              , 'hide_sort': true
               })) %>
             </div>
           </div>

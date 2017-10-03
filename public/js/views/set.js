@@ -161,8 +161,16 @@ var LoadSetProducts = function(options, callback){
 
       $('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
 
-      $('[data-set="set_listing_nav"]').html(
-        Render('set_product_nav', _.extend({}, a.o, gb.data))
+      $('[data-set="set_listing_nav"]:not(".bottom")').html(
+        Render('set_product_nav', _.extend({
+
+        }, a.o, gb.data))
+      );
+
+      $('[data-set="set_listing_nav"].bottom').html(
+        Render('set_product_nav', _.extend({
+          'hide_sort': true
+        }, a.o, gb.data))
       );
 
       cb();
