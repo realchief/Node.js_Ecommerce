@@ -9,7 +9,7 @@
   , "discount_type": "percentage"
   , "discount_amount": 0.25
   }
-, "wndrnc20": {
+, "wndrlnc20": {
     "label": "20% Off"
   , "discount_type": "percentage"
   , "discount_amount": 0.2
