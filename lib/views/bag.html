@@ -50,10 +50,10 @@
           <div class="col-xl-3 col-lg-4 col-md-4">
             <aside class="aside">
               <div class="checkout checkout--without-border-b-t-sm side-paddings--sm-visible-sm">
-                <dl class="dl-aligned">
-                  <dt>subtotal</dt>
-                  <dd>$<%= Instance.priceString(doc.total_price) %></dd>
-                </dl>
+                <div class="d-flex justify-content-between align-self-start text-uppercase fs11 text-muted mb-3">
+                  <span class="pr-1">subtotal</span>
+                  <span class="pl-1">$<%= Instance.priceString(doc.total_price) %></span>
+                </div><!--d-flex-->
 
                 <a href="/checkout" class="btn btn-primary btn-lg btn-block <%= !doc.total_price ? 'disabled' : '' %>">checkout</a>
               </div>
