@@ -23,7 +23,7 @@
   <body>
     <%= Render('header', Locals) %>
 
-    <main class="main">
+    <main class="main" data-id="<%= doc._id %>">
       <% if (doc.brand){ %>
         <%= Render('billboard.brand', Locals) %>
       <% } else { %>
