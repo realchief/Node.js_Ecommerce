@@ -4,7 +4,7 @@
       <%= Belt.get(doc, 'label.us') || '' %>
     </h1>
     <% if (Belt.get(doc, 'description.us')){ %>
-      <h6 class="billboard__subtitle">
+      <h6 class="billboard__subtitle <% if (doc.slug === 'wanderset-select'){ %>billboard__subtitle--extra-space <% } %>">
         <a href="#billboard-collapse" data-toggle="collapse" aria-expanded="false" aria-controls="billboard-collapse">
           <span class="title-has-border" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">about</span>
         </a>
