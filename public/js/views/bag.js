@@ -1,10 +1,19 @@
 $(document).on('click', '[name="cart_product_remove"]', function(e){
   e.preventDefault();
 
-  try {
-    ga('send', 'event', 'RemoveFromBag', 'click', $(this).attr('href'));
-  } catch (e) {
+  var self = $(this);
 
+  if (GAEnabled()){
+    ga('ec:addProduct', {
+      'id': self.attr('data-id')
+    , 'name': self.attr('data-name')
+    , 'category': self.attr('data-category')
+    , 'brand': self.attr('data-brand')
+    , 'price': Belt.cast(self.attr('data-price'), 'number')
+    , 'quantity': Belt.cast(self.attr('data-quantity'), 'number')
+    });
+    ga('ec:setAction', 'remove');
+    ga('send', 'event', 'BagView', 'remove product');
   }
 
   $.getJSON($(this).attr('href'), function(){
@@ -23,10 +32,17 @@ var throtQtyUpdate = _.throttle(function(options, callback){
   var prod = $(a.o.el).parents('[data-view="BagProductView"], [data-view="BagProductMobileView"]')
     , qty = prod.find('[data-get="quantity"]').val();
 
-  try {
-    ga('send', 'event', 'UpdateBag', 'click', prod, Belt.cast(qty, 'number'));
-  } catch (e) {
-
+  if (GAEnabled()){
+    ga('ec:addProduct', {
+      'id': prod.attr('data-product-id')
+    , 'name': prod.attr('data-name')
+    , 'category': prod.attr('data-category')
+    , 'brand': prod.attr('data-brand')
+    , 'price': Belt.cast(prod.attr('data-price'), 'number')
+    , 'quantity': qty
+    });
+    ga('ec:setAction', 'add');
+    ga('send', 'event', 'BagView', 'update product quantity');
   }
 
   $.getJSON('/cart/session/product/' + prod.attr('data-id') + '/quantity/' + qty + '/update.json', function(res){

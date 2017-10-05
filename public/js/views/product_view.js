@@ -66,10 +66,8 @@ var ProductView = function(options, callback){
         }
 
         if (a.o.record_analytics){
-          try {
-            ga('send', 'event', 'CheckAvailability', 'click', self._id, gb.price ? 1 : 0);
-          } catch (e) {
-
+          if (GAEnabled()){
+            ga('send', 'event', 'ProductView', 'check availability');
           }
         }
 
@@ -107,12 +105,19 @@ var ProductView = function(options, callback){
     Async.waterfall([
       function(cb){
         $.post('/cart/session/product/create.json', a.o, function(res){
-          console.log(res);
 
-          try {
-            ga('send', 'event', 'AddToBag', 'click', self._id);
-          } catch (e) {
-
+          if (GAEnabled()){
+            ga('ec:addProduct', {
+              'id': a.o.product
+            , 'name': GB.product.name || Belt.get(GB, 'product.label.us')
+            , 'category': Belt.get(GB.product, 'categories.0') || GB.product.auto_category
+            , 'brand': (GB.product.brands || []).join(', ')
+            , 'variant': _.map(a.o.options, function(v, k){ return k + ': ' + v; }).join(' | ')
+            , 'price': a.o.price
+            , 'quantity': a.o.quantity
+            });
+            ga('ec:setAction', 'add');
+            ga('send', 'event', 'ProductView', 'add to bag');
           }
 
           cb();
@@ -122,6 +127,15 @@ var ProductView = function(options, callback){
         GetCartCount(Belt.cs(cb, gb, 'products_length', 1, 'length', 0));
       }
     , function(cb){
+        simple.scrollTo({
+          'target': 'body'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 0
+          }
+        });
+
         $('[data-view="BagDropdown"]').remove();
 
         $('[name="cart"].dropdown.show').append(Render('bag_dropdown', _.extend({
@@ -160,3 +174,18 @@ $(document).ready(function(){
     GB.view.getAvailability();
   }, 0);
 });
+
+GB['product'] = GB.product || GB.doc;
+
+if (GAEnabled()){
+  ga('ec:addProduct', {
+    'id': GB.product._id
+  , 'name': GB.product.name || Belt.get(GB, 'product.label.us')
+  , 'category': Belt.get(GB.product, 'categories.0') || GB.product.auto_category
+  , 'brand': (GB.product.brands || []).join(', ')
+  , 'variant': _.map(Belt.get(GB, 'configuration.options'), function(v, k){ return k + ': ' + v.value; }).join(' | ')
+  , 'price': Belt.get(GB, 'configuration.price') || GB.product.low_price
+  });
+
+  ga('ec:setAction', 'detail');
+}

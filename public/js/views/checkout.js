@@ -23,6 +23,11 @@ var CheckoutView = function(options, callback){
         , 'show': true
         , 'active': true
         });
+
+        if (GAEnabled()) ga('ec:setAction','checkout_option', {
+          'step': 1
+        , 'option': 'shipping_edit'
+        });
       }
     , 'click #shipping [name="next"]': function(e){
         e.preventDefault();
@@ -45,6 +50,11 @@ var CheckoutView = function(options, callback){
           , 'show': true
           , 'active': true
           });
+
+          if (GAEnabled()) ga('ec:setAction','checkout_option', {
+            'step': 2
+          , 'option': 'payment_next'
+          });
         });
       }
     , 'click #payment [name="edit"]': function(e){
@@ -61,6 +71,11 @@ var CheckoutView = function(options, callback){
           'step': 'payment'
         , 'show': true
         , 'active': true
+        });
+
+        if (GAEnabled()) ga('ec:setAction','checkout_option', {
+          'step': 2
+        , 'option': 'payment_edit'
         });
       }
     , 'click #payment [name="next"]': function(e){
@@ -88,6 +103,11 @@ var CheckoutView = function(options, callback){
           , 'show': true
           , 'active': true
           });
+
+          if (GAEnabled()) ga('ec:setAction','checkout_option', {
+            'step': 3
+          , 'option': 'billing_edit'
+          });
         });
       }
     , 'click #billing [name="edit"]': function(e){
@@ -105,6 +125,11 @@ var CheckoutView = function(options, callback){
         , 'show': true
         , 'active': true
         });
+
+        if (GAEnabled()) ga('ec:setAction','checkout_option', {
+          'step': 3
+        , 'option': 'billing_edit'
+        });
       }
     , 'click [name="place_order"]': function(e){
         var self = this;
@@ -113,6 +138,10 @@ var CheckoutView = function(options, callback){
 
         return Async.waterfall([
           function(cb){
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'order attempt');
+            }
+
             self.ValidateShipping(function(err){
               if (err){
                 self.ToggleStep({
@@ -188,6 +217,20 @@ var CheckoutView = function(options, callback){
 
         this.AddPromoCode();
       }
+    , 'change [data-get]': function(e){
+        var $el = $(e.currentTarget)
+          , control = $el.attr('name')
+          , step;
+
+        if (name.match(/recipient/)) step = 1;
+        if (name.match(/payment/)) step = 2;
+        if (name.match(/billing/)) step = 3;
+
+        if (GAEnabled()) ga('ec:setAction','checkout_option', {
+          'step': step
+        , 'option': name
+        });
+      }
     }
   , 'transformers': {
       'redact_card': function(val){
@@ -249,27 +292,17 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        try {
-          ga('send', 'event', 'OrderAttempt', 'submit');
-        } catch (e) {
-
-        }
-
         $.post('/order/create.json', a.o.data, function(res){
           if (Belt.get(res, 'error')){
-            try {
-              ga('send', 'event', 'OrderError', 'result');
-            } catch (e) {
-
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'order error', res.error);
             }
 
             return cb(new Error(res.error));
           } else {
 
-            try {
-              ga('send', 'event', 'OrderSuccess', 'result', Belt.get(res, 'data.total_price'));
-            } catch (e) {
-
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'order success');
             }
 
             document.location = '/checkout/complete';
@@ -299,11 +332,29 @@ var CheckoutView = function(options, callback){
       function(cb){
         if (!a.o.code) return cb(new Error('Promo code is missing'));
 
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'promo code attempt', a.o.code.toLowerCase().replace(/\W/g, ''));
+        }
+
         $.post('/cart/session/promo_code/' + a.o.code + '/create.json', {}, function(res){
           var data = Belt.get(res, 'data');
           if (data) self.set(Belt.objFlatten(data));
 
-          if (Belt.get(res, 'error')) return cb(new Error(res.error));
+          if (Belt.get(res, 'error')){
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'promo code error', res.error);
+            }
+            return cb(new Error(res.error));
+          }
+
+          if (GAEnabled()) {
+            ga('send', 'event', 'Checkout', 'promo code success', a.o.code.toLowerCase().replace(/\W/g, ''));
+          }
+
+          if (GAEnabled()) ga('ec:setAction','checkout_option', {
+            'option': 'promo code applied'
+          , 'coupon': a.o.code.toLowerCase().replace(/\W/g, '')
+          });
 
           cb();
         });
@@ -321,12 +372,6 @@ var CheckoutView = function(options, callback){
         , 'el': self.$el.find('[name="promo_code"]')
         });
         self.$el.find('[name="promo_code"]').val('');
-      }
-
-      try {
-        ga('send', 'event', 'AddPromoCode', 'click', a.o.code);
-      } catch (e) {
-
       }
 
       ToggleLoader();
@@ -386,6 +431,9 @@ var CheckoutView = function(options, callback){
 
     if (!Belt.isNull(a.o.error)){
       if (a.o.error){
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'form error', a.o.error);
+        }
         gb.$el.find('.alert').html(a.o.error).removeClass('d-none');
       } else {
         gb.$el.find('.alert').addClass('d-none');
@@ -424,7 +472,12 @@ var CheckoutView = function(options, callback){
     gb['$group'] = $(a.o.el).parents('.form-group').first();
     gb.$group[a.o.error ? 'addClass' : 'removeClass']('form-group--has-error');
 
-    if (a.o.message) gb.$group.find('.form-group-error-label').html(a.o.message);
+    if (a.o.message){
+      gb.$group.find('.form-group-error-label').html(a.o.message);
+      if (GAEnabled()) {
+        ga('send', 'event', 'Checkout', 'form control error', a.o.message);
+      }
+    }
   };
 
   gb.view['CopyShipping'] = function(){
@@ -447,6 +500,10 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate shipping attempt');
+        }
+
         gb['recipient'] = self.get().recipient || {};
 
         if (!gb.recipient.first_name){
@@ -495,18 +552,20 @@ var CheckoutView = function(options, callback){
         , 'error_control': gb.error_control
         , 'step': 'shipping'
         });
+
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate shipping error', err.message);
+        }
       } else {
         self.ToggleStep({
           'error': false
         , 'error_control': false
         , 'step': 'shipping'
         });
-      }
 
-      try {
-        ga('send', 'event', 'ValidateShipping', 'click', Belt.get(err, 'message') ? err.message : 'valid');
-      } catch (e) {
-
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate shipping success');
+        }
       }
 
       a.cb(err);
@@ -523,6 +582,10 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate payment attempt');
+        }
+
         if (!$('[name="billing_cardholder_name"]').val()){
           gb['error_control'] = '[name="billing_cardholder_name"]';
           return cb(new Error('Cardholder\'s name is required'));
@@ -570,12 +633,20 @@ var CheckoutView = function(options, callback){
       self.FormControlValidation();
 
       if (err){
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate payment error', err.message);
+        }
+
         self.ToggleStep({
           'error': err.message
         , 'error_control': gb.error_control
         , 'step': 'payment'
         });
       } else {
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate payment success');
+        }
+
         self.ToggleStep({
           'error': false
         , 'error_control': false
@@ -584,12 +655,6 @@ var CheckoutView = function(options, callback){
       }
 
       self.ThrottleUpdateCart();
-
-      try {
-        ga('send', 'event', 'ValidatePayment', 'click', Belt.get(err, 'message') ? err.message : 'valid');
-      } catch (e) {
-
-      }
 
       a.cb(err);
     });
@@ -605,6 +670,10 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate billing attempt');
+        }
+
         gb['buyer'] = self.get().buyer || {};
 
         if (!gb.buyer.first_name){
@@ -658,23 +727,25 @@ var CheckoutView = function(options, callback){
       self.FormControlValidation();
 
       if (err){
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate billing error', err.message);
+        }
+
         self.ToggleStep({
           'error': err.message
         , 'error_control': gb.error_control
         , 'step': 'billing'
         });
       } else {
+        if (GAEnabled()) {
+          ga('send', 'event', 'Checkout', 'validate billing success');
+        }
+
         self.ToggleStep({
           'error': false
         , 'error_control': false
         , 'step': 'billing'
         });
-      }
-
-      try {
-        ga('send', 'event', 'ValidateBilling', 'click', Belt.get(err, 'message') ? err.message : 'valid');
-      } catch (e) {
-
       }
 
       a.cb(err);
@@ -701,3 +772,24 @@ $(document).ready(function(){
 
   ToggleLoader();
 });
+
+if (GAEnabled()){
+  _.each(GB.doc.products, function(p, i){
+    var d = Belt.get(p, 'source.product');
+    if (!d) return;
+
+    ga('ec:addProduct', {
+      'id': d._id
+    , 'name': d.name || Belt.get(d, 'label.us')
+    , 'category': Belt.get(d, 'categories.0') || d.auto_category
+    , 'brand': (d.brands || []).join(', ')
+    , 'variant': _.map(p.options, function(v, k){ return k + ': ' + v; }).join(' | ')
+    , 'price': p.price
+    , 'quantity': p.quantity
+    });
+  });
+
+  ga('ec:setAction','checkout', {
+    'step': 1
+  });
+}

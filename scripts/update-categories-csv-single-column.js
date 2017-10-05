@@ -33,9 +33,9 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'csv_path': '/home/ben/Downloads/freeman.csv'
+  'csv_path': '/home/ben/Downloads/nike.csv'
 , 'category_fields': [
-    'categories'
+    'auto_category'
   ]
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
