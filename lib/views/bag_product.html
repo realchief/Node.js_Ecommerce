@@ -5,6 +5,7 @@
   data-brand="<%= (doc.product.brands || []).join(', ') %>"
   data-price="<%= doc.price %>"
   data-quantity="<%= doc.quantity %>"
+  data-sku="<%= doc.sku %>"
 >
   <td>
     <% if (Belt.get(doc, 'product.media.0.url') || Belt.get(doc, 'product.media.0.remote_url')){ %>
