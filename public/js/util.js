@@ -262,5 +262,9 @@ if (GAEnabled()){
         document.location = self.attr('href');
       }
     });
+
+    setTimeout(function(){
+      document.location = self.attr('href');
+    }, 500);
   });
 }

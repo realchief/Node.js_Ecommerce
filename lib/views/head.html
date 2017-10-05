@@ -57,6 +57,15 @@
     })(window,document,window['_fs_namespace'],'script','user');
     </script>
   <% } %>
+<% } else { %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-35217223-28"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-35217223-28');
+  </script>
 <% } %>
 
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
