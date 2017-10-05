@@ -164,6 +164,7 @@ var LoadSetProducts = function(options, callback){
           , 'name': d.name || Belt.get(d, 'label.us')
           , 'category': Belt.get(d, 'categories.0') || d.auto_category
           , 'brand': (d.brands || []).join(', ')
+          , 'variant': _.size(d.configurations) ? _.values(d.configurations)[0].sku : undefined
           , 'list': $('title').text()
           , 'position': a.o.skip + gb.data.load_count
           });

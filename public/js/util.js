@@ -251,6 +251,7 @@ if (GAEnabled()){
     , 'category': self.attr('data-category')
     , 'brand': self.attr('data-brand')
     , 'price': Belt.cast(self.attr('data-price'), 'number')
+    , 'variant': self.attr('data-sku')
     });
     ga('ec:setAction', 'click', {
       'list': $('title').text()
