@@ -212,3 +212,17 @@ $(window).scroll(function() {
 $(document).ready(function(){
 
 });
+
+if (GAEnabled()){
+  _.each(GB.docs, function(d, i){
+    ga('ec:addImpression', {
+      'id': d._id
+    , 'name': d.name || Belt.get(d, 'label.us')
+    , 'category': Belt.get(d, 'categories.0') || d.auto_category
+    , 'brand': (d.brands || []).join(', ')
+    , 'list': $('title').text()
+    , 'price': d.low_price
+    , 'position': GB.skip - 48 + i + 1
+    });
+  });
+}

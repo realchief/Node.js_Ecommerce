@@ -157,6 +157,17 @@ var LoadSetProducts = function(options, callback){
                   'doc': d
                 })
               + '</div>'
+
+        if (GAEnabled()){
+          ga('ec:addImpression', {
+            'id': d._id
+          , 'name': d.name || Belt.get(d, 'label.us')
+          , 'category': Belt.get(d, 'categories.0') || d.auto_category
+          , 'brand': (d.brands || []).join(', ')
+          , 'list': $('title').text()
+          , 'position': a.o.skip + gb.data.load_count
+          });
+        }
       });
 
       $('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
@@ -338,6 +349,8 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
   });
 
   LoadSetProducts(GB.product_filter);
+
+  if (GAEnabled()) ga('send', 'event', 'SetView', 'show products');
 });
 
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
@@ -357,6 +370,8 @@ $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
   });
 
   ThrottleLoadSetMedia();
+
+  if (GAEnabled()) ga('send', 'event', 'SetView', 'show lifestyle');
 });
 
 $(window).scroll(function() {
@@ -392,21 +407,25 @@ $(document).ready(function(){
     GB.product_filter.skip = (Belt.cast($(this).attr('data-index'), 'number') - 1) * GB.product_filter.limit;
 
     LoadSetProducts(GB.product_filter);
+
+    if (GAEnabled()) ga('send', 'event', 'SetView', 'select product page', GB.product_filter.skip);
   });
 
-  $(document).on('click', 'a[data-category]', function(e){
+  $(document).on('click', 'a[data-category]:not(".product-link")', function(e){
     e.preventDefault();
+
+    var cat = $(this).attr('data-category');
 
     Belt.set(GB.product_filter, 'query.$or', [
       {
         'categories': {
-          '$regex': Instance.escapeRegExp($(this).attr('data-category'))
+          '$regex': Instance.escapeRegExp(cat)
         , '$options': 'i'
         }
       }
     , {
         'auto_category': {
-          '$regex': Instance.escapeRegExp($(this).attr('data-category'))
+          '$regex': Instance.escapeRegExp(cat)
         , '$options': 'i'
         }
       }
@@ -415,9 +434,11 @@ $(document).ready(function(){
     GB.product_filter.skip = 0;
 
     LoadSetProducts(GB.product_filter);
+
+    if (GAEnabled()) ga('send', 'event', 'SetView', 'select product category', cat);
   });
 
-  $(document).on('click', '[data-sort]', function(e){
+  $(document).on('click', '[data-sort]:not(".product-link")', function(e){
     e.preventDefault();
 
     Belt.set(GB.product_filter, 'sort', $(this).attr('data-sort'));
@@ -425,5 +446,7 @@ $(document).ready(function(){
     GB.product_filter.skip = 0;
 
     LoadSetProducts(GB.product_filter);
+
+    if (GAEnabled()) ga('send', 'event', 'SetView', 'select product sort', GB.product_filter.sort);
   });
 });

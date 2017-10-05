@@ -1,7 +1,21 @@
-<tr data-view="BagProductMobileView" data-id="<%= doc._id %>">
+<tr data-view="BagProductMobileView" data-id="<%= doc._id %>"
+  data-product-id="<%= doc.product._id %>"
+  data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+  data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+  data-brand="<%= (doc.product.brands || []).join(', ') %>"
+  data-price="<%= doc.price %>"
+  data-quantity="<%= doc.quantity %>"
+>
   <td>
     <% if (Belt.get(doc, 'product.media.0.url') || Belt.get(doc, 'product.media.0.remote_url')){ %>
-      <a href="/product/<%= doc.product.slug || doc.product._id %>">
+      <a href="/product/<%= doc.product.slug || doc.product._id %>"
+        data-id="<%= doc.product._id %>"
+        data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+        data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+        data-brand="<%= (doc.product.brands || []).join(', ') %>"
+        data-price="<%= doc.price %>"
+        data-quantity="<%= doc.quantity %>"
+      >
         <img src="<%= doc.product.media[0].downloaded ? (doc.product.media[0].downsample_url || doc.product.media[0].url) : (doc.product.media[0].remote_url || doc.product.media[0].url) %>" class="table__img">
       </a>
     <% } %>
@@ -25,12 +39,26 @@
       <% }) %>
     </ul>
     <div class="goods__link-group">
-      <a name="cart_product_remove" href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item">remove</a>
+      <a name="cart_product_remove" href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item"
+        data-id="<%= doc.product._id %>"
+        data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+        data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+        data-brand="<%= (doc.product.brands || []).join(', ') %>"
+        data-price="<%= doc.price %>"
+        data-quantity="<%= doc.quantity %>"
+      >remove</a>
     </div>
   </td>
   <td>
     <div class="table__divider"></div>
-    <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>">
+    <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>"
+      data-id="<%= doc.product._id %>"
+      data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+      data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+      data-brand="<%= (doc.product.brands || []).join(', ') %>"
+      data-price="<%= doc.price %>"
+      data-quantity="<%= doc.quantity %>"
+    >
   </td>
   <td>
     <div class="table__divider"></div>

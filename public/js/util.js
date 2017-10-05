@@ -210,10 +210,8 @@ var SubscribeEmail = function(){
     'email': email
   }, Belt.np);
 
-  try {
-    ga('send', 'event', 'SubscribeEmail', 'submit');
-  } catch (e) {
-
+  if (GAEnabled()) {
+    ga('send', 'event', 'SubscribeModal', 'submit email');
   }
 
   $('.modal h3').html('Thank you for subscribing!');
@@ -236,3 +234,32 @@ $(document).on('click', '[name="email-submit"]', function(e){
 
   SubscribeEmail();
 });
+
+var GAEnabled = function(){
+  return typeof ga !== 'undefined' && _.isFunction(ga) ? true : false;
+};
+
+if (GAEnabled()){
+  $(document).on('click', 'a.product-link', function(e){
+    e.preventDefault();
+
+    var self = $(this);
+
+    ga('ec:addProduct', {
+      'id': self.attr('data-id')
+    , 'name': self.attr('data-name')
+    , 'category': self.attr('data-category')
+    , 'brand': self.attr('data-brand')
+    , 'price': Belt.cast(self.attr('data-price'), 'number')
+    });
+    ga('ec:setAction', 'click', {
+      'list': $('title').text()
+    });
+
+    ga('send', 'event', 'ProductItem', 'click', $('title').text(), {
+      'hitCallback': function() {
+        document.location = self.attr('href');
+      }
+    });
+  });
+}

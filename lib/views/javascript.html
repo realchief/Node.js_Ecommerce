@@ -55,6 +55,12 @@
   <% if (typeof search_query !== 'undefined'){ %>
     GB['search_query'] = "<%= search_query %>";
   <% } %>
+  <% if (typeof configuration !== 'undefined'){ %>
+    GB['configuration'] = <%= Belt.stringify(configuration) %>;
+  <% } %>
+  <% if (typeof configuration_options !== 'undefined'){ %>
+    GB['configuration_options'] = <%= Belt.stringify(configuration_options) %>;
+  <% } %>
   <% if (typeof sort !== 'undefined'){ %>
     <% if (_.isObject(sort)){ %>
       GB['sort'] = <%= Belt.stringify(sort) %>;
@@ -75,3 +81,7 @@
 <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
   <script src="<%= e %>" type="text/javascript" charset="utf-8"></script>
 <% }) %>
+
+<script>
+  if (GAEnabled()) ga('send', 'pageview');
+</script>

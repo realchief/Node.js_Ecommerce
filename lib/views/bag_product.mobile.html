@@ -1,4 +1,11 @@
-<li class="list-goods__item" data-view="BagProductMobileView" data-id="<%= doc._id %>">
+<li class="list-goods__item" data-view="BagProductMobileView" data-id="<%= doc._id %>"
+  data-product-id="<%= doc.product._id %>"
+  data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+  data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+  data-brand="<%= (doc.product.brands || []).join(', ') %>"
+  data-price="<%= doc.price %>"
+  data-quantity="<%= doc.quantity %>"
+>
   <div class="row">
     <div class="col-5">
       <% if (Belt.get(doc, 'product.media.0.url') || Belt.get(doc, 'product.media.0.remote_url')){ %>
@@ -19,7 +26,14 @@
         <% } %>
       </div>
       <p class="mb-3 goods__details__item">
-        QTY: <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>">
+        QTY: <input data-get="quantity" class="goods__quantity goods__quantity--has-border" value="<%= doc.quantity %>"
+              data-id="<%= doc.product._id %>"
+              data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+              data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+              data-brand="<%= (doc.product.brands || []).join(', ') %>"
+              data-price="<%= doc.price %>"
+              data-quantity="<%= doc.quantity %>"
+             >
       </p>
       <ul class="table__goods__details goods__details mb10">
         <% _.each(doc.options, function(v, k){ %>
@@ -29,7 +43,14 @@
         <% }) %>
       </ul>
       <div class="goods__link-group">
-        <a name="cart_product_remove" href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item">remove</a>
+        <a name="cart_product_remove" href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item"
+          data-id="<%= doc.product._id %>"
+          data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
+          data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
+          data-brand="<%= (doc.product.brands || []).join(', ') %>"
+          data-price="<%= doc.price %>"
+          data-quantity="<%= doc.quantity %>"
+        >remove</a>
       </div>
     </div>
   </div>

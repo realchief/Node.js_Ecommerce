@@ -4,7 +4,13 @@
     data-index="<%= index %>"
   <% } %>
 >
-  <a href="<%= Belt.get(doc, 'low_price') ? '/product/' + (doc.slug || doc._id) : '' %>" class="goods__item__link">
+  <a href="<%= Belt.get(doc, 'low_price') ? '/product/' + (doc.slug || doc._id) : '' %>" class="goods__item__link product-link"
+    data-id="<%= doc._id %>"
+    data-name="<%= doc.name || Belt.get(doc, 'label.us') %>"
+    data-category="<%= Belt.get(doc, 'categories.0') || doc.auto_category %>"
+    data-brand="<%= (doc.brands || []).join(', ') %>"
+    data-price="<%= doc.low_price %>"
+  >
     <% if (Belt.get(doc, 'media.0.url') || Belt.get(doc, 'media.0.remote_url')){ %>
       <img data-src="<%= doc.media[0].downloaded ? (doc.media[0][!(Belt.get(doc, 'brands.0') || '').match(/surf/i) ? 'downsample_url' : 'url'] || doc.media[0].url) : (doc.media[0].remote_url || doc.media[0].url) %>" class="goods__img lazy">
     <% } %>
