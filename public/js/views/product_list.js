@@ -221,7 +221,8 @@ if (GAEnabled()){
     , 'category': Belt.get(d, 'categories.0') || d.auto_category
     , 'brand': (d.brands || []).join(', ')
     , 'list': $('title').text()
-    , 'price': d.low_price
+    , 'price': _.size(d.configurations) ? _.values(d.configurations)[0].price : d.low_price
+    , 'variant': _.size(d.configurations) ? _.values(d.configurations)[0].sku : undefined
     , 'position': GB.skip - 48 + i + 1
     });
   });

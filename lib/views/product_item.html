@@ -9,6 +9,7 @@
     data-name="<%= doc.name || Belt.get(doc, 'label.us') %>"
     data-category="<%= Belt.get(doc, 'categories.0') || doc.auto_category %>"
     data-brand="<%= (doc.brands || []).join(', ') %>"
+    data-sku="<%= _.size(doc.configurations) ? _.values(doc.configurations).sku : '' %>"
     data-price="<%= doc.low_price %>"
   >
     <% if (Belt.get(doc, 'media.0.url') || Belt.get(doc, 'media.0.remote_url')){ %>

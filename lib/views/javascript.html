@@ -82,6 +82,40 @@
   <script src="<%= e %>" type="text/javascript" charset="utf-8"></script>
 <% }) %>
 
+<% if (true || Settings.environment === 'production'){ %>
+  <script type="text/javascript">
+  var google_tag_params = {};
+
+  <% if (typeof prod_id !== 'undefined'){ %>
+    <% if (_.isString(prod_id)){ %>
+      google_tag_params['ecomm_prodid'] = '<%= prod_id %>';
+    <% } else { %>
+      google_tag_params['ecomm_prodid'] = <%= Belt.stringify(prod_id) %>;
+    <% } %>
+  <% } %>
+  <% if (typeof page_type !== 'undefined'){ %>
+    google_tag_params['ecomm_pagetype'] = '<%= page_type %>';
+  <% } %>
+  <% if (typeof total_value !== 'undefined'){ %>
+    google_tag_params['ecomm_totalvalue'] = <%= total_value %>;
+  <% } %>
+  </script>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 835244551;
+  var google_custom_params = window.google_tag_params;
+  var google_remarketing_only = true;
+  /* ]]> */
+  </script>
+  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+  </script>
+  <noscript>
+  <div style="display:inline;">
+  <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/835244551/?guid=ON&amp;script=0"/>
+  </div>
+  </noscript>
+<% } %>
+
 <script>
   if (GAEnabled()) ga('send', 'pageview');
 </script>

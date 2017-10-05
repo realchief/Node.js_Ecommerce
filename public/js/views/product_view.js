@@ -112,7 +112,11 @@ var ProductView = function(options, callback){
             , 'name': GB.product.name || Belt.get(GB, 'product.label.us')
             , 'category': Belt.get(GB.product, 'categories.0') || GB.product.auto_category
             , 'brand': (GB.product.brands || []).join(', ')
-            , 'variant': _.map(a.o.options, function(v, k){ return k + ': ' + v; }).join(' | ')
+            , 'variant': Belt.get(_.find(GB.product.configurations, function(c){
+                return _.every(c.options, function(v, k){
+                  return a.o.options[k] === v.value;
+                });
+              }), 'sku')
             , 'price': a.o.price
             , 'quantity': a.o.quantity
             });
@@ -183,7 +187,7 @@ if (GAEnabled()){
   , 'name': GB.product.name || Belt.get(GB, 'product.label.us')
   , 'category': Belt.get(GB.product, 'categories.0') || GB.product.auto_category
   , 'brand': (GB.product.brands || []).join(', ')
-  , 'variant': _.map(Belt.get(GB, 'configuration.options'), function(v, k){ return k + ': ' + v.value; }).join(' | ')
+  , 'variant': Belt.get(GB, 'configuration.sku')
   , 'price': Belt.get(GB, 'configuration.price') || GB.product.low_price
   });
 

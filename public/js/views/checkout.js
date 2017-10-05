@@ -783,7 +783,7 @@ if (GAEnabled()){
     , 'name': d.name || Belt.get(d, 'label.us')
     , 'category': Belt.get(d, 'categories.0') || d.auto_category
     , 'brand': (d.brands || []).join(', ')
-    , 'variant': _.map(p.options, function(v, k){ return k + ': ' + v; }).join(' | ')
+    , 'variant': p.sku
     , 'price': p.price
     , 'quantity': p.quantity
     });

@@ -11,6 +11,7 @@ $(document).on('click', '[name="cart_product_remove"]', function(e){
     , 'brand': self.attr('data-brand')
     , 'price': Belt.cast(self.attr('data-price'), 'number')
     , 'quantity': Belt.cast(self.attr('data-quantity'), 'number')
+    , 'variant': self.attr('data-sku')
     });
     ga('ec:setAction', 'remove');
     ga('send', 'event', 'BagView', 'remove product');
@@ -34,12 +35,13 @@ var throtQtyUpdate = _.throttle(function(options, callback){
 
   if (GAEnabled()){
     ga('ec:addProduct', {
-      'id': prod.attr('data-product-id')
+      'id': prod.attr('data-sku') || prod.attr('data-product-id')
     , 'name': prod.attr('data-name')
     , 'category': prod.attr('data-category')
     , 'brand': prod.attr('data-brand')
     , 'price': Belt.cast(prod.attr('data-price'), 'number')
     , 'quantity': qty
+    , 'variant': prod.attr('data-sku')
     });
     ga('ec:setAction', 'add');
     ga('send', 'event', 'BagView', 'update product quantity');

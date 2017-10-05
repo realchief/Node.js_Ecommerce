@@ -5,6 +5,7 @@
   data-brand="<%= (doc.product.brands || []).join(', ') %>"
   data-price="<%= doc.price %>"
   data-quantity="<%= doc.quantity %>"
+  data-sku="<%= doc.sku %>"
 >
   <td>
     <% if (Belt.get(doc, 'product.media.0.url') || Belt.get(doc, 'product.media.0.remote_url')){ %>
@@ -15,6 +16,7 @@
         data-brand="<%= (doc.product.brands || []).join(', ') %>"
         data-price="<%= doc.price %>"
         data-quantity="<%= doc.quantity %>"
+        data-sku="<%= doc.sku %>"
       >
         <img src="<%= doc.product.media[0].downloaded ? (doc.product.media[0].downsample_url || doc.product.media[0].url) : (doc.product.media[0].remote_url || doc.product.media[0].url) %>" class="table__img">
       </a>
@@ -46,6 +48,7 @@
         data-brand="<%= (doc.product.brands || []).join(', ') %>"
         data-price="<%= doc.price %>"
         data-quantity="<%= doc.quantity %>"
+        data-sku="<%= doc.sku %>"
       >remove</a>
     </div>
   </td>
@@ -58,6 +61,7 @@
       data-brand="<%= (doc.product.brands || []).join(', ') %>"
       data-price="<%= doc.price %>"
       data-quantity="<%= doc.quantity %>"
+      data-sku="<%= doc.sku %>"
     >
   </td>
   <td>

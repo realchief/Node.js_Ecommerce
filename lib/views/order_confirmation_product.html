@@ -1,4 +1,4 @@
-<tr data-view="OrderConfirmationProductView" data-id="<%= doc._id %>">
+<tr data-view="OrderConfirmationProductView" data-id="<%= doc._id %>" data-sku="<%= doc.sku %>">
   <td>
     <% if (Belt.get(doc, 'source.product.media.0.url') || Belt.get(doc, 'source.product.media.0.remote_url')){ %>
       <img src="<%= doc.source.product.media[0].downloaded ? (doc.source.product.media[0].downsample_url || doc.source.product.media[0].url) : (doc.source.product.media[0].remote_url || doc.source.product.media[0].url) %>" class="table__img">
