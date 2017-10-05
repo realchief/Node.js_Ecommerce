@@ -48,7 +48,7 @@
 
         <h4 class="font-base-bold mb10 mb25-sm text-primary">YOUR ORDER</h4>
         <div class="table-responsive">
-          <table class="table mb-0">
+          <table class="table mb35">
             <thead>
               <tr>
                 <th>ITEM</th>
@@ -57,7 +57,6 @@
                 <th>COST</th>
               </tr>
             </thead>
-
             <tbody>
               <% _.each(doc.products, function(p){ %>
                 <%= Render('order_confirmation_product', _.extend({}, Locals, {
@@ -65,30 +64,19 @@
                 , 'Instance': Instance
                 })) %>
               <% }) %>
-              <% _.each(doc.line_items, function(p){ %>
-                <%= Render('order_confirmation_line_item', _.extend({}, Locals, {
-                  'doc': p
-                , 'Instance': Instance
-                })) %>
-              <% }) %>
-              <tr data-view="OrderConfirmationTotaliew">
-                <td>
-                  <div class="table__goods__info goods__info">
-                    <p class="goods__info-name text-uppercase"><strong>TOTAL</strong></p>
-                  </div>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                  <p class="goods__info-name text-uppercase"><strong>$<%= Instance.priceString(doc.total_price) %></strong></p>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
-
+        <% _.each(doc.line_items, function(p){ %>
+          <%= Render('order_confirmation_line_item', _.extend({}, Locals, {
+            'doc': p
+          , 'Instance': Instance
+          })) %>
+        <% }) %>
+        <div data-view="OrderConfirmationTotalView" class="d-flex justify-content-between align-self-start text-uppercase text-muted py-4 py-md-5 px-2 px-md-4 px-lg-5 fs14 border-bottom">
+          <span class="pr-1 font-base-medium">TOTAL</span>
+          <span class="pl-1 font-base-medium">$<%= Instance.priceString(doc.total_price) %></span>
+        </div>
         <div class="row mt35">
           <div class="col-lg-6 flex flex-column">
             <address class="flex flex-column flex-1 mb0-sm side-paddings--md-visible-md justify-content-between-sm">
