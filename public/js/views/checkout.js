@@ -246,6 +246,8 @@ var CheckoutView = function(options, callback){
         return v;
       }
     , 'set:line_items': function(val, $el, view){
+        GB.doc.line_items = val;
+
         return Render('checkout_line_items', {
           'line_items': val
         , 'Instance': Instance
@@ -287,6 +289,17 @@ var CheckoutView = function(options, callback){
     a.o = _.defaults(a.o, {
       'data': _.extend({}, self.get(), {
         'token': GB.token
+      , 'line_items': GB.doc.line_items
+      , 'products': _.map(GB.doc.products, function(p){
+          return _.pick(p, [
+            'product'
+          , 'options'
+          , 'quantity'
+          , 'sku'
+          , 'referring_list'
+          , 'referring_media'
+          ]);
+        })
       })
     });
 
