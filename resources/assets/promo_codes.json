@@ -19,4 +19,79 @@
   , "discount_type": "percentage"
   , "discount_amount": 0
   }
+, "wndrlnc20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "dj5ff20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "cashw20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "gdup20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "awgq20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "edlux20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "murb20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "javfam20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "noirob20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "trilset20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "purpp20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "octown20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "tywandr20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "dndl20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "mstrcrft20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
 }
