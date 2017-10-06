@@ -318,8 +318,15 @@ var CheckoutView = function(options, callback){
 
   gb.view['ThrottleUpdateCart'] = _.throttle(function(){
     $.post('/cart/session/update.json', gb.view.get(), function(res){
+      var data = Belt.get(res, 'data') || {};
       _.debounce(function(){
-        gb.view.set(Belt.objFlatten(Belt.get(res, 'data')));
+        gb.view.set(_.extend({}, Belt.objFlatten(_.omit(data, [
+          'products'
+        , 'line_items'
+        ])), _.pick(data, [
+          'products'
+        , 'line_items'
+        ])));
       })();
     });
   }, 500, {
@@ -408,7 +415,13 @@ var CheckoutView = function(options, callback){
 
         $.post('/cart/session/promo_code/' + a.o.code + '/create.json', {}, function(res){
           var data = Belt.get(res, 'data');
-          if (data) self.set(Belt.objFlatten(data));
+          if (data) self.set(_.extend({}, Belt.objFlatten(_.omit(data, [
+            'products'
+          , 'line_items'
+          ])), _.pick(data, [
+            'products'
+          , 'line_items'
+          ])));
 
           if (Belt.get(res, 'error')){
             if (GAEnabled()) {
@@ -841,7 +854,13 @@ $(document).ready(function(){
 
   });
 
-  GB.view.set(Belt.objFlatten(GB.doc));
+  GB.view.set(_.extend({}, Belt.objFlatten(_.omit(GB.doc, [
+    'products'
+  , 'line_items'
+  ])), _.pick(GB.doc, [
+    'products'
+  , 'line_items'
+  ])));
 
   GB.view.ToggleStep({
     'show': true
