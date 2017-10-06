@@ -55,6 +55,9 @@
   <% if (typeof search_query !== 'undefined'){ %>
     GB['search_query'] = "<%= search_query %>";
   <% } %>
+  <% if (typeof category !== 'undefined'){ %>
+    GB['category'] = "<%= category %>";
+  <% } %>
   <% if (typeof configuration !== 'undefined'){ %>
     GB['configuration'] = <%= Belt.stringify(configuration) %>;
   <% } %>
