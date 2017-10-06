@@ -24,6 +24,15 @@ var CheckoutView = function(options, callback){
         , 'active': true
         });
 
+        if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': '#shipping'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 100
+          }
+        });
+
         if (GAEnabled()) ga('ec:setAction','checkout_option', {
           'step': 1
         , 'option': 'shipping_edit'
@@ -51,6 +60,15 @@ var CheckoutView = function(options, callback){
           , 'active': true
           });
 
+          if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+            'target': '#payment'
+          , 'animation': true
+          , 'duration': 300
+          , 'offset': {
+              'y': 100
+            }
+          });
+
           if (GAEnabled()) ga('ec:setAction','checkout_option', {
             'step': 2
           , 'option': 'payment_next'
@@ -71,6 +89,15 @@ var CheckoutView = function(options, callback){
           'step': 'payment'
         , 'show': true
         , 'active': true
+        });
+
+        if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': '#payment'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 100
+          }
         });
 
         if (GAEnabled()) ga('ec:setAction','checkout_option', {
@@ -104,6 +131,15 @@ var CheckoutView = function(options, callback){
           , 'active': true
           });
 
+          if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+            'target': '#billing'
+          , 'animation': true
+          , 'duration': 300
+          , 'offset': {
+              'y': 100
+            }
+          });
+
           if (GAEnabled()) ga('ec:setAction','checkout_option', {
             'step': 3
           , 'option': 'billing_edit'
@@ -124,6 +160,15 @@ var CheckoutView = function(options, callback){
           'step': 'billing'
         , 'show': true
         , 'active': true
+        });
+
+        if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': '#billing'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 100
+          }
         });
 
         if (GAEnabled()) ga('ec:setAction','checkout_option', {
@@ -324,6 +369,18 @@ var CheckoutView = function(options, callback){
       }
     ], function(err){
       if (err){
+        self.ToggleStep({
+          'show': true
+        , 'active': true
+        });
+
+        self.ToggleStep({
+          'step': 'shipping'
+        , 'show': true
+        , 'active': true
+        , 'error': err.message
+        });
+
         self.$el.find('aside .alert').html(err.message).removeClass('d-none');
       }
 
@@ -448,6 +505,15 @@ var CheckoutView = function(options, callback){
           ga('send', 'event', 'Checkout', 'form error', a.o.error);
         }
         gb.$el.find('.alert').html(a.o.error).removeClass('d-none');
+
+        if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': '#' + a.o.step + ' .alert'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 100
+          }
+        });
       } else {
         gb.$el.find('.alert').addClass('d-none');
       }
