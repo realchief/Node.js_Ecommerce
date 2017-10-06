@@ -1,6 +1,8 @@
 $(document).on('click', '[name="cart_product_remove"]', function(e){
   e.preventDefault();
 
+  ToggleLoader(true);
+
   var self = $(this);
 
   if (GAEnabled()){
@@ -23,12 +25,15 @@ $(document).on('click', '[name="cart_product_remove"]', function(e){
 });
 
 var throtQtyUpdate = _.throttle(function(options, callback){
+//var throtQtyUpdate = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
     , gb = {};
   a.o = _.defaults(a.o, {
 
   });
+
+  ToggleLoader(true);
 
   var prod = $(a.o.el).parents('[data-view="BagProductView"], [data-view="BagProductMobileView"]')
     , qty = prod.find('[data-get="quantity"]').val();
@@ -56,15 +61,20 @@ var throtQtyUpdate = _.throttle(function(options, callback){
       , 'html': res.error
       }));
       prod.find('[data-get="quantity"]').val(Belt.get(res, 'data.old_quantity') || 1);
+
+      ToggleLoader();
+
       return;
     }
 
     document.location.reload();
   });
+//};
+
 }, 300, {
   'leading': false
 , 'trailing': true
-})
+});
 
 $(document).on('change keyup', '[data-get="quantity"]', function(e){
   e.preventDefault();
