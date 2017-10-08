@@ -142,7 +142,7 @@ var ProductView = function(options, callback){
 
         $('[data-view="BagDropdown"]').remove();
 
-        $('[name="cart"].dropdown.show').append(Render('bag_dropdown', _.extend({
+        $('[name="cart"].dropdown').append(Render('bag_dropdown', _.extend({
           'doc': GB.product || GB.doc
         , 'product_count': gb.products_length || 0
         }, a.o)));
