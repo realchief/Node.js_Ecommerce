@@ -131,14 +131,14 @@ var ProductView = function(options, callback){
         GetCartCount(Belt.cs(cb, gb, 'products_length', 1, 'length', 0));
       }
     , function(cb){
-      /*  simple.scrollTo({
+        simple.scrollTo({
           'target': 'body'
-        , 'animation': true
-        , 'duration': 300
+        , 'animation': false
+        , 'duration': 0
         , 'offset': {
             'y': 0
           }
-        });*/
+        });
 
         $('[data-view="BagDropdown"]').remove();
 
@@ -194,9 +194,11 @@ if (GAEnabled()){
   ga('ec:setAction', 'detail');
 }
 
-/*    $('[name="cart"].dropdown').append(Render('bag_dropdown', _.extend({
+/*
+    $('[name="cart"].dropdown').append(Render('bag_dropdown', _.extend({
     'doc': GB.product || GB.doc
   , 'product_count': 0
   , 'price': 0
   , 'options': {}
-  })));*/
+  })));
+*/
