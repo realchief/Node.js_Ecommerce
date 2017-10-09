@@ -193,3 +193,10 @@ if (GAEnabled()){
 
   ga('ec:setAction', 'detail');
 }
+
+/*    $('[name="cart"].dropdown').append(Render('bag_dropdown', _.extend({
+    'doc': GB.product || GB.doc
+  , 'product_count': 0
+  , 'price': 0
+  , 'options': {}
+  })));*/
