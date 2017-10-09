@@ -93,4 +93,20 @@
     , "new_set_slug": "trevor-andrew"
     }
   ]
+, "brand_blacklist": [
+    "nike"
+  , "asics"
+  , "champion"
+  , "fila"
+  , "north face"
+  , "kappa"
+  , "thrasher"
+  , "puma"
+  , "adidas"
+  , "levi"
+  , "lacoste"
+  , "reebok"
+  , "vans"
+  , "comme"
+  ]
 }
