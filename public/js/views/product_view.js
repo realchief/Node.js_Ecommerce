@@ -131,14 +131,14 @@ var ProductView = function(options, callback){
         GetCartCount(Belt.cs(cb, gb, 'products_length', 1, 'length', 0));
       }
     , function(cb){
-        simple.scrollTo({
+      /*  simple.scrollTo({
           'target': 'body'
         , 'animation': true
         , 'duration': 300
         , 'offset': {
             'y': 0
           }
-        });
+        });*/
 
         $('[data-view="BagDropdown"]').remove();
 
