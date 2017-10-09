@@ -122,3 +122,12 @@
 <script>
   if (GAEnabled()) ga('send', 'pageview');
 </script>
+
+<% if (!Belt.get(Request, 'session.viewed_subscribe_modal')){ %>
+  <script type="text/javascript" charset="utf-8">
+    setTimeout(function(){
+      $('.modal').modal('show');
+      $.getJSON('/email/modal/viewed.json', Belt.np);
+    }, 1000);
+  </script>
+<% } %>
