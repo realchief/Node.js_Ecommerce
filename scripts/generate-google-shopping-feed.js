@@ -54,6 +54,7 @@ var GB = _.defaults(O.argv, {
 , 'google_categories_csv_path': Path.join(O.__dirname, '/resources/assets/google-shopping-categories.csv')
 , 'output_path': Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.xml')
 , 'domain': 'https://wanderset.com'
+, 'negative_regex': new RegExp('(' + O.brand_blacklist.join('|') + ')', 'i')
 });
 
 Spin.start();
@@ -112,6 +113,8 @@ Async.waterfall([
     _.each(GB.products, function(p){
       var brand = (p.brands || []).join(', ') || '';
       brand += brand ? ' ' : '';
+
+      if (brand.match(GB.negative_regex)) return;
 
       var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
 
