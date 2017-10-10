@@ -60,6 +60,53 @@ var GB = _.defaults(O.argv, {
 
 Spin.start();
 
+GB['CreateFeed'] = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+    //feed_name
+    //feed_description
+    //items
+    //output_path
+    //domain
+  });
+
+  console.log('Creating feed "' + a.o.output_path + '"...');
+
+  var feed = [
+    {
+      'channel': [
+        {
+          'title': a.o.feed_name
+        }
+      , {
+          'description': a.o.feed_description
+        }
+      , {
+          'link': a.o.domain
+        }
+      ].concat(_.map(a.o.items, function(s){
+        s = _.omit(s, function(v, k){
+          return k.match(/^__/);
+        });
+
+        return {
+          'item': _.map(s, function(v, k){
+            var o = {};
+            o['g:' + k] = v;
+            return o;
+          })
+        };
+      }))
+    }
+  ];
+
+  var feed = '<?xml version="1.0"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n' + XML(feed, {'indent': '  '}) + '\n</rss>';
+
+  return FS.writeFile(a.o.output_path, feed, Belt.cw(a.cb, 0));
+};
+
 Async.waterfall([
   function(cb){
     var fs = FS.createReadStream(GB.google_categories_csv_path);
@@ -114,8 +161,6 @@ Async.waterfall([
     _.each(GB.products, function(p){
       var brand = (p.brands || []).join(', ') || '';
       brand += brand ? ' ' : '';
-
-      if (brand.match(GB.negative_regex)) return;
 
       var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
 
@@ -176,42 +221,45 @@ Async.waterfall([
       });
     });
 
-    var feed = [
-      {
-        'channel': [
-          {
-            'title': 'Wanderset Products'
-          }
-        , {
-            'description': 'Products on wanderset.com'
-          }
-        , {
-            'link': GB.domain
-          }
-        ].concat(_.map(GB.items, function(s){
-          s = _.omit(s, function(v, k){
-            return k.match(/^__/);
-          });
+    GB.CreateFeed({
+      'items': GB.items
+    , 'domain': GB.domain
+    , 'feed_name': 'Wanderset Products'
+    , 'feed_description': 'Products on wanderset.com'
+    , 'output_path': GB.output_path
+    }, Belt.cw(cb, 0));
+  }
+, function(cb){
+    GB['whitelisted_items'] = _.filter(GB.items, function(i){
+      return !i.__brand.match(GB.negative_regex);
+    });
 
-          return {
-            'item': _.map(s, function(v, k){
-              var o = {};
-              o['g:' + k] = v;
-              return o;
-            })
-          };
-        }))
-      }
-    ];
-
-    var feed = '<?xml version="1.0"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n' + XML(feed, {'indent': '  '}) + '\n</rss>';
-
-    return FS.writeFile(O.argv.output, feed, Belt.cw(cb, 0));
+    GB.CreateFeed({
+      'items': GB.whitelisted_items
+    , 'domain': GB.domain
+    , 'feed_name': 'Popular Wanderset Products'
+    , 'feed_description': 'Popular products on wanderset.com'
+    , 'output_path': GB.brand_output_path_template({
+        'brand': 'popular'
+      })
+    }, Belt.cw(cb, 0));
   }
 , function(cb){
     GB['grouped_items'] = _.groupBy(GB.items, function(i){
-      return i.__brand;
+      return Str.trim(Str.slugify(i.__brand.toLowerCase()));
     });
+
+    Async.eachSeries(_.keys(GB.grouped_items), function(g, cb2){
+      GB.CreateFeed({
+        'items': GB.grouped_items[g]
+      , 'domain': GB.domain
+      , 'feed_name': Str.titleize(g) + ' Wanderset Products'
+      , 'feed_description': Str.titleize(g) + ' products on wanderset.com'
+      , 'output_path': GB.brand_output_path_template({
+          'brand': g
+        })
+      }, Belt.cw(cb2, 0));
+    }, Belt.cw(cb, 0));
   }
 ], function(err){
   Spin.stop();
