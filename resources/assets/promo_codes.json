@@ -129,4 +129,9 @@
   , "discount_type": "percentage"
   , "discount_amount": 0.2
   }
+, "wndrtnx20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
 }
