@@ -1,6 +1,6 @@
 {
   "wndrfam20": {
-    "label": "Free Shipping & 20% Off"
+    "label": "20% Off + Free Shipping"
   , "discount_type": "percentage"
   , "discount_amount": 0.2
   }
@@ -90,6 +90,36 @@
   , "discount_amount": 0.2
   }
 , "mstrcrft20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "wndr20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "drew20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "eddie20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "mark20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "will20": {
+    "label": "20% Off + Free Shipping"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
+, "growney20": {
     "label": "20% Off + Free Shipping"
   , "discount_type": "percentage"
   , "discount_amount": 0.2
