@@ -53,6 +53,7 @@ var GB = _.defaults(O.argv, {
   }
 , 'google_categories_csv_path': Path.join(O.__dirname, '/resources/assets/google-shopping-categories.csv')
 , 'output_path': Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.xml')
+, 'brand_output_path_template': _.template(Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.<%= brand %>.xml'))
 , 'domain': 'https://wanderset.com'
 , 'negative_regex': new RegExp('(' + O.brand_blacklist.join('|') + ')', 'i')
 });
@@ -166,6 +167,7 @@ Async.waterfall([
                   }), 'value')
         , 'item_group_id': p._id
         , 'adwords_redirect': url + '?utm_source=google_adwords'
+        , '__brand': brand
         };
 
         item = Belt.objDefalse(item);
@@ -187,6 +189,10 @@ Async.waterfall([
             'link': GB.domain
           }
         ].concat(_.map(GB.items, function(s){
+          s = _.omit(s, function(v, k){
+            return k.match(/^__/);
+          });
+
           return {
             'item': _.map(s, function(v, k){
               var o = {};
@@ -201,6 +207,11 @@ Async.waterfall([
     var feed = '<?xml version="1.0"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n' + XML(feed, {'indent': '  '}) + '\n</rss>';
 
     return FS.writeFile(O.argv.output, feed, Belt.cw(cb, 0));
+  }
+, function(cb){
+    GB['grouped_items'] = _.groupBy(GB.items, function(i){
+      return i.__brand;
+    });
   }
 ], function(err){
   Spin.stop();
