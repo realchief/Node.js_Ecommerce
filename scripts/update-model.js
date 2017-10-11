@@ -41,12 +41,12 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'model': 'vendor'
+, 'model': 'user'
 , 'iterator': function(o, cb){
     console.log('Updating ' + GB.model + ' [' + o._id + ']...');
 
     Request({
-      'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
+      'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
 
@@ -65,7 +65,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/' + GB.model + '/list.json'
+        'url': O.host + '/admin/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
