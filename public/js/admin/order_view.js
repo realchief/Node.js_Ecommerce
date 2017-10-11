@@ -17,7 +17,6 @@ var OrderView = function(options, callback){
     }
   , 'transformers': {
       'set:products': function(val){
-console.log(val)
         return _.map(val, function(v){
           return '<option value="' + v._id + '">' + Belt.get(v, 'source.product.label.us') + ' - ' + v._id + '</option>';
         }).join('\n')
