@@ -37,6 +37,12 @@ var CheckoutView = function(options, callback){
           'step': 1
         , 'option': 'shipping_edit'
         });
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'checkout_option', {
+            'status': 'shipping_edit'
+          });
+        }
       }
     , 'click #shipping [name="next"]': function(e){
         e.preventDefault();
@@ -73,6 +79,12 @@ var CheckoutView = function(options, callback){
             'step': 2
           , 'option': 'payment_next'
           });
+
+          if (FBEnabled()){
+            fbq('trackCustom', 'checkout_option', {
+              'status': 'payment_next'
+            });
+          }
         });
       }
     , 'click #payment [name="edit"]': function(e){
@@ -104,6 +116,12 @@ var CheckoutView = function(options, callback){
           'step': 2
         , 'option': 'payment_edit'
         });
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'checkout_option', {
+            'status': 'payment_edit'
+          });
+        }
       }
     , 'click #payment [name="next"]': function(e){
         e.preventDefault();
@@ -144,6 +162,12 @@ var CheckoutView = function(options, callback){
             'step': 3
           , 'option': 'billing_edit'
           });
+
+          if (FBEnabled()){
+            fbq('trackCustom', 'checkout_option', {
+              'status': 'billing_edit'
+            });
+          }
         });
       }
     , 'click #billing [name="edit"]': function(e){
@@ -175,6 +199,12 @@ var CheckoutView = function(options, callback){
           'step': 3
         , 'option': 'billing_edit'
         });
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'checkout_option', {
+            'status': 'billing_edit'
+          });
+        }
       }
     , 'click [name="place_order"]': function(e){
         var self = this;
@@ -185,6 +215,12 @@ var CheckoutView = function(options, callback){
           function(cb){
             if (GAEnabled()) {
               ga('send', 'event', 'Checkout', 'order attempt');
+            }
+
+            if (FBEnabled()){
+              fbq('trackCustom', 'order attempt', {
+
+              });
             }
 
             self.ValidateShipping(function(err){
@@ -275,6 +311,12 @@ var CheckoutView = function(options, callback){
           'step': step
         , 'option': name
         });
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'checkout_option', {
+            'status': name
+          });
+        }
       }
     }
   , 'transformers': {
@@ -363,11 +405,23 @@ var CheckoutView = function(options, callback){
               ga('send', 'event', 'Checkout', 'order error', res.error);
             }
 
+            if (FBEnabled()){
+              fbq('trackCustom', 'order error', {
+                'status': res.error
+              });
+            }
+
             return cb(new Error(res.error));
           } else {
 
             if (GAEnabled()) {
               ga('send', 'event', 'Checkout', 'order success');
+            }
+
+            if (FBEnabled()){
+              fbq('trackCustom', 'order success', {
+
+              });
             }
 
             document.location = '/checkout/complete';
@@ -413,6 +467,12 @@ var CheckoutView = function(options, callback){
           ga('send', 'event', 'Checkout', 'promo code attempt', a.o.code.toLowerCase().replace(/\W/g, ''));
         }
 
+        if (FBEnabled()){
+          fbq('trackCustom', 'promo code attempt', {
+            'status': a.o.code.toLowerCase().replace(/\W/g, '')
+          });
+        }
+
         $.post('/cart/session/promo_code/' + a.o.code + '/create.json', {}, function(res){
           var data = Belt.get(res, 'data');
           if (data) self.set(_.extend({}, Belt.objFlatten(_.omit(data, [
@@ -427,11 +487,24 @@ var CheckoutView = function(options, callback){
             if (GAEnabled()) {
               ga('send', 'event', 'Checkout', 'promo code error', res.error);
             }
+
+            if (FBEnabled()){
+              fbq('trackCustom', 'promo code error', {
+                'status': res.error
+              });
+            }
+
             return cb(new Error(res.error));
           }
 
           if (GAEnabled()) {
             ga('send', 'event', 'Checkout', 'promo code success', a.o.code.toLowerCase().replace(/\W/g, ''));
+          }
+
+          if (FBEnabled()){
+            fbq('trackCustom', 'promo code success', {
+              'status': a.o.code.toLowerCase().replace(/\W/g, '')
+            });
           }
 
           if (GAEnabled()) ga('ec:setAction','checkout_option', {
@@ -517,6 +590,13 @@ var CheckoutView = function(options, callback){
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'form error', a.o.error);
         }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'checkout error', {
+            'status': a.o.error
+          });
+        }
+
         gb.$el.find('.alert').html(a.o.error).removeClass('d-none');
 
         if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
@@ -569,6 +649,12 @@ var CheckoutView = function(options, callback){
       if (GAEnabled()) {
         ga('send', 'event', 'Checkout', 'form control error', a.o.message);
       }
+
+      if (FBEnabled()){
+        fbq('trackCustom', 'checkout control error', {
+          'status': a.o.message
+        });
+      }
     }
   };
 
@@ -594,6 +680,12 @@ var CheckoutView = function(options, callback){
       function(cb){
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'validate shipping attempt');
+        }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate shipping attempt', {
+
+          });
         }
 
         gb['recipient'] = self.get().recipient || {};
@@ -648,6 +740,13 @@ var CheckoutView = function(options, callback){
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'validate shipping error', err.message);
         }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate shipping error', {
+            'status': err.message
+          });
+        }
+
       } else {
         self.ToggleStep({
           'error': false
@@ -658,6 +757,13 @@ var CheckoutView = function(options, callback){
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'validate shipping success');
         }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate shipping success', {
+
+          });
+        }
+
       }
 
       a.cb(err);
@@ -718,6 +824,21 @@ var CheckoutView = function(options, callback){
             return cb(new Error(err));
           }
 
+          if (FBEnabled()){
+            fbq('track', 'AddPaymentInfo', {
+              'contents': _.map(GB.doc.products, function(p){
+                return {
+                  'id': p.sku
+                , 'quantity': p.quantity
+                , 'item_price': p.price
+                };
+              })
+            , 'content_ids': _.pluck(GB.doc.products, 'sku')
+            , 'value': GB.doc.total_price
+            , 'currency': 'USD'
+            });
+          }
+
           cb();
         });
       }
@@ -729,6 +850,12 @@ var CheckoutView = function(options, callback){
           ga('send', 'event', 'Checkout', 'validate payment error', err.message);
         }
 
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate payment error', {
+            'status': err.message
+          });
+        }
+
         self.ToggleStep({
           'error': err.message
         , 'error_control': gb.error_control
@@ -737,6 +864,12 @@ var CheckoutView = function(options, callback){
       } else {
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'validate payment success');
+        }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate payment success', {
+
+          });
         }
 
         self.ToggleStep({
@@ -764,6 +897,12 @@ var CheckoutView = function(options, callback){
       function(cb){
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'validate billing attempt');
+        }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate billing attempt', {
+
+          });
         }
 
         gb['buyer'] = self.get().buyer || {};
@@ -823,6 +962,12 @@ var CheckoutView = function(options, callback){
           ga('send', 'event', 'Checkout', 'validate billing error', err.message);
         }
 
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate billing error', {
+            'status': err.message
+          });
+        }
+
         self.ToggleStep({
           'error': err.message
         , 'error_control': gb.error_control
@@ -831,6 +976,12 @@ var CheckoutView = function(options, callback){
       } else {
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'validate billing success');
+        }
+
+        if (FBEnabled()){
+          fbq('trackCustom', 'validate billing success', {
+
+          });
         }
 
         self.ToggleStep({
@@ -889,5 +1040,22 @@ if (GAEnabled()){
 
   ga('ec:setAction','checkout', {
     'step': 1
+  });
+}
+
+if (FBEnabled()){
+  fbq('track', 'InitiateCheckout', {
+    'contents': _.map(GB.doc.products, function(p){
+      return {
+        'id': p.sku
+      , 'quantity': p.quantity
+      , 'item_price': p.price
+      };
+    })
+  , 'content_ids': _.pluck(GB.doc.products, 'sku')
+  , 'content_type': 'product'
+  , 'value': GB.doc.total_price
+  , 'currency': 'USD'
+  , 'num_items': GB.doc.products.length
   });
 }

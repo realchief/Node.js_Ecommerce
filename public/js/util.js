@@ -214,6 +214,12 @@ var SubscribeEmail = function(){
     ga('send', 'event', 'SubscribeModal', 'submit email');
   }
 
+  if (FBEnabled()) {
+    fbq('track', 'CompleteRegistration', {
+      'status': 'submit email'
+    });
+  }
+
   $('.modal h3').html('Thank you for subscribing!');
   $('.modal form').hide();
 
@@ -237,6 +243,10 @@ $(document).on('click', '[name="email-submit"]', function(e){
 
 var GAEnabled = function(){
   return typeof ga !== 'undefined' && _.isFunction(ga) ? true : false;
+};
+
+var FBEnabled = function(){
+  return typeof fbq !== 'undefined' && _.isFunction(fbq) ? true : false;
 };
 
 if (GAEnabled()){

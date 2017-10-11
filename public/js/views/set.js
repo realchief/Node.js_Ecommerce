@@ -169,6 +169,16 @@ var LoadSetProducts = function(options, callback){
           , 'position': a.o.skip + gb.data.load_count
           });
         }
+
+        if (FBEnabled()){
+          fbq('track', 'ViewContent', {
+            'content_ids': [
+              d._id
+            ]
+          , 'content_category': $('title').text()
+          , 'content_type': 'product_group'
+          });
+        }
       });
 
       $('[data-set="products"]')[a.o.append ? 'append' : 'html'](html);
@@ -352,6 +362,12 @@ $('a[href="#shop-product-tab"]').on('shown.bs.tab', function(e){
   LoadSetProducts(GB.product_filter);
 
   if (GAEnabled()) ga('send', 'event', 'SetView', 'show products');
+
+  if (FBEnabled()){
+    fbq('trackCustom', 'show products', {
+
+    });
+  }
 });
 
 $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
@@ -373,6 +389,12 @@ $('a[href="#shop-lifestyle-tab"]').on('shown.bs.tab', function(e){
   ThrottleLoadSetMedia();
 
   if (GAEnabled()) ga('send', 'event', 'SetView', 'show lifestyle');
+
+  if (FBEnabled()){
+    fbq('trackCustom', 'show lifestyle', {
+
+    });
+  }
 });
 
 $(window).scroll(function() {
@@ -410,6 +432,12 @@ $(document).ready(function(){
     LoadSetProducts(GB.product_filter);
 
     if (GAEnabled()) ga('send', 'event', 'SetView', 'select product page', GB.product_filter.skip);
+
+    if (FBEnabled()){
+      fbq('trackCustom', 'select product page', {
+        'status': GB.product_filter.skip
+      });
+    }
   });
 
   $(document).on('click', 'a[data-category]:not(".product-link")', function(e){
@@ -437,6 +465,12 @@ $(document).ready(function(){
     LoadSetProducts(GB.product_filter);
 
     if (GAEnabled()) ga('send', 'event', 'SetView', 'select product category', cat);
+
+    if (FBEnabled()){
+      fbq('trackCustom', 'select product category', {
+        'status': cat
+      });
+    }
   });
 
   $(document).on('click', '[data-sort]:not(".product-link")', function(e){
@@ -449,5 +483,11 @@ $(document).ready(function(){
     LoadSetProducts(GB.product_filter);
 
     if (GAEnabled()) ga('send', 'event', 'SetView', 'select product sort', GB.product_filter.sort);
+
+    if (FBEnabled()){
+      fbq('trackCustom', 'select product sort', {
+        'status': GB.product_filter.sort
+      });
+    }
   });
 });

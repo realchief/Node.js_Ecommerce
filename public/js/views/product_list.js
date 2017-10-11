@@ -227,3 +227,19 @@ if (GAEnabled()){
     });
   });
 }
+
+if (FBEnabled()){
+  if ($('.search-result__subtitle').text().match(/search/i)){
+    fbq('track', 'Search', {
+      'content_ids': _.pluck(GB.docs, '_id')
+    , 'content_type': 'product_group'
+    , 'search_string': $('.search-result__subtitle').text().replace(/"|search results/ig, '')
+    });
+  } else {
+    fbq('track', 'ViewContent', {
+      'content_ids': _.pluck(GB.docs, '_id')
+    , 'content_category': $('.search-result__subtitle').text()
+    , 'content_type': 'product_group'
+    });
+  }
+}

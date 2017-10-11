@@ -27,3 +27,20 @@ if (GAEnabled()){
   , 'option': Belt.get(GB, 'doc.buyer.subscriber') ? 'is_subscriber' : 'not_subscriber'
   });
 }
+
+if (FBEnabled()){
+  fbq('track', 'Purchase', {
+    'contents': _.map(GB.doc.products, function(p){
+      return {
+        'id': p.sku
+      , 'quantity': p.quantity
+      , 'item_price': p.price
+      };
+    })
+  , 'content_ids': _.pluck(GB.doc.products, 'sku')
+  , 'content_type': 'product'
+  , 'value': GB.doc.total_price
+  , 'currency': 'USD'
+  , 'num_items': GB.doc.products.length
+  });
+}

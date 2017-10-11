@@ -69,6 +69,16 @@ var ProductView = function(options, callback){
           if (GAEnabled()){
             ga('send', 'event', 'ProductView', 'check availability');
           }
+
+          if (FBEnabled()){
+            fbq('trackCustom', 'check availability', {
+              'content_ids': [
+                self._id
+              ]
+            , 'value': self.price
+            , 'currency': 'USD'
+            });
+          }
         }
 
         self.set({
@@ -122,6 +132,25 @@ var ProductView = function(options, callback){
             });
             ga('ec:setAction', 'add');
             ga('send', 'event', 'ProductView', 'add to bag');
+          }
+
+
+          if (FBEnabled()) {
+            fbq('track', 'AddToCart', {
+              'value': a.o.price
+            , 'currency': 'USD'
+            , 'content_ids': Belt.arrayDefalse([
+                a.o.product
+              , Belt.get(_.find(GB.product.configurations, function(c){
+                  return _.every(c.options, function(v, k){
+                    return a.o.options[k] === v.value;
+                  });
+                }), 'sku')
+              ])
+            , 'content_type': 'product'
+            , 'content_name': GB.product.name || Belt.get(GB, 'product.label.us')
+            , 'content_category': Belt.get(GB.product, 'categories.0') || GB.product.auto_category
+            });
           }
 
           cb();
@@ -194,11 +223,16 @@ if (GAEnabled()){
   ga('ec:setAction', 'detail');
 }
 
-/*
-    $('[name="cart"].dropdown').append(Render('bag_dropdown', _.extend({
-    'doc': GB.product || GB.doc
-  , 'product_count': 0
-  , 'price': 0
-  , 'options': {}
-  })));
-*/
+if (FBEnabled()){
+  fbq('track', 'ViewContent', {
+    'content_ids': Belt.arrayDefalse([
+      GB.product._id
+    , Belt.get(GB, 'configuration.sku')
+    ])
+  , 'content_name': GB.product.name || Belt.get(GB, 'product.label.us')
+  , 'content_category': Belt.get(GB.product, 'categories.0') || GB.product.auto_category
+  , 'content_type': 'product'
+  , 'value': Belt.get(GB, 'configuration.price') || GB.product.low_price
+  , 'currency': 'USD'
+  });
+}

@@ -36,21 +36,24 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'infile': '/home/ben/Downloads/2017-10-10.json'
+, 'infile': '/home/ben/Downloads/customers.json'
 , 'iterator': function(o, cb){
-    if (!o.text.match(/New email subscriber: <mailto:/i)) return cb();
+    /*if (!o.text.match(/New email subscriber: <mailto:/i)) return cb();
 
     o.email = o.text.split('New email subscriber: <mailto:')[1].split('>').shift().split('|').pop();
     o.email = o.email.toLowerCase().replace(/\s/g, '').replace(/"|“/gi, '');
 
-    if (!o.email.match(Belt.email_regexp)) return cb();
+    if (!o.email.match(Belt.email_regexp)) return cb();*/
 
     Request({
       'url': O.host + '/admin/user/create.json'
     , 'auth': GB.auth
     , 'body': {
         'email': o.email
-      , 'roles.subscriber': true
+      , 'first_name': o.first_name
+      , 'last_name': o.last_name
+      , 'roles.subscriber': o.subscriber
+      , 'roles.customer': true
       }
     , 'json': true
     , 'method': 'post'
@@ -66,7 +69,7 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
-    var fs = require(GB.infile);
+    var fs = require(GB.infile).data;
 
     Async.eachSeries(fs, function(e, cb2){
       GB.iterator(e, Belt.cw(cb2, 0));
