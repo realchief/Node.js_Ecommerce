@@ -36,11 +36,14 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'infile': '/home/ben/Downloads/wset-2post-emails.csv'
+, 'infile': '/home/ben/Downloads/2017-10-10.json'
 , 'iterator': function(o, cb){
+    if (!o.text.match(/New email subscriber: <mailto:/i)) return cb();
+
+    o.email = o.text.split('New email subscriber: <mailto:')[1].split('>').shift().split('|').pop();
     o.email = o.email.toLowerCase().replace(/\s/g, '').replace(/"|“/gi, '');
 
-    if (!o.email.match(Belt.email_regexp)) return;
+    if (!o.email.match(Belt.email_regexp)) return cb();
 
     Request({
       'url': O.host + '/admin/user/create.json'
@@ -63,15 +66,11 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
-    var fs = FS.createReadStream(GB.infile);
+    var fs = require(GB.infile);
 
-    CSV.fromStream(fs, {
-          'headers': true
-        })
-       .on('data', function(d){
-          GB.iterator(d, Belt.np);
-        })
-       .on('end', Belt.cw(cb));
+    Async.eachSeries(fs, function(e, cb2){
+      GB.iterator(e, Belt.cw(cb2, 0));
+    }, Belt.cw(cb, 0));
   }
 ], function(err){
   Spin.stop();
