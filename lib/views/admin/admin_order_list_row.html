@@ -1,12 +1,16 @@
 <tr class="order" data-id="<%= _id %>">
-  <td><%= slug %><br>
+  <td>
+    <p><%= slug %></p>
     <% if (typeof support_status !== 'undefined' && support_status){ %>
-      <span class="label label-info"><%= support_status %></span><br>
+      <p><span class="label label-info"><%= support_status %></span></p>
     <% } %>
     <% if (shipping_status !== 'shipped'){ %>
-      <span class="label label-warning">NOT SHIPPED</span>
+      <p><span class="label label-warning">NOT SHIPPED</span></p>
     <% } else { %>
-      <span class="label label-success">SHIPPED</span>
+      <p><span class="label label-success">SHIPPED</span></p>
+    <% } %>
+    <% if (typeof notes !== 'undefined' && notes){ %>
+      <p>NOTES: <%= notes.replace(/\n/) %></p>
     <% } %>
   </td>
   <td>
