@@ -12,6 +12,9 @@
     <% if (typeof notes !== 'undefined' && notes){ %>
       <p>NOTES: <%= notes.replace(/\n/g, "</p><p>") %></p>
     <% } %>
+    <p>
+      <a href="/admin/order/<%= _id %>/read" class="btn btn-default">Edit</a>
+    </p>
   </td>
   <td>
     <%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %>
