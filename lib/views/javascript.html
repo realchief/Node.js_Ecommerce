@@ -71,6 +71,11 @@
       GB['sort'] = "<%= sort %>";
     <% } %>
   <% } %>
+  <% if (typeof Settings.localities !== 'undefined'){ %>
+    GB['localities'] = <%= Belt.stringify(Settings.localities) %>;
+  <% } else { %>
+    GB['localities'] = {};
+  <% } %>
 
   $(document).ready(function(){
     $('.parallax').parallax();

@@ -23,6 +23,7 @@
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"
       , "order_shipment_slack": "https://hooks.slack.com/services/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"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       }
     , "email": {
         "from": "DEVELOPMENT Wanderset <Ben+orders@wanderset.com>"
@@ -56,6 +57,7 @@
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"
       , "order_shipment_slack": "https://hooks.slack.com/services/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"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       }
     , "email": {
         "from": "STAGING Wanderset <ben+orders@wanderset.com>"
@@ -89,6 +91,7 @@
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"
       , "order_shipment_slack": "https://hooks.slack.com/services/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"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       }
     , "email": {
         "from": "STAGING WORKER Wanderset <ben+orders@wanderset.com>"
@@ -119,6 +122,7 @@
         "coming_soon": "http://2po.st/j0zYIQ6VlseH"
       , "error": "https://2po.st/pkKKev1BMyio"
       , "order": "https://2po.st/aX4qqfOhJzjk"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       , "email_subscription_slack": "https://hooks.slack.com/services/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"
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"
@@ -153,6 +157,7 @@
         "coming_soon": "http://2po.st/j0zYIQ6VlseH"
       , "error": "https://2po.st/pkKKev1BMyio"
       , "order": "https://2po.st/aX4qqfOhJzjk"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       , "email_subscription_slack": "https://hooks.slack.com/services/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"
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"
@@ -188,6 +193,7 @@
         "coming_soon": "http://2po.st/j0zYIQ6VlseH"
       , "error": "https://2po.st/pkKKev1BMyio"
       , "order": "https://2po.st/aX4qqfOhJzjk"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       , "email_subscription_slack": "https://hooks.slack.com/services/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"
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"
@@ -223,6 +229,7 @@
         "coming_soon": "http://2po.st/j0zYIQ6VlseH"
       , "error": "https://2po.st/pkKKev1BMyio"
       , "order": "https://2po.st/aX4qqfOhJzjk"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
       , "email_subscription_slack": "https://hooks.slack.com/services/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"
       , "new_product_slack": "https://hooks.slack.com/services/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"
       , "new_order_slack": "https://hooks.slack.com/services/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"

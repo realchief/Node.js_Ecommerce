@@ -283,7 +283,8 @@ var CheckoutView = function(options, callback){
           ToggleLoader();
         });
       }
-    , 'change [data-get="buyer.email"], [data-get="buyer.region"]': function(e){
+    , 'change [data-get="buyer.email"], [data-get="recipient.region"], [data-get="recipient.country"], [data-get="buyer.region"], [data-get="buyer.country"]': function(e){
+//    , 'change [data-get="buyer.email"], [data-get="buyer.region"], [data-get="buyer.country"]': function(e){
         var self = this;
 
         self.ThrottleUpdateCart();
@@ -318,6 +319,20 @@ var CheckoutView = function(options, callback){
           });
         }
       }
+    , 'change [name="recipient.country"]': function(e){
+        var val = $(e.currentTarget).val();
+
+        this.$el.find('select[name="recipient.region"]').html(_.map(GB.localities[val].regions, function(v){
+          return '<option value="' + v.shortCode + '">' + v.name + '</option>';
+        }).join('\n'));
+      }
+    , 'change [name="buyer.country"]': function(e){
+        var val = $(e.currentTarget).val();
+
+        this.$el.find('select[name="buyer.region"]').html(_.map(GB.localities[val].regions, function(v){
+          return '<option value="' + v.shortCode + '">' + v.name + '</option>';
+        }).join('\n'));
+      }
     }
   , 'transformers': {
       'redact_card': function(val){
@@ -350,6 +365,20 @@ var CheckoutView = function(options, callback){
           });
         }).join('\n');
       }
+    /*, 'set:recipient.country': function(val){
+        this.$el.find('select[name="recipient.region"]').html(_.map(GB.localities[val].regions, function(v){
+          return '<option value="' + v.shortCode + '">' + v.name + '</option>';
+        }).join('\n'));
+
+        return val;
+      }*/
+    /*, 'set:buyer.country': function(val){
+        this.$el.find('select[name="buyer.region"]').html(_.map(GB.localities[val].regions, function(v){
+          return '<option value="' + v.shortCode + '">' + v.name + '</option>';
+        }).join('\n'));
+
+        return val;
+      }*/
     }
   , 'events': {
 
@@ -358,10 +387,62 @@ var CheckoutView = function(options, callback){
 
   gb['view'] = new Bh.View(a.o);
 
+  gb.view['UpdateStepRegions'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //step
+      //country
+    });
+
+    self.$el.find('select[name="' + a.o.step + '.region"]').html(_.map(GB.localities[a.o.country].regions, function(v){
+      return '<option value="' + v.shortCode + '">' + v.name + '</option>';
+    }).join('\n'));
+  };
+
+  gb.view['UpdateRegions'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //data
+    });
+
+    self.UpdateStepRegions({
+      'step': 'recipient'
+    , 'country': Belt.get(a.o.data, 'recipient.country')
+    });
+
+    self.UpdateStepRegions({
+      'step': 'buyer'
+    , 'country': Belt.get(a.o.data, 'buyer.country')
+    });
+  };
+
+  gb.view['UpdateCart'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    $.post('/cart/session/update.json', self.get(), function(res){
+      var err = Belt.get(res, 'error')
+        , data = Belt.get(res, 'data') || {};
+
+      return a.cb(err ? new Error(err) : undefined, data);
+    });
+  };
+
   gb.view['ThrottleUpdateCart'] = _.throttle(function(){
-    $.post('/cart/session/update.json', gb.view.get(), function(res){
-      var data = Belt.get(res, 'data') || {};
+    gb.view.UpdateCart(function(err, data){
       _.debounce(function(){
+        gb.view.UpdateRegions({
+          'data': data
+        });
+
         gb.view.set(_.extend({}, Belt.objFlatten(_.omit(data, [
           'products'
         , 'line_items'
@@ -399,7 +480,7 @@ var CheckoutView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        $.post('/order/create.json', a.o.data, function(res){
+        var res_callback = function(res){
           if (Belt.get(res, 'error')){
             if (GAEnabled()) {
               ga('send', 'event', 'Checkout', 'order error', res.error);
@@ -426,6 +507,16 @@ var CheckoutView = function(options, callback){
 
             document.location = '/checkout/complete';
           }
+        };
+
+        $.post('/order/create.json', a.o.data, function(res){
+          if (Belt.get(res, 'error')){
+            $.post('/order/create.json', a.o.data, function(res){
+              res_callback(res);
+            });
+          } else {
+            res_callback(res);
+          }
         });
       }
     ], function(err){
@@ -443,6 +534,15 @@ var CheckoutView = function(options, callback){
         });
 
         self.$el.find('aside .alert').html(err.message).removeClass('d-none');
+
+        if ($('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': 'body'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 0
+          }
+        });
       }
 
       a.cb(err);
@@ -463,6 +563,9 @@ var CheckoutView = function(options, callback){
       function(cb){
         if (!a.o.code) return cb(new Error('Promo code is missing'));
 
+        self.UpdateCart(Belt.cw(cb));
+      }
+    , function(cb){
         if (GAEnabled()) {
           ga('send', 'event', 'Checkout', 'promo code attempt', a.o.code.toLowerCase().replace(/\W/g, ''));
         }
@@ -475,13 +578,19 @@ var CheckoutView = function(options, callback){
 
         $.post('/cart/session/promo_code/' + a.o.code + '/create.json', {}, function(res){
           var data = Belt.get(res, 'data');
-          if (data) self.set(_.extend({}, Belt.objFlatten(_.omit(data, [
-            'products'
-          , 'line_items'
-          ])), _.pick(data, [
-            'products'
-          , 'line_items'
-          ])));
+          if (data){
+            self.UpdateRegions({
+              'data': data
+            });
+
+            self.set(_.extend({}, Belt.objFlatten(_.omit(data, [
+              'products'
+            , 'line_items'
+            ])), _.pick(data, [
+              'products'
+            , 'line_items'
+            ])));
+          }
 
           if (Belt.get(res, 'error')){
             if (GAEnabled()) {
@@ -661,7 +770,14 @@ var CheckoutView = function(options, callback){
   gb.view['CopyShipping'] = function(){
     var self = this;
 
-    _.each(self.get().recipient, function(v, k){
+    var rec = self.get().recipient || {};
+
+    self.UpdateStepRegions({
+      'step': 'buyer'
+    , 'country': rec.country
+    });
+
+    _.each(rec, function(v, k){
       self.set(_.object(['buyer.' + k], [v]));
     });
 
@@ -712,7 +828,7 @@ var CheckoutView = function(options, callback){
 
         if (!gb.recipient.region){
           gb['error_control'] = '[name="recipient.region"]';
-          return cb(new Error('State is required'));
+          return cb(new Error('State / region is required'));
         }
 
         if (!gb.recipient.postal_code){
@@ -929,7 +1045,7 @@ var CheckoutView = function(options, callback){
 
         if (!gb.buyer.region){
           gb['error_control'] = '[name="buyer.region"]';
-          return cb(new Error('State is required'));
+          return cb(new Error('State / region is required'));
         }
 
         if (!gb.buyer.postal_code){

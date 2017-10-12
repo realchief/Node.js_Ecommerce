@@ -86,7 +86,7 @@
               <% if (doc.recipient.street_b){ %>
                 <span class="address__item"><%= doc.recipient.street_b %></span>
               <% } %>
-              <span class="address__item"><%= doc.recipient.city %>, <%= doc.recipient.region %> <%= doc.recipient.postal_code %></span>
+              <span class="address__item"><%= doc.recipient.city %>, <%= doc.recipient.region %>, <%= doc.recipient.country %> <%= doc.recipient.postal_code %></span>
               <span class="address__item"><%= doc.recipient.phone %></span>
             </address>
           </div>
@@ -103,7 +103,7 @@
               <% if (doc.buyer.street_b){ %>
                 <span class="address__item"><%= doc.buyer.street_b %></span>
               <% } %>
-              <span class="address__item"><%= doc.buyer.city %>, <%= doc.buyer.region %> <%= doc.buyer.postal_code %></span>
+              <span class="address__item"><%= doc.buyer.city %>, <%= doc.buyer.region %>, <%= doc.buyer.country %> <%= doc.buyer.postal_code %></span>
               <span class="address__item"><%= doc.buyer.phone %></span>
               <span class="address__item"><%= doc.buyer.email %></span>
             </address>

@@ -78,10 +78,10 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="recipient.region">State</label>
+                            <label for="recipient.region">State / Region</label>
                             <select name="recipient.region" data-get="recipient.region" data-set="recipient.region" class="form-control">
-                              <% _.each(Settings.us_regions, function(v, k){ %>
-                                <option value="<%= k %>"><%= v %></option>
+                              <% _.each(Settings.localities[Belt.get(doc, 'recipient.country') || 'US'].regions, function(v, k){ %>
+                                <option value="<%= v.shortCode %>"><%= v.name %></option>
                               <% }) %>
                             </select>
                           </div>
@@ -98,6 +98,21 @@
                           </div>
                         </div>
 
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="recipient.country">Country</label>
+                            <select name="recipient.country" data-get="recipient.country" data-set="recipient.country" class="form-control">
+                              <% _.each(Settings.localities, function(v, k){ %>
+                                <option value="<%= k %>"><%= v.countryName %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="recipient.phone">Phone</label>
@@ -242,10 +257,10 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="buyer.region">State</label>
+                            <label for="buyer.region">State / Region</label>
                             <select name="buyer.region" data-get="buyer.region" data-set="buyer.region" class="form-control">
-                              <% _.each(Settings.us_regions, function(v, k){ %>
-                                <option value="<%= k %>"><%= v %></option>
+                              <% _.each(Settings.localities[Belt.get(doc, 'buyer.country') || 'US'].regions, function(v, k){ %>
+                                <option value="<%= v.shortCode %>"><%= v.name %></option>
                               <% }) %>
                             </select>
                           </div>
@@ -264,8 +279,12 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="buyer.phone">Phone</label>
-                            <input name="buyer.phone" data-get="buyer.phone" data-set="buyer.phone" type="text" class="form-control">
+                            <label for="buyer.country">Country</label>
+                            <select name="buyer.country" data-get="buyer.country" data-set="buyer.country" class="form-control">
+                              <% _.each(Settings.localities, function(v, k){ %>
+                                <option value="<%= k %>"><%= v.countryName %></option>
+                              <% }) %>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -277,6 +296,13 @@
                           <div class="form-group">
                             <label for="buyer.email">Email</label>
                             <input type="text" class="form-control" data-get="buyer.email" data-set="buyer.email">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="buyer.phone">Phone</label>
+                            <input name="buyer.phone" data-get="buyer.phone" data-set="buyer.phone" type="text" class="form-control">
                           </div>
                         </div>
                       </div>
