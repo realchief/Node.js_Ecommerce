@@ -1,5 +1,8 @@
 <tr class="order" data-id="<%= _id %>">
   <td><%= slug %><br>
+    <% if (typeof support_status !== 'undefined' && support_status){ %>
+      <span class="label label-info"><%= support_status %></span><br>
+    <% } %>
     <% if (shipping_status !== 'shipped'){ %>
       <span class="label label-warning">NOT SHIPPED</span>
     <% } else { %>

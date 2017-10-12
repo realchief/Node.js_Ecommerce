@@ -14,6 +14,12 @@ var OrderView = function(options, callback){
 
         self.addShipment();
       }
+    , 'click [name="submit"]': function(e){
+        e.preventDefault();
+        var self = this;
+
+        self.update();
+      }
     }
   , 'transformers': {
       'set:products': function(val){
@@ -63,7 +69,7 @@ var OrderView = function(options, callback){
     gb['data'] = self.getSelf();
 
     gb['update'] = _.pick(gb.data, [
-      'name'
+      'support_status'
     ]);
 
     Async.waterfall([
@@ -73,7 +79,17 @@ var OrderView = function(options, callback){
 
           gb['doc'] = Belt.get(json, 'data');
 
-          cb();
+          LoadDocs(GB.criteria, function(err, res){
+            if (err) return bootbox.alert(err.message);
+
+            $('tbody').html(_.map(res.docs, function(d){
+              d.options = d.options || {};
+              d.Instance = Instance;
+              return Templates['admin_' + GB.model + '_list_row'](d);
+            }).join('\n'));
+
+            cb();
+          });
         });
       }
     ], function(err){

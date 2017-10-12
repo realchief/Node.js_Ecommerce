@@ -53,6 +53,16 @@
     <div class="ibox float-e-margins">
       <div class="ibox-content">
         <form class="form-horizontal">
+          <div class="pull-right">
+            <button name="submit" class="btn btn-primary" type="submit">Update</button>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Support Status</label>
+            <div class="col-sm-11">
+              <input name="support_status" type="text" class="form-control" placeholder="status (i.e. refunded, replacement)" data-get="support_status" data-get-method="val()" data-set="support_status" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
           <fieldset>
             <legend>Add Shipment</legend>
             <div class="form-group">
