@@ -70,6 +70,7 @@ var OrderView = function(options, callback){
 
     gb['update'] = _.pick(gb.data, [
       'support_status'
+    , 'notes'
     ]);
 
     Async.waterfall([

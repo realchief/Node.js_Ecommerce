@@ -10,7 +10,7 @@
       <p><span class="label label-success">SHIPPED</span></p>
     <% } %>
     <% if (typeof notes !== 'undefined' && notes){ %>
-      <p>NOTES: <%= notes.replace(/\n/) %></p>
+      <p>NOTES: <%= notes.replace(/\n/g, "</p><p>") %></p>
     <% } %>
   </td>
   <td>
