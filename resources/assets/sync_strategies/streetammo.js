@@ -297,7 +297,11 @@ module.exports = function(options, Instance){
     , function(cb){
         if (!gb.brand_set) return cb();
 
-        gb.brand_set.products.addToSet(gb.doc.get('_id'));
+        if (_.some(gb.brand_set.products, function(p){
+          return p.toString() === gb.doc.get('_id').toString();
+        })) return cb();
+
+        gb.brand_set.products.unshift(gb.doc.get('_id'));
 
         gb.brand_set.save(Belt.cw(cb, 0));
       }
