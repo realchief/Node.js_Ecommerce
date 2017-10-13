@@ -534,7 +534,7 @@ var CheckoutView = function(options, callback){
         };
 
         $.post('/order/create.json', a.o.data, function(res){
-          if (Belt.get(res, 'error')){
+          if (Belt.get(res, 'error') && res.error.match(/matching document/i)){
             self.GetPaymentToken(function(err, token){
               if (err) return res_callback({
                 'error': err.message
