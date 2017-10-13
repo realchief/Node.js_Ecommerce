@@ -6,4 +6,17 @@
       <img src="<%= media[0].url %>" class="img-responsive" style="max-height:100px;">
     </p>
   <% } %>
+  <% if (typeof hide !== 'undefined' && hide)){ %>
+    <p>
+      <span class="label label-danger">HIDDEN</span>
+    </p>
+  <% } %>
+  <% if (typeof sync_hide !== 'undefined' && sync_hide)){ %>
+    <p>
+      <span class="label label-warning">AUTO-HIDDEN</span>
+    </p>
+    <% if (typeof hide_note !== 'undefined' && hide_note)){ %>
+      <p>Hide note: <%= hide_note %></p>
+    <% } %>
+  <% } %>
 </div>
