@@ -3,7 +3,7 @@
     <div class="text-right">
       <% if (typeof _id !== 'undefined'){ %>
         <a href="/product/<%= _id %>" target="_blank" class="btn btn-default">Preview</a>
-        <a href="/product/<%= _id %>/read" target="_blank" class="btn btn-default">Edit</a>
+        <a href="/admin/product/<%= _id %>/read" target="_blank" class="btn btn-default">Edit</a>
       <% } %>
       <button name="delete" class="btn btn-danger">Remove</button>
     </div>
