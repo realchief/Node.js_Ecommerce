@@ -387,6 +387,30 @@ var CheckoutView = function(options, callback){
 
   gb['view'] = new Bh.View(a.o);
 
+  gb.view['GetPaymentToken'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'number': $('[name="billing_cardnumber"]').val()
+    , 'cvc': $('[name="billing_cvc"]').val()
+    , 'exp_month': Belt.cast($('[name="billing_expiration_month"]').val(), 'number')
+    , 'exp_year': Belt.cast($('[name="billing_expiration_year"]').val(), 'number')
+    });
+
+    Stripe.createToken({
+      'number': a.o.number
+    , 'cvc': a.o.cvc
+    , 'exp_month': a.o.exp_month
+    , 'exp_year': a.o.exp_year
+    }, function(status, res){
+      var token = Belt.get(res, 'id')
+        , err = token ? undefined : new Error(Belt.get(res, 'error.message') || 'Billing information is invalid. Please check and re-try.');
+
+      return a.cb(err, token);
+    });
+  };
+
   gb.view['UpdateStepRegions'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -511,8 +535,16 @@ var CheckoutView = function(options, callback){
 
         $.post('/order/create.json', a.o.data, function(res){
           if (Belt.get(res, 'error')){
-            $.post('/order/create.json', a.o.data, function(res){
-              res_callback(res);
+            self.GetPaymentToken(function(err, token){
+              if (err) return res_callback({
+                'error': err.message
+              });
+
+              a.o.data.token = token;
+
+              $.post('/order/create.json', a.o.data, function(res){
+                res_callback(res);
+              });
             });
           } else {
             res_callback(res);
@@ -925,19 +957,12 @@ var CheckoutView = function(options, callback){
           return cb(new Error('Security code is required'));
         }
 
-        Stripe.createToken({
-          'number': $('[name="billing_cardnumber"]').val()
-        , 'cvc': $('[name="billing_cvc"]').val()
-        , 'exp_month': Belt.cast($('[name="billing_expiration_month"]').val(), 'number')
-        , 'exp_year': Belt.cast($('[name="billing_expiration_year"]').val(), 'number')
-        }, function(status, res){
-          GB['token'] = Belt.get(res, 'id');
+        self.GetPaymentToken(function(err, token){
+          GB['token'] = token;
 
-          if (!GB.token){
-            var err = Belt.get(res, 'error.message') || 'Billing information is invalid. Please check and re-try.';
-
+          if (err){
             gb['error_control'] = '[name="billing_cardnumber"]';
-            return cb(new Error(err));
+            return cb(err);
           }
 
           if (FBEnabled()){
