@@ -29,7 +29,8 @@
     , "email": {
         "from": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
       , "order": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
-      , "order_inactivity": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
+      , "fulfillment": "DEVELOPMENT Wanderset <ben+fulfillment@wanderset.com>"
+      , "order_inactivity": "DEVELOPMENT Wanderset <ben+order-inactivity@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -64,7 +65,8 @@
     , "email": {
         "from": "STAGING Wanderset <ben+orders@wanderset.com>"
       , "order": "STAGING Wanderset <ben+orders@wanderset.com>"
-      , "order_inactivity": "STAGING Wanderset <ben+orders@wanderset.com>"
+      , "fulfillment": "STAGING Wanderset <ben+fulfillment@wanderset.com>"
+      , "order_inactivity": "STAGING Wanderset <ben+orders-inactivity@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -99,7 +101,8 @@
     , "email": {
         "from": "STAGING Wanderset <ben+orders@wanderset.com>"
       , "order": "STAGING Wanderset <ben+orders@wanderset.com>"
-      , "order_inactivity": "STAGING Wanderset <ben+orders@wanderset.com>"
+      , "fulfillment": "STAGING Wanderset <ben+fulfillment@wanderset.com>"
+      , "order_inactivity": "STAGING Wanderset <ben+orders-inactivity@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -136,6 +139,7 @@
     , "email": {
         "from": "Wanderset <support@wanderset.com>"
       , "order": "Wanderset <orders@wanderset.com>"
+      , "fulfillment": "Wanderset <fulfillment@wanderset.com>"
       , "order_inactivity": "ben@wanderset.com, mark@wanderset.com, eddie@wanderset.com, greg@wanderset.com"
       }
     , "s3": {
@@ -172,6 +176,7 @@
     , "email": {
         "from": "Wanderset <support@wanderset.com>"
       , "order": "Wanderset <orders@wanderset.com>"
+      , "fulfillment": "Wanderset <fulfillment@wanderset.com>"
       , "order_inactivity": "ben@wanderset.com, mark@wanderset.com, eddie@wanderset.com, greg@wanderset.com"
       }
     , "s3": {
@@ -209,6 +214,7 @@
     , "email": {
         "from": "Wanderset <support@wanderset.com>"
       , "order": "Wanderset <orders@wanderset.com>"
+      , "fulfillment": "Wanderset <fulfillment@wanderset.com>"
       , "order_inactivity": "ben@wanderset.com, mark@wanderset.com, eddie@wanderset.com, greg@wanderset.com"
       }
     , "s3": {
@@ -246,6 +252,7 @@
     , "email": {
         "from": "Wanderset <support@wanderset.com>"
       , "order": "Wanderset <orders@wanderset.com>"
+      , "fulfillment": "Wanderset <fulfillment@wanderset.com>"
       , "order_inactivity": "ben@wanderset.com, mark@wanderset.com, eddie@wanderset.com, greg@wanderset.com"
       }
     , "s3": {

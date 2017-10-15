@@ -43,6 +43,8 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
+, 'options_file': '/home/ben/Downloads/wset-options.csv'
+, 'option_keys_file': '/home/ben/Downloads/wset-option-keys.csv'
 });
 
 Spin.start();
@@ -50,7 +52,7 @@ Spin.start();
 Async.waterfall([
   function(cb){
     Request({
-      'url': O.host + '/cache/product/options.json'
+      'url': O.host + '/cache/product/options/skus.json'
     , 'auth': GB.auth
     , 'method': 'get'
     , 'json': true
@@ -58,15 +60,17 @@ Async.waterfall([
       GB['option_keys'] = _.map(json, function(v, k){
         return {
           'option': k
+        , 'skus': v.skus.join('\n')
         };
       });
 
       GB['options'] = [];
       _.each(json, function(v, k){
-        _.each(v, function(v2){
+        _.each(v.values, function(v2, k2){
           GB.options.push({
             'option': k
-          , 'value': v2
+          , 'value': k2
+          , 'skus': v2.join('\n')
           });
         });
       });
