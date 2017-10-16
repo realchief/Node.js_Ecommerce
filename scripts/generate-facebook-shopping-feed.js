@@ -52,8 +52,8 @@ var GB = _.defaults(O.argv, {
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'google_categories_csv_path': Path.join(O.__dirname, '/resources/assets/google-shopping-categories.csv')
-, 'output_path': Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.xml')
-, 'brand_output_path_template': _.template(Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.<%= brand %>.xml'))
+, 'output_path': Path.join(O.__dirname, '/tmp/wanderset-facebook-shopping-feed.xml')
+, 'brand_output_path_template': _.template(Path.join(O.__dirname, '/tmp/wanderset-facebook-shopping-feed.<%= brand %>.xml'))
 , 'domain': 'https://wanderset.com'
 , 'negative_regex': new RegExp('(' + O.brand_blacklist.join('|') + ')', 'i')
 });
@@ -215,26 +215,23 @@ Async.waterfall([
 
         var item = {
           'id': v.sku
-        , 'title': Str.titleize(brand + p.label.us)
+        , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
+        , 'condition': 'new'
         , 'description': Belt.get(p, 'description.us')
                       || (_.map(v.options, function(v2, k2){
                            return k2 + ': ' + v2.value;
                          }) || []).join(', ')
                       || cat
-        , 'link': url
         , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
+        , 'title': Str.titleize(brand + p.label.us)
+        , 'link': url
+        , 'price': v.price.toFixed(2) + ' USD'
+        , 'brand': brand
         , 'additional_image_link': _.map(p.media.slice(1, 11), function(m){
             return m.url || m.remote_url;
           }).join(',')
-        , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
-        , 'price': v.price.toFixed(2) + ' USD'
         , 'google_product_category': GB.google_categories[cat]
         , 'product_type': cat
-        //, 'brand': Str.titleize(brand) || 'Wanderset'
-        //, 'gtin': 'no'
-        , 'identifier_exists': 'no'
-        , 'condition': 'new'
-        , 'adult': 'no'
         , 'age_group': 'adult'
         , 'gender': 'male'
         , 'color': Belt.get(_.find(v.options, function(v2, k2){
