@@ -59,7 +59,7 @@
         </p>
         <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
         <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
-        <% if (Instance.vendor_ids[k].name === 'Streetammo' && Belt.get(v, 'source.product.source.record.url')){ %>
+        <% if (Belt.get(Instance.vendor_ids[k], 'name') === 'Streetammo' && Belt.get(v, 'source.product.source.record.url')){ %>
           <p>
             <a href="<%= Belt.get(v, 'source.product.source.record.url') %>" target="_blank">Streetammo URL</a>
           </p>
