@@ -154,6 +154,37 @@ Async.waterfall([
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
+    var cont;
+
+    GB['vendors'] = [];
+
+    GB.skip = 0;
+
+    return Async.doWhilst(function(next){
+      Request({
+        'url': O.host + '/admin/vendor/list.json'
+      , 'auth': GB.auth
+      , 'qs': {
+          'skip': GB.skip
+        , 'limit': GB.limit
+        }
+      , 'method': 'get'
+      , 'json': true
+      }, function(err, res, json){
+        cont = _.any(Belt.get(json, 'data')) ? true : false;
+        GB.skip += GB.limit;
+        console.log(GB.skip);
+
+        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
+          GB.vendors.push(d);
+          cb2();
+        }, Belt.cw(next, 0));
+      })
+    }, function(){ return cont; }, Belt.cw(cb, 0));
+  }
+, function(cb){
+    GB['vendors'] = _.object(_.pluck(GB.vendors, '_id'), GB.vendors);
+
     GB.time = Moment().format('YYYY-MM-DDTHH:mm:ss.SZ');
 
     GB.items = [];
@@ -165,6 +196,12 @@ Async.waterfall([
       var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
 
       var slug = p.slug || p._id;
+
+      var vendor = GB.vendors[p.vendor];
+
+      var api = Belt.get(vendor, 'shopify.access_token') ? 'shopify' :
+                (Belt.get(vendor, 'woocommerce.consumer_key') ? 'woocommerce' :
+                (Belt.get(vendor, 'custom_sync.strategy') === 'streetammo' ? 'streetammo' : 'manual'));
 
       _.each(p.configurations, function(v, k){
         if (!v.price) return;
@@ -212,8 +249,13 @@ Async.waterfall([
                   }), 'value')
         , 'item_group_id': p._id
         , 'adwords_redirect': url + '?utm_source=google_adwords'
-        , '__brand': brand
+        , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
         };
+
+        item['custom_label_0'] = item.__brand;
+        item['custom_label_1'] = api;
+        item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
+        item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
 
         item = Belt.objDefalse(item);
 
@@ -246,7 +288,7 @@ Async.waterfall([
   }
 , function(cb){
     GB['grouped_items'] = _.groupBy(GB.items, function(i){
-      return Str.trim(Str.slugify(i.__brand.toLowerCase()));
+      return i.__brand;
     });
 
     Async.eachSeries(_.keys(GB.grouped_items), function(g, cb2){
