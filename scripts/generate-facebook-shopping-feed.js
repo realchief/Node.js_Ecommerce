@@ -258,7 +258,7 @@ Async.waterfall([
 
         if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
 
-        if (item.description) item.description = item.description.split('').slice(0, 10000).join('');
+        if (item.description) item.description = item.description.split('').slice(0, 9999).join('');
 
         item = Belt.objDefalse(item);
 
