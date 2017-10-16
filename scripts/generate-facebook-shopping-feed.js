@@ -256,6 +256,9 @@ Async.waterfall([
         item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
         item['custom_label_4'] = GB.domain + '/product/' + slug;
 
+        if (item['custom_label_4'].length > 100) item['custom_label_4'] = GB.domain + '/product/' + p._id;
+
+
         if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
 
         if (item.description) item.description = item.description.split('').slice(0, 9999).join('');
