@@ -169,6 +169,37 @@ Async.waterfall([
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
+    Request({
+      'url': O.host + '/cache/set/categories.json'
+    , 'auth': GB.auth
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB['brand_categories'] = [];
+
+      _.each(GB.brands, function(s, k){
+        var c = json[s._id];
+        k = s.slug;
+
+        _.each(c, function(v1, c1){
+          GB.brand_categories.push('/brand/' + encodeURIComponent(k) + '/' + encodeURIComponent(c1));
+
+          _.each(v1, function(v2, c2){
+            GB.brand_categories.push('/brand/' + encodeURIComponent(k) + '/' + encodeURIComponent(c1) + '/' + encodeURIComponent(c2));
+
+            _.each(v2, function(v3, c3){
+              GB.brand_categories.push('/brand/' + encodeURIComponent(k) + '/' + encodeURIComponent(c1) + '/' + encodeURIComponent(c2));
+            });
+          });
+        });
+      });
+
+      GB.brand_categories = _.uniq(GB.brand_categories);
+
+      cb();
+    });
+  }
+, function(cb){
     GB.time = Moment().format('YYYY-MM-DDTHH:mm:ss.SZ');
 
     var sm = {
@@ -242,6 +273,17 @@ Async.waterfall([
           'url': [
             {
               'loc': GB.host + '/brand/' + encodeURIComponent(s.slug)
+            }
+          , {
+              'lastmod': GB.time
+            }
+          ]
+        };
+      })).concat(_.map(GB.brand_categories, function(s){
+        return {
+          'url': [
+            {
+              'loc': GB.host + s
             }
           , {
               'lastmod': GB.time
