@@ -247,7 +247,6 @@ Async.waterfall([
                     return k2.match(/pattern/i);
                   }), 'value')
         , 'item_group_id': p._id
-        , 'adwords_redirect': url + '?utm_source=google_adwords'
         , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
         };
 
@@ -255,6 +254,7 @@ Async.waterfall([
         item['custom_label_1'] = api;
         item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
         item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
+        item['custom_label_4'] = url;
 
         if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
 
