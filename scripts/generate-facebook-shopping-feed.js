@@ -254,7 +254,7 @@ Async.waterfall([
         item['custom_label_1'] = api;
         item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
         item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
-        item['custom_label_4'] = url;
+        item['custom_label_4'] = GB.domain + '/product/' + slug;
 
         if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
 
