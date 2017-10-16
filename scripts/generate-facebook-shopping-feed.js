@@ -256,6 +256,10 @@ Async.waterfall([
         item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
         item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
 
+        if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
+
+        if (item.description) item.description = item.description.split('').slice(0, 10000).join('');
+
         item = Belt.objDefalse(item);
 
         GB.items.push(item);
