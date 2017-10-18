@@ -33,7 +33,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'custom_sync.strategy': 'streetammo'
+    'name': 'Headliner Music Club'
   }
 , 'skip': 0
 , 'limit': 1
@@ -49,12 +49,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'custom_sync.details': {
-          'auth': {
-            'user': 'wanderset'
-          , 'password': 'wanderingTh3sunset'
-          }
-        }
+        'woocommerce.url': 'https://headlinermusicclub.com'
       }
     , 'json': true
     , 'method': 'post'
