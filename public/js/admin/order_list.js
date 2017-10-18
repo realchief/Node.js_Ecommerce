@@ -4,7 +4,7 @@ var LoadDocs = function(options, callback){
     , gb = {};
   a.o = _.defaults(a.o, {
     'skip': 0
-  , 'limit': 100
+  , 'limit': 500
   });
 
   return Async.waterfall([
