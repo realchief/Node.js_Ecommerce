@@ -42,14 +42,15 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'model': 'session'
+, 'model': 'cart'
 , 'iterator': function(o, cb){
-    console.log('Updating ' + GB.model + ' [' + o._id + ']...');
+console.log('here')
+    if (Moment(o.updated_at).isAfter(GB.last_updated_date) || Belt.get(o, 'buyer.email') || Belt.get(o, 'buyer.phone')) return cb();
 
-    if (Moment(o.updated_at).isBefore(Moment().)
+    console.log('Deleting ' + GB.model + ' [' + o._id + ']...');
 
     Request({
-      'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
+      'url': O.host + '/' + GB.model + '/' + o._id + '/delete.json'
     , 'auth': GB.auth
     , 'body': {
 
@@ -68,7 +69,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/admin/' + GB.model + '/list.json'
+        'url': O.host + '/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
