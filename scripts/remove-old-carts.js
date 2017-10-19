@@ -38,14 +38,17 @@ var GB = _.defaults(O.argv, {
 , 'last_updated_date': Moment().subtract(15, 'days').toDate()
 , 'skip': 0
 , 'limit': 500
+, 'sort': '-created_at'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'model': 'cart'
 , 'iterator': function(o, cb){
-console.log('here')
-    if (Moment(o.updated_at).isAfter(GB.last_updated_date) || Belt.get(o, 'buyer.email') || Belt.get(o, 'buyer.phone')) return cb();
+    if (Moment(o.updated_at).isAfter(GB.last_updated_date) || Belt.get(o, 'buyer.email') || Belt.get(o, 'buyer.phone')){
+      console.log('Skipping ' + GB.model + ' [' + o._id + ']...');
+      return cb();
+    }
 
     console.log('Deleting ' + GB.model + ' [' + o._id + ']...');
 
@@ -69,12 +72,13 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/' + GB.model + '/list.json'
+        'url': O.host + '/admin/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
         , 'skip': GB.skip
         , 'limit': GB.limit
+        , 'sort': GB.sort
         }
       , 'method': 'get'
       , 'json': true
