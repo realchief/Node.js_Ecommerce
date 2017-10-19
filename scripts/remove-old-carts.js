@@ -53,7 +53,7 @@ var GB = _.defaults(O.argv, {
     console.log('Deleting ' + GB.model + ' [' + o._id + ']...');
 
     Request({
-      'url': O.host + '/' + GB.model + '/' + o._id + '/delete.json'
+      'url': O.host + '/admin/' + GB.model + '/' + o._id + '/delete.json'
     , 'auth': GB.auth
     , 'body': {
 
