@@ -21,6 +21,12 @@
   <% } else { %>
     GB['data'] = {};
   <% } %>
+
+  <% if (Belt.get(Instance, 'all_categories')){ %>
+    GB['product_categories'] = <%= Belt.stringify(Instance.all_categories) %>;
+  <% } else { %>
+    GB['product_categories'] = [];
+  <% } %>
 </script>
 
 <script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>

@@ -77,6 +77,12 @@ var ProductView = function(options, callback){
           self.throttledUpdateMedia();
         });
       }
+    , 'click [name="add_product_category"]': function(e){
+        var cat = this.$el.find('[name="product_categories"]').val()
+          , val = this.$el.find('[name="categories"]').val();
+
+        this.$el.find('[name="categories"]').val(val ? val + '\n' + cat : cat);
+      }
     , 'submit form': function(e){
         e.preventDefault();
       }

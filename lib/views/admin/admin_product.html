@@ -128,6 +128,17 @@
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
+            <label class="col-sm-1 control-label"></label>
+            <div class="col-sm-6">
+              <select name="product_categories" class="form-control" placeholder="existing categories">
+                <% _.each(Instance.all_categories, function(p){ %>
+                  <option value="<%= p %>"><%= p %></option>
+                <% }) %>
+              </select>
+            </div>
+            <button name="add_product_category" class="col-sm-1 btn btn-default">Add Category</button>
+          </div>
+          <div class="form-group">
             <label class="col-sm-1 control-label">categories</label>
             <div class="col-sm-11">
               <textarea name="categories" type="text" class="form-control" placeholder="categories" data-get="categories" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="categories" data-set-method="val" data-set-transformer="join_lines"></textarea>
