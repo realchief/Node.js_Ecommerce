@@ -14,7 +14,7 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
+  , Moment = require('moment')
 ;
 
 var O = new Optionall({
@@ -34,16 +34,24 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-
+    'hide': {
+      '$ne': true
+    }
+  , 'sync_hide': {
+      '$ne': true
+    }
   })
 , 'skip': 0
 , 'limit': 500
+, 'count': 0
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
-    console.log('Updating product [' + o._id + ']...');
+    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(7, 'days'))) return cb();
+
+    console.log('Hiding product [' + o._id + ']...' + ++GB.count);
 
     Request({
       'url': O.host + '/product/' + o._id + '/update.json'
@@ -55,7 +63,8 @@ var GB = _.defaults(O.argv, {
     , 'json': true
     , 'method': 'post'
     }, function(err, res, json){
-      console.log(Belt.stringify(json));
+      console.log(Belt.get(json, 'data.source.record.url'));
+      console.log(Belt.get(json, 'data.synced_at'));
 
       cb();
     });
