@@ -57,23 +57,39 @@ var GB = _.defaults(O.argv, {
     console.log(++GB.count);
     console.log(GB.total);
 
-    var obj = Belt.objFlatten(_.pick(o, [
+    var obj = _.pick(o, [
       'buyer'
     , 'recipient'
     , 'total_price'
     , 'slug'
     , 'created_at'
-    ]));
-
-    obj = _.omit(obj, [
-      'buyer'
-    , 'recipient'
+    , 'shipping_status'
+    , 'support_status'
     ]);
 
     obj['transaction_id'] = Belt.get(o, 'transactions.0.id') || '';
-    obj['buyer.ip_address'] = obj['buyer.ip_address'] || '';
 
-    GB.csv.write(obj);
+    var o2 = {
+      'order': obj.slug
+    , 'date': obj.created_at
+    , 'total_price': obj.total_price
+    , 'shipping_status': obj.shipping_status || ''
+    , 'support_status': obj.support_status || ''
+    , 'buyer_name': [obj.buyer.first_name, obj.buyer.last_name].join(' ')
+    , 'recipient_name': [obj.recipient.first_name, obj.recipient.last_name].join(' ')
+    , 'buyer_address': Belt.arrayDefalse([obj.buyer.street, obj.buyer.street_b]).join(', ')
+    , 'recipient_address': Belt.arrayDefalse([obj.recipient.street, obj.recipient.street_b]).join(', ')
+    , 'buyer_location': Belt.arrayDefalse([obj.buyer.city, obj.buyer.region, obj.buyer.country, obj.buyer.postal_code]).join(', ')
+    , 'recipient_location': Belt.arrayDefalse([obj.recipient.city, obj.recipient.region, obj.recipient.country, obj.recipient.postal_code]).join(', ')
+    , 'buyer_phone': obj.buyer.phone
+    , 'recipient_phone': obj.buyer.phone
+    , 'email': obj.buyer.email || ''
+    , 'ip_address': obj.buyer.ip_address || ''
+    , 'stripe_transaction': obj.transaction_id
+    , 'order_url': 'https://wanderset.com/admin/order/' + obj.slug + '/read'
+    };
+
+    GB.csv.write(o2);
 
     cb();
   }

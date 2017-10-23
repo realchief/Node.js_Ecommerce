@@ -13,7 +13,7 @@
       <p>NOTES: <%= notes.replace(/\n/g, "</p><p>") %></p>
     <% } %>
     <p>
-      <a href="/admin/order/<%= _id %>/read" class="btn btn-default">Edit</a>
+      <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
     </p>
   </td>
   <td>
@@ -132,6 +132,6 @@
     <% }) %>
   </td>
   <td data-set="actions" data-set-method="html">
-    <a href="/admin/order/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
   </td>
 </tr>
