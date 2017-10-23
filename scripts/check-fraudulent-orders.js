@@ -39,6 +39,7 @@ var GB = _.defaults(O.argv, {
 , 'limit': 200
 , 'count': 0
 , 'total': 0
+, 'output_path': '/home/ben/Downloads/wset-fraudulent-orders.csv'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
@@ -48,15 +49,31 @@ var GB = _.defaults(O.argv, {
     if (
       //!(Belt.get(o, 'recipient.city') || '').match(/bro+klyn/i)
       o.recipient.postal_code === o.buyer.postal_code
-      || o.recipient.last_name.toLowerCase() === o.buyer.last_name.toLowerCase()
+      //|| o.recipient.last_name.toLowerCase() === o.buyer.last_name.toLowerCase()
       //|| Moment(o.created_at).isBefore(Moment().subtract(72, 'hours'))
-    ) return cb()
+    ) return cb();
 
-    console.log(Belt.stringify(o.recipient));
-    console.log(Belt.get(o, 'buyer.ip_address'));
     GB.total += o.total_price;
     console.log(++GB.count);
     console.log(GB.total);
+
+    var obj = Belt.objFlatten(_.pick(o, [
+      'buyer'
+    , 'recipient'
+    , 'total_price'
+    , 'slug'
+    , 'created_at'
+    ]));
+
+    obj = _.omit(obj, [
+      'buyer'
+    , 'recipient'
+    ]);
+
+    obj['transaction_id'] = Belt.get(o, 'transactions.0.id') || '';
+    obj['buyer.ip_address'] = obj['buyer.ip_address'] || '';
+
+    GB.csv.write(obj);
 
     cb();
   }
@@ -67,6 +84,10 @@ Spin.start();
 Async.waterfall([
   function(cb){
     var cont;
+
+    GB['fs'] = FS.createWriteStream(GB.output_path);
+    GB['csv'] = CSV.createWriteStream({'headers': true});
+    GB.csv.pipe(GB.fs);
 
     return Async.doWhilst(function(next){
       Request({
@@ -93,5 +114,5 @@ Async.waterfall([
 ], function(err){
   Spin.stop();
   if (err) Log.error(err);
-  return process.exit(err ? 1 : 0);
+  //return process.exit(err ? 1 : 0);
 });
