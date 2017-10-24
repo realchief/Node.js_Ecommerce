@@ -90,7 +90,7 @@ var GB = _.defaults(O.argv, {
 Spin.start();
 
 Async.waterfall([
-  function(cb){
+/*  function(cb){
     var cont;
 
     return Async.doWhilst(function(next){
@@ -115,7 +115,7 @@ Async.waterfall([
       });
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
-, function(cb){
+, */function(cb){
     Request({
       'url': O.host + '/cache/set/brands.json'
     , 'auth': GB.auth

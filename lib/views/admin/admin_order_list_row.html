@@ -13,7 +13,7 @@
       <p>NOTES: <%= notes.replace(/\n/g, "</p><p>") %></p>
     <% } %>
     <p>
-      <a href="/admin/order/<%= _id %>/read" class="btn btn-default">Edit</a>
+      <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
     </p>
   </td>
   <td>
@@ -62,7 +62,7 @@
         <p>
           <a href="/product/<%= v.source.product.slug %>" target="_blank">
             <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
-            <br><%= v._id %>
+            <br><%= v.product %>
           </a>
         </p>
         <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
@@ -132,6 +132,6 @@
     <% }) %>
   </td>
   <td data-set="actions" data-set-method="html">
-    <a href="/admin/order/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
   </td>
 </tr>

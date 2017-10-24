@@ -76,6 +76,7 @@ $(document).ready(function(){
   if (_.isString(GB.criteria.sort)) GB.criteria.sort = JSON.parse(GB.criteria.sort);
   GB.criteria.skip = Belt.cast(GB.criteria.skip, 'number');
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
+  GB.criteria.limit = 1000;
 
   $(document).on('click', '[name="apply_filter"]', function(e){
     e.preventDefault();

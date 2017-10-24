@@ -80,7 +80,7 @@ $(document).ready(function(){
     GB['criteria'] = {
       'limit': 50
     , 'skip': 0
-    , 'query': {'_id': GB.view._id}
+    , 'query': {'slug': GB.view._id}
     , 'sort': '{"_id": 1}'
     };
 

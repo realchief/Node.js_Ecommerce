@@ -241,24 +241,6 @@ var CheckoutView = function(options, callback){
             });
           }
         , function(cb){
-            self.ValidatePayment(function(err){
-              if (err){
-                self.ToggleStep({
-                  'show': false
-                , 'editable': true
-                });
-
-                self.ToggleStep({
-                  'step': 'payment'
-                , 'show': true
-                , 'active': true
-                });
-              }
-
-              cb(err);
-            });
-          }
-        , function(cb){
             self.ValidateBilling(function(err){
               if (err){
                 self.ToggleStep({
@@ -268,6 +250,26 @@ var CheckoutView = function(options, callback){
 
                 self.ToggleStep({
                   'step': 'billing'
+                , 'show': true
+                , 'active': true
+                });
+              }
+
+              cb(err);
+            });
+          }
+        , function(cb){
+            self.ValidatePayment({
+              'check_address': true
+            }, function(err){
+              if (err){
+                self.ToggleStep({
+                  'show': false
+                , 'editable': true
+                });
+
+                self.ToggleStep({
+                  'step': 'payment'
                 , 'show': true
                 , 'active': true
                 });
@@ -396,14 +398,29 @@ var CheckoutView = function(options, callback){
     , 'cvc': $('[name="billing_cvc"]').val()
     , 'exp_month': Belt.cast($('[name="billing_expiration_month"]').val(), 'number')
     , 'exp_year': Belt.cast($('[name="billing_expiration_year"]').val(), 'number')
+    , 'name': $('[name="billing_cardholder_name"]').val()
+    , 'address_line1': $('[name="buyer.street"]').val()
+    , 'address_line2': $('[name="buyer.street_b"]').val()
+    , 'address_city': $('[name="buyer.city"]').val()
+    , 'address_state': $('[name="buyer.region"]').val()
+    , 'address_zip': $('[name="buyer.postal_code"]').val()
+    , 'address_country': $('[name="buyer.country"]').val()
     });
 
-    Stripe.createToken({
+    Stripe.createToken(_.extend({
       'number': a.o.number
     , 'cvc': a.o.cvc
     , 'exp_month': a.o.exp_month
     , 'exp_year': a.o.exp_year
-    }, function(status, res){
+    , 'name': a.o.name
+    }, a.o.check_address ? {
+      'address_line1': a.o.address_line1
+    , 'address_line2': a.o.address_line2
+    , 'address_city': a.o.address_city
+    , 'address_state': a.o.address_state
+    , 'address_zip': a.o.address_zip
+    , 'address_country': a.o.address_country
+    } : {}), function(status, res){
       var token = Belt.get(res, 'id')
         , err = token ? undefined : new Error(Belt.get(res, 'error.message') || 'Billing information is invalid. Please check and re-try.');
 
@@ -923,7 +940,7 @@ var CheckoutView = function(options, callback){
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-
+      //check_address
     });
 
     Async.waterfall([
@@ -957,7 +974,9 @@ var CheckoutView = function(options, callback){
           return cb(new Error('Security code is required'));
         }
 
-        self.GetPaymentToken(function(err, token){
+        self.GetPaymentToken({
+          'check_address': a.o.check_address
+        }, function(err, token){
           GB['token'] = token;
 
           if (err){
