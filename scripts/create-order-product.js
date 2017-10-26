@@ -1,4 +1,4 @@
-add#!/usr/bin/env node
+#!/usr/bin/env node
 
 var Path = require('path')
   , Optionall = require('optionall')
@@ -32,28 +32,19 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'query': {
-
-  }
-, 'skip': 0
-, 'limit': 1
+  'slug': '38329306'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'model': 'order'
-, 'iterator': function(o, cb){
-    console.log('Updating ' + GB.model + ' [' + o._id + ']...');
-
-    Request({
-      'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
-    , 'auth': GB.auth
-    , 'body': {
-
-      }
-    , 'json': true
-    , 'method': 'post'
-    }, Belt.cw(cb));
+, 'product': {
+    'sku': 'ce4ef629492382321da94df001caebff'
+  , 'product': '5977f335189cea5f84da415c'
+  , 'options': {
+      'Size': '2XL'
+    , 'Color': 'Shore Grey'
+    }
+  , 'quantity': 1
   }
 });
 
@@ -61,29 +52,19 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
-    var cont;
+    Request({
+      'url': O.host + '/admin/order/' + GB.slug + '/product/create.json'
+    , 'auth': GB.auth
+    , 'body': {
+        'product': GB.product
+      }
+    , 'method': 'post'
+    , 'json': true
+    }, function(err, res, json){
+      console.log(Belt.stringify(json));
 
-    return Async.doWhilst(function(next){
-      Request({
-        'url': O.host + '/' + GB.model + '/list.json'
-      , 'auth': GB.auth
-      , 'qs': {
-          'query': GB.query
-        , 'skip': GB.skip
-        , 'limit': GB.limit
-        }
-      , 'method': 'get'
-      , 'json': true
-      }, function(err, res, json){
-        cont = _.any(Belt.get(json, 'data')) ? true : false;
-        GB.skip += GB.limit;
-        console.log(GB.skip);
-
-        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
-          GB.iterator(d, cb2);
-        }, Belt.cw(next, 0));
-      })
-    }, function(){ return cont; }, Belt.cw(cb, 0));
+      cb();
+    });
   }
 ], function(err){
   Spin.stop();
