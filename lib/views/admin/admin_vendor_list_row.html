@@ -1,5 +1,12 @@
 <tr class="vendor" data-id="<%= _id %>">
-  <td><%= _id %></td>
+  <td><%= _id %><br>
+    <% if (typeof shopify !== 'undefined' && shopify.access_token){ %>
+      <span class="label label-info">SHOPIFY</span>
+    <% } %>
+    <% if (typeof woocommerce !== 'undefined' && woocommerce.consumer_key){ %>
+      <span class="label label-warning">WOOCOMMERCE</span>
+    <% } %>
+  </td>
   <td style="width:500px !important;">
     <p><%= name %></p>
   </td>

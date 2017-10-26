@@ -17,7 +17,7 @@ var LoadDocs = function(options, callback){
       });
     }
   , function(cb){
-      $.post('/' + GB.model + '/list.json', a.o, function(json){
+      $.post('/admin/' + GB.model + '/list.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['docs'] = Belt.get(json, 'data');
