@@ -84,6 +84,8 @@ Async.waterfall([
     }, function(){ return cont; }, Belt.cw(cb, 0));
   }
 , function(cb){
+    if (GB.products.length < 1000) return cb(new Error('Fewer than 1000 products'));
+
     Request({
       'url': O.host + '/cache/set/setmembers.json'
     , 'auth': {
