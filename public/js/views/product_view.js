@@ -50,7 +50,7 @@ var ProductView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        if (_.size(a.o.options) !== _.size((GB.product || GB.doc).options)) return cb();
+        //if (_.size(a.o.options) !== _.size((GB.product || GB.doc).options)) return cb();
 
         $.post('/product/' + self._id + '/availability.json', a.o
         , Belt.cs(cb, gb, 'price', 0, 'data.price'));

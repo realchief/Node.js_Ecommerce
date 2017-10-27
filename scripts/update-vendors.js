@@ -33,7 +33,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'name': 'Headliner Music Club'
+    'name': 'Jack Mason'
   }
 , 'skip': 0
 , 'limit': 1
@@ -49,7 +49,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'woocommerce.url': 'https://headlinermusicclub.com'
+
       }
     , 'json': true
     , 'method': 'post'
