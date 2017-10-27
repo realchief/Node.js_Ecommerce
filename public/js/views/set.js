@@ -170,7 +170,7 @@ var LoadSetProducts = function(options, callback){
           });
         }
 
-        if (FBEnabled()){
+        if (false && FBEnabled()){
           fbq('track', 'ViewContent', {
             'content_ids': [
               d._id

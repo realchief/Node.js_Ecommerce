@@ -11,7 +11,7 @@ if (typeof ga !== 'undefined' && _.isFunction(ga)){
   });
 }
 
-if (FBEnabled() && _.any(GB.products)){
+if (false && FBEnabled() && _.any(GB.products)){
   fbq('track', 'ViewContent', {
     'content_ids': _.pluck(GB.products, '_id')
   , 'content_type': 'product_group'

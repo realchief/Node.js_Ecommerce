@@ -235,7 +235,7 @@ if (FBEnabled()){
     , 'content_type': 'product_group'
     , 'search_string': $('.search-result__subtitle').text().replace(/"|search results/ig, '')
     });
-  } else {
+  } else if (false) {
     fbq('track', 'ViewContent', {
       'content_ids': _.pluck(GB.docs, '_id')
     , 'content_category': $('.search-result__subtitle').text()
