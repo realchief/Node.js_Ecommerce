@@ -52,6 +52,8 @@ var throtQtyUpdate = _.throttle(function(options, callback){
     ga('send', 'event', 'BagView', 'update product quantity');
   }
 
+  if (!qty) ToggleLoader();
+
   $.getJSON('/cart/session/product/' + prod.attr('data-id') + '/quantity/' + qty + '/update.json', function(res){
     $('.alert').remove();
 

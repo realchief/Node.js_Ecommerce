@@ -7,6 +7,8 @@ var LoadProducts = function(options, callback){
   , 'limit': 100
   });
 
+  a.o.query = Belt.cast(a.o.query, 'string');
+
   return Async.waterfall([
     function(cb){
       $.post('/product/count.json', a.o, function(json){
@@ -111,14 +113,14 @@ var BuildQuery = function(options, callback){
 };
 
 $(document).ready(function(){
-  GB['criteria'] = _.defaults(queryObject.get() || {}, {
+  GB['criteria'] = _.defaults(queryObject.get() || {}, _.extend({
     'limit': 50
   , 'skip': 0
   , 'query': '{}'
   , 'sort': '{"_id": 1}'
-  });
+  }, GB.data || {}));
 
-  GB.criteria.query = JSON.parse(GB.criteria.query);
+  if (_.isString(GB.criteria.query)) GB.criteria.query = JSON.parse(GB.criteria.query);
   GB.criteria.sort = JSON.parse(GB.criteria.sort);
   GB.criteria.skip = Belt.cast(GB.criteria.skip, 'number');
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');

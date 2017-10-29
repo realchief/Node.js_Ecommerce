@@ -14,7 +14,6 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
 ;
 
 var O = new Optionall({
@@ -34,7 +33,12 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
-
+    'hide': {
+      '$ne': true
+    }
+  , 'sync_hide': {
+      '$ne': true
+    }
   })
 , 'skip': 0
 , 'limit': 500
