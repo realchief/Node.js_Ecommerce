@@ -41,5 +41,6 @@
   , "woocommerce": "*"
   , "natural": "*"
   , "xml": "*"
+  , "clean-css": "*"
   }
 }
