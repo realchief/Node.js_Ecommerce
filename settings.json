@@ -109,4 +109,8 @@
   , "vans"
   , "comme"
   ]
+, "url_replacements": {
+    "https://s3.amazonaws.com/staging.assets.wanderset.com": "https://d1iycu4aypjr2v.cloudfront.net"
+  , "https://s3.amazonaws.com/assets.wanderset.com": "https://d3gnpp7wzoydnz.cloudfront.net"
+  }
 }
