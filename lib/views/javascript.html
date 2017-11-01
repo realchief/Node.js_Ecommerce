@@ -1,11 +1,9 @@
-<script src="/socket.io/socket.io.js"></script>
 <script src="/bower_components/jsbelt/lib/belt.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/underscore.string/dist/underscore.string.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/async/dist/async.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/moment/min/moment.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/query-object/query-object.js" type="text/javascript" charset="utf-8"></script>
-<script src="/bower_components/moment-timezone/builds/moment-timezone-with-data.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="/bower_components/simple-scrollTo/lib/scrollTo.js" type="text/javascript" charset="utf-8"></script>
@@ -13,16 +11,11 @@
 <script src="/bower_components/sticky-kit/jquery.sticky-kit.min.js"></script>
 <script src="/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
 <script src="/bower_components/aos/dist/aos.js"></script>
-<script src="/bower_components/parallax.js/parallax.js"></script>
-<script src="/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="/bower_components/tether/dist/js/tether.min.js"></script>
 <script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/bower_components/bootbox/bootbox.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.plugins.min.js"></script>
-<script src="/bower_components/in-viewport/build/in-viewport.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/public/assets/vendors/cloudzoom/cloudzoom.js"></script>
 
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
@@ -31,7 +24,6 @@
   var Async = async
     , Moment = moment
     , Str = s
-    , Socket = io('/')
     , GB = GB || {};
 
   <% if (typeof doc !== 'undefined'){ %>
@@ -76,10 +68,6 @@
   <% } else { %>
     GB['localities'] = {};
   <% } %>
-
-  $(document).ready(function(){
-    $('.parallax').parallax();
-  });
 </script>
 
 <script src="/public/js/util.js" type="text/javascript" charset="utf-8"></script>
