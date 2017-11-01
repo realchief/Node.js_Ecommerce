@@ -10,15 +10,16 @@
   <meta <% _.map(m, function(v, k){ return k + '="' + v + '"'; }).join(' ') %>>
 <% }) %>
 
-<link rel="icon" href="/public/static/favicon.png" type="image/png">
-<link rel="shortcut icon" href="/public/static/favicon.png" type="image/png">
+<link rel="icon" href="<%= Settings.asset_prefix %>/public/static/favicon.png" type="image/png">
+<link rel="shortcut icon" href="<%= Settings.asset_prefix %>/public/static/favicon.png" type="image/png">
 
-<% if (false && Settings.environment === 'production'){ %>
-  <link rel="stylesheet" href="https://d3gnpp7wzoydnz.cloudfront.net/styles.min.css">
+<% if (Settings.environment === 'production'){ %>
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/css/styles.min.css">
 <% } else { %>
-  <link rel="stylesheet" href="/public/assets/stylesheets/main.css">
-  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/main.css">
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/css/custom.css">
 <% } %>
+
 
 <% if (typeof css_files !== 'undefined') _.each(css_files, function(e){ %>
   <link src="<%= e %>" rel="stylesheet">
@@ -108,12 +109,6 @@
   /></noscript>
   <!-- End Facebook Pixel Code -->
 <% } %>
-
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script>
-  var STRIPE_KEY = '<%= Settings.stripe.key %>';
-  Stripe.setPublishableKey(STRIPE_KEY);
-</script>
 
 <script type="application/ld+json">
 {

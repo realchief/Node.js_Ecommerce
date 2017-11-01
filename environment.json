@@ -3,6 +3,7 @@
     "development": {
       "host": "https://wanderset.pushbuild.com"
     , "domain": "wanderset.pushbuild.com"
+    , "asset_prefix": ""
     , "express": {
         "port": 8849
       }
@@ -44,6 +45,7 @@
   , "staging": {
       "host": "https://staging.wanderset.com"
     , "domain": "staging.wanderset.com"
+    , "asset_prefix": ""
     , "express": {
         "port": 8850
       }
@@ -81,6 +83,7 @@
   , "staging-worker": {
       "host": "http://staging.wanderset.com:8852"
     , "domain": "staging.wanderset.com:8852"
+    , "asset_prefix": ""
     , "express": {
         "port": 8852
       }
@@ -121,6 +124,7 @@
   , "production": {
       "host": "https://wanderset.com"
     , "domain": ".wanderset.com"
+    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
     , "express": {
         "port": 8851
       }
@@ -162,6 +166,7 @@
   , "production-worker": {
       "host": "http://localhost:8852"
     , "domain": "wanderset.com:8852"
+    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
     , "express": {
         "port": 8852
       }
@@ -204,6 +209,7 @@
   , "production-worker-2": {
       "host": "http://localhost:8854"
     , "domain": "wanderset.com:8854"
+    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
     , "express": {
         "port": 8854
       }
@@ -246,6 +252,7 @@
   , "production-worker-3": {
       "host": "http://localhost:8855"
     , "domain": "wanderset.com:8855"
+    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
     , "express": {
         "port": 8855
       }
