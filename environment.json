@@ -124,7 +124,7 @@
   , "production": {
       "host": "https://wanderset.com"
     , "domain": ".wanderset.com"
-    , "asset_prefix": ""
+    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
     , "express": {
         "port": 8851
       }
