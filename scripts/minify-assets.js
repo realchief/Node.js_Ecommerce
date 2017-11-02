@@ -83,19 +83,19 @@ Async.waterfall([
     cb();
   }
 , function(cb){
-    GB['js'] = {};
+    GB['js'] = '';
 
     _.each([
       Path.join(O.__dirname, './bower_components/jsbelt/lib/belt.js')
-    , Path.join(O.__dirname, './bower_components/underscore/underscore-min.js')
+    /*, Path.join(O.__dirname, './bower_components/underscore/underscore-min.js')
     , Path.join(O.__dirname, './bower_components/underscore.string/dist/underscore.string.min.js')
     , Path.join(O.__dirname, './bower_components/async/dist/async.js')
     , Path.join(O.__dirname, './bower_components/moment/min/moment.min.js')
     , Path.join(O.__dirname, './bower_components/query-object/query-object.js')
-    , Path.join(O.__dirname, './bower_components/jquery/dist/jquery.min.js')
+    , Path.join(O.__dirname, './bower_components/jquery/dist/jquery.min.js')*/
     ], function(p){
-      //GB.js += ('\n' + FS.readFileSync(p).toString('utf8'));
-      GB.js[p] = FS.readFileSync(p).toString('utf8');
+      GB.js += ('\n' + FS.readFileSync(p).toString('utf8'));
+      //GB.js[p] = FS.readFileSync(p).toString('utf8');
     });
 
     GB['minified_js'] = UglifyJS.minify(GB.js, {
