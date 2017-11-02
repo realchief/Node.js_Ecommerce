@@ -13,7 +13,7 @@
 <link rel="icon" href="<%= Settings.asset_prefix %>/public/static/favicon.png" type="image/png">
 <link rel="shortcut icon" href="<%= Settings.asset_prefix %>/public/static/favicon.png" type="image/png">
 
-<% if (false && Settings.environment === 'production'){ %>
+<% if (Settings.environment === 'production'){ %>
   <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/css/styles.min.css">
 <% } else { %>
   <link rel="stylesheet" href="/public/assets/stylesheets/main.css">

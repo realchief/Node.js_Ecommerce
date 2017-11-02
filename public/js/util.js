@@ -179,9 +179,7 @@ var GetHashObj = function(){
 var GB = GB || {};
 GB['hash_query'] = _.extend({}, GB, queryObject.get(), GetHashObj());
 
-$(function() {
-  Belt.get($('.lazy'), 'lazy()');
-});
+Belt.get($('.lazy'), 'lazy()');
 
 var GetElementOffset = function(el){
   var top = 0

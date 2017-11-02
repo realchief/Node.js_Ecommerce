@@ -41,7 +41,7 @@ var GB = _.defaults(O.argv, {
     'sku': 'ce4ef629492382321da94df001caebff'
   , 'product': '5977f335189cea5f84da415c'
   , 'options': {
-      'Size': '2XL'
+      'Size': 'L'
     , 'Color': 'Shore Grey'
     }
   , 'quantity': 1
