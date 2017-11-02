@@ -13,6 +13,7 @@ var Path = require('path')
   , CP = require('child_process')
   , Request = require('request')
   , CleanCSS = require('clean-css')
+  , UglifyJS = require('uglify-js')
   , AWS = require('aws-sdk')
   , Mime = require('mime')
 ;
@@ -34,9 +35,9 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'minified_css_path': Path.join(O.__dirname, './public/css/styles.min.css')
+, 'minified_js_path': Path.join(O.__dirname, './public/js/javscript.min.js')
 , 's3': new AWS.S3(O.aws)
 , 's3_bucket': 'assets.wanderset.com'
-, 'minified_css_s3_path': 'styles.min.css'
 , 'minify_paths': {}
 , 'readdir_iterator': function(path, cb){
     if (GB.minify_paths[path]) return cb();
@@ -80,6 +81,31 @@ Async.waterfall([
     FS.writeFileSync(GB.minified_css_path, GB.minified_css.styles);
 
     cb();
+  }
+, function(cb){
+    GB['js'] = {};
+
+    _.each([
+      Path.join(O.__dirname, './bower_components/jsbelt/lib/belt.js')
+    , Path.join(O.__dirname, './bower_components/underscore/underscore-min.js')
+    , Path.join(O.__dirname, './bower_components/underscore.string/dist/underscore.string.min.js')
+    , Path.join(O.__dirname, './bower_components/async/dist/async.js')
+    , Path.join(O.__dirname, './bower_components/moment/min/moment.min.js')
+    , Path.join(O.__dirname, './bower_components/query-object/query-object.js')
+    , Path.join(O.__dirname, './bower_components/jquery/dist/jquery.min.js')
+    ], function(p){
+      //GB.js += ('\n' + FS.readFileSync(p).toString('utf8'));
+      GB.js[p] = FS.readFileSync(p).toString('utf8');
+    });
+
+    GB['minified_js'] = UglifyJS.minify(GB.js, {
+
+    }).code;
+
+console.log(GB.minified_js)
+    //FS.writeFileSync(GB.minified_js_path, GB.minified_css.styles);
+
+    //cb();
   }
 , function(cb){
     GB.readdir_iterator(Path.join(O.__dirname, './public'), cb);

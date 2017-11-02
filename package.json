@@ -42,5 +42,6 @@
   , "natural": "*"
   , "xml": "*"
   , "clean-css": "*"
+  , "uglify-js": "*"
   }
 }

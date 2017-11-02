@@ -1,7 +1,7 @@
 <script src="<%= Settings.asset_prefix %>/bower_components/jsbelt/lib/belt.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/underscore.string/dist/underscore.string.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="<%= Settings.asset_prefix %>/bower_components/async/dist/async.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/async/dist/async.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/query-object/query-object.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -15,7 +15,7 @@
 <script src="<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"></script>
 <script type="text/javascript" src="<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom.js"></script>
 
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
@@ -70,8 +70,16 @@
   <% } %>
 </script>
 
+<script src="/templates/alert.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/checkout_line_items.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/checkout_product.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/media_item.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/product_item.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/product_list_nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/bag_dropdown.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/set_product_nav.js" type="text/javascript" charset="utf-8"></script>
+
 <script src="<%= Settings.asset_prefix %>/public/js/util.js" type="text/javascript" charset="utf-8"></script>
-<script src="/templates.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/public/assets/javascript/scripts.js"></script>
 
 <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
