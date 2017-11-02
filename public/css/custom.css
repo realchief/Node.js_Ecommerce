@@ -13,3 +13,7 @@ li.dropdown:hover .dropdown-menu {
 .mosaic-item:focus .mosaic-item__img--static, .mosaic-item:hover .mosaic-item__img--static {
   opacity: 1.0 !important;
 }
+
+.mosaic-item__content:hover * {
+  color: white !important;
+}
