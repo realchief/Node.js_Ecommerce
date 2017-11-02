@@ -13,13 +13,12 @@
 <link rel="icon" href="<%= Settings.asset_prefix %>/public/static/favicon.png" type="image/png">
 <link rel="shortcut icon" href="<%= Settings.asset_prefix %>/public/static/favicon.png" type="image/png">
 
-<% if (true || Settings.environment === 'production'){ %>
+<% if (false && Settings.environment === 'production'){ %>
   <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/css/styles.min.css">
 <% } else { %>
-  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/main.css">
-  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/css/custom.css">
+  <link rel="stylesheet" href="/public/assets/stylesheets/main.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
 <% } %>
-
 
 <% if (typeof css_files !== 'undefined') _.each(css_files, function(e){ %>
   <link src="<%= e %>" rel="stylesheet">

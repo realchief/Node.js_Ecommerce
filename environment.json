@@ -3,7 +3,7 @@
     "development": {
       "host": "https://wanderset.pushbuild.com"
     , "domain": "wanderset.pushbuild.com"
-    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
+    , "asset_prefix": ""
     , "express": {
         "port": 8849
       }

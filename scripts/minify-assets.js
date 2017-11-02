@@ -82,17 +82,17 @@ Async.waterfall([
 
     cb();
   }
-, function(cb){
+/*, function(cb){
     GB['js'] = '';
 
     _.each([
       Path.join(O.__dirname, './bower_components/jsbelt/lib/belt.js')
-    /*, Path.join(O.__dirname, './bower_components/underscore/underscore-min.js')
+    , Path.join(O.__dirname, './bower_components/underscore/underscore-min.js')
     , Path.join(O.__dirname, './bower_components/underscore.string/dist/underscore.string.min.js')
     , Path.join(O.__dirname, './bower_components/async/dist/async.js')
     , Path.join(O.__dirname, './bower_components/moment/min/moment.min.js')
     , Path.join(O.__dirname, './bower_components/query-object/query-object.js')
-    , Path.join(O.__dirname, './bower_components/jquery/dist/jquery.min.js')*/
+    , Path.join(O.__dirname, './bower_components/jquery/dist/jquery.min.js')
     ], function(p){
       GB.js += ('\n' + FS.readFileSync(p).toString('utf8'));
       //GB.js[p] = FS.readFileSync(p).toString('utf8');
@@ -106,7 +106,7 @@ console.log(GB.minified_js)
     //FS.writeFileSync(GB.minified_js_path, GB.minified_css.styles);
 
     //cb();
-  }
+  }*/
 , function(cb){
     GB.readdir_iterator(Path.join(O.__dirname, './public'), cb);
   }
