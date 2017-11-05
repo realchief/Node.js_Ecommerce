@@ -124,12 +124,13 @@
   if (GAEnabled()) ga('send', 'pageview');
 </script>
 
-<% if (!Belt.get(Request, 'session.viewed_subscribe_modal') && Belt.random_int(0, 4) === 2){ %>
+<% if (!Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
   <% Request.session['viewed_subscribe_modal'] = true; %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
       setTimeout(function(){
         $('.modal').modal('show');
+
         $.getJSON('/email/modal/viewed.json', Belt.np);
 
         if (GAEnabled()) ga('send', 'event', 'ShowSubscribeModal');
@@ -137,7 +138,6 @@
         if (FBEnabled()) fbq('trackCustom', 'show_email_modal', {
 
         });
-
       }, 2000);
     });
   </script>
