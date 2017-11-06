@@ -95,9 +95,9 @@ module.exports = function(options, Instance){
 
           }
         , 'vendor': a.o.vendor.get('_id')
-        , 'brands': a.o.product.brand ? [
+        , 'brands': gb.doc.get('brands') || (a.o.product.brand ? [
             a.o.product.brand
-          ] : []
+          ] : [])
         , 'last_sync': a.o.last_sync
         , 'synced_at': a.o.synced_at
         , 'source': {
