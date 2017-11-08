@@ -124,7 +124,7 @@
   if (GAEnabled()) ga('send', 'pageview');
 </script>
 
-<% if (!Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
+<% if (false && !Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
   <% Request.session['viewed_subscribe_modal'] = true; %>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
