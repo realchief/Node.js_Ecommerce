@@ -20,6 +20,17 @@ var OrderView = function(options, callback){
 
         self.update();
       }
+    , 'click [name="process_vendor_orders"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        bootbox.confirm('Are you sure you want to place vendor orders?', function(yes){
+          if (!yes) return;
+
+          self.processVendorOrders();
+        });
+      }
     }
   , 'transformers': {
       'set:products': function(val){
@@ -128,6 +139,23 @@ var OrderView = function(options, callback){
         }).join('\n'));
 
       });
+    });
+  };
+
+  gb.view['processVendorOrders'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    $.post('/admin/order/' + self._id + '/vendor_orders/create.json', {
+    }, function(res){
+      var err = Belt.get(res, 'error');
+      if (err) return bootbox.alert(err);
+
+      bootbox.alert('Vendor orders have been placed!');
     });
   };
 
