@@ -155,7 +155,17 @@ var OrderView = function(options, callback){
       var err = Belt.get(res, 'error');
       if (err) return bootbox.alert(err);
 
-      bootbox.alert('Vendor orders have been placed!');
+      LoadDocs(GB.criteria, function(err, res){
+        if (err) return bootbox.alert(err.message);
+
+        $('tbody').html(_.map(res.docs, function(d){
+          d.options = d.options || {};
+          d.Instance = Instance;
+          return Templates['admin_' + GB.model + '_list_row'](d);
+        }).join('\n'));
+
+        bootbox.alert('Vendor orders have been placed!');
+      });
     });
   };
 
