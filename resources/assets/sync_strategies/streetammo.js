@@ -95,7 +95,7 @@ module.exports = function(options, Instance){
 
           }
         , 'vendor': a.o.vendor.get('_id')
-        , 'brands': gb.doc.get('brands') || (a.o.product.brand ? [
+        , 'brands': Belt.get(gb.doc, 'brands.0') ? gb.doc.brands : (a.o.product.brand ? [
             a.o.product.brand
           ] : [])
         , 'last_sync': a.o.last_sync
