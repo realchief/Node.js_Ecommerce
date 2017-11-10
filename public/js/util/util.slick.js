@@ -3,6 +3,7 @@ $(document).ready(function(){
   $('.gallery').slick({
    slidesToShow: 1,
    slidesToScroll: 1,
+   'swipeToSlide': true,
    arrows: true,
    autoplay: true,
    autoplaySpeed: 3000000,
@@ -16,6 +17,7 @@ $(document).ready(function(){
    autoplaySpeed: 3000000,
    slidesToShow: 4,
    slidesToScroll: 1,
+   'swipeToSlide': true,
    dots: false,
    centerMode: false,
    focusOnSelect: true,
