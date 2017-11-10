@@ -30,41 +30,6 @@ $.fn.isChecked = function(){
   return $(this).is(':checked') ? true : false;
 };
 
-var GetCartCount = function(options, callback){
-  var a = Belt.argulint(arguments)
-    , self = this
-    , gb = {};
-  a.o = _.defaults(a.o, {
-
-  });
-
-  Async.waterfall([
-    function(cb){
-      $.getJSON('/cart/session/read.json', function(res){
-        gb['products'] = Belt.get(res, 'data.products') || [];
-
-        cb();
-      });
-    }
-  , function(cb){
-      $('[data-set="cart_product_count"]').html(gb.products.length);
-
-      if (gb.products.length){
-        $('[name="cart"] a').attr('href', '/bag');
-        $('[name="cart"] [data-set="cart_product_count"]').removeClass('hidden-xs-up');
-
-      } else {
-        $('[name="cart"] a').attr('href', '#');
-        $('[name="cart"] [data-set="cart_product_count"]').addClass('hidden-xs-up');
-      }
-
-      cb();
-    }
-  ], function(err){
-    a.cb(err, gb.products);
-  });
-};
-
 var EscapeRegExp = function(val){
   return (val || '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 };
@@ -113,14 +78,6 @@ Instance['paginationUrl'] = function(options, callback){
 
   return url;
 };
-
-$(document).ready(function(){
-  GetCartCount();
-
-  setInterval(function(){
-    Belt.call($('.masonry-grid'), 'isotope', 'layout');
-  }, 1000);
-});
 
 var ToggleLoader = function(show){
   if (show){
@@ -198,46 +155,6 @@ var GetElementOffset = function(el){
   , 'height': height
   };
 };
-
-var SubscribeEmail = function(){
-  var email = $('[name="subscribe-email"]').val();
-
-  if (!email) return;
-
-  $.post('/email/subscribe.json', {
-    'email': email
-  }, Belt.np);
-
-  if (GAEnabled()) {
-    ga('send', 'event', 'SubscribeModal', 'submit email');
-  }
-
-  if (FBEnabled()) {
-    fbq('track', 'CompleteRegistration', {
-      'status': 'submit email'
-    });
-  }
-
-  $('.modal h3').html('Thank you for subscribing!');
-  $('.modal form').hide();
-
-  setTimeout(function(){
-    $('.modal').modal('hide');
-  }, 1000);
-  //alert('Thank you for subscribing!');
-};
-
-$(document).on('submit', '.modal form', function(e){
-  e.preventDefault();
-
-  SubscribeEmail();
-});
-
-$(document).on('click', '[name="email-submit"]', function(e){
-  e.preventDefault();
-
-  SubscribeEmail();
-});
 
 var GAEnabled = function(){
   return typeof ga !== 'undefined' && _.isFunction(ga) ? true : false;

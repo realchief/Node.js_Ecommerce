@@ -9,4 +9,7 @@ $(document).ready(function(){
     $('.masonry-grid').isotope('layout');
   });
 
+  setInterval(function(){
+    Belt.call($('.masonry-grid'), 'isotope', 'layout');
+  }, 1000);
 });
