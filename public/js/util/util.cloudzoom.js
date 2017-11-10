@@ -5,7 +5,7 @@ $(document).ready(function(){
     $(image).CloudZoom({
       zoomPosition: 'inside',
       autoInside: true,
-      //zoomFlyOut: false,
+      zoomFlyOut: false,
       animationTime: 500,
       touchStartDelay: true
     });
