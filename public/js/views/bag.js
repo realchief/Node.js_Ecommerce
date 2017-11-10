@@ -19,7 +19,7 @@ $(document).on('click', '[name="cart_product_remove"]', function(e){
     ga('send', 'event', 'BagView', 'remove product');
   }
 
-  $.getJSON($(this).attr('href'), function(){
+  $.getJSON($(this).attr('data-href'), function(){
     document.location.reload();
   });
 });

@@ -41,7 +41,7 @@
       <% }) %>
     </ul>
     <div class="goods__link-group">
-      <a name="cart_product_remove" href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item"
+      <a name="cart_product_remove" data-href="/cart/session/product/<%= doc._id %>/delete.json" class="goods__link-group__item"
         data-id="<%= doc.product._id %>"
         data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
         data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
