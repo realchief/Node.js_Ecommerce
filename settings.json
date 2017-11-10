@@ -92,6 +92,12 @@
     , "new_set_id": "5910bc61214e4818cf1abbcf"
     , "new_set_slug": "trevor-andrew"
     }
+  , {
+      "old_set_id": "5a04e783e8b656093781698e"
+    , "old_set_slug": "complexcon"
+    , "new_set_id": "5a05fbabb0341fba411f04ec"
+    , "new_set_slug": "complex-con"
+    }
   ]
 , "brand_blacklist": [
     "nike"
