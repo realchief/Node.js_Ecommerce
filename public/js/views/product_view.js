@@ -48,6 +48,10 @@ var ProductView = function(options, callback){
       //record_analytics
     });
 
+    a.o.options = _.mapObject(a.o.options, function(v, k){
+      return _.unescape(v);
+    });
+
     Async.waterfall([
       function(cb){
         //if (_.size(a.o.options) !== _.size((GB.product || GB.doc).options)) return cb();
@@ -110,6 +114,10 @@ var ProductView = function(options, callback){
     , 'product': self._id
     , 'price': self.price
     , 'options': self.get().options || {}
+    });
+
+    a.o.options = _.mapObject(a.o.options, function(v, k){
+      return _.unescape(v);
     });
 
     Async.waterfall([
