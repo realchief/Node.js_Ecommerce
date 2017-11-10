@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   /* ======== Cloudzoom initial inside Slick gallery ======== */
   $('.gallery').on('lazyLoaded', function(event, slick, image, imageSource){
-    $(image).CloudZoom({
+    if (!IsMobile()) $(image).CloudZoom({
       zoomPosition: 'inside',
       autoInside: true,
       //zoomFlyOut: false,

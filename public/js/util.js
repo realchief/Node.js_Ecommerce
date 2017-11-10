@@ -193,3 +193,7 @@ if (GAEnabled()){
     }, 500);
   });
 }
+
+var IsMobile = function(){
+  return $('#is-mobile:visible').length ? true : false;
+};
