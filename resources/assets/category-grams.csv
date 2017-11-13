@@ -1,4 +1,5 @@
 "gram","count","category_1","category_2","category_3","hide"
+"familia",1,,,,"x"
 "publish",3844,,,,
 "black",2560,,,,
 "s",2357,,,,
@@ -147,7 +148,7 @@
 "tees",218,"clothing","t-shirts / tanks",,
 "a",218,,,,
 "team cozy",217,,,,
-"mister tee",217,,,,
+"mister tee",217,,,,"x"
 "loyaltysale",216,,,,
 "classic",215,,,,
 "fall d2",214,,,,
