@@ -140,7 +140,7 @@ console.log(GB.minified_js)
     , 'InvalidationBatch': {
         'CallerReference': Belt.uuid()
       , 'Paths': {
-          'Quantity': 0
+          'Quantity': 4000
         , 'Items': [
             '*'
           ]
