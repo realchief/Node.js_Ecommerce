@@ -140,10 +140,9 @@ console.log(GB.minified_js)
     , 'InvalidationBatch': {
         'CallerReference': Belt.uuid()
       , 'Paths': {
-          'Quantity': 2
+          'Quantity': 1
         , 'Items': [
-            'public'
-          , 'bower_components'
+            '/*'
           ]
         }
       }
