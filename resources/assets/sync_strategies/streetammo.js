@@ -395,6 +395,57 @@ module.exports = function(options, Instance){
     });
   };
 
+  S['SyncProduct'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'host': o.crawler_host
+      //url
+    });
+
+    Async.waterfall([
+      function(cb){
+        var tries = 0;
+
+        Async.doWhilst(function(next2){
+          Request({
+            'url': a.o.host + '/method'
+          , 'method': 'get'
+          , 'qs': {
+              'method': 'getProduct'
+            , 'url': a.o.url
+            }
+          , 'json': true
+          }, function(err, res, json){
+            e = err;
+            prod = Belt.get(json, 'data.response') || {};
+            prod['url'] = a.o.url;
+
+            tries++;
+
+            if (!e) console.log('[STREETAMMO] Added "' + u + '" to sync cache...');
+
+            next2();
+          });
+        }, function(){ return e || (!Belt.get(prod, 'title') && tries < 3); }, function(err){
+
+        });
+      }
+    , function(cb){
+        return cb();
+
+        gb.prod_cache = _.uniq(gb.prod_cache, 'url');
+
+        return Async.eachSeries(gb.prod_cache, function(p, cb2){
+          a.o.progress_cb(p, cb2);
+        }, Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
   S['SyncVendor'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this

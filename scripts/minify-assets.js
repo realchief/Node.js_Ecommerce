@@ -136,17 +136,16 @@ console.log(GB.minified_js)
   }
 , function(cb){
     GB.cloudfront.createInvalidation({
-  DistributionId: 'STRING_VALUE', /* required */
-  InvalidationBatch: { /* required */
-    CallerReference: 'STRING_VALUE', /* required */
-    Paths: { /* required */
-      Quantity: 0, /* required */
-      Items: [
-        'STRING_VALUE',
-        /* more items */
-      ]
-    }
-  }
+      'DistributionId': GB.cloudfront_distribution
+    , 'InvalidationBatch': {
+        'CallerReference': Belt.uuid()
+      , 'Paths': {
+          'Quantity': 0
+        , 'Items': [
+            '*'
+          ]
+        }
+      }
     }, Belt.cw(cb, 0));
   }
 ], function(err){
