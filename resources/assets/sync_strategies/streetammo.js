@@ -402,6 +402,7 @@ module.exports = function(options, Instance){
     a.o = _.defaults(a.o, {
       'host': o.crawler_host
       //url
+      //vendor
     });
 
     Async.waterfall([
@@ -419,27 +420,26 @@ module.exports = function(options, Instance){
           , 'json': true
           }, function(err, res, json){
             e = err;
-            prod = Belt.get(json, 'data.response') || {};
-            prod['url'] = a.o.url;
+            gb['prod'] = Belt.get(json, 'data.response') || {};
+            gb.prod['url'] = a.o.url;
 
             tries++;
 
-            if (!e) console.log('[STREETAMMO] Added "' + u + '" to sync cache...');
-
             next2();
           });
-        }, function(){ return e || (!Belt.get(prod, 'title') && tries < 3); }, function(err){
-
-        });
+        }, function(){ return e || (!Belt.get(gb.prod, 'title') && tries < 3); }, Belt.cw(cb, 0));
       }
     , function(cb){
-        return cb();
+        if (!Belt.get(gb.prod, 'title')) return cb(new Error('product not synced'));
 
-        gb.prod_cache = _.uniq(gb.prod_cache, 'url');
-
-        return Async.eachSeries(gb.prod_cache, function(p, cb2){
-          a.o.progress_cb(p, cb2);
-        }, Belt.cw(cb, 0));
+        self.UpdateProduct({
+          'product': gb.prod
+        , 'vendor': a.o.vendor
+        , 'last_sync': Belt.uuid()
+        , 'synced_at': new Date()
+        }, function(err, prod){
+          cb(err);
+        });
       }
     ], function(err){
       a.cb(err);
