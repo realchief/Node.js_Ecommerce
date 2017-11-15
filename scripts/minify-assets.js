@@ -37,6 +37,8 @@ var GB = _.defaults(O.argv, {
   'minified_css_path': Path.join(O.__dirname, './public/css/styles.min.css')
 , 'minified_js_path': Path.join(O.__dirname, './public/js/javscript.min.js')
 , 's3': new AWS.S3(O.aws)
+, 'cloudfront': new AWS.CloudFront(O.aws)
+, 'cloudfront_distribution': 'E2U4SXPJPTJ7SP'
 , 's3_bucket': 'assets.wanderset.com'
 , 'minify_paths': {}
 , 'readdir_iterator': function(path, cb){
@@ -131,6 +133,21 @@ console.log(GB.minified_js)
       , 'ContentType': Mime.lookup(e)
       }, Belt.cw(cb2, 0));
     }, cb);
+  }
+, function(cb){
+    GB.cloudfront.createInvalidation({
+  DistributionId: 'STRING_VALUE', /* required */
+  InvalidationBatch: { /* required */
+    CallerReference: 'STRING_VALUE', /* required */
+    Paths: { /* required */
+      Quantity: 0, /* required */
+      Items: [
+        'STRING_VALUE',
+        /* more items */
+      ]
+    }
+  }
+    }, Belt.cw(cb, 0));
   }
 ], function(err){
   Spin.stop();
