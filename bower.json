@@ -12,7 +12,7 @@
   , "bootbox": "*"
   , "fontawesome": "*"
   , "bootheel": "git+ssh://git@github.com/sackio/bootheel.git#master"
-  , "query-object": "*"
+  , "query-object": "2.*"
   , "pleasejs": "*"
   , "Sortable": "*"
   , "tether": "*"
