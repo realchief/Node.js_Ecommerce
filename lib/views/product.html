@@ -201,13 +201,13 @@
               <div class="mb15 hidden-md-up">
                 <div class="d-flex justify-content-between align-items-center mb5">
                   <% if (Belt.get(doc, 'brands.0')){ %>
-                    <h1 class="mb5 text-center-sm l-n goods-title">
+                    <h1 class="mb-0 text-center-sm l-n goods-title">
                       <%= _.map(doc.brands, function(b){
                         return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
                       }).join(', ') %>
                     </h1>
                   <% } %>
-                  <h2 data-set="price" data-set-method="html" class="text-center-sm l-n goods-price"></h2>
+                  <h2 data-set="price" data-set-method="html" class="mb-0 text-center-sm l-n goods-price"></h2>
                 </div>
                 <% if (Belt.get(doc, 'label.us')){ %>
                   <h3 class="l-n goods-subtitle"><%= doc.label.us %></h3>
