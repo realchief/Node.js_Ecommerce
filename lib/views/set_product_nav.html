@@ -28,10 +28,10 @@
 <% } %>
 
 <% if (max > 1){ %>
-  <ul class="pagination pagination--shop-product ml-2">
+  <ul class="pagination ml-2">
     <% if (index > 1){ %>
       <li class="page-item">
-        <a class="page-link" tabindex="-1" data-index="<%= index - 1 %>">«</a>
+        <a class="page-link pagination__arrow pagination__arrow--prev" tabindex="-1" data-index="<%= index - 1 %>"></a>
       </li>
     <% } %>
     <% if (index - 1 >= 1){ %>
@@ -49,7 +49,7 @@
     <% } %>
     <% if (index + 1 <= max){ %>
       <li class="page-item">
-        <a class="page-link"  data-index="<%= index + 1 %>" href="#">»</a>
+        <a class="page-link pagination__arrow pagination__arrow--next"  data-index="<%= index + 1 %>" href="#"></a>
       </li>
     <% } %>
   </ul>
