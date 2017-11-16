@@ -164,6 +164,10 @@ var FBEnabled = function(){
   return typeof fbq !== 'undefined' && _.isFunction(fbq) ? true : false;
 };
 
+var FSEnabled = function(){
+  return typeof FS !== 'undefined' && _.isFunction(FS) ? true : false;
+};
+
 if (GAEnabled()){
   $(document).on('click', 'a.product-link', function(e){
     e.preventDefault();

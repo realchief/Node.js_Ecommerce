@@ -33,6 +33,10 @@
   <script src="<%= Settings.asset_prefix %>/public/js/util/util.isotope.js" type="text/javascript" charset="utf-8"></script>
 <% } %>
 
+<% if (View === 'set'){ %>
+  <script src="<%= Settings.asset_prefix %>/public/js/util/util.tabs.js" type="text/javascript" charset="utf-8"></script>
+<% } %>
+
 <script type="text/javascript">
   var Async = async
     , Moment = moment
