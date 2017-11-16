@@ -19,6 +19,12 @@ $(document).on('click', '[name="cart_product_remove"]', function(e){
     ga('send', 'event', 'BagView', 'remove product');
   }
 
+  if (FSEnabled()){
+    FS.setUserVars({
+      'remove_product': true
+    });
+  }
+
   $.getJSON($(this).attr('data-href'), function(){
     document.location.reload();
   });
@@ -50,6 +56,12 @@ var throtQtyUpdate = _.throttle(function(options, callback){
     });
     ga('ec:setAction', 'add');
     ga('send', 'event', 'BagView', 'update product quantity');
+  }
+
+  if (FSEnabled()){
+    FS.setUserVars({
+      'update_product_quantity': true
+    });
   }
 
   if (!qty) ToggleLoader();
