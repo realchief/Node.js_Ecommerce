@@ -10,7 +10,17 @@ $(document).ready(function(){
    autoplaySpeed: 3000000,
    lazyLoad: 'ondemand',
    fade: true,
-   cssEase: 'linear'
+   cssEase: 'linear',
+   dots: true,
+   responsive: [
+    {
+      breakpoint: 767,
+      settings: {
+        fade: false,
+        speed: 200
+      }
+    }
+   ]
   });
 
   $('.gallery__thumbnail').slick({

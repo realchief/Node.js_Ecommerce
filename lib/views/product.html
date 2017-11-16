@@ -156,6 +156,12 @@
     <main class="main" data-view="ProductView" data-id="<%= doc._id %>">
       <section class="section">
         <div class="container">
+
+          <!--<ol class="breadcrumb">
+            <li class="breadcrumb-item breadcrumb-item--single active"><a href="#" class="d-inline-flex justify-content-start align-items-center">new arrivals</a></li>
+          </ol>-->
+
+
           <div class="row">
             <div class="col-lg-6 col-md-5 mb-3 mb-md-0">
               <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
@@ -176,17 +182,39 @@
             </div>
 
             <div class="col-lg-6 col-md-7">
-              <% if (Belt.get(doc, 'brands.0')){ %>
-                <h1 class="mb5 text-center-sm l-n"><%= _.map(doc.brands, function(b){
-                  return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular link-dark">' + b + '</a>' : b;
-                }).join(', ') %></h1>
-              <% } %>
+              <div class="mb15 hidden-sm-down">
+                <% if (Belt.get(doc, 'brands.0')){ %>
+                  <h1 class="mb5 text-center-sm l-n goods-title">
+                    <%= _.map(doc.brands, function(b){
+                      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
+                    }).join(', ') %>
+                  </h1>
+                <% } %>
 
-              <% if (Belt.get(doc, 'label.us')){ %>
-                <h3 class="mb15 text-center-sm font-base-light l-n"><%= doc.label.us %></h3>
-              <% } %>
+                <% if (Belt.get(doc, 'label.us')){ %>
+                  <h3 class="mb15 text-center-sm l-n goods-subtitle"><%= doc.label.us %></h3>
+                <% } %>
 
-              <h2 data-set="price" data-set-method="html" class="font-base-book mb15 text-center-sm l-n"></h2>
+                <h2 data-set="price" data-set-method="html" class="text-center-sm l-n goods-price"></h2>
+              </div>
+
+              <div class="mb15 hidden-md-up">
+                <div class="d-flex justify-content-between align-items-center mb5">
+                  <% if (Belt.get(doc, 'brands.0')){ %>
+                    <h1 class="mb5 text-center-sm l-n goods-title">
+                      <%= _.map(doc.brands, function(b){
+                        return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
+                      }).join(', ') %>
+                    </h1>
+                  <% } %>
+                  <h2 data-set="price" data-set-method="html" class="text-center-sm l-n goods-price"></h2>
+                </div>
+                <% if (Belt.get(doc, 'label.us')){ %>
+                  <h3 class="mb15 text-center-sm l-n goods-subtitle"><%= doc.label.us %></h3>
+                <% } %>
+              </div>
+
+
               <form action="" class="mb40 side-paddings--visible-sm">
                 <% _.each(doc.options, function(v, k){ %>
                   <% var vals = _.filter(Belt.get(v, 'values.us') || [], function(o){
@@ -203,10 +231,10 @@
                       <div class="col-lg-7 col-md-9">
                         <label class="font-base-book text-capitalaze fs14 mb-1 l-n"><%= k %>:</label>
                         <div class="dropdown dropdown--full dropdown--gray">
-                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn btn-xl text-regular btn-regular l-n dropdown-toggle dropdown-toggle--has-arrow fs13" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
+                          <button data-get="options.<%= k %>" data-get-method="html()" data-get-transformer="trim" class="btn text-regular l-n dropdown-toggle dropdown-toggle--has-arrow" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= val %></button>
                           <div class="dropdown-menu dropdown-menu--gray font-base-book l-n">
                             <% _.each(vals, function(o){ %>
-                              <a class="dropdown-item text-regular fs12" href="#" data-value="<%= o %>"><%= o %></a>
+                              <a class="dropdown-item text-regular" href="#" data-value="<%= o %>"><%= o %></a>
                             <% }) %>
                           </div>
                         </div>
@@ -267,14 +295,37 @@
                         </div>
                       </div>
                     <% } %>
+                    <div class="card accordion__item">
+                      <div class="accordion__header d-flex justify-content-between align-items-center">
+                        <p class="collapsed accordion__title mb-0">Share</p>
+
+                        <ul class="list-icons justify-content-center justify-content-md-start">
+                          <li class="list-icons__item">
+                            <a href="http://www.facebook.com/share.php?u=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&title=<%= encodeURIComponent(Belt.get(doc, 'label.us') + ' | WANDERSET') %>" target="_blank" class="list-icons__link">
+                              <i class="wanderset-icon-facebook list-icons__icon"></i>
+                            </a>
+                          </li>
+                          <li class="list-icons__item">
+                            <a href="http://twitter.com/share?text=<%= encodeURIComponent(Belt.get(doc, 'label.us')) %>&url=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&hashtags=WANDERSET<%= doc.brands[0] ? (',' + doc.brands[0]) : '' %>" target="_blank" class="list-icons__link">
+                              <i class="wanderset-icon-twitter list-icons__icon"></i>
+                            </a>
+                          </li>
+                          <li class="list-icons__item">
+                            <a href="http://pinterest.com/pin/create/button/?url=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&description=<%= encodeURIComponent(Belt.get(doc, 'label.us') + ' | WANDERSET') %>" target="_blank" class="list-icons__link">
+                              <i class="wanderset-icon-pinterest list-icons__icon"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
 
-                  <ul class="list-icons justify-content-center justify-content-md-start mt40-sm ml-md-2">
-                    <!--<li class="list-icons__item">
+                  <!--<ul class="list-icons justify-content-center justify-content-md-start mt40-sm ml-md-2">
+                    <li class="list-icons__item">
                       <a href="https://www.instagram.com/" target="_blank" class="list-icons__link">
                         <i class="wanderset-icon-instagram list-icons__icon"></i>
                       </a>
-                    </li>-->
+                    </li>
                     <li class="list-icons__item">
                       <a href="http://www.facebook.com/share.php?u=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&title=<%= encodeURIComponent(Belt.get(doc, 'label.us') + ' | WANDERSET') %>" target="_blank" class="list-icons__link">
                         <i class="wanderset-icon-facebook list-icons__icon"></i>
@@ -290,19 +341,19 @@
                         <i class="wanderset-icon-pinterest list-icons__icon"></i>
                       </a>
                     </li>
-                    <!--
+
                     <li class="list-icons__item">
                       <a href="mailto:mail@mail.com" class="list-icons__link">
                         <i class="wanderset-icon-email list-icons__icon"></i>
                       </a>
                     </li>
-                    -->
-                    <!--<li class="list-icons__item ml-auto hidden-sm-down">
+
+                    <li class="list-icons__item ml-auto hidden-sm-down">
                       <a href="#" class="list-icons__link">
                         <i class="wanderset-icon-heart-empty list-icons__icon"></i>
                       </a>
-                    </li>-->
-                  </ul>
+                    </li>
+                  </ul>-->
                 </div>
               </div>
             </div>
