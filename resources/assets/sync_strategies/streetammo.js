@@ -594,14 +594,5 @@ module.exports = function(options, Instance){
     });
   };
 
-  S['SyncProduct'] = function(options, callback){
-    var a = Belt.argulint(arguments)
-      , self = this
-      , gb = {};
-    a.o = _.defaults(a.o, {
-
-    });
-  };
-
   return S;
 };
