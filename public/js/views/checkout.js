@@ -38,6 +38,12 @@ var CheckoutView = function(options, callback){
         , 'option': 'shipping_edit'
         });
 
+        if (FSEnabled()){
+          FS.setUserVars({
+            'shipping_edit': true
+          });
+        }
+
         if (FBEnabled()){
           fbq('trackCustom', 'checkout_option', {
             'status': 'shipping_edit'
@@ -80,6 +86,12 @@ var CheckoutView = function(options, callback){
           , 'option': 'payment_next'
           });
 
+          if (FSEnabled()){
+            FS.setUserVars({
+              'payment_next': true
+            });
+          }
+
           if (FBEnabled()){
             fbq('trackCustom', 'checkout_option', {
               'status': 'payment_next'
@@ -116,6 +128,12 @@ var CheckoutView = function(options, callback){
           'step': 2
         , 'option': 'payment_edit'
         });
+
+        if (FSEnabled()){
+          FS.setUserVars({
+            'payment_edit': true
+          });
+        }
 
         if (FBEnabled()){
           fbq('trackCustom', 'checkout_option', {
@@ -163,6 +181,12 @@ var CheckoutView = function(options, callback){
           , 'option': 'billing_edit'
           });
 
+          if (FSEnabled()){
+            FS.setUserVars({
+              'billing_edit': true
+            });
+          }
+
           if (FBEnabled()){
             fbq('trackCustom', 'checkout_option', {
               'status': 'billing_edit'
@@ -200,6 +224,12 @@ var CheckoutView = function(options, callback){
         , 'option': 'billing_edit'
         });
 
+        if (FSEnabled()){
+          FS.setUserVars({
+            'billing_edit': true
+          });
+        }
+
         if (FBEnabled()){
           fbq('trackCustom', 'checkout_option', {
             'status': 'billing_edit'
@@ -215,6 +245,12 @@ var CheckoutView = function(options, callback){
           function(cb){
             if (GAEnabled()) {
               ga('send', 'event', 'Checkout', 'order attempt');
+            }
+
+            if (FSEnabled()){
+              FS.setUserVars({
+                'order_attempt': true
+              });
             }
 
             if (FBEnabled()){
@@ -314,6 +350,14 @@ var CheckoutView = function(options, callback){
           'step': step
         , 'option': name
         });
+
+        if (FSEnabled()){
+          FS.setUserVars(_.object([
+            'checkout_option_edit_' + name
+          ], [
+            true
+          ]));
+        }
 
         if (FBEnabled()){
           fbq('trackCustom', 'checkout_option', {

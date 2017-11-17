@@ -17,6 +17,7 @@ var Path = require('path')
 module.exports = function(options, Instance){
   var o = _.defaults(options || {}, {
     'crawler_host': 'http://localhost:10235'
+  , 'crawler_concurrency': 10
   });
 
   var S = {};
@@ -346,7 +347,7 @@ module.exports = function(options, Instance){
                 return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
               });
 
-              Async.eachSeries(_.uniq(gb.urls) || [], function(u, cb3){
+              Async.eachLimit(_.uniq(gb.urls) || [], S.crawler_concurrency, function(u, cb3){
                 var e
                   , prod
                   , tries = 0;
