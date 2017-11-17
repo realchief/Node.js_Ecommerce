@@ -468,7 +468,7 @@ module.exports = function(options, Instance){
           'progress_cb': a.o.progress_cb
         }, Belt.cw(cb, 0));
       }
-    , function(cb){
+    /*, function(cb){
         Instance.db.model('product').find({
           'vendor': a.o.vendor.get('_id')
         , 'last_sync': {
@@ -500,7 +500,7 @@ module.exports = function(options, Instance){
         Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
           e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
-      }
+      }*/
     ], function(err){
       a.cb(err);
     });
