@@ -164,4 +164,9 @@
   , "discount_type": "percentage"
   , "discount_amount": 0.2
   }
+, "aisha20": {
+    "label": "20% Off"
+  , "discount_type": "percentage"
+  , "discount_amount": 0.2
+  }
 }

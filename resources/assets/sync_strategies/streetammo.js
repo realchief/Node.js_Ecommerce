@@ -307,6 +307,8 @@ module.exports = function(options, Instance){
       //category
     });
 
+    gb['tries'] = 0;
+
     Async.doWhilst(function(next){
       Request({
         'url': a.o.host + '/method'
@@ -318,24 +320,63 @@ module.exports = function(options, Instance){
         }
       , 'json': true
       }, function(err, res, json){
-        tries++;
+        gb.tries++;
         gb.urls = Belt.get(json, 'data.response.products') || [];
 
-        if (err || (!_.any(gb.urls) && tries < 3)){
+        if (err || (!_.any(gb.urls) && gb.tries < a.o.max_tries)){
           gb.next = true;
           return setTimeout(next, 1000);
         } else {
           gb.next = false;
-          tries = 0;
+          gb.tries = 0;
         }
 
         gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
         gb.urls = _.filter(gb.urls, function(u){
           return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
         });
+
+        next();
       });
     }, function(){ return gb.next || _.any(gb.urls); }, function(err){
       a.cb(err, gb.urls);
+    });
+  };
+
+  S['CrawlProductPage'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'max_tries': 3
+    , 'host': S.settings.crawler_host
+      //url
+    });
+
+    gb['tries'] = 0;
+
+    Async.doWhilst(function(next){
+      Request({
+        'url': a.o.host + '/method'
+      , 'method': 'get'
+      , 'qs': {
+          'method': 'getProduct'
+        , 'url': a.o.url
+        }
+      , 'json': true
+      }, function(err, res, json){
+        gb['err'] = err;
+        gb['prod'] = Belt.get(json, 'data.response') || {};
+        gb.prod['url'] = a.o.url;
+
+        gb.tries++;
+
+        next();
+      });
+    }, function(){
+      return gb.err || (!Belt.get(gb.prod, 'title') && gb.tries < a.o.max_tries);
+    }, function(err){
+      a.cb(err, gb.prod);
     });
   };
 
