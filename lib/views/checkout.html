@@ -7,6 +7,7 @@
       var STRIPE_KEY = '<%= Settings.stripe.key %>';
       Stripe.setPublishableKey(STRIPE_KEY);
     </script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   </head>
   <body>
     <%= Render('header', _.extend({}, Locals, {
@@ -131,85 +132,17 @@
                   </fieldset>
                 </div>
 
-                <div id="payment">
-                  <div class="alert alert-danger d-none mb20" role="alert">
-                  </div>
-
-                  <div data-counter="2" class="checkout-step d-flex align-items-center justify-content-between mb25">
-                    <span>payment method</span>
-                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
-                  </div>
-                  <fieldset class="d-none">
-                    <legend class="legend-counter mb25" data-counter="2">payment method</legend>
-
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                          <div class="form-group">
-                            <label for="billing_cardholder_name">Cardholder’s Name</label>
-                            <input type="text" class="form-control" name="billing_cardholder_name" data-redact="true" data-get="buyer.cardholder_name">
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="field-card-number">Card Number</label>
-                            <input type="text" class="form-control" name="billing_cardnumber" data-redact="true">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-xl-3 col-md-4 mb-3 mb-md-0">
-                          <div class="form-group">
-                            <label for="billing_expiration_month">Expiration Month</label>
-                            <select name="billing_expiration_month" class="form-control" data-redact="true">
-                              <% _.times(12, function(i){ %>
-                                <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
-                                <option value="<%= i %>"><%= Moment(i, 'MM').format('MMM') %> - <%= i %></option>
-                              <% }) %>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-4">
-                          <div class="form-group">
-                            <label for="billing_expiration_year">Expiration Year</label>
-                            <select name="billing_expiration_year" class="form-control" data-redact="true">
-                              <% _.times(10, function(i){ %>
-                                <% i = new Date().getFullYear() + i; %>
-                                <option value="<%= i %>"><%= i %></option>
-                              <% }) %>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-3 col-md-4">
-                          <div class="form-group">
-                            <label for="billing_cvc">Security Code</label>
-                            <input type="text" class="form-control" name="billing_cvc" data-redact="true">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
-                  </fieldset>
-                </div>
-
                 <div id="billing" class="step">
                   <div class="alert alert-danger d-none mb20" role="alert">
                   </div>
 
-                  <div data-counter="3" class="checkout-step d-flex align-items-center justify-content-between mb25">
+                  <div data-counter="2" class="checkout-step d-flex align-items-center justify-content-between mb25">
                     <span>billing address</span>
                     <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
                   </div>
 
                   <fieldset class="d-none">
-                    <legend class="legend-counter mb25" data-counter="3">billing address</legend>
+                    <legend class="legend-counter mb25" data-counter="2">billing address</legend>
 
                     <div class="checkbox-holder mb20">
                       <a name="copy_shipping" href="#" style="text-decoration:underline;font-weight:normal;" class="label">Same as shipping address</a>
@@ -320,9 +253,78 @@
                       </label>
                     </div>
 
+                    <button name="next" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20">next step</button>
+                  </fieldset>
+                </div>
+
+                <div id="payment">
+                  <div class="alert alert-danger d-none mb20" role="alert">
+                  </div>
+
+                  <div data-counter="3" class="checkout-step d-flex align-items-center justify-content-between mb25">
+                    <span>payment method</span>
+                    <a href="#" name="edit" class="checkout-step__edit d-none">edit this</a>
+                  </div>
+                  <fieldset class="d-none">
+                    <legend class="legend-counter mb25" data-counter="3">payment method</legend>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing_cardholder_name">Cardholder’s Name</label>
+                            <input type="text" class="form-control" name="billing_cardholder_name" data-redact="true" data-get="buyer.cardholder_name">
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="field-card-number">Card Number</label>
+                            <input type="text" class="form-control" name="billing_cardnumber" data-redact="true">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-xl-3 col-md-4 mb-3 mb-md-0">
+                          <div class="form-group">
+                            <label for="billing_expiration_month">Expiration Month</label>
+                            <select name="billing_expiration_month" class="form-control" data-redact="true">
+                              <% _.times(12, function(i){ %>
+                                <% i = Belt.cast(i + 1, 'string'); i = i.length > 1 ? i : '0' + i %>
+                                <option value="<%= i %>"><%= Moment(i, 'MM').format('MMM') %> - <%= i %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4">
+                          <div class="form-group">
+                            <label for="billing_expiration_year">Expiration Year</label>
+                            <select name="billing_expiration_year" class="form-control" data-redact="true">
+                              <% _.times(10, function(i){ %>
+                                <% i = new Date().getFullYear() + i; %>
+                                <option value="<%= i %>"><%= i %></option>
+                              <% }) %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4">
+                          <div class="form-group">
+                            <label for="billing_cvc">Security Code</label>
+                            <input type="text" class="form-control" name="billing_cvc" data-redact="true">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <button name="place_order" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20 hidden-sm-down">place order</button>
                   </fieldset>
                 </div>
+
               </form>
             </div>
 

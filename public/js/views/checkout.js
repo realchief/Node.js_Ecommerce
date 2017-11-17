@@ -67,13 +67,13 @@ var CheckoutView = function(options, callback){
           });
 
           self.ToggleStep({
-            'step': 'payment'
+            'step': 'billing'
           , 'show': true
           , 'active': true
           });
 
           if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
-            'target': '#payment'
+            'target': '#billing'
           , 'animation': true
           , 'duration': 300
           , 'offset': {
@@ -83,18 +83,18 @@ var CheckoutView = function(options, callback){
 
           if (GAEnabled()) ga('ec:setAction','checkout_option', {
             'step': 2
-          , 'option': 'payment_next'
+          , 'option': 'billing_next'
           });
 
           if (FSEnabled()){
             FS.setUserVars({
-              'payment_next': true
+              'billing_next': true
             });
           }
 
           if (FBEnabled()){
             fbq('trackCustom', 'checkout_option', {
-              'status': 'payment_next'
+              'status': 'billing_next'
             });
           }
         });
@@ -235,6 +235,55 @@ var CheckoutView = function(options, callback){
             'status': 'billing_edit'
           });
         }
+      }
+    , 'click #billing [name="next"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        self.ValidateBilling(function(err){
+          if (err) return;
+
+          self.ToggleStep({
+            'step': 'billing'
+          , 'editable': true
+          , 'show': false
+          , 'error': false
+          , 'error_control': false
+          });
+
+          self.ToggleStep({
+            'step': 'payment'
+          , 'show': true
+          , 'active': true
+          });
+
+          if (!$('.hidden-sm-down:visible').length) simple.scrollTo({
+            'target': '#payment'
+          , 'animation': true
+          , 'duration': 300
+          , 'offset': {
+              'y': 100
+            }
+          });
+
+          if (GAEnabled()) ga('ec:setAction','checkout_option', {
+            'step': 2
+          , 'option': 'payment_next'
+          });
+
+          if (FSEnabled()){
+            FS.setUserVars({
+              'payment_next': true
+            });
+          }
+
+          if (FBEnabled()){
+            fbq('trackCustom', 'checkout_option', {
+              'status': 'payment_next'
+            });
+          }
+        });
       }
     , 'click [name="place_order"]': function(e){
         var self = this;
