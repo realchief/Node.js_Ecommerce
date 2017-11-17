@@ -346,8 +346,8 @@ module.exports = function(options, Instance){
               gb.urls = _.filter(gb.urls, function(u){
                 return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
               });
-console.log(gb.urls);
-              Async.eachLimit(_.uniq(gb.urls) || [], S.crawler_concurrency, function(u, cb3){
+
+              Async.eachLimit(_.uniq(gb.urls) || [], S.settings.crawler_concurrency, function(u, cb3){
                 var e
                   , prod
                   , tries = 0;
