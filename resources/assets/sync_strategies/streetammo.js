@@ -275,6 +275,9 @@ module.exports = function(options, Instance){
         Instance.db.model('set').findOne({
           'brand': true
         , 'name': new RegExp('^' + Instance.escapeRegExp(a.o.product.brand) + '$', 'i')
+        , 'vendor': {
+            '$exists': false
+          }
         }, Belt.cs(cb, gb, 'brand_set', 1, 0));
       }
     , function(cb){
@@ -290,6 +293,49 @@ module.exports = function(options, Instance){
       }
     ], function(err){
       a.cb(err, gb.doc);
+    });
+  };
+
+  S['CrawlCategoryPage'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'max_tries': 3
+    , 'host': S.settings.crawler_host
+      //index
+      //category
+    });
+
+    Async.doWhilst(function(next){
+      Request({
+        'url': a.o.host + '/method'
+      , 'method': 'get'
+      , 'qs': {
+          'method': 'getProductsList'
+        , 'index': a.o.index
+        , 'category': a.o.category
+        }
+      , 'json': true
+      }, function(err, res, json){
+        tries++;
+        gb.urls = Belt.get(json, 'data.response.products') || [];
+
+        if (err || (!_.any(gb.urls) && tries < 3)){
+          gb.next = true;
+          return setTimeout(next, 1000);
+        } else {
+          gb.next = false;
+          tries = 0;
+        }
+
+        gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
+        gb.urls = _.filter(gb.urls, function(u){
+          return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
+        });
+      });
+    }, function(){ return gb.next || _.any(gb.urls); }, function(err){
+      a.cb(err, gb.urls);
     });
   };
 
