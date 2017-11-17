@@ -421,7 +421,7 @@ module.exports = function(options, Instance){
               tries++;
               gb.urls = Belt.get(json, 'data.response.products') || [];
 
-              if (err || (!_.any(gb.urls) && tries < 3)){
+              if (err || (!_.any(gb.urls) && tries < 20)){
                 gb.next = true;
                 return setTimeout(next, 5000);
               } else {
