@@ -43,6 +43,65 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
+, 'manual_additions': [
+    {
+      'gram': 'imking'
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  , {
+      'gram': 'lrg '
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  , {
+      'gram': 'dc'
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  , {
+      'gram': 'brick harbor'
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  , {
+      'gram': 'ajl madhouse'
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  , {
+      'gram': 'pls hide diamond'
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  , {
+      'gram': 'cayler'
+    , 'count': 1
+    , 'category_1': ''
+    , 'category_2': ''
+    , 'category_3': ''
+    , 'hide': 'x'
+    }
+  ]
+, 'outfile': Path.join(O.__dirname, '/resources/assets/category-grams.csv')
 , 'iterator': function(o, cb){
     var slug = _.map(Belt.arrayDefalse([
                 o.brands.join(' ')
@@ -138,6 +197,10 @@ Async.waterfall([
     cs.pipe(fs);
 
     _.each(GB.grams, function(v, k){
+      cs.write(v);
+    });
+
+    _.each(GB.manual_additions, function(v){
       cs.write(v);
     });
 

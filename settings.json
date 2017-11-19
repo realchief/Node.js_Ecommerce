@@ -98,6 +98,18 @@
     , "new_set_id": "5a05fbabb0341fba411f04ec"
     , "new_set_slug": "complex-con"
     }
+  , {
+      "old_set_id": "5a12069a9ee3cc7bd015a293"
+    , "old_set_slug": "carhartt-wip-sa"
+    , "new_set_id": "5a1207659ee3cc7bd015a2be"
+    , "new_set_slug": "carhartt-wip"
+    }
+  , {
+      "old_set_id": "591111e48319b521a1217f2b"
+    , "old_set_slug": "carhartt-wip-shopify"
+    , "new_set_id": "5a1207659ee3cc7bd015a2be"
+    , "new_set_slug": "carhartt-wip"
+    }
   ]
 , "brand_blacklist": [
     "nike"
