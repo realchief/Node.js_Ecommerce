@@ -45,55 +45,7 @@ var GB = _.defaults(O.argv, {
   }
 , 'manual_additions': [
     {
-      'gram': 'imking'
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
-  , {
-      'gram': 'lrg '
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
-  , {
-      'gram': 'dc'
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
-  , {
-      'gram': 'brick harbor'
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
-  , {
-      'gram': 'ajl madhouse'
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
-  , {
-      'gram': 'pls hide diamond'
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
-  , {
-      'gram': 'cayler'
+      'gram': 'renown'
     , 'count': 1
     , 'category_1': ''
     , 'category_2': ''
