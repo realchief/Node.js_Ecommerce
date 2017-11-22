@@ -17,7 +17,7 @@
     <main class="main">
       <%= Render('header', Locals) %>
 
-      <section class="section section--pt-30">
+      <section class="section section--pt-30 hidden-sm-down">
 
         <div class="container">
 
@@ -151,7 +151,7 @@
             <h5 class="text-center title-medium text-primary">Shop our Gift Guides and hand-picked looks</h5>
             <div class="row row--sm-5">
               <div class="col-6 col-md-3 mb-5 mb-md-0">
-                <a href="set/scandanavian-style-rjkh9c-gg" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[Scandinavian]">
+                <a href="/set/scandanavian-style-rjkh9c-gg" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[Scandinavian]">
                   <div class="mosaic-item__rotate">
                     <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Scandinavian-Piece-desktop.png" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
@@ -288,12 +288,74 @@
               </div><!-- col -->
             </div><!-- row -->
           </div><!--box-md-->
-
-
         </div><!-- container -->
-
-
       </section><!-- section -->
+
+
+
+      <section class="section section--0 section--pt-30 hidden-md-up">
+        <div class="container">
+          <div class="row row-negative-sm">
+            <div class="col-12">
+              <a href="/products/new" class="d-block negative-side-margins mb10" data-promotion="[Black Friday]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Black-Friday-Piece.png" class="w-100 lazy">
+              </a>
+
+              <div class="divider divider--content--xs divider--xl divider--muted"></div>
+
+              <p class="text-center title-content mb15">shop our gift guides hand-picked<br class="hidden-xs-down"> by wanderset set members:</p>
+
+              <a href="/set/sneaker-steve-hjkpxpzgf" class="d-block negative-side-margins mb10" data-promotion="[Sneaker Steve]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Sneaker-Steve-Piece.png" class="w-100 lazy">
+              </a>
+
+              <a href="/set/5a15d44c122ad808ea6a8b1e" class="d-block negative-side-margins mb10" data-promotion="[Eric Dlux]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Eric-Dlux-Piece.png" class="w-100 lazy">
+              </a>
+
+              <a href="/set/5a15d99f122ad808ea6a8c9a" class="d-block negative-side-margins mb10" data-promotion="[Smoke Purpp]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Smoke-Purpp-Piece.jpg" class="w-100 lazy">
+              </a>
+
+              <div class="divider divider--content--xs divider--xl divider--muted"></div>
+
+              <a href="/set/publish-x-the-north-face-bjpmlhxxf" class="d-block negative-side-margins mb10" data-promotion="[Publish Northface]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Publish-Northface-Piece.png" class="w-100 lazy">
+                <p class="text-center title-content title-content--has-bg  p-2">shop the publish x northface colab</p>
+              </a>
+
+              <div class="divider divider--content--xs divider--xl divider--muted"></div>
+
+              <p class="text-center title-content mb15">shop our holiday looks selected<br class="hidden-xs-down"> by the wanderset staff:</p>
+
+              <a href="/set/scandanavian-style-rjkh9c-gg" class="d-block negative-side-margins mb10" data-promotion="[Scandinavian Look]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Scandinavian-look-Piece.png" class="w-100 lazy">
+              </a>
+
+              <a href="/set/oversize-fit-s1ugv0wem" class="d-block negative-side-margins mb10" data-promotion="[Oversize Fit]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Oversize-Fit-Piece.png" class="w-100 lazy">
+              </a>
+
+              <a href="/set/street-style-rjsfccwxm" class="d-block negative-side-margins mb10" data-promotion="[La Street Style]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/La-Street-Style-Piece.png" class="w-100 lazy">
+              </a>
+
+              <div class="divider divider--content--xs divider--xl divider--muted"></div>
+
+              <a href="/brand/carhartt-wip" class="d-block negative-side-margins mb10" data-promotion="[Carhartt]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Carhartt-Piece.png" class="w-100 lazy">
+                <p class="text-center title-content  p-2">shop carhartt work in progess</p>
+              </a>
+
+              <a href="/set/adidas-x-nike-sjatavmez" class="d-block negative-side-margins mb10" data-promotion="[Adidas Nike]">
+                <img data-src="<%= Settings.asset_prefix %>/public/assets/images/temp/Adidas-Nike-Piece.png" class="w-100 lazy">
+                <p class="text-center title-content  p-2">shop adidas & Nike international colorways </p>
+              </a>
+
+            </div><!--col-->
+          </div><!--row-->
+        </div><!--container-fluid-->
+      </section><!--section-->
     </main>
 
     <a href="#" class="btn-scroll-top">
