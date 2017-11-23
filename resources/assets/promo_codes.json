@@ -74,7 +74,7 @@
   , "discount_type": "percentage"
   , "discount_amount": 0.2
   }
-, "octown20": {
+, "blk20": {
     "label": "20% Off + Free Shipping"
   , "discount_type": "percentage"
   , "discount_amount": 0.2
