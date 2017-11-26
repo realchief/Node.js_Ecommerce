@@ -5,36 +5,36 @@
 <script src="<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/query-object/query-object.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-
 <script src="<%= Settings.asset_prefix %>/bower_components/simple-scrollTo/lib/scrollTo.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/sticky-kit/jquery.sticky-kit.min.js"></script>
-
 <script src="<%= Settings.asset_prefix %>/bower_components/aos/dist/aos.js"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/tether/dist/js/tether.min.js"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<% if (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands'){ %>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"></script>
-<% } %>
+<% if (typeof View !== 'undefined'){ %>
+  <% if (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands'){ %>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"></script>
+  <% } %>
 
-<% if (View === 'product' || View === 'outfit'){ %>
-  <script src="<%= Settings.asset_prefix %>/bower_components/slick-carousel/slick/slick.min.js"></script>
-  <script src="<%= Settings.asset_prefix %>/public/js/util/util.slick.js" type="text/javascript" charset="utf-8"></script>
+  <% if (View === 'product' || View === 'outfit'){ %>
+    <script src="<%= Settings.asset_prefix %>/bower_components/slick-carousel/slick/slick.min.js"></script>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.slick.js" type="text/javascript" charset="utf-8"></script>
 
-  <script type="text/javascript" src="<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom.js"></script>
-  <script src="<%= Settings.asset_prefix %>/public/js/util/util.cloudzoom.js" type="text/javascript" charset="utf-8"></script>
-<% } %>
+    <script type="text/javascript" src="<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom.js"></script>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.cloudzoom.js" type="text/javascript" charset="utf-8"></script>
+  <% } %>
 
-<% if (View === 'set' || View === 'media_list'){ %>
-  <script src="<%= Settings.asset_prefix %>/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
-  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-  <script src="<%= Settings.asset_prefix %>/public/js/util/util.isotope.js" type="text/javascript" charset="utf-8"></script>
-<% } %>
+  <% if (View === 'set' || View === 'media_list'){ %>
+    <script src="<%= Settings.asset_prefix %>/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.isotope.js" type="text/javascript" charset="utf-8"></script>
+  <% } %>
 
-<% if (View === 'set'){ %>
-  <script src="<%= Settings.asset_prefix %>/public/js/util/util.tabs.js" type="text/javascript" charset="utf-8"></script>
+  <% if (View === 'set'){ %>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.tabs.js" type="text/javascript" charset="utf-8"></script>
+  <% } %>
 <% } %>
 
 <script type="text/javascript">
@@ -97,7 +97,6 @@
 <script src="/templates/set_product_nav.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="<%= Settings.asset_prefix %>/public/js/util.js" type="text/javascript" charset="utf-8"></script>
-
 <script src="<%= Settings.asset_prefix %>/public/js/util/util.cart.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/public/js/util/util.email.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%= Settings.asset_prefix %>/public/js/util/util.navbar.js" type="text/javascript" charset="utf-8"></script>
