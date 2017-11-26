@@ -14,6 +14,7 @@ var Path = require('path')
   , Request = require('request')
   , Assert = require('assert')
   , CSV = require('fast-csv')
+  , Moment = require('moment')
 ;
 
 var O = new Optionall({
@@ -44,6 +45,8 @@ var GB = _.defaults(O.argv, {
 , 'model': 'order'
 , 'products': {}
 , 'iterator': function(o, cb){
+    if (Moment(o.created_at).isBefore(Moment().subtract(5, 'days'))) return cb();
+
     _.chain(o.products)
      .filter(function(p){
        return (Belt.get(p, 'source.product.categories.0') || Belt.get(p, 'source.product.auto_category') || '').match(/foot/i);
