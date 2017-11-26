@@ -15,6 +15,7 @@ var Path = require('path')
   , Assert = require('assert')
   , CSV = require('fast-csv')
   , Natural = require('natural')
+  , Str = require('underscore.string')
 ;
 
 var O = new Optionall({
@@ -79,20 +80,22 @@ var GB = _.defaults(O.argv, {
 
     if (!size_opt_label) return cb();
 
+    if (!Belt.get(o, 'source.record.url')) return cb();
+
     var sizes = _.map([
-      "US: 6 - UK: 5.5 - EU: 38.5",
-      "US: 6.5 - UK: 6 - EU: 39",
-      "US: 7 - UK: 6 - EU: 40",
-      "US: 7.5 - UK: 6.5 - EU: 40.5",
-      "US: 8 - UK: 7 - EU: 41",
-      "US: 8.5 - UK: 7.5 - EU: 42",
-      "US: 9 - UK: 8 - EU: 42.5",
-      "US: 9.5 - UK: 8.5 - EU: 43",
-      "US: 10 - UK: 9 - EU: 44",
-      "US: 10.5 - UK: 9.5 - EU: 44.5",
-      "US: 11 - UK: 10 - EU: 45",
-      "US: 11.5 - UK: 10.5 - EU: 45.5",
-      "US: 12 - UK: 11 - EU: 46"
+      "US: 6",
+      "US: 6.5",
+      "US: 7",
+      "US: 7.5",
+      "US: 8",
+      "US: 8.5",
+      "US: 9",
+      "US: 9.5",
+      "US: 10",
+      "US: 10.5",
+      "US: 11",
+      "US: 11.5",
+      "US: 12"
     ], function(v){
       return _.object([
         size_opt_label
@@ -113,26 +116,48 @@ var GB = _.defaults(O.argv, {
                   return obj;
                 })
                 .filter(function(v, k){
+                  var vals = _.mapObject(v, function(v2){
+                    return v2.replace(/\W/g, '').toLowerCase();
+                  });
+
                   return !_.some(o.stocks, function(s){
-                    return _.every(v)
+                    return s.available_quantity > 0
+                        && _.every(vals, function(v2, k2){
+                          return Str.include((Belt.get(s.options, k2 + '.value') || '').replace(/\W/g, '').toLowerCase(), v2);
+                        });
                   });
                 })
                 .value();
 
-    console.log(configs);
+    console.log('https://wanderset.pushbuild.com/product/' + o.slug);
 
-    cb();
-
-/*
-    Request({
-      'url': O.host + '/product/' + o._id + '/update.json'
-    , 'auth': GB.auth
-    , 'body': update
-    , 'json': true
-    , 'method': 'post'
-    }, function(err, res, json){
+    Async.eachSeries(configs, function(e, cb2){
+      Request({
+        'url': O.host + '/product/' + o._id + '/stock/create.json'
+      , 'auth': GB.auth
+      , 'body': {
+          'available_quantity': 3
+        , 'price': o.low_price
+        , 'list_price': o.low_price
+        , 'vendor': o.vendor
+        , 'manual_override': true
+        , 'options': _.mapObject(e, function(v, k){
+            return {
+              'value': v
+            , 'alias': k
+            , 'alias_value': v
+            }
+          })
+        }
+      , 'json': true
+      , 'method': 'post'
+      }, function(err, res, json){
+        console.log(json);
+        cb2();
+      });
+    }, function(err){
       cb();
-    });*/
+    });
   }
 });
 
