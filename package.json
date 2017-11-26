@@ -43,5 +43,6 @@
   , "xml": "*"
   , "clean-css": "*"
   , "uglify-js": "*"
+  , "redis": "*"
   }
 }

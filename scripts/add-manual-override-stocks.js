@@ -55,6 +55,7 @@ var GB = _.defaults(O.argv, {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
+, 'product_csv_path': '/home/ben/Downloads/add-products.csv'
 , 'iterator': function(o, cb){
     var size_opt_label;
 
@@ -75,6 +76,8 @@ var GB = _.defaults(O.argv, {
                       });
                     })
                     .value();
+
+    if (!size_opt_label) return cb();
 
     var sizes = _.map([
       "US: 6 - UK: 5.5 - EU: 38.5",
@@ -100,7 +103,26 @@ var GB = _.defaults(O.argv, {
 
     var configs = ArrayCombinations([sizes].concat(opt_vals));
 
+    configs = _.chain(configs)
+               .map(function(v, k){
+                  var obj = {};
+                  _.each(v, function(v2){
+                    return _.extend(obj, v2);
+                  });
+
+                  return obj;
+                })
+                .filter(function(v, k){
+                  return !_.some(o.stocks, function(s){
+                    return _.every(v)
+                  });
+                })
+                .value();
+
     console.log(configs);
+
+    cb();
+
 /*
     Request({
       'url': O.host + '/product/' + o._id + '/update.json'
@@ -114,51 +136,41 @@ var GB = _.defaults(O.argv, {
   }
 });
 
-O.argv.infile = O.argv.infile || Path.join(O.__dirname, '/resources/assets/category-grams.csv');
-
 Spin.start();
 
 Async.waterfall([
   function(cb){
-    var fs = FS.createReadStream(O.argv.infile);
+    var fs = FS.createReadStream(GB.product_csv_path);
 
-    GB['grams'] = {};
+    GB['products'] = [];
 
     CSV.fromStream(fs, {
           'headers': true
         })
        .on('data', function(d){
-          if (!d.category_1 && !d.category_2 && !d.category_3 && !d.hide) return;
-
-          GB.grams[d.gram] = d;
+          GB.products.push(d);
         })
        .on('end', Belt.cw(cb));
   }
 , function(cb){
-    var cont;
-
-    return Async.doWhilst(function(next){
+    Async.eachSeries(GB.products, function(p, next){
       Request({
         'url': O.host + '/product/list.json'
       , 'auth': GB.auth
       , 'qs': {
-          'query': GB.query
-        , 'skip': GB.skip
-        , 'limit': GB.limit
-        , 'sort': GB.sort
+          'query': {
+            'label.us': p.name
+          , 'brands': p.brand
+          }
         }
       , 'method': 'get'
       , 'json': true
       }, function(err, res, json){
-        cont = _.any(Belt.get(json, 'data')) ? true : false;
-        GB.skip += GB.limit;
-        console.log(GB.skip);
-
         Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
           GB.iterator(d, cb2);
         }, Belt.cw(next, 0));
-      })
-    }, function(){ return cont; }, Belt.cw(cb, 0));
+      });
+    }, Belt.cw(cb));
   }
 ], function(err){
   Spin.stop();

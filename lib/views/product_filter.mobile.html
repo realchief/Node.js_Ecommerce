@@ -2,166 +2,40 @@
   <a class="product-filter__toggle collapsed" data-toggle="collapse" href="#product-filter-inner" aria-expanded="false" aria-controls="product-filter-inner">filter</a>
   <div class="collapse" id="product-filter-inner">
     <div id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="card product-filter-item">
-        <div class="card-header product-filter-item__header" role="tab" id="headingOne">
-          <h5 class="mb-0">
-            <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              clothing
-            </a>
-          </h5>
-        </div>
-
-        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="card-block product-filter-item__body">
-            <ul class="product-filter-list list-unstyled">
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">all clothing</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">coats/jackets</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">jeans</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">pants</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">shirts</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">shorts/swim</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">socks/underwear</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">sweaters</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">sweatshirts</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">t-shirts/tanks</a>
-              </li>
-            </ul>
+      <% var cats = typeof doc !== 'undefined' && doc._id && Instance.set_categories[doc._id] ? Instance.set_categories[doc._id] : Instance.categories; %>
+      <% _.each(cats, function(v, k){ %>
+        <div class="card product-filter-item">
+          <div class="card-header product-filter-item__header" role="tab" id="headingOne">
+            <h5 class="mb-0">
+              <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" data-category="<%= k %>"><%= k %></a>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-block product-filter-item__body">
+              <ul class="product-filter-list list-unstyled">
+                <li class="product-filter-list__item">
+                  <% if (typeof search_query !== 'undefined'){ %>
+                    <a href="/products/search?q=<%= encodeURIComponent(search_query) %>&category=<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="product-filter-list__link">All <%= k %></a>
+                  <% } else { %>
+                    <a href="/products/category/<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="product-filter-list__link">All <%= k %></a>
+                  <% } %>
+                </li>
+                <% _.each(v, function(v2, k2){ %>
+                  <li class="product-filter-list__item">
+                    <% if (typeof search_query !== 'undefined'){ %>
+                      <a href="/products/search?q=<%= encodeURIComponent(search_query) %>&category=<%= encodeURIComponent(k + ' > ' + k2) %>" data-category="<%= k + ' > ' + k2 %>" class="product-filter-list__link"><%= k2 %></a>
+                    <% } else { %>
+                      <a href="/products/<%= encodeURIComponent(k) %>/<%= encodeURIComponent(k2) %>" data-category="<%= k + ' > ' + k2 %>" class="product-filter-list__link"><%= k2 %></a>
+                    <% } %>
+                  </li>
+                <% }) %>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      <% }) %>
 
-
-      <div class="card product-filter-item">
-        <div class="card-header product-filter-item__header" role="tab" id="headingTwo">
-          <h5 class="mb-0">
-            <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              footwear
-            </a>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="card-block product-filter-item__body">
-            <ul class="product-filter-list list-unstyled">
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">all footwear</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">boots</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">shoecare</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">shoes</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">slippers</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">sneakers</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="card product-filter-item">
-        <div class="card-header product-filter-item__header" role="tab" id="headingThree">
-          <h5 class="mb-0">
-            <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              accessories
-            </a>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="card-block product-filter-item__body">
-            <ul class="product-filter-list list-unstyled">
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">all accessories</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">backpacks/bags</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">belts</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">eyewear</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">gloves/scarves</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">hats</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">jewelry</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">Jewelry/watches</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">wallets/keychains</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">watches</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">other</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="card product-filter-item">
-        <div class="card-header product-filter-item__header" role="tab" id="headingFourth">
-          <h5 class="mb-0">
-            <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFourth" aria-expanded="false" aria-controls="collapseFourth">
-              home goods
-            </a>
-          </h5>
-        </div>
-        <div id="collapseFourth" class="collapse" role="tabpanel" aria-labelledby="headingFourth">
-          <div class="card-block product-filter-item__body">
-            <ul class="product-filter-list list-unstyled">
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">all homegoods</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">bathroom</a>
-              </li>
-              <li class="product-filter-list__item">
-                <a href="#" class="product-filter-list__link">bedroom</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="card product-filter-item">
+      <div class="card product-filter-item hidden-xs-up">
         <div class="card-header product-filter-item__header" role="tab" id="headingFifth">
           <h5 class="mb-0">
             <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFifth" aria-expanded="false" aria-controls="collapseFifth">
