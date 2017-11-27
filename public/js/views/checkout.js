@@ -530,6 +530,8 @@ var CheckoutView = function(options, callback){
       //country
     });
 
+    if (!Belt.get(GB.localities[a.o.country], 'regions')) return;
+
     self.$el.find('select[name="' + a.o.step + '.region"]').html(_.map(GB.localities[a.o.country].regions, function(v){
       return '<option value="' + v.shortCode + '">' + v.name + '</option>';
     }).join('\n'));
@@ -719,6 +721,20 @@ var CheckoutView = function(options, callback){
         }
 
         $.post('/cart/session/promo_code/' + encodeURIComponent(a.o.code) + '/create.json', {}, function(res){
+          if (Belt.get(res, 'error')){
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'promo code error', res.error);
+            }
+
+            if (FBEnabled()){
+              fbq('trackCustom', 'promo code error', {
+                'status': res.error
+              });
+            }
+
+            return cb(new Error(res.error));
+          }
+
           var data = Belt.get(res, 'data');
           if (data){
             self.UpdateRegions({
@@ -732,20 +748,6 @@ var CheckoutView = function(options, callback){
               'products'
             , 'line_items'
             ])));
-          }
-
-          if (Belt.get(res, 'error')){
-            if (GAEnabled()) {
-              ga('send', 'event', 'Checkout', 'promo code error', res.error);
-            }
-
-            if (FBEnabled()){
-              fbq('trackCustom', 'promo code error', {
-                'status': res.error
-              });
-            }
-
-            return cb(new Error(res.error));
           }
 
           if (GAEnabled()) {
