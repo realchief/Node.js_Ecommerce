@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'code': 'blk20'
+    'code': 'cyber20'
   }
 , 'skip': 0
 , 'limit': 100
@@ -50,8 +50,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'max_claims': 2
-      , 'error_label': 'this is a custom error'
+        'label': '20% Off'
       }
     , 'json': true
     , 'method': 'post'
