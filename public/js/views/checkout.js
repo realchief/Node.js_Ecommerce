@@ -718,7 +718,7 @@ var CheckoutView = function(options, callback){
           });
         }
 
-        $.post('/cart/session/promo_code/' + a.o.code + '/create.json', {}, function(res){
+        $.post('/cart/session/promo_code/' + encodeURIComponent(a.o.code) + '/create.json', {}, function(res){
           var data = Belt.get(res, 'data');
           if (data){
             self.UpdateRegions({
