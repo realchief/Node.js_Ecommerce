@@ -4,7 +4,7 @@
       <img src="<%= doc.product.media[0].downloaded ? (doc.product.media[0].downsampled_url || doc.product.media[0].url)
                                                     : (doc.product.media[0].remote_url || doc.product.media[0].url) %>" class="aside__produt-img">
     <% } %>
-    <div>
+    <div class="text-truncate">
       <div class="goods__info">
         <% if (Belt.get(doc, 'product.brands.0')){ %>
           <p class="goods__info-name"><%= doc.product.brands.join(', ') %></p>
