@@ -45,7 +45,7 @@ var GB = _.defaults(O.argv, {
   }
 , 'manual_additions': [
     {
-      'gram': 'renown'
+      'gram': 'hypland'
     , 'count': 1
     , 'category_1': ''
     , 'category_2': ''
