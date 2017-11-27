@@ -129,7 +129,7 @@ var GB = _.defaults(O.argv, {
                 })
                 .value();
 
-    console.log('https://wanderset.pushbuild.com/product/' + o.slug);
+    console.log('https://wanderset.com/product/' + o.slug);
 
     Async.eachSeries(configs, function(e, cb2){
       Request({
