@@ -152,7 +152,7 @@ var GB = _.defaults(O.argv, {
       , 'json': true
       , 'method': 'post'
       }, function(err, res, json){
-        console.log(json);
+        //console.log(json);
         cb2();
       });
     }, function(err){
