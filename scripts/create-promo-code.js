@@ -34,13 +34,13 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'code': {
-    'code': 'cyber25'
-  , 'label': '25% Off'
+    'code': 'laurensry00122'
+  , 'label': '$50 Credit'
   //, 'error_label': '$100 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!'
   , 'active': true
-  //, 'max_claims': 1
-  , 'discount_type': 'percentage'
-  , 'discount_amount': 0.2
+  , 'max_claims': 1
+  , 'discount_type': 'fixed'
+  , 'discount_amount': 50
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
