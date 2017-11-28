@@ -44,5 +44,6 @@
   , "clean-css": "*"
   , "uglify-js": "*"
   , "redis": "*"
+  , "paypal-rest-sdk": "*"
   }
 }
