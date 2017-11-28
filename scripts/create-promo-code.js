@@ -34,13 +34,13 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'code': {
-    'code': 'cyber25'
-  , 'label': '25% Off'
-  //, 'error_label': '$100 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!'
-  , 'active': true
-  //, 'max_claims': 1
-  , 'discount_type': 'percentage'
-  , 'discount_amount': 0.2
+code: "wanderset300",
+label: "Up to $300 Off",
+max_claims: 1,
+discount_type: "fixed",
+discount_amount: 300,
+active: true,
+error_label: "Thanks for playing Kartsloaded! Someone already won $300 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!"
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
