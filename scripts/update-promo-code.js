@@ -50,7 +50,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'amount': 200
+        'discount_amount': 200
       }
     , 'json': true
     , 'method': 'post'
