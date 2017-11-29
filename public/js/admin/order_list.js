@@ -9,7 +9,7 @@ var LoadDocs = function(options, callback){
 
   return Async.waterfall([
     function(cb){
-      $.post('/' + GB.model + '/count.json', a.o, function(json){
+      $.post('/admin/' + GB.model + '/count.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['count'] = Belt.get(json, 'data');
@@ -17,7 +17,7 @@ var LoadDocs = function(options, callback){
       });
     }
   , function(cb){
-      $.post('/' + GB.model + '/list.json', a.o, function(json){
+      $.post('/admin/' + GB.model + '/list.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['docs'] = Belt.get(json, 'data');
@@ -99,7 +99,7 @@ $(document).ready(function(){
       if (!yes) return;
 
       $.ajax({
-        'url': '/' + GB.model + '/' + id + '/delete.json'
+        'url': '/admin/' + GB.model + '/' + id + '/delete.json'
       , 'type': 'DELETE'
       , 'dataType': 'json'
       , 'success': function(json){

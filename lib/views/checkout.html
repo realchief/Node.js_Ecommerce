@@ -7,7 +7,6 @@
       var STRIPE_KEY = '<%= Settings.stripe.key %>';
       Stripe.setPublishableKey(STRIPE_KEY);
     </script>
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   </head>
   <body>
     <%= Render('header', _.extend({}, Locals, {
@@ -268,6 +267,13 @@
                   <fieldset class="d-none">
                     <legend class="legend-counter mb25" data-counter="3">payment method</legend>
 
+                    <div class="checkbox-holder mt30 mb15">
+                      <label>
+                        <input name="payment_method" type="radio" checked="checked" value="stripe">
+                        <span class="label" style="font-size:12px;">Pay with credit / debit card</span>
+                      </label>
+                    </div>
+
                     <div class="form-group">
                       <div class="row">
                         <div class="col-md-6 mb-3 mb-md-0">
@@ -319,6 +325,13 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+
+                    <div class="checkbox-holder mt30">
+                      <label>
+                        <input name="payment_method" type="radio" value="paypal">
+                        <span class="label" style="font-size:12px;">Pay with PayPal</span>
+                      </label>
                     </div>
 
                     <button name="place_order" type="button" class="btn btn-primary btn-lg btn-narrow float-right mt20 mb20 hidden-sm-down">place order</button>
