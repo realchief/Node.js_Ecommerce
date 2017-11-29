@@ -34,7 +34,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'code': 'tuescontinues200'
+    'code': 'cyber25'
   }
 , 'skip': 0
 , 'limit': 100
@@ -50,7 +50,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'discount_amount': 200
+        'discount_amount': 0.25
       }
     , 'json': true
     , 'method': 'post'
