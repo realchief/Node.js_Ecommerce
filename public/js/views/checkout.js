@@ -287,88 +287,7 @@ var CheckoutView = function(options, callback){
       }
     , 'click [name="place_order"]': function(e){
         var self = this;
-
-        ToggleLoader(true);
-
-        return Async.waterfall([
-          function(cb){
-            if (GAEnabled()) {
-              ga('send', 'event', 'Checkout', 'order attempt');
-            }
-
-            if (FSEnabled()){
-              FS.setUserVars({
-                'order_attempt': true
-              });
-            }
-
-            if (FBEnabled()){
-              fbq('trackCustom', 'order attempt', {
-
-              });
-            }
-
-            self.ValidateShipping(function(err){
-              if (err){
-                self.ToggleStep({
-                  'show': false
-                , 'editable': true
-                });
-
-                self.ToggleStep({
-                  'step': 'shipping'
-                , 'show': true
-                , 'active': true
-                });
-              }
-
-              cb(err);
-            });
-          }
-        , function(cb){
-            self.ValidateBilling(function(err){
-              if (err){
-                self.ToggleStep({
-                  'show': false
-                , 'editable': true
-                });
-
-                self.ToggleStep({
-                  'step': 'billing'
-                , 'show': true
-                , 'active': true
-                });
-              }
-
-              cb(err);
-            });
-          }
-        , function(cb){
-            self.ValidatePayment({
-              'check_address': true
-            }, function(err){
-              if (err){
-                self.ToggleStep({
-                  'show': false
-                , 'editable': true
-                });
-
-                self.ToggleStep({
-                  'step': 'payment'
-                , 'show': true
-                , 'active': true
-                });
-              }
-
-              cb(err);
-            });
-          }
-        , function(cb){
-            self.CreateOrder(Belt.cw(cb, 0));
-          }
-        ], function(err){
-          ToggleLoader();
-        });
+        self.PlaceOrder();
       }
     , 'change [data-get="buyer.email"], [data-get="recipient.region"], [data-get="recipient.country"], [data-get="buyer.region"], [data-get="buyer.country"]': function(e){
 //    , 'change [data-get="buyer.email"], [data-get="buyer.region"], [data-get="buyer.country"]': function(e){
@@ -598,7 +517,7 @@ var CheckoutView = function(options, callback){
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-      'payment_order': $('[name="payment_method"]:checked').val() || 'stripe'
+      'payment_method': $('[name="payment_method"]:checked').val() || 'stripe'
     });
 
     ToggleLoader(true);
@@ -1457,11 +1376,37 @@ $(document).ready(function(){
   , 'line_items'
   ])));
 
-  GB.view.ToggleStep({
-    'show': true
-  , 'active': true
-  , 'step': 'shipping'
-  });
+  var err = Belt.get(queryObject.get(), 'error');
+  if (err){
+    GB.view.ToggleStep({
+      'show': true
+    , 'active': true
+    });
+
+    GB.view.ToggleStep({
+      'step': 'shipping'
+    , 'show': true
+    , 'active': true
+    , 'error': err
+    });
+
+    GB.view.$el.find('aside .alert').html(err).removeClass('d-none');
+
+    if ($('.hidden-sm-down:visible').length) simple.scrollTo({
+      'target': 'body'
+    , 'animation': true
+    , 'duration': 300
+    , 'offset': {
+        'y': 0
+      }
+    });
+  } else {
+    GB.view.ToggleStep({
+      'show': true
+    , 'active': true
+    , 'step': 'shipping'
+    });
+  }
 
   ToggleLoader();
 });

@@ -7,7 +7,6 @@
       var STRIPE_KEY = '<%= Settings.stripe.key %>';
       Stripe.setPublishableKey(STRIPE_KEY);
     </script>
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   </head>
   <body>
     <%= Render('header', _.extend({}, Locals, {
