@@ -9,7 +9,7 @@ var LoadDocs = function(options, callback){
 
   return Async.waterfall([
     function(cb){
-      $.post('/' + GB.model + '/count.json', a.o, function(json){
+      $.post('/admin/' + GB.model + '/count.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['count'] = Belt.get(json, 'data');
@@ -17,7 +17,7 @@ var LoadDocs = function(options, callback){
       });
     }
   , function(cb){
-      $.post('/' + GB.model + '/list.json', a.o, function(json){
+      $.post('/admin/' + GB.model + '/list.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['docs'] = Belt.get(json, 'data');
@@ -68,7 +68,7 @@ $(document).ready(function(){
   , '_id': document.location.pathname.split('/')[3]
   });
 
-  $.getJSON('/order/' + GB.view._id + '/read.json', function(json){
+  $.getJSON('/admin/order/' + GB.view._id + '/read.json', function(json){
     if (Belt.get(json, 'error')) return bootbox.alert(json.error);
 
     GB.view.loadDoc({

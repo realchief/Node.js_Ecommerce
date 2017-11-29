@@ -86,7 +86,7 @@ var OrderView = function(options, callback){
 
     Async.waterfall([
       function(cb){
-        $.post('/order/' + self._id + '/update.json', gb.update, function(json){
+        $.post('/admin/order/' + self._id + '/update.json', gb.update, function(json){
           if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
           gb['doc'] = Belt.get(json, 'data');
