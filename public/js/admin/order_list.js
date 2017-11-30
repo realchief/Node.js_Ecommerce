@@ -1,3 +1,81 @@
+var SearchOrders = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+    'first_name': $('[name="first_name"]').val()
+  , 'last_name': $('[name="last_name"]').val()
+  , 'email': $('[name="email"]').val()
+  , 'promo_code': $('[name="promo_code"]').val()
+  , 'product': $('[name="product"]').val()
+  , 'vendor_order': $('[name="vendor_order"]').val()
+  });
+
+  var query = {};
+
+  if (a.o.first_name){
+    query['$or'] = query.$or || [];
+    query.$or[0] = query.$or[0] || {};
+    query.$or[0]['recipient.first_name'] = {
+      '$regex': a.o.first_name.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+    query.$or[1] = query.$or[1] || {};
+    query.$or[1]['recipient.first_name'] = {
+      '$regex': a.o.first_name.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.last_name){
+    query['$or'] = query.$or || [];
+    query.$or[0] = query.$or[0] || {};
+    query.$or[0]['recipient.last_name'] = {
+      '$regex': a.o.last_name.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+    query.$or[1] = query.$or[1] || {};
+    query.$or[1]['recipient.last_name'] = {
+      '$regex': a.o.last_name.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.email){
+    query['buyer.email'] = {
+      '$regex': a.o.email.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.promo_code){
+    query['line_items.label'] = {
+      '$regex': a.o.promo_code.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.product){
+    query['$or'] = query.$or || [];
+    query.$or[0] = query.$or[0] || {};
+    query.$or[0]['products.source.product.label.us'] = {
+      '$regex': a.o.product.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+    query.$or[1] = query.$or[1] || {};
+    query.$or[1]['products.source.product.brands'] = {
+      '$regex': a.o.product.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.vendor_order){
+    query['products.source.order.order.id'] = Belt.cast(a.o.vendor_order.toLowerCase().replace(/\W/g, '.*'), 'number')
+  }
+
+  document.location = '/admin/order/list?query=' + JSON.stringify(query);
+}
+
 var LoadDocs = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
@@ -145,4 +223,9 @@ $(document).ready(function(){
       $('[name="content"] [name="filter"]').val(res.query.$or[0]['label.us'].$regex.replace(/\\W\*/g, ' '));
     }
   });
+});
+
+$(document).on('click', '#search-modal [name="search"]', function(e){
+  e.preventDefault();
+  SearchOrders();
 });
