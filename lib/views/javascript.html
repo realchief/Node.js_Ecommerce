@@ -85,6 +85,9 @@
   <% } else { %>
     GB['localities'] = {};
   <% } %>
+  <% if (typeof error !== 'undefined'){ %>
+    GB['error'] = "<%= error %>";
+  <% } %>
 </script>
 
 <script src="/templates/alert.js" type="text/javascript" charset="utf-8"></script>
