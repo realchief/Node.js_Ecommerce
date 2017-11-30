@@ -49,6 +49,7 @@ var GB = _.defaults(O.argv, {
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
+    if (!(Belt.get(o, 'source.record.url') || '').match(/streetammo/i)) return cb();
     if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(2, 'days'))) return cb();
 
     console.log('Hiding product [' + o._id + ']...' + ++GB.count);
