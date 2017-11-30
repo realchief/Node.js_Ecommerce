@@ -487,6 +487,33 @@ var CheckoutView = function(options, callback){
       var err = Belt.get(res, 'error')
         , data = Belt.get(res, 'data') || {};
 
+      if (err){
+        GB.view.ToggleStep({
+          'show': true
+        , 'active': true
+        });
+
+        GB.view.ToggleStep({
+          'step': 'shipping'
+        , 'show': true
+        , 'active': true
+        , 'error': err
+        });
+
+        GB.view.$el.find('aside .alert').html(err).removeClass('d-none');
+
+        if ($('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': 'body'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 0
+          }
+        });
+      } else {
+        GB.view.$el.find('aside .alert').addClass('d-none');
+      }
+
       return a.cb(err ? new Error(err) : undefined, data);
     });
   };
