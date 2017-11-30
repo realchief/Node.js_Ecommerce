@@ -56,6 +56,20 @@ var SearchOrders = function(options, callback){
     };
   }
 
+  if (a.o.transaction){
+    query['transactions.id'] = {
+      '$regex': a.o.transaction.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.shipment){
+    query['shipment.tracking_number'] = {
+      '$regex': a.o.shipment.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
   if (a.o.promo_code){
     query['line_items.label'] = {
       '$regex': a.o.promo_code.toLowerCase().replace(/\W/g, '.*')
