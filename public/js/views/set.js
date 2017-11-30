@@ -80,10 +80,10 @@ var LoadSetProducts = function(options, callback){
 
       var hash = GetHashObj();
       delete hash.skip;
-      delete hash.category;
+      //delete hash.category;
       delete hash.sort;
 
-      CreateHash(_.extend(a.o.skip ? {
+      ExtendHash(_.extend(a.o.skip ? {
         'skip': a.o.skip
       } : {}, a.o.sort ? {
         'sort': a.o.sort
@@ -462,7 +462,11 @@ $(document).ready(function(){
 
     GB.product_filter.skip = 0;
 
-    LoadSetProducts(GB.product_filter);
+    LoadSetProducts(GB.product_filter, function(){
+      ExtendHash({
+        'category': cat
+      });
+    });
 
     if (GAEnabled()) ga('send', 'event', 'SetView', 'select product category', cat);
 
