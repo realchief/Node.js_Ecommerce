@@ -1403,7 +1403,7 @@ $(document).ready(function(){
   , 'line_items'
   ])));
 
-  var err = Belt.get(queryObject.get(), 'error');
+  var err = GB.error || Belt.get(queryObject.get(), 'error');
   if (err){
     GB.view.ToggleStep({
       'show': true
