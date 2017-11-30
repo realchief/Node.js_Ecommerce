@@ -8,6 +8,7 @@ var SearchOrders = function(options, callback){
   , 'email': $('[name="email"]').val()
   , 'promo_code': $('[name="promo_code"]').val()
   , 'product': $('[name="product"]').val()
+  , 'slug': $('[name="slug"]').val()
   , 'vendor_order': $('[name="vendor_order"]').val()
   });
 
@@ -44,6 +45,13 @@ var SearchOrders = function(options, callback){
   if (a.o.email){
     query['buyer.email'] = {
       '$regex': a.o.email.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.slug){
+    query['slug'] = {
+      '$regex': a.o.slug.toLowerCase().replace(/\W/g, '.*')
     , '$options': 'i'
     };
   }
