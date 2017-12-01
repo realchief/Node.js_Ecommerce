@@ -511,7 +511,7 @@ var CheckoutView = function(options, callback){
           }
         });
       } else {
-        GB.view.$el.find('.alert').addClass('d-none');
+        GB.view.$el.find('#shipping .alert').addClass('d-none');
       }
 
       return a.cb(err ? new Error(err) : undefined, data);
