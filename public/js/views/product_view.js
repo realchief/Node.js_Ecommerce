@@ -60,6 +60,12 @@ var ProductView = function(options, callback){
         , Belt.cs(cb, gb, 'price', 0, 'data.price'));
       }
     , function(cb){
+        if (FSEnabled()){
+          FS.setUserVars({
+            'check_availability': true
+          });
+        }
+
         if (gb.price){
           self.price = gb.price;
           gb.price = '$' + Instance.priceString(gb.price);
@@ -67,6 +73,12 @@ var ProductView = function(options, callback){
         } else {
           gb.price = 'Sold Out';
           self.$el.find('[name="add_to_bag"]').addClass('disabled');
+
+          if (FSEnabled()){
+            FS.setUserVars({
+              'product_unavailable': true
+            });
+          }
         }
 
         if (a.o.record_analytics){
@@ -142,6 +154,11 @@ var ProductView = function(options, callback){
             ga('send', 'event', 'ProductView', 'add to bag');
           }
 
+          if (FSEnabled()){
+            FS.setUserVars({
+              'add_to_cart': true
+            });
+          }
 
           if (FBEnabled()) {
             fbq('track', 'AddToCart', {

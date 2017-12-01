@@ -17,6 +17,12 @@ var SubscribeEmail = function(){
     });
   }
 
+  if (FSEnabled()){
+    FS.setUserVars({
+      'submit_email': true
+    });
+  }
+
   $('.modal h3').html('Thank you for subscribing!');
   $('.modal form').hide();
 

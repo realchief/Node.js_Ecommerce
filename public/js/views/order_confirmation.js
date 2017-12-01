@@ -44,3 +44,9 @@ if (FBEnabled()){
   , 'num_items': GB.doc.products.length
   });
 }
+
+if (FSEnabled()){
+  FS.setUserVars({
+    'purchase': GB.doc.total_price
+  });
+}
