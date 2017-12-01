@@ -160,7 +160,7 @@
     <% _.each(transactions, function(v){ %>
       <p><%= v.type.toUpperCase() %>: <strong>$<%= Instance.priceString(v.amount) %></strong><br>
       <%= Moment(v.created_at).format('MM/DD/YYYY hh:mm a') %><br>
-      ID: <%= v.id %><br>
+      ID: <a target="_blank" href="<%= v.id.match(/^ch/) ? 'https://dashboard.stripe.com/payments/' + v.id : '#' %>"><%= v.id %></a><br>
       PAYMENT METHOD: <%= buyer.payment_method %></p>
     <% }) %>
     <hr>
