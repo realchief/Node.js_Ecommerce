@@ -10,6 +10,7 @@ var SearchOrders = function(options, callback){
   , 'product': $('[name="product"]').val()
   , 'slug': $('[name="slug"]').val()
   , 'vendor_order': $('[name="vendor_order"]').val()
+  , 'shipment': $('[name="shipment"]').val()
   });
 
   var query = {};
@@ -64,7 +65,7 @@ var SearchOrders = function(options, callback){
   }
 
   if (a.o.shipment){
-    query['shipment.tracking_number'] = {
+    query['shipments.tracking_number'] = {
       '$regex': a.o.shipment.toLowerCase().replace(/\W/g, '.*')
     , '$options': 'i'
     };
