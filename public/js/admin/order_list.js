@@ -10,6 +10,7 @@ var SearchOrders = function(options, callback){
   , 'product': $('[name="product"]').val()
   , 'slug': $('[name="slug"]').val()
   , 'vendor_order': $('[name="vendor_order"]').val()
+  , 'shipment': $('[name="shipment"]').val()
   });
 
   var query = {};
