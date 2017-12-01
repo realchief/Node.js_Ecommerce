@@ -65,7 +65,7 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/' + GB.model + '/list.json'
+        'url': O.host + '/admin/' + GB.model + '/list.json'
       , 'auth': GB.auth
       , 'qs': {
           'query': GB.query
