@@ -67,7 +67,7 @@ Async.waterfall([
       Request({
         'url': O.host + '/admin/' + GB.model + '/list.json'
       , 'auth': GB.auth
-      , 'qs': {
+      , 'body': {
           'query': GB.query
         , 'skip': GB.skip
         , 'limit': GB.limit
