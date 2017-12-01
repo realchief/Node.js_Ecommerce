@@ -72,7 +72,7 @@ Async.waterfall([
         , 'skip': GB.skip
         , 'limit': GB.limit
         }
-      , 'method': 'get'
+      , 'method': 'post'
       , 'json': true
       }, function(err, res, json){
         cont = _.any(Belt.get(json, 'data')) ? true : false;
