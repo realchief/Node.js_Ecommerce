@@ -3,13 +3,13 @@
   && Moment(updated_at).isBefore(Moment().subtract(1, 'days'))
   && (typeof support_status === 'undefined' || !support_status.match(/refund/i))
 ){ %>
-  if (typeof helpscout_conversations !== 'undefined' && _.some(helpscout_conversations, function(c){
+  <% if (typeof helpscout_conversations !== 'undefined' && _.some(helpscout_conversations, function(c){
     return Moment(c.modifiedAt).isAfter(Moment().subtract(1, 'days'));
-  })){
+  })){ %>
     style="background-color: #ff6666;"
-  } else {
+  <% } else { %>
     style="background-color: #ffe5e5;"
-  }
+  <% } %>
 <% } %> data-id="<%= _id %>">
   <td>
     <p><strong>ORDER #<%= slug %></strong><br><%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %> (<%= Moment(created_at).fromNow() %>)</p>
