@@ -65,7 +65,7 @@ var SearchOrders = function(options, callback){
   }
 
   if (a.o.shipment){
-    query['shipment.tracking_number'] = {
+    query['shipments.tracking_number'] = {
       '$regex': a.o.shipment.toLowerCase().replace(/\W/g, '.*')
     , '$options': 'i'
     };
