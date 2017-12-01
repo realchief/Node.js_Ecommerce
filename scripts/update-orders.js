@@ -37,13 +37,16 @@ var GB = _.defaults(O.argv, {
   }
 , 'skip': 0
 , 'limit': 1
+, 'sort': {
+    'created_at': -1
+  }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'model': 'order'
 , 'iterator': function(o, cb){
-    console.log('Updating ' + GB.model + ' [' + o._id + ']...');
+    console.log('Updating ' + GB.model + ' [' + o.slug + ']...');
 
     Request({
       'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
@@ -71,6 +74,7 @@ Async.waterfall([
           'query': GB.query
         , 'skip': GB.skip
         , 'limit': GB.limit
+        , 'sort': GB.sort
         }
       , 'method': 'post'
       , 'json': true
