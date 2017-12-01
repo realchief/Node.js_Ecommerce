@@ -1,8 +1,21 @@
-<tr class="order" data-id="<%= _id %>">
+<tr class="order" <% if (
+  shipping_status !== 'shipped'
+  && Moment(updated_at).isBefore(Moment().subtract(1, 'days'))
+  && (typeof support_status === 'undefined' || !support_status.match(/refund/i))
+){ %>
+  if (typeof helpscout_conversations !== 'undefined' && _.some(helpscout_conversations, function(c){
+    return Moment(c.modifiedAt).isAfter(Moment().subtract(1, 'days'));
+  })){
+    style="background-color: #ff6666;"
+  } else {
+    style="background-color: #ffe5e5;"
+  }
+<% } %> data-id="<%= _id %>">
   <td>
-    <p><%= slug %></p>
+    <p><strong>ORDER #<%= slug %></strong><br><%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %> (<%= Moment(created_at).fromNow() %>)</p>
+    <hr>
     <% if (typeof support_status !== 'undefined' && support_status){ %>
-      <p><span class="label label-info"><%= support_status %></span></p>
+      <p><span class="label label-info"><%= support_status.toUpperCase() %></span></p>
     <% } %>
     <% if (shipping_status !== 'shipped'){ %>
       <p><span class="label label-warning">NOT SHIPPED</span></p>
@@ -10,38 +23,43 @@
       <p><span class="label label-success">SHIPPED</span></p>
     <% } %>
     <% if (typeof notes !== 'undefined' && notes){ %>
+      <hr>
       <p>NOTES: <%= notes.replace(/\n/g, "</p><p>") %></p>
     <% } %>
     <p>
+      <hr>
       <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
     </p>
   </td>
   <td>
-    <%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %>
-  </td>
-  <td>
-    <% _.each(buyer, function(v, k){ %>
-      <p><%= k %>: <strong><%= v %></strong></p>
-    <% }) %>
-  </td>
-  <td>
-    <% _.each(recipient, function(v, k){ %>
-      <p><%= k %>: <strong><%= v %></strong></p>
-    <% }) %>
-  </td>
-  <td>
-    <% _.each(transactions, function(v){ %>
-      <p><%= v.type %>: <strong>$<%= Instance.priceString(v.amount) %></strong><br><%= Moment(v.created_at).format('MM/DD/YYYY hh:mm a') %><br><%= v.id %></p>
-    <% }) %>
-  </td>
-  <td>
-    <% _.each(line_items, function(v, k){ %>
-      <p>
-      <%= v.label %> - $<%= Instance.priceString(v.amount) %>
-      </p>
+    <p><strong>BUYER</strong><br>
+    <%= buyer.first_name %> <%= buyer.last_name %><br>
+    <%= buyer.street %><br>
+    <% if (buyer.street_b){ %>
+      <%= buyer.street_b %><br>
+    <% } %>
+    <%= buyer.city %>, <%= buyer.region %>, <%= buyer.country %> <%= buyer.postal_code %><br>
+    <%= buyer.email %><br>
+    <%= buyer.phone %><br>
+    IP: <%= buyer.ip_address %></p>
 
-      <hr>
+    <p><strong>RECIPIENT</strong><br>
+    <%= recipient.first_name %> <%= recipient.last_name %><br>
+    <%= recipient.street %><br>
+    <% if (recipient.street_b){ %>
+      <%= recipient.street_b %><br>
+    <% } %>
+    <%= recipient.city %>, <%= recipient.region %>, <%= recipient.country %> <%= recipient.postal_code %><br>
+    <%= recipient.phone %></p>
+  </td>
+  <td>
+    <div class="list-group">
+    <% if (typeof helpscout_conversations !== 'undefined') _.each(helpscout_conversations.reverse().slice(0, 5), function(v, k){ %>
+      <div class="list-group-item <%= v.status !== 'closed' ? 'bg-warning' : '' %>">
+        <a href="<%= v.url %>" target="_blank">#<%= v.number %>: <%= v.subject %> (<%= Moment(v.modifiedAt).fromNow() %>)</a>
+      </div>
     <% }) %>
+    </div>
   </td>
   <td>
     <% _.each(vendor_products, function(v2, k){ %>
@@ -100,6 +118,7 @@
     <% }) %>
   </td>
   <td>
+    <p><strong>VENDOR ORDERS</strong></p>
     <% _.each(vendor_orders, function(v2, k){ %>
       <% if (Instance.vendor_ids[k]){ %>
         <p>
@@ -120,8 +139,8 @@
       <% }) %>
       <hr>
     <% }) %>
-  </td>
-  <td>
+
+    <p><strong>SHIPMENTS</strong></p>
     <% _.each(shipments, function(v2, k){ %>
       <p>
         <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> - <%= v2.tracking_number %></a> <span class="label label-success"><%= v2.status %></span>
@@ -136,7 +155,20 @@
       <hr>
     <% }) %>
   </td>
-  <td data-set="actions" data-set-method="html">
-    <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
+  <td>
+    <p><strong>PAYMENT TRANSACTIONS</strong></p>
+    <% _.each(transactions, function(v){ %>
+      <p><%= v.type.toUpperCase() %>: <strong>$<%= Instance.priceString(v.amount) %></strong><br>
+      <%= Moment(v.created_at).format('MM/DD/YYYY hh:mm a') %><br>
+      ID: <%= v.id %><br>
+      PAYMENT METHOD: <%= buyer.payment_method %></p>
+    <% }) %>
+    <hr>
+
+    <p><strong>LINE ITEMS</strong></p>
+    <% _.each(line_items, function(v, k){ %>
+      <p><% if (v.type){ %><%= v.type.toUpperCase() %>: <% } %><%= v.label %> - $<%= Instance.priceString(v.amount) %></p>
+      <hr>
+    <% }) %>
   </td>
 </tr>
