@@ -1,4 +1,4 @@
-if (typeof ga !== 'undefined' && _.isFunction(ga)){
+if (GAEnabled()){
   _.each(GB.products, function(d, i){
     ga('ec:addImpression', {
       'id': d._id
