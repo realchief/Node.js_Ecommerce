@@ -220,6 +220,7 @@ $(document).ready(function(){
     $('tbody').html(_.map(res.docs, function(d){
       d.options = d.options || {};
       d.Instance = Instance;
+      d.GB = GB;
       return Templates['admin_' + GB.model + '_list_row'](d);
     }).join('\n'));
 
