@@ -1,0 +1,72 @@
+<div id="container" class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="pull-right">
+          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+          <a href="/admin/promo_code/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
+        </div>
+        <h1><%= title %></h1>
+        <div class="hr-line-dashed"></div>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Code</label>
+            <div class="col-sm-11">
+              <input name="code" type="text" class="form-control" placeholder="code (case-insensitive)" data-get="code" data-get-method="val()" data-set="code" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div>
+                <label> <input type="checkbox" class="i-checks" data-get="active" data-get-method="isChecked()" data-set="active" data-set-method="makeChecked"> Active?</label>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Label</label>
+            <div class="col-sm-11">
+              <input name="label" type="text" class="form-control" placeholder="label (this appears at checkout)" data-get="label" data-get-method="val()" data-set="label" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Error Label</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="error label (this appears at checkout when code can't be claimed)" data-get="error_label" data-get-method="val()" data-set="error_label" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Discount Type</label>
+            <div class="col-sm-11">
+              <select name="discount_type" type="text" class="form-control" data-get="discount_type" data-get-method="val()" data-set="discount_type" data-set-method="val">
+                <option value="percentage">percentage</option>
+                <option value="fixed">fixed</option>
+              </select>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Discount Amount ($)</label>
+            <div class="col-sm-11">
+              <input name="discount_amount" type="text" class="form-control" placeholder="discount amount" data-get="discount_amount" data-get-method="val()" data-set="discount_amount" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Max Claims</label>
+            <div class="col-sm-11">
+              <input name="max_claims" type="text" class="form-control" placeholder="maximum times this can be claimed (blank = unlimited)" data-get="max_claims" data-get-method="val()" data-set="max_claims" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+        </form>
+        <div class="pull-right">
+          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

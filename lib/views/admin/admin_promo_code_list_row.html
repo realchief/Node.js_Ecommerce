@@ -1,0 +1,21 @@
+<tr class="promo_code" data-id="<%= _id %>">
+  <td>
+    <p>
+      <strong><%= code.toUpperCase() %></strong><% if (active){ %>&nbsp;&nbsp;<span class="label label-success">ACTIVE</span><% } %>
+    <p>
+    <p>
+      Label: <%= label %><br>
+      <% if (discount_type === 'percentage'){ %>
+        Discount: <%= discount_amount * 100 %>% Off<br>
+      <% } %>
+      <% if (discount_type === 'fixed'){ %>
+        Discount: Up to $<%= discount_amount %> Off<br>
+      <% } %>
+      Claimed: <%= typeof claims !== 'undefined' ? claims : '0' %> | Max Claims: <%= typeof max_claims !== 'undefined' && !Belt.isNull(max_claims) ? max_claims : 'Unlimited' %>
+    </p>
+  </td>
+  <td data-set="actions" data-set-method="html">
+    <a href="/admin/promo_code/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <button name="delete" class="btn btn-danger">Delete</a>
+  </td>
+</tr>
