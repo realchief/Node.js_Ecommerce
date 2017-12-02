@@ -27,6 +27,12 @@
   <% } else { %>
     GB['product_categories'] = [];
   <% } %>
+
+  <% if (typeof Settings.localities !== 'undefined'){ %>
+    GB['localities'] = <%= Belt.stringify(Settings.localities) %>;
+  <% } else { %>
+    GB['localities'] = {};
+  <% } %>
 </script>
 
 <script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>

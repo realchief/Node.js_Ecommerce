@@ -38,7 +38,7 @@
     <% if (buyer.street_b){ %>
       <%= buyer.street_b %><br>
     <% } %>
-    <%= buyer.city %>, <%= buyer.region %>, <%= buyer.country %> <%= buyer.postal_code %><br>
+    <%= buyer.city %>, <%= Belt.get(_.find((Belt.get(GB, 'localities.' + buyer.country + '.regions') || []), function(r){ return buyer.region === r.shortCode; }), 'name') || buyer.region %>, <%= buyer.country %> <%= buyer.postal_code %><br>
     <%= buyer.email %><br>
     <%= buyer.phone %><br>
     IP: <%= buyer.ip_address %></p>
@@ -49,7 +49,7 @@
     <% if (recipient.street_b){ %>
       <%= recipient.street_b %><br>
     <% } %>
-    <%= recipient.city %>, <%= recipient.region %>, <%= recipient.country %> <%= recipient.postal_code %><br>
+    <%= recipient.city %>, <%= Belt.get(_.find((Belt.get(GB, 'localities.' + recipient.country + '.regions') || []), function(r){ return recipient.region === r.shortCode; }), 'name') || recipient.region %>, <%= recipient.country %> <%= recipient.postal_code %><br>
     <%= recipient.phone %></p>
   </td>
   <td>
