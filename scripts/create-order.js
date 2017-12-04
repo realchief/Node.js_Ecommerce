@@ -33,10 +33,10 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'cart': '5a249763d31bb4354ccda2b7'
+  'cart': '5a246746c9bea008f0519a2e'
 , 'query': {
-    'customer_id': 'cus_Bst9zmqfWY9xU8'
-  , 'payment_method': 'card_1BV7NEBqgBRCGoCvRst572CK'
+    'customer_id': 'cus_BsqUwL4n0ni8i8'
+  , 'payment_method': 'card_1BV4nOBqgBRCGoCvg15vTFpa'
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
