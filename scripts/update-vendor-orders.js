@@ -71,15 +71,15 @@ Async.waterfall([
 
     return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/' + GB.model + '/list.json'
+        'url': O.host + '/admin/' + GB.model + '/list.json'
       , 'auth': GB.auth
-      , 'qs': {
+      , 'body': {
           'query': GB.query
         , 'skip': GB.skip
         , 'limit': GB.limit
         , 'sort': GB.sort
         }
-      , 'method': 'get'
+      , 'method': 'post'
       , 'json': true
       }, function(err, res, json){
         cont = _.any(Belt.get(json, 'data')) ? true : false;
