@@ -62,7 +62,7 @@ var ProductView = function(options, callback){
     , function(cb){
         if (FSEnabled()){
           FS.setUserVars({
-            'check_availability': true
+            'checkAvailability_bool': true
           });
         }
 
@@ -76,7 +76,7 @@ var ProductView = function(options, callback){
 
           if (FSEnabled()){
             FS.setUserVars({
-              'product_unavailable': true
+              'productUnavailable_bool': true
             });
           }
         }
@@ -156,7 +156,7 @@ var ProductView = function(options, callback){
 
           if (FSEnabled()){
             FS.setUserVars({
-              'add_to_cart': true
+              'addToCart_bool': true
             });
           }
 

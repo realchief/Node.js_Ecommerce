@@ -19,7 +19,7 @@ var SubscribeEmail = function(){
 
   if (FSEnabled()){
     FS.setUserVars({
-      'submit_email': true
+      'submitEmail_bool': true
     });
   }
 

@@ -21,7 +21,7 @@ $(document).on('click', '[name="cart_product_remove"]', function(e){
 
   if (FSEnabled()){
     FS.setUserVars({
-      'remove_product': true
+      'removeProduct_bool': true
     });
   }
 
@@ -60,7 +60,7 @@ var throtQtyUpdate = _.throttle(function(options, callback){
 
   if (FSEnabled()){
     FS.setUserVars({
-      'update_product_quantity': true
+      'updateProductQuantity_bool': true
     });
   }
 
