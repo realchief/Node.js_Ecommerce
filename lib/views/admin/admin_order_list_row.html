@@ -110,7 +110,7 @@
         </p>
         <% if (v.source.order){ %>
           <p>
-            <span class="label label-success">Order #<%= Belt.get(v, 'source.order.order.id') %></span>
+            <span class="label label-success">Order <%= Belt.get(v, 'source.order.order.name') %> | ID #<%= Belt.get(v, 'source.order.order.id') %></span>
           </p>
         <% } %>
       <% }) %>
