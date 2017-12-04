@@ -158,15 +158,16 @@
   <td>
     <p><strong>PAYMENT TRANSACTIONS</strong></p>
     <% _.each(transactions, function(v){ %>
-      <p><%= v.type.toUpperCase() %>: <strong>$<%= Instance.priceString(v.amount) %></strong><br>
-      <%= Moment(v.created_at).format('MM/DD/YYYY hh:mm a') %><br>
+      <p><%= v.type.toUpperCase() %>: <strong>$<%= Instance.priceString(v.amount) %></strong>
       <% if (v.status === 'paid'){ %>
-        <span class="label label-success">PAID</span><br>
+        &nbsp;<span class="label label-success">PAID</span>
       <% } else if (v.status === 'refunded'){ %>
-        <span class="label label-error">REFUNDED</span><br>
+        &nbsp;<span class="label label-danger">REFUNDED</span>
       <% } else if (v.status){ %>
-        <span class="label label-info"><%= v.status %></span><br>
+        &nbsp;<span class="label label-info"><%= v.status %></span>
       <% } %>
+      <br>
+      <%= Moment(v.created_at).format('MM/DD/YYYY hh:mm a') %><br>
       ID: <a target="_blank" href="<%= v.id.match(/^ch/) ? 'https://dashboard.stripe.com/payments/' + v.id : 'https://www.paypal.com/activity/payment/' + v.id %>"><%= v.id %></a><br>
       PAYMENT METHOD: <%= buyer.payment_method %></p>
     <% }) %>
