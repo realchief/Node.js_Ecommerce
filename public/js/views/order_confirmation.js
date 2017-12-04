@@ -47,6 +47,6 @@ if (FBEnabled()){
 
 if (FSEnabled()){
   FS.setUserVars({
-    'purchase': GB.doc.total_price
+    'purchase_real': GB.doc.total_price
   });
 }

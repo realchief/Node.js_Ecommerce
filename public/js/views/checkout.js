@@ -40,7 +40,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'shipping_edit': true
+            'shippingEdit_bool': true
           });
         }
 
@@ -88,7 +88,7 @@ var CheckoutView = function(options, callback){
 
           if (FSEnabled()){
             FS.setUserVars({
-              'billing_next': true
+              'billingNext_bool': true
             });
           }
 
@@ -131,7 +131,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'payment_edit': true
+            'paymentEdit_bool': true
           });
         }
 
@@ -183,7 +183,7 @@ var CheckoutView = function(options, callback){
 
           if (FSEnabled()){
             FS.setUserVars({
-              'billing_edit': true
+              'billingEdit_bool': true
             });
           }
 
@@ -226,7 +226,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'billing_edit': true
+            'billingEdit_bool': true
           });
         }
 
@@ -274,7 +274,7 @@ var CheckoutView = function(options, callback){
 
           if (FSEnabled()){
             FS.setUserVars({
-              'payment_next': true
+              'paymentNext_bool': true
             });
           }
 
@@ -321,7 +321,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars(_.object([
-            'checkout_option_edit_' + name
+            'checkoutOptionEdit' + '_bool'
           ], [
             true
           ]));
@@ -557,7 +557,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'order_attempt': true
+            'orderAttempt_bool': true
           });
         }
 
@@ -667,7 +667,7 @@ var CheckoutView = function(options, callback){
 
             if (FSEnabled()){
               FS.setUserVars({
-                'order_error': res.error
+                'orderError_str': res.error
               });
             }
 
@@ -686,7 +686,7 @@ var CheckoutView = function(options, callback){
 
             if (FSEnabled()){
               FS.setUserVars({
-                'order_success': true
+                'orderSuccess_bool': true
               });
             }
 
@@ -785,7 +785,7 @@ var CheckoutView = function(options, callback){
 
             if (FSEnabled()){
               FS.setUserVars({
-                'paypal_order_error': res.error
+                'paypalOrderError_str': res.error
               });
             }
 
@@ -804,7 +804,7 @@ var CheckoutView = function(options, callback){
 
             if (FSEnabled()){
               FS.setUserVars({
-                'paypal_order_success': true
+                'paypalOrderSuccess_bool': true
               });
             }
 
@@ -875,7 +875,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'promo_code_attempt': a.o.code.toLowerCase().replace(/\W/g, '')
+            'promoCodeAttempt_str': a.o.code.toLowerCase().replace(/\W/g, '')
           });
         }
 
@@ -893,7 +893,7 @@ var CheckoutView = function(options, callback){
 
             if (FSEnabled()){
               FS.setUserVars({
-                'promo_code_error': res.error
+                'promoCodeError_str': res.error
               });
             }
 
@@ -927,7 +927,7 @@ var CheckoutView = function(options, callback){
 
           if (FSEnabled()){
             FS.setUserVars({
-              'promo_code_success': a.o.code.toLowerCase().replace(/\W/g, '')
+              'promoCodeSuccess_str': a.o.code.toLowerCase().replace(/\W/g, '')
             });
           }
 
@@ -1023,7 +1023,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'checkout_form_error': a.o.error
+            'checkoutFormError_str': a.o.error
           });
         }
 
@@ -1088,7 +1088,7 @@ var CheckoutView = function(options, callback){
 
       if (FSEnabled()){
         FS.setUserVars({
-          'checkout_form_control_error': a.o.message
+          'checkoutFormControlError_str': a.o.message
         });
       }
 
@@ -1133,7 +1133,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_shipping_attempt': true
+            'validateShippingAttempt_bool': true
           });
         }
 
@@ -1198,7 +1198,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_shipping_error': err.message
+            'validateShippingError_str': err.message
           });
         }
 
@@ -1221,7 +1221,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_shipping_success': true
+            'validateShippingSuccess_bool': true
           });
         }
 
@@ -1253,7 +1253,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_payment_attempt': true
+            'validatePaymentAttempt_bool': true
           });
         }
 
@@ -1326,7 +1326,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_payment_error': err.message
+            'validatePaymentError_str': err.message
           });
         }
 
@@ -1348,7 +1348,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_payment_success': true
+            'validatePaymentSuccess_bool': true
           });
         }
 
@@ -1387,7 +1387,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_billing_attempt': true
+            'validateBillingAttempt_bool': true
           });
         }
 
@@ -1472,7 +1472,7 @@ var CheckoutView = function(options, callback){
 
         if (FSEnabled()){
           FS.setUserVars({
-            'validate_billing_success': true
+            'validateBillingSuccess_bool': true
           });
         }
 
@@ -1586,6 +1586,6 @@ if (FBEnabled()){
 
 if (FSEnabled()){
   FS.setUserVars({
-    'initiate_checkout': true
+    'initiateCheckout_bool': true
   });
 }
