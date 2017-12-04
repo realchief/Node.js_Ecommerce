@@ -86,6 +86,7 @@ var PromoCodeView = function(options, callback){
     , 'discount_type'
     , 'discount_amount'
     , 'max_claims'
+    , 'credit_balance'
     ]);
 
     if (gb.update.discount_amount){
@@ -131,6 +132,7 @@ var PromoCodeView = function(options, callback){
     , 'discount_type'
     , 'discount_amount'
     , 'max_claims'
+    , 'credit_balance'
     ]);
 
     if (gb.update.discount_amount){
