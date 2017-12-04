@@ -160,6 +160,13 @@
     <% _.each(transactions, function(v){ %>
       <p><%= v.type.toUpperCase() %>: <strong>$<%= Instance.priceString(v.amount) %></strong><br>
       <%= Moment(v.created_at).format('MM/DD/YYYY hh:mm a') %><br>
+      <% if (v.status === 'paid'){ %>
+        <span class="label label-success">PAID</span><br>
+      <% } else if (v.status === 'refunded'){ %>
+        <span class="label label-error">REFUNDED</span><br>
+      <% } else if (v.status){ %>
+        <span class="label label-info"><%= v.status %></span><br>
+      <% } %>
       ID: <a target="_blank" href="<%= v.id.match(/^ch/) ? 'https://dashboard.stripe.com/payments/' + v.id : 'https://www.paypal.com/activity/payment/' + v.id %>"><%= v.id %></a><br>
       PAYMENT METHOD: <%= buyer.payment_method %></p>
     <% }) %>
