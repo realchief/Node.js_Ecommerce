@@ -126,7 +126,7 @@
         </p>
       <% } %>
       <% _.each(v2, function(v){ %>
-        <p>Order #<%= Belt.get(v, 'order.id') %></p>
+        <p>Order <%= Belt.get(v, 'order.name') %> | ID #<%= Belt.get(v, 'order.id') %></p>
         <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') %></p>
         <% _.each(Belt.get(v, 'order.line_items'), function(i){ %>
           <p><%= i.name %> (SKU #<%= i.sku %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price %>)</p>
@@ -143,7 +143,8 @@
     <p><strong>SHIPMENTS</strong></p>
     <% _.each(shipments, function(v2, k){ %>
       <p>
-        <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> - <%= v2.tracking_number %></a> <span class="label label-success"><%= v2.status %></span>
+        <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> - <%= v2.tracking_number %></a> <span class="label label-success"><%= Belt.get(v2, 'status.toUpperCase()') %></span><br>
+        SHIPPED: <%= Moment(v2.created_at).format('MM/DD/YYYY') %> (<%= Moment(v2.created_at).fromNow() %>)
       </p>
       <ul>
         <% _.each(v2.products, function(p){ %>
