@@ -46,7 +46,7 @@ var GB = _.defaults(O.argv, {
     console.log('Updating ' + GB.model + ' [' + o.name + ']...');
 
     Request({
-      'url': O.host + '/' + GB.model + '/' + o._id + '/sync.json'
+      'url': O.host + '/admin/' + GB.model + '/' + o._id + '/sync.json'
     , 'auth': GB.auth
     , 'body': {
 
