@@ -45,6 +45,8 @@ var GB = _.defaults(O.argv, {
 , 'iterator': function(o, cb){
     console.log('Updating ' + GB.model + ' [' + o.name + ']...');
 
+    setTimeout(cb, 3000);
+
     Request({
       'url': O.host + '/admin/' + GB.model + '/' + o._id + '/sync.json'
     , 'auth': GB.auth
@@ -53,7 +55,7 @@ var GB = _.defaults(O.argv, {
       }
     , 'json': true
     , 'method': 'post'
-    }, Belt.cw(cb));
+    }, Belt.cw(Belt.np));
   }
 });
 
