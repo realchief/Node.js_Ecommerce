@@ -16,15 +16,21 @@
             <legend>Media</legend>
             <% if (data.button_title !== 'Create'){ %>
               <div class="form-group">
-                <label class="col-sm-1 control-label">High-Quality URL</label>
+                <label class="col-sm-1 control-label">High Quality URL</label>
                 <div class="col-sm-11">
                   <input name="url" type="text" class="form-control" data-set="url" data-set-method="val" readonly="readonly">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-1 control-label">Low-Quality URL</label>
+                <label class="col-sm-1 control-label">Medium Quality URL</label>
                 <div class="col-sm-11">
                   <input name="downsample_url" type="text" class="form-control" data-set="downsample_url" data-set-method="val" readonly="readonly">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Low Quality URL</label>
+                <div class="col-sm-11">
+                  <input name="super_downsample_url" type="text" class="form-control" data-set="super_downsample_url" data-set-method="val" readonly="readonly">
                 </div>
               </div>
               <div class="hr-line-dashed"></div>
