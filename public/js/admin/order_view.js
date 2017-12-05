@@ -31,6 +31,17 @@ var OrderView = function(options, callback){
           self.processVendorOrders();
         });
       }
+    , 'click [name="send_confirmation_email"]': function(e){
+        e.preventDefault();
+
+        var self = this;
+
+        bootbox.confirm('Are you sure you want to send order confirmation email to customer?', function(yes){
+          if (!yes) return;
+
+          self.sendOrderConfirmation();
+        });
+      }
     }
   , 'transformers': {
       'set:products': function(val){
@@ -170,6 +181,34 @@ var OrderView = function(options, callback){
         }).join('\n'));
 
         bootbox.alert('Vendor orders have been placed!');
+      });
+    });
+  };
+
+  gb.view['sendOrderConfirmation'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    $.post('/admin/order/' + self._id + '/confirmation/send.json', {
+    }, function(res){
+      var err = Belt.get(res, 'error');
+      if (err) return bootbox.alert(err);
+
+      LoadDocs(GB.criteria, function(err, res){
+        if (err) return bootbox.alert(err.message);
+
+        $('tbody').html(_.map(res.docs, function(d){
+          d.options = d.options || {};
+          d.Instance = Instance;
+          d.GB = GB;
+          return Templates['admin_' + GB.model + '_list_row'](d);
+        }).join('\n'));
+
+        bootbox.alert('Order confirmation has been sent!');
       });
     });
   };
