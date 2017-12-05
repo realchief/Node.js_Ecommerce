@@ -88,6 +88,9 @@
   <% if (typeof error !== 'undefined'){ %>
     GB['error'] = "<%= error %>";
   <% } %>
+  <% if (typeof View !== 'undefined'){ %>
+    GB['view_name'] = '<%= View %>';
+  <% } %>
 </script>
 
 <script src="/templates/alert.js" type="text/javascript" charset="utf-8"></script>
@@ -149,6 +152,16 @@
 
 <script>
   if (GAEnabled()) ga('send', 'pageview');
+
+  if (FSEnabled() && GB.view_name){
+    FS.setUserVars(_.extend({
+      'lastView_str': GB.view_name
+    }, _.object([
+      Str.camelize(GB.view_name.toLowerCase()) + '_bool'
+    ], [
+      true
+    ]));
+  }
 </script>
 
 <% if (false && !Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
