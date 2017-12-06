@@ -50,7 +50,7 @@ var GB = _.defaults(O.argv, {
   }
 , 'iterator': function(o, cb){
     if (!(Belt.get(o, 'source.record.url') || '').match(/streetammo/i)) return cb();
-    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(2, 'days'))) return cb();
+    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(18, 'hours'))) return cb();
 
     console.log('Hiding product [' + o._id + ']...' + ++GB.count);
 
@@ -59,7 +59,7 @@ var GB = _.defaults(O.argv, {
     , 'auth': GB.auth
     , 'body': {
         'sync_hide': true
-      , 'hide_note': 'Not synced in over two days'
+      , 'hide_note': 'Not synced in over 18 hours'
       }
     , 'json': true
     , 'method': 'post'
