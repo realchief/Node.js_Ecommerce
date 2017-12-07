@@ -157,6 +157,7 @@
     FS.setUserVars(_.extend({
       'lastView_str': GB.view_name
     , 'routes_str': '<%= JSON.stringify(Belt.get(Request, "session.routes")) %>'
+    , 'views_str': '<%= JSON.stringify(Belt.get(Request, "session.views_viewed")) %>'
     }, _.object([
       Str.camelize(GB.view_name.toLowerCase()) + 'Viewed_bool'
     , Str.camelize(GB.view_name.toLowerCase()) + 'ViewedStr_str'
