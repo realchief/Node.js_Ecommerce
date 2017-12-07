@@ -156,7 +156,7 @@
   if (FSEnabled() && GB.view_name){
     FS.setUserVars(_.extend({
       'lastView_str': GB.view_name
-    , 'routes_str': '<%= JSON.stringify(Session.routes) %>'
+    , 'routes_str': '<%= JSON.stringify(Request.session.routes) %>'
     }, _.object([
       Str.camelize(GB.view_name.toLowerCase()) + 'Viewed_bool'
     , Str.camelize(GB.view_name.toLowerCase()) + 'ViewedStr_str'
