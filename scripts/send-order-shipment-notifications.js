@@ -33,10 +33,10 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'buyer.email': 'ben@sack.io'
+    //'buyer.email': 'ben@sack.io'
   }
-, 'skip': 0
-, 'limit': 1
+, 'skip': 282
+, 'limit': 50
 , 'sort': {
     'created_at': -1
   }
@@ -83,7 +83,7 @@ Async.waterfall([
         GB.skip += GB.limit;
         console.log(GB.skip);
 
-        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
+        Async.eachLimit(Belt.get(json, 'data') || [], 5, function(d, cb2){
           GB.iterator(d, cb2);
         }, Belt.cw(next, 0));
       })
