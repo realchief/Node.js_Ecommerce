@@ -68,6 +68,7 @@
       , "order_shipment_slack": "https://hooks.slack.com/services/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"
       , "order_error": "https://2po.st/0RQCVLRISL4z"
       , "platform_errors_slack": "https://hooks.slack.com/services/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"
+      , "development_slack": "https://hooks.slack.com/services/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"
       }
     , "email": {
         "from": "STAGING Wanderset <ben+orders@wanderset.com>"
