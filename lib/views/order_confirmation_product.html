@@ -1,13 +1,17 @@
 <tr data-view="OrderConfirmationProductView" data-id="<%= doc._id %>" data-sku="<%= doc.sku %>">
   <td>
     <% if (Belt.get(doc, 'source.product.media.0.url') || Belt.get(doc, 'source.product.media.0.remote_url')){ %>
-      <img src="<%= doc.source.product.media[0].downloaded ? (doc.source.product.media[0].downsample_url || doc.source.product.media[0].url) : (doc.source.product.media[0].remote_url || doc.source.product.media[0].url) %>" class="table__img">
+      <a href="/product/<%= doc.source.product.slug || doc.source.product._id %>">
+        <img src="<%= doc.source.product.media[0].downloaded ? (doc.source.product.media[0].downsample_url || doc.source.product.media[0].url) : (doc.source.product.media[0].remote_url || doc.source.product.media[0].url) %>" class="table__img">
+      </a>
     <% } %>
   </td>
   <td>
     <div class="table__goods__info goods__info">
       <% if (Belt.get(doc, 'source.product.label.us')){ %>
-        <p class="goods__info-name"><%= doc.source.product.label.us %></p>
+        <a href="/product/<%= doc.source.product.slug || doc.source.product._id %>">
+          <p class="goods__info-name"><%= doc.source.product.label.us %></p>
+        </a>
       <% } %>
       <% if (Belt.get(doc, 'source.product.brands.0')){ %>
         <p class="goods__info-description"><%= doc.source.product.brands.join(', ') %></p>
