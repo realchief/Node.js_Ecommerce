@@ -81,6 +81,7 @@
           <a href="/product/<%= v.source.product.slug %>" target="_blank">
             <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
             <br><%= v.product %>
+            <br><small>Admin URL: https://wanderset.com/admin/product/<%= v.source.product.slug %></small>
           </a>
         </p>
         <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
