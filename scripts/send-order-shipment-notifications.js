@@ -33,7 +33,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-
+    'buyer.email': 'ben@sack.io'
   }
 , 'skip': 0
 , 'limit': 1
