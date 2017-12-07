@@ -1,7 +1,7 @@
 <tr class="promo_code" data-id="<%= _id %>">
   <td>
     <p>
-      <strong><%= code.toUpperCase() %></strong><% if (active){ %>&nbsp;&nbsp;<span class="label label-success">ACTIVE</span><% } %>
+      <strong><%= code.toUpperCase() %></strong><% if (active){ %>&nbsp;&nbsp;<span class="label label-success">ACTIVE</span><% } %><% if (typeof credit_balance !== 'undefined' && credit_balance){ %>&nbsp;&nbsp;<span class="label label-info">GIFT CARD / CREDIT</span><% } %>
     <p>
     <p>
       Label: <%= label %><br>
