@@ -67,7 +67,7 @@ module.exports = function(options, Instance){
       //last_sync
       //synced_at
       'base_quantity': 3
-    , 'dkk_to_usd': 0.15
+    , 'dkk_to_usd': 0.14
     , 'brand_regex': S.brand_regex
     });
 
