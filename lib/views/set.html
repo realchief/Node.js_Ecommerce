@@ -31,6 +31,15 @@
       <% } %>
 
       <section class="section section--sm-pt-0">
+        <% if (doc.warning_message){ %>
+          <div class="container">
+            <%= Render('alert', {
+              'alert_type': 'danger'
+            , 'html': doc.warning_message
+            }) %>
+          </div>
+        <% } %>
+
         <div class="filter  hidden-sm-down">
           <div class="container">
             <div class="filter__inner d-lg-flex justify-content-md-between align-items-center">
