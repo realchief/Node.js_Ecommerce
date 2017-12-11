@@ -33,6 +33,15 @@
   <% } else { %>
     GB['localities'] = {};
   <% } %>
+
+
+  <% if (typeof Instance.vendor_ids !== 'undefined'){ %>
+    GB['vendors'] = <%= Belt.stringify(_.object(_.map(Instance.vendor_ids, function(v, k){
+      return v.name;
+    }), _.keys(Instance.vendor_ids))) %>;
+  <% } else { %>
+    GB['vendors'] = {};
+  <% } %>
 </script>
 
 <script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
