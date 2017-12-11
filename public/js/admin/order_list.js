@@ -9,8 +9,10 @@ var SearchOrders = function(options, callback){
   , 'promo_code': $('[name="promo_code"]').val()
   , 'product': $('[name="product"]').val()
   , 'slug': $('[name="slug"]').val()
+  , 'vendor': $('[name="vendor"]').val()
   , 'vendor_order': $('[name="vendor_order"]').val()
   , 'shipment': $('[name="shipment"]').val()
+  , 'shipment_status': $('[name="shipment_status"]').val()
   });
 
   var query = {};
@@ -94,6 +96,14 @@ var SearchOrders = function(options, callback){
 
   if (a.o.vendor_order){
     query['products.source.order.order.id'] = Belt.cast(a.o.vendor_order.toLowerCase().replace(/\W/g, '.*'), 'number')
+  }
+
+  if (a.o.shipment_status){
+    query['shipping_status'] = a.o.shipment_status;
+  }
+
+  if (a.o.vendor){
+    query['products.source.product.vendor'] = a.o.vendor;
   }
 
   document.location = '/admin/order/list?query=' + JSON.stringify(query);
