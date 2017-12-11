@@ -611,6 +611,7 @@ var SetView = function(options, callback){
     , 'landing_label'
     , 'listing_label'
     , 'slug'
+    , 'warning_message'
     , 'vendor'
     , 'logo_label'
     , 'description'
