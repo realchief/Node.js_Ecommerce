@@ -87,25 +87,17 @@ var LoadSetProducts = function(options, callback){
         'skip': a.o.skip
       } : {}, a.o.sort ? {
         'sort': a.o.sort
-      } : {}, Belt.get(a.o.query, '$or.categories.$regex') ? {
-        'category': a.o.query.$or.categories.$regex
+      } : {}, Belt.get(a.o.query, '$or.0.categories.$regex') ? {
+        'category': a.o.query.$or[0].categories.$regex
       } : {}));
 
-      if (a.o.sort || Belt.get(a.o.query, '$or.categories.$regex')) return cb();
+      if (a.o.sort || Belt.get(a.o.query, '$or.0.categories.$regex')) return cb();
 
       _.extend(a.o.query, {
         '_id': {
-          '$in': GB.doc.products.slice(a.o.skip, a.o.skip + a.o.limit)
+          '$in': Belt.copy(GB.doc.products).slice(a.o.skip, a.o.skip + a.o.limit)
         }
       });
-
-/*
-      _.extend(a.o.query, {
-        '_id': {
-          '$in': GB.doc.products
-        }
-      });
-*/
 
       $.post('/list/products.json', {
         'q': Belt.stringify(a.o.query)
@@ -124,7 +116,7 @@ var LoadSetProducts = function(options, callback){
       });
     }
   , function(cb){
-      if (!a.o.sort && !Belt.get(a.o.query, '$or.categories.$regex')) return cb();
+      if (!a.o.sort && !Belt.get(a.o.query, '$or.0.categories.$regex')) return cb();
 
       _.extend(a.o.query, {
         '_id': {
