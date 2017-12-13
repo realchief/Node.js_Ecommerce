@@ -341,6 +341,7 @@
         "bucket": "staging.assets.wanderset.com"
       }
     , "create_rest_routes": false
+    , "no_caching": true
     }
   }
 }
