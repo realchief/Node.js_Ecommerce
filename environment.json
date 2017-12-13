@@ -298,5 +298,49 @@
       }
     , "create_rest_routes": false
     }
+  , "production-worker-4": {
+      "host": "http://localhost:8856"
+    , "domain": "wanderset.com:8856"
+    , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
+    , "express": {
+        "port": 8856
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "worker4.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "http://2po.st/j0zYIQ6VlseH"
+      , "error": "https://2po.st/pkKKev1BMyio"
+      , "order": "https://2po.st/aX4qqfOhJzjk"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
+      , "email_subscription_slack": "https://hooks.slack.com/services/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"
+      , "new_product_slack": "https://hooks.slack.com/services/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"
+      , "new_order_slack": "https://hooks.slack.com/services/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"
+      , "order_shipment_slack": "https://hooks.slack.com/services/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"
+      , "unshipped_order_slack": "https://hooks.slack.com/services/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"
+      , "platform_new_products_slack": "https://hooks.slack.com/services/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"
+      , "platform_products_slack": "https://hooks.slack.com/services/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"
+      , "platform_vendors_slack": "https://hooks.slack.com/services/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"
+      , "platform_errors_slack": "https://hooks.slack.com/services/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"
+      , "development_slack": "https://hooks.slack.com/services/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"
+      }
+    , "email": {
+        "from": "Wanderset <support@wanderset.com>"
+      , "order": "Wanderset <orders@wanderset.com>"
+      , "fulfillment": "Wanderset <fulfillment@wanderset.com>"
+      , "order_inactivity": "ben@wanderset.com, mark@wanderset.com, eddie@wanderset.com, greg@wanderset.com"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "create_rest_routes": false
+    }
   }
 }
