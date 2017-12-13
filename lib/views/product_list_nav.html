@@ -80,13 +80,23 @@
       </li>
     <% } %>
 
-    <% if (index < (max - 1)){ %>
+    <% if (index < (max - 2)){ %>
       <li class="page-item">
         <a class="page-link pagination__arrow pagination__arrow--next" href="<%=
           Instance.paginationUrl(_.extend({}, Locals, {
             'skip': ((index) * limit)
           }))
         %>"></a>
+      </li>
+    <% } %>
+
+    <% if (index !== max && index !== (max - 1) && index !== (max - 2)){ %>
+      <li class="page-item">
+        <a class="page-link" href="<%=
+          Instance.paginationUrl(_.extend({}, Locals, {
+            'skip': ((max -1) * limit)
+          }))
+        %>"><%= max -1 %></a>
       </li>
     <% } %>
   </ul>
