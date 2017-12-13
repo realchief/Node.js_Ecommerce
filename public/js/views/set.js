@@ -99,14 +99,6 @@ var LoadSetProducts = function(options, callback){
         }
       });
 
-/*
-      _.extend(a.o.query, {
-        '_id': {
-          '$in': GB.doc.products
-        }
-      });
-*/
-
       $.post('/list/products.json', {
         'q': Belt.stringify(a.o.query)
       , 'sort': a.o.sort
