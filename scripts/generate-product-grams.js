@@ -44,15 +44,9 @@ var GB = _.defaults(O.argv, {
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'manual_additions': [
-    {
-      'gram': 'hypland'
-    , 'count': 1
-    , 'category_1': ''
-    , 'category_2': ''
-    , 'category_3': ''
-    , 'hide': 'x'
-    }
+
   ]
+, 'infile': Path.join(O.__dirname, '/resources/assets/category-grams.csv')
 , 'outfile': Path.join(O.__dirname, '/resources/assets/category-grams.csv')
 , 'iterator': function(o, cb){
     var slug = _.map(Belt.arrayDefalse([
@@ -90,9 +84,9 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
-    if (!O.argv.infile) return cb();
+    if (!GB.infile) return cb();
 
-    var fs = FS.createReadStream(O.argv.infile);
+    var fs = FS.createReadStream(GB.infile);
 
     GB.old_grams = {};
 
