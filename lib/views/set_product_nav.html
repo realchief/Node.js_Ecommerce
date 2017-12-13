@@ -52,5 +52,10 @@
         <a class="page-link pagination__arrow pagination__arrow--next"  data-index="<%= index + 1 %>" href="#"></a>
       </li>
     <% } %>
+    <% if (max !== index && max !== index + 1){ %>
+      <li class="page-item">
+        <a class="page-link"  data-index="<%= max %>" href="#"><%= max %></a>
+      </li>
+    <% } %>
   </ul>
 <% } %>
