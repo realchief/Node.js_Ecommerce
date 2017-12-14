@@ -183,6 +183,10 @@ module.exports = function(options, Instance){
           gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
         }
 
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
     , function(cb){
