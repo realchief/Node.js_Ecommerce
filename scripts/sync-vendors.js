@@ -36,7 +36,7 @@ var GB = _.defaults(O.argv, {
 
   }
 , 'skip': 0
-, 'limit': 1
+, 'limit': 1000
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
