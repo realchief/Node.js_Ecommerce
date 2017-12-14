@@ -108,6 +108,7 @@ module.exports = function(options, Instance){
             'platform': a.o.vendor.get('custom_sync.strategy')
           , 'record': a.o.product
           }
+        , 'skip_media_processing': true
         });
 
         gb['options'] = {};
@@ -190,6 +191,10 @@ module.exports = function(options, Instance){
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
     , function(cb){
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
         gb['stocks'] = [];
         if (!gb.price) return cb();
 
@@ -267,6 +272,10 @@ module.exports = function(options, Instance){
     , function(cb){
         gb.doc.set({
           'stocks': gb.stocks || []
+        });
+
+        gb.doc.set({
+          'skip_media_processing': true
         });
 
         gb.doc.populate('stocks', Belt.cs(cb, gb, 'doc', 1, 0));
