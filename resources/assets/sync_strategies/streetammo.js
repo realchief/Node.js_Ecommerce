@@ -316,11 +316,11 @@ module.exports = function(options, Instance){
     });
   };
 
-  S['CategoryQueue'] = Async.queue(function(task, callback){
+  S['CategoryQueue'] = Async.priorityQueue(function(task, callback){
     task(callback);
   }, S.settings.crawler_concurrency);
 
-  S['ProductQueue'] = Async.queue(function(task, callback){
+  S['ProductQueue'] = Async.priorityQueue(function(task, callback){
     task(callback);
   }, S.settings.crawler_concurrency);
 
@@ -423,6 +423,13 @@ module.exports = function(options, Instance){
       , '/men/apparel'
       , '/men/footwear'
       , '/streetammo'
+      , '/adidas'
+      , '/nike_sb'
+      , '/nike'
+      , '/adidas_skateboarding'
+      , '/reebok'
+      , '/puma'
+      , '/carhartt'
       ])
     });
 
@@ -436,13 +443,13 @@ module.exports = function(options, Instance){
             'index': 1
           , 'category': c
           }, function(err, urls, indexes){
-            _.each(_.shuffle(indexes), function(i){
+            _.each(indexes, function(i){
               self.CategoryQueue.push(function(cb3){
                 self.SyncCategoryPage(_.extend({}, a.o, {
                   'category': c
                 , 'index': Belt.cast(i, 'number')
                 }), Belt.cw(cb3));
-              });
+              }, Belt.cast(i, 'number'));
             });
 
             cb2();
@@ -477,12 +484,12 @@ module.exports = function(options, Instance){
     , function(cb){
         console.log('[STREETAMMO CATEGORY] ...found ' + (Belt.get(gb, 'urls.length') || 0) + ' products on "' + a.o.category + '" page ' + a.o.index + '!');
 
-        _.each(gb.urls, function(u){
+        _.each(gb.urls, function(u, i){
           self.ProductQueue.push(function(cb2){
             self.SyncProduct(_.extend({}, a.o, {
               'url': u
             }), Belt.cw(cb2));
-          });
+          }, Belt.cast(i, 'number'));
         });
 
         cb();
@@ -553,7 +560,7 @@ module.exports = function(options, Instance){
 
         self.IterateProducts(a.o, Belt.cw(cb, 0));
       }
-    , function(cb){
+/*    , function(cb){
         Instance.db.model('product').find({
           'vendor': a.o.vendor.get('_id')
         , 'last_sync': {
@@ -583,7 +590,7 @@ module.exports = function(options, Instance){
         Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
           e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
-      }
+      }*/
     ], function(err){
       a.cb(err);
     });
