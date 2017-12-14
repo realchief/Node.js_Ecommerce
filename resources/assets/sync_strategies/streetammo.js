@@ -270,6 +270,10 @@ module.exports = function(options, Instance){
     , function(cb){
         gb.doc.getConfigurations();
 
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
     , function(cb){
