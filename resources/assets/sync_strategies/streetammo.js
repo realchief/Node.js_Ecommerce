@@ -417,12 +417,13 @@ module.exports = function(options, Instance){
     , 'host': o.crawler_host
     , 'hosts': o.crawler_hosts
     , 'crawler_concurrency': self.settings.crawler_concurrency
-    , 'categories': _.shuffle([
-        '/mister-tee'
-      , '/kappa'
-      , '/men/apparel'
+    , 'categories': Instance.settings.environment === 'production-worker-4' ? [
+        '/men/apparel'
       , '/men/footwear'
-      , '/streetammo'
+      ] : [
+        '/streetammo'
+      , '/mister-tee'
+      , '/kappa'
       , '/adidas'
       , '/nike_sb'
       , '/nike'
@@ -430,7 +431,7 @@ module.exports = function(options, Instance){
       , '/reebok'
       , '/puma'
       , '/carhartt'
-      ])
+      ]
     });
 
     Async.waterfall([
