@@ -36,7 +36,6 @@ return Async.waterfall([
       Servers.push(Forever.start(Path.join(O.__dirname, O.basecmd.server), {
         'env': O.argv || {}
       , 'watch': true
-      //, 'args': ['--max-old-space-size=30']
       , 'watchIgnoreDotFiles': true
       , 'watchDirectory': Path.join(O.__dirname, '/lib')
       , 'watchIgnorePatterns': [
