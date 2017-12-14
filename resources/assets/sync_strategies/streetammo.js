@@ -17,7 +17,10 @@ var Path = require('path')
 module.exports = function(options, Instance){
   var o = _.defaults(options || {}, {
     'crawler_host': 'http://localhost:10235'
-  , 'crawler_concurrency': 10
+  , 'crawler_hosts': _.times(10, function(i){
+      return 'http://localhost:' + (10235 + i);
+    })
+  , 'crawler_concurrency': 5
   });
 
   var S = {};
@@ -296,6 +299,14 @@ module.exports = function(options, Instance){
     });
   };
 
+  S['CategoryQueue'] = Async.queue(function(task, callback){
+    task(callback);
+  }, S.settings.crawler_concurrency);
+
+  S['ProductQueue'] = Async.queue(function(task, callback){
+    task(callback);
+  }, S.settings.crawler_concurrency);
+
   S['CrawlCategoryPage'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -303,6 +314,7 @@ module.exports = function(options, Instance){
     a.o = _.defaults(a.o, {
       'max_tries': 3
     , 'host': S.settings.crawler_host
+    , 'hosts': S.settings.crawler_hosts
       //index
       //category
     });
@@ -311,7 +323,7 @@ module.exports = function(options, Instance){
 
     Async.doWhilst(function(next){
       Request({
-        'url': a.o.host + '/method'
+        'url': _.sample(a.o.hosts) + '/method'
       , 'method': 'get'
       , 'qs': {
           'method': 'getProductsList'
@@ -322,6 +334,7 @@ module.exports = function(options, Instance){
       }, function(err, res, json){
         gb.tries++;
         gb.urls = Belt.get(json, 'data.response.products') || [];
+        gb.indexes = Belt.get(json, 'data.response.product_list_pages') || [];
 
         if (err || (!_.any(gb.urls) && gb.tries < a.o.max_tries)){
           gb.next = true;
@@ -332,14 +345,11 @@ module.exports = function(options, Instance){
         }
 
         gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
-        gb.urls = _.filter(gb.urls, function(u){
-          return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
-        });
 
         next();
       });
-    }, function(){ return gb.next || _.any(gb.urls); }, function(err){
-      a.cb(err, gb.urls);
+    }, function(){ return gb.next; }, function(err){
+      a.cb(err, gb.urls, gb.indexes);
     });
   };
 
@@ -350,6 +360,7 @@ module.exports = function(options, Instance){
     a.o = _.defaults(a.o, {
       'max_tries': 3
     , 'host': S.settings.crawler_host
+    , 'hosts': S.settings.crawler_hosts
       //url
     });
 
@@ -357,7 +368,7 @@ module.exports = function(options, Instance){
 
     Async.doWhilst(function(next){
       Request({
-        'url': a.o.host + '/method'
+        'url': _.sample(a.o.hosts) + '/method'
       , 'method': 'get'
       , 'qs': {
           'method': 'getProduct'
@@ -387,6 +398,8 @@ module.exports = function(options, Instance){
     a.o = _.defaults(a.o, {
       'progress_cb': Belt.np
     , 'host': o.crawler_host
+    , 'hosts': o.crawler_hosts
+    , 'crawler_concurrency': self.settings.crawler_concurrency
     , 'categories': _.shuffle([
         '/mister-tee'
       , '/kappa'
@@ -398,86 +411,64 @@ module.exports = function(options, Instance){
 
     Async.waterfall([
       function(cb){
-        gb['prod_cache'] = [];
+        return Async.eachLimit(a.o.categories,  a.o.crawler_concurrency, function(c, cb2){
+          var category = c
+            , tries = 0;
 
-        return Async.eachSeries(a.o.categories, function(c, cb2){
-          gb['index'] = 0;
-          gb['category'] = c;
-          gb['urls'] = [];
-
-          var tries = 0;
-
-          Async.doWhilst(function(next){
-            Request({
-              'url': a.o.host + '/method'
-            , 'method': 'get'
-            , 'qs': {
-                'method': 'getProductsList'
-              , 'index': gb.index
-              , 'category': gb.category
-              }
-            , 'json': true
-            }, function(err, res, json){
-              tries++;
-              gb.urls = Belt.get(json, 'data.response.products') || [];
-
-              if (err || (!_.any(gb.urls) && tries < 20)){
-                gb.next = true;
-                return setTimeout(next, 5000);
-              } else {
-                gb.next = false;
-                tries = 0;
-                gb.index++;
-              }
-
-              gb.urls = _.uniq(_.pluck(gb.urls, 'url') || []);
-              gb.urls = _.filter(gb.urls, function(u){
-                return !u.split('/').pop().replace(/\W+/g, ' ').match(S.brand_regex);
+          self.CrawlCategoryPage({
+            'index': 1
+          , 'category': c
+          }, function(err, urls, indexes){
+            _.each(_.shuffle(indexes), function(i){
+              self.CategoryQueue.push(function(cb3){
+                self.SyncCategoryPage(_.extend({}, a.o, {
+                  'category': c
+                , 'index': Belt.cast(i, 'number')
+                }), Belt.cw(cb3));
               });
-
-              Async.eachLimit(_.uniq(gb.urls) || [], S.settings.crawler_concurrency, function(u, cb3){
-                var e
-                  , prod
-                  , tries = 0;
-
-                Async.doWhilst(function(next2){
-                  Request({
-                    'url': a.o.host + '/method'
-                  , 'method': 'get'
-                  , 'qs': {
-                      'method': 'getProduct'
-                    , 'url': u
-                    }
-                  , 'json': true
-                  }, function(err, res, json){
-                    e = err;
-                    prod = Belt.get(json, 'data.response') || {};
-                    prod['url'] = u;
-
-                    tries++;
-
-                    if (!e) console.log('[STREETAMMO] Added "' + u + '" to sync cache...');
-
-                    next2();
-                  });
-                }, function(){ return e || (!Belt.get(prod, 'title') && tries < 3); }, function(err){
-                  gb.prod_cache.push(prod);
-                  //cb3();
-                  a.o.progress_cb(prod, cb3);
-                });
-              }, Belt.cw(next, 0));
             });
-          }, function(){ return gb.next || _.any(gb.urls); }, Belt.cw(cb2, 0));
+
+            cb2();
+          });
         }, Belt.cw(cb, 0));
       }
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  S['SyncCategoryPage'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //vendor
+      //category
+      //index
+      'host': o.crawler_host
+    , 'hosts': o.crawler_hosts
+    , 'last_sync': Belt.uuid()
+    , 'synced_at': new Date()
+    });
+
+    Async.waterfall([
+      function(cb){
+        console.log('[STREETAMMO CATEGORY] Crawling "' + a.o.category +'" page ' + a.o.index + '...');
+
+        self.CrawlCategoryPage(a.o, Belt.cs(cb, gb, 'urls', 1, 0));
+      }
     , function(cb){
-        return cb();
+        console.log('[STREETAMMO CATEGORY] ...found ' + (Belt.get(gb, 'urls.length') || 0) + ' products on "' + a.o.category + '" page ' + a.o.index + '!');
 
-        gb.prod_cache = _.uniq(gb.prod_cache, 'url');
+        _.each(gb.urls, function(u){
+          self.ProductQueue.push(function(cb2){
+            self.SyncProduct(_.extend({}, a.o, {
+              'url': u
+            }), Belt.cw(cb2));
+          });
+        });
 
-        return Async.eachSeries(gb.prod_cache, function(p, cb2){
-          a.o.progress_cb(p, cb2);
-        }, Belt.cw(cb, 0));
+        cb();
       }
     ], function(err){
       a.cb(err);
@@ -489,34 +480,19 @@ module.exports = function(options, Instance){
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-      'host': o.crawler_host
       //url
       //vendor
+      'host': o.crawler_host
+    , 'hosts': o.crawler_hosts
+    , 'last_sync': Belt.uuid()
+    , 'synced_at': new Date()
     });
 
     Async.waterfall([
       function(cb){
-        var tries = 0;
+        console.log('[STREETAMMO PRODUCT] Crawling "' + a.o.url +'"...');
 
-        Async.doWhilst(function(next2){
-          Request({
-            'url': a.o.host + '/method'
-          , 'method': 'get'
-          , 'qs': {
-              'method': 'getProduct'
-            , 'url': a.o.url
-            }
-          , 'json': true
-          }, function(err, res, json){
-            e = err;
-            gb['prod'] = Belt.get(json, 'data.response') || {};
-            gb.prod['url'] = a.o.url;
-
-            tries++;
-
-            next2();
-          });
-        }, function(){ return e || (!Belt.get(gb.prod, 'title') && tries < 3); }, Belt.cw(cb, 0));
+        self.CrawlProductPage(a.o, Belt.cs(cb, gb, 'prod', 1, 0));
       }
     , function(cb){
         if (!Belt.get(gb.prod, 'title')) return cb(new Error('product not synced'));
@@ -524,13 +500,19 @@ module.exports = function(options, Instance){
         self.UpdateProduct({
           'product': gb.prod
         , 'vendor': a.o.vendor
-        , 'last_sync': Belt.uuid()
-        , 'synced_at': new Date()
+        , 'last_sync': a.o.last_sync
+        , 'synced_at': a.o.synced_at
         }, function(err, prod){
           cb(err);
         });
       }
     ], function(err){
+      if (err){
+        console.log('...[STREETAMMO PRODUCT] ERROR Crawling "' + a.o.url +'"');
+      } else {
+        console.log('...[STREETAMMO PRODUCT] Finished crawling "' + a.o.url +'"');
+      }
+
       a.cb(err);
     });
   };
@@ -552,9 +534,7 @@ module.exports = function(options, Instance){
         gb['last_sync'] = a.o.last_sync;
         gb['synced_at'] = a.o.synced_at;
 
-        self.IterateProducts({
-          'progress_cb': a.o.progress_cb
-        }, Belt.cw(cb, 0));
+        self.IterateProducts(a.o, Belt.cw(cb, 0));
       }
     , function(cb){
         Instance.db.model('product').find({
@@ -572,8 +552,6 @@ module.exports = function(options, Instance){
           });
 
           e.save(Belt.cw(cb2));
-
-          //e.remove(Belt.cw(cb2));
         }, Belt.cw(cb, 0));
       }
     , function(cb){
