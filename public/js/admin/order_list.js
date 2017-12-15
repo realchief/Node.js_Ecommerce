@@ -177,7 +177,7 @@ $(document).ready(function(){
   GB['model'] = 'order';
 
   GB['criteria'] = _.defaults(_.extend({}, GB.data || {}, queryObject.get() || {}), {
-    'limit': 50
+    'limit': 25
   , 'skip': 0
   , 'query': '{}'
   , 'sort': '{"created_at": -1}'
