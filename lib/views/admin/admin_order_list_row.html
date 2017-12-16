@@ -15,7 +15,11 @@
     <p><strong>ORDER #<%= slug %></strong><br><%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %> (<%= Moment(created_at).fromNow() %>)</p>
     <hr>
     <% if (typeof support_status !== 'undefined' && support_status){ %>
-      <p><span class="label label-info"><%= support_status.toUpperCase() %></span></p>
+      <% if (support_status.match(/refund/i)){ %>
+        <p><span class="label label-danger"><%= support_status.toUpperCase() %></span></p>
+      <% } else { %>
+        <p><span class="label label-info"><%= support_status.toUpperCase() %></span></p>
+      <% } %>
     <% } %>
     <% if (shipping_status !== 'shipped'){ %>
       <p><span class="label label-warning">NOT SHIPPED</span></p>
