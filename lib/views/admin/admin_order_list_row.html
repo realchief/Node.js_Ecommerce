@@ -148,7 +148,8 @@
     <p><strong>SHIPMENTS</strong></p>
     <% _.each(shipments, function(v2, k){ %>
       <p>
-        <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> - <%= v2.tracking_number %></a> <span class="label label-success"><%= Belt.get(v2, 'status.toUpperCase()') %></span><br>
+        <span class="label label-success"><%= Belt.get(v2, 'status.toUpperCase()') %></span><br>
+        <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> <%= v2.tracking_number %></a><br>
         SHIPPED: <%= Moment(v2.created_at).format('MM/DD/YYYY') %> (<%= Moment(v2.created_at).fromNow() %>)
       </p>
       <ul>
