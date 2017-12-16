@@ -127,7 +127,7 @@
     <% _.each(vendor_orders, function(v2, k){ %>
       <% if (Instance.vendor_ids[k]){ %>
         <p>
-          <span class="label label-danger"><%= Instance.vendor_ids[k].name %></span>
+          <span class="label label-success"><%= Instance.vendor_ids[k].name %></span>
         </p>
       <% } %>
       <% _.each(v2, function(v){ %>
