@@ -93,7 +93,9 @@
             <div class="col-sm-8">
               <select name="vendor" type="text" class="form-control">
                 <option value=""></option>
-                <% _.each(Instance.vendor_ids, function(v, k){ %>
+                <% _.each(_.sortBy(Instance.vendor_ids, function(v){
+                  return v.name;
+                }), function(v, k){ %>
                   <option value="<%= k %>"><%= v.name %></option>
                 <% }) %>
               </select>
