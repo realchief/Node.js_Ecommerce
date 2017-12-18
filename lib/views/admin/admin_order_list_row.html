@@ -149,7 +149,7 @@
     <% _.each(shipments, function(v2, k){ %>
       <p>
         <% if (Belt.get(v2, 'status')){ %>
-          <span class="label label-<%= v2.status.match(/refund/i) ? 'success' : 'danger' %>"><%= Belt.get(v2, 'status.toUpperCase()') %></span><br>
+          <span class="label label-<%= v2.status.match(/refund/i) ? 'danger' : 'success' %>"><%= Belt.get(v2, 'status.toUpperCase()') %></span><br>
         <% } %>
         <a href="<%= v2.tracking_url %>" target="_blank"><%= v2.carrier %> <%= v2.tracking_number %></a><br>
         SHIPPED: <%= Moment(v2.created_at).format('MM/DD/YYYY') %> (<%= Moment(v2.created_at).fromNow() %>)
