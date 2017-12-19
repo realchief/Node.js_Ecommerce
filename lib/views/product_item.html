@@ -13,7 +13,12 @@
     data-price="<%= doc.low_price %>"
   >
     <% if (Belt.get(doc, 'media.0.url') || Belt.get(doc, 'media.0.remote_url')){ %>
-      <img data-src="<%= doc.media[0].downloaded ? doc.media[0].downsample_url : (doc.media[0].remote_url || doc.media[0].url) %>" class="goods__img lazy">
+      <img
+      <% if (doc.media[0].super_downsample_url){ %>
+        src="<%= doc.media[0].super_downsample_url %>"
+      <% } %>
+        data-src="<%= doc.media[0].downloaded ? doc.media[0].downsample_url : (doc.media[0].remote_url || doc.media[0].url) %>"
+        class="goods__img lazy">
     <% } %>
     <div class="goods__info">
       <% if (Belt.get(doc, 'brands.0')){ %>
