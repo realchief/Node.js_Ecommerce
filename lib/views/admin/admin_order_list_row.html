@@ -2,7 +2,7 @@
   shipping_status !== 'shipped'
   && Moment(updated_at).isBefore(Moment().subtract(1, 'days'))
   && (typeof support_status === 'undefined' || !support_status.match(/refund/i))
-){ %>
+){ % style="border-top-width:3px !important; border-top-style=solid !important;">
   <% if (typeof helpscout_conversations !== 'undefined' && _.some(helpscout_conversations, function(c){
     return Moment(c.modifiedAt).isAfter(Moment().subtract(1, 'days'));
   })){ %>
