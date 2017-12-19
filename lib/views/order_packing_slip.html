@@ -15,26 +15,26 @@
 <body>
   <section class="section section--xs">
     <div class="container">
-      <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/1</p>
+      <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/<%= _.size(doc.vendor_orders) || 1 %></p>
       <p class="print-logo mb-5">wanderset</p>
 
       <p>
         <big>
-          <b>Order Number:</b> <span class="print-gray-thin">124857</span><br>
-          <b>Date Ordered:</b> <span class="print-gray-thin">11/19/2017</span><br>
+          <b>Order Number:</b> <span class="print-gray-thin"><%= doc.slug %></span><br>
+          <b>Date Ordered:</b> <span class="print-gray-thin"><%= Moment(doc.created_at).format('MM/DD/YYYY') %></span><br>
           <b>Shipping Address:</b>
         </big>
       </p>
 
       <address class="print-gray-thin print-font-base mb-5">
-        Drew McCarver<br>
-        30 Ridgecrest Road<br>
-        Wallingford, CT 06492<br>
-        United States<br>
-        860-857-2037<br>
-        Drewdesigns@gmail.com
+        <%= doc.recipient.first_name %> <%= doc.recipient.last_name %><br>
+        <%= doc.recipient.street %><br>
+        <% if (doc.recipient.street_b){ %>
+          <%= doc.recipient.street_b %><br>
+        <% } %>
+        <%= doc.recipient.city %>, <%= doc.recipient.region %> <%= doc.recipient.postal_code %> <%= doc.recipient.country %><br>
+        <%= doc.recipient.phone %>
       </address>
-
 
       <h2 class="print-title">Order Summary:</h2>
 
@@ -49,94 +49,32 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/temp/print-pants.png" class="img-fluid" alt="">
-            </td>
-            <td>
-              <p class="print-gray-thin mb-3">
-                <b>10 Deep</b>
-                Army Cargo Skinny Fit Pants
-                <br>
-                <b>Size:</b> 32
-                <b>Color</b>: Camo
-              </p>
-              <h3 class="print-title--sm print-black">This item is shipped separately</h3>
-            </td>
-            <td>
-              <b>1</b>
-            </td>
-            <td>
-              <b>$200</b>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <img src="assets/images/temp/print-pants.png" class="img-fluid" alt="">
-            </td>
-            <td>
-              <p class="print-gray-thin mb-3">
-                <b>10 Deep</b>
-                Army Cargo Skinny Fit Pants
-                <br>
-                <b>Size:</b> 32
-                <b>Color</b>: Camo
-              </p>
-              <h3 class="print-title--sm print-black">This item is shipped separately</h3>
-            </td>
-            <td>
-              <b>1</b>
-            </td>
-            <td>
-              <b>$200</b>
-            </td>
-          </tr>
-
-
-          <tr>
-            <td>
-              <img src="assets/images/temp/print-pants.png" class="img-fluid" alt="">
-            </td>
-            <td>
-              <p class="print-gray-thin mb-3">
-                <b>10 Deep</b>
-                Army Cargo Skinny Fit Pants
-                <br>
-                <b>Size:</b> 32
-                <b>Color</b>: Camo
-              </p>
-              <h3 class="print-title--sm print-black">This item is shipped separately</h3>
-            </td>
-            <td>
-              <b>1</b>
-            </td>
-            <td>
-              <b>$200</b>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <img src="assets/images/temp/print-pants.png" class="img-fluid" alt="">
-            </td>
-            <td>
-              <p class="print-gray-thin mb-3">
-                <b>10 Deep</b>
-                Army Cargo Skinny Fit Pants
-                <br>
-                <b>Size:</b> 32
-                <b>Color</b>: Camo
-              </p>
-              <h3 class="print-title--sm print-black">This item is shipped separately</h3>
-            </td>
-            <td>
-              <b>1</b>
-            </td>
-            <td>
-              <b>$200</b>
-            </td>
-          </tr>
+          <% _.each(doc.products, function(p){ %>
+            <tr>
+              <td>
+                <img src="<%= Belt.get(p, 'source.product.media.0.downsample_url')
+                || Belt.get(p, 'source.product.media.0.url')
+                || Belt.get(p, 'source.product.media.0.remote_url') %>" style="max-width:100px;" alt="">
+              </td>
+              <td>
+                <p class="print-gray-thin mb-3">
+                  <b><%= Belt.get(p, 'source.product.brands.0') %></b>
+                  <%= Belt.get(p, 'source.product.label.us') %>
+                  <% _.each(p.options, function(v, k){ %>
+                    <br>
+                    <b><%= k %></b> <%= v %>
+                  <% }) %>
+                </p>
+                <h3 class="print-title--sm print-black">This item is shipped separately</h3>
+              </td>
+              <td>
+                <b><%= p.quantity %></b>
+              </td>
+              <td>
+                <b>$<%= Instance.priceString(p.price) %></b>
+              </td>
+            </tr>
+          <% }) %>
         </tbody>
 
         <tfoot>

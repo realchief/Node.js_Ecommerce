@@ -32,6 +32,19 @@
     <% } %>
     <p>
       <hr>
+      <div class="form-group">
+        <label class="control-label">Support Status</label>
+        <div class="">
+          <input name="support_status" type="text" class="form-control" placeholder="status (i.e. refunded, replacement)" value="<%= typeof support_status !== 'undefined' ? support_status : '' %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Notes</label>
+        <div class="">
+          <textarea name="notes" type="text" class="form-control" placeholder="order notes" rows="5"><%= typeof notes !== 'undefined' ? notes : '' %></textarea>
+        </div>
+      </div>
+      <a href="#" name="save" class="btn btn-info">Save</a>
       <a href="/admin/order/<%= slug %>/read" class="btn btn-default">Edit</a>
     </p>
   </td>

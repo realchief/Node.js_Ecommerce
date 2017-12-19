@@ -263,3 +263,24 @@ $(document).on('click', '#search-modal [name="search"]', function(e){
   e.preventDefault();
   SearchOrders();
 });
+
+$(document).on('click', '[name="save"]', function(e){
+  e.preventDefault();
+  var $tr = $(this).parents('tr')
+    , support_status = $tr.find('[name="support_status"]').val()
+    , notes = $tr.find('[name="notes"]').val()
+    , _id = $tr.attr('data-id');
+
+  $.post('/admin/order/' + _id + '/update.json', {
+    'support_status': support_status
+  , 'notes': notes
+  }, function(res){
+    if (Belt.get(res, 'error')) return bootbox.alert(res.error);
+
+    var d = Belt.get(res, 'data');
+    d.options = d.options || {};
+    d.Instance = Instance;
+    d.GB = GB;
+    $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
+  });
+});
