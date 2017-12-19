@@ -46,5 +46,6 @@
   , "redis": "*"
   , "paypal-rest-sdk": "*"
   , "sentiment": "*"
+  , "html-to-pdf": "*"
   }
 }

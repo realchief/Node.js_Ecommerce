@@ -7,14 +7,12 @@
   <meta name="format-detection" content="telephone=no">
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-  <title>Wanderset-Form page</title>
-  <link rel="stylesheet" href="assets/stylesheets/main.css">
-  <link rel="stylesheet" href="assets/stylesheets/print.css">
+  <title>Wanderset Order <%= doc.slug %></title>
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/main.css">
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/print.css">
 </head>
 
 <body>
-
-
   <section class="section section--xs">
     <div class="container">
       <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/1</p>
@@ -118,7 +116,6 @@
             </td>
           </tr>
 
-
           <tr>
             <td>
               <img src="assets/images/temp/print-pants.png" class="img-fluid" alt="">
@@ -183,10 +180,7 @@
 
       <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/1</p>
 
-    </div><!--container-->
-  </section><!--section-->
-
-
-
+    </div>
+  </section>
 </body>
 </html>
