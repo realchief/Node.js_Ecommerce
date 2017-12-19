@@ -6,12 +6,12 @@
   <% if (typeof helpscout_conversations !== 'undefined' && _.some(helpscout_conversations, function(c){
     return Moment(c.modifiedAt).isAfter(Moment().subtract(1, 'days'));
   })){ %>
-    style="background-color: #ff6666;border-top-width:3px !important; border-top-style=solid !important;"
+    style="background-color: #ff6666;border-top-width:3px !important; border-top-style:solid !important;"
   <% } else { %>
-    style="background-color: #ffe5e5;border-top-width:3px !important; border-top-style=solid !important;"
+    style="background-color: #ffe5e5;border-top-width:3px !important; border-top-style:solid !important;"
   <% } %>
 <% } else { %>
-    style="border-top-width:3px !important; border-top-style=solid !important;"
+    style="border-top-width:3px !important; border-top-style:solid !important;"
 <% } %> data-id="<%= _id %>">
   <td>
     <p><strong>ORDER #<%= slug %></strong><br><%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %> (<%= Moment(created_at).fromNow() %>)</p>
