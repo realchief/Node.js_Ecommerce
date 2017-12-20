@@ -40,7 +40,7 @@ var GB = _.defaults(O.argv, {
   })
 , 'skip': 0
 , 'limit': 500
-, 'sort': '-created_at'
+, 'sort': '-updated_at'
 , 'cat_count': 0
 , 'hide_count': 0
 , 'auth': {
