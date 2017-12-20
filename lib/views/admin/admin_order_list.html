@@ -96,7 +96,7 @@
                 <% _.each(_.sortBy(Instance.vendor_ids, function(v){
                   return v.name;
                 }), function(v, k){ %>
-                  <option value="<%= k %>"><%= v.name %></option>
+                  <option value="<%= v._id %>"><%= v.name %></option>
                 <% }) %>
               </select>
             </div>
