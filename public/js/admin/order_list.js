@@ -13,6 +13,8 @@ var SearchOrders = function(options, callback){
   , 'vendor_order': $('[name="vendor_order"]').val()
   , 'shipment': $('[name="shipment"]').val()
   , 'shipment_status': $('[name="shipment_status"]').val()
+  , 'support_status': $('[name="support_status"]').val()
+  , 'notes': $('[name="notes"]').val()
   });
 
   var query = {};
@@ -76,6 +78,20 @@ var SearchOrders = function(options, callback){
   if (a.o.promo_code){
     query['line_items.label'] = {
       '$regex': a.o.promo_code.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.support_status){
+    query['support_status'] = {
+      '$regex': a.o.support_status.toLowerCase().replace(/\W/g, '.*')
+    , '$options': 'i'
+    };
+  }
+
+  if (a.o.notes){
+    query['notes'] = {
+      '$regex': a.o.notes.toLowerCase().replace(/\W/g, '.*')
     , '$options': 'i'
     };
   }
