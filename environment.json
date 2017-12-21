@@ -31,6 +31,9 @@
       , "platform_vendors_slack": "https://hooks.slack.com/services/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"
       , "platform_errors_slack": "https://hooks.slack.com/services/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"
       }
+    , "slack": {
+        "kpis": "https://hooks.slack.com/services/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"
+      }
     , "email": {
         "from": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
       , "order": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
@@ -80,6 +83,9 @@
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
       }
+    , "slack": {
+        "kpis": "https://hooks.slack.com/services/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"
+      }
     , "create_rest_routes": false
     }
   , "staging-worker": {
@@ -122,6 +128,9 @@
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
+      }
+    , "slack": {
+        "kpis": "https://hooks.slack.com/services/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"
       }
     , "create_rest_routes": false
     }

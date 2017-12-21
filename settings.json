@@ -138,4 +138,7 @@
   , "https://s3.amazonaws.com/assets.wanderset.com": "https://d3gnpp7wzoydnz.cloudfront.net"
   }
 , "category_grams_path": "/resources/assets/category-grams.csv"
+, "slack": {
+    "kpis": "https://hooks.slack.com/services/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"
+  }
 }
