@@ -29,6 +29,10 @@ var O = new Optionall({
 var Log = new Winston.Logger();
 Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timestamp': false});
 
+setTimeout(function(){
+  process.exit(1);
+}, 60 * 1000 * 29);
+
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {

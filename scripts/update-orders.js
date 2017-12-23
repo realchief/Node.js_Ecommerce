@@ -31,6 +31,10 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 
 var Spin = new Spinner(4);
 
+setTimeout(function(){
+  process.exit(1);
+}, 60 * 1000 * 29);
+
 var GB = _.defaults(O.argv, {
   'query': {
 
