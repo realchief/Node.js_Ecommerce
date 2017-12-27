@@ -32,6 +32,10 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 
 var Spin = new Spinner(4);
 
+setTimeout(function(){
+  process.exit(1);
+}, 60 * 1000 * 29);
+
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
     'hide': {
@@ -53,6 +57,8 @@ var GB = _.defaults(O.argv, {
     if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(12, 'hours'))) return cb();
 
     console.log('Hiding product [' + o._id + ']...' + ++GB.count);
+
+    GB.skip--;
 
     Request({
       'url': O.host + '/product/' + o._id + '/update.json'
