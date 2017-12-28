@@ -47,5 +47,6 @@
   , "paypal-rest-sdk": "*"
   , "sentiment": "*"
   , "html-to-pdf": "*"
+  , "mongodb": "2.2.*"
   }
 }

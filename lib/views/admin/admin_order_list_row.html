@@ -16,7 +16,7 @@
   <td>
     <p><strong>ORDER #<%= slug %></strong><br><%= Moment(created_at).format('MM/DD/YYYY hh:mm a') %> (<%= Moment(created_at).fromNow() %>)</p>
     <hr>
-    <% if (typeof support_status !== 'undefined' && support_status){ %>
+    <% if (typeof support_status !== 'undefined' && support_status && support_status.match){ %>
       <% if (support_status.match(/refund/i)){ %>
         <p><span class="label label-danger"><%= support_status.toUpperCase() %></span></p>
       <% } else { %>
