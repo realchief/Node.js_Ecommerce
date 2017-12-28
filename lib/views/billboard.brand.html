@@ -1,5 +1,7 @@
-<div class="billboard billboard--dark billboard--small has-bg hidden-sm-down" style="background-image:url('<%= Belt.get(doc, 'featured_media.url') || '' %>');">
+<div class="billboard billboard--dark billboard--small has-bg hidden-sm-down">
+  <img src="'<%= Belt.get(doc, 'featured_media.url') || '' %>'" alt="" class="billboard__img">
 </div>
 
-<div class="billboard billboard--dark hidden-md-up" style="background-image:url('<%= Belt.get(doc, 'mobile_featured_media.downsample_url') || Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>');">
+<div class="billboard billboard--dark hidden-md-up">
+  <img src="'<%= Belt.get(doc, 'mobile_featured_media.downsample_url') || Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>'" alt="" class="billboard__img">
 </div>
