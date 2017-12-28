@@ -33,17 +33,17 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'cart': '5a442d1ff57b36091cb614ab'
+  'cart': '59e51de42800bfcf30a36de5'
 , 'query': {
-//    'customer_id': 'cus_C1ubarRLDKZeFR'
-//  , 'payment_method': 'card_1Bdqm2BqgBRCGoCvJygabamk'
-    'transaction': {
-      'id': '50K088727C7085630'
-    , 'amount': 87.20
+    'customer_id': 'paypal'
+  , 'payment_method': 'paypal'
+  , 'transaction': {
+      'id': '7GK56155US945044A'
+    , 'amount': 49.60
     , 'type': 'charge'
     , 'description': 'charged at paypal checkout'
     , 'source': {
-        'id': '6V489904MJ331953X'
+        'id': '7GK56155US945044A'
       }
     , 'payment_gateway': 'paypal'
     , 'amount_refunded': 0

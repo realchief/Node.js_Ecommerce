@@ -3,18 +3,19 @@ var SearchOrders = function(options, callback){
     , self = this
     , gb = {};
   a.o = _.defaults(a.o, {
-    'first_name': $('[name="first_name"]').val()
-  , 'last_name': $('[name="last_name"]').val()
-  , 'email': $('[name="email"]').val()
-  , 'promo_code': $('[name="promo_code"]').val()
-  , 'product': $('[name="product"]').val()
-  , 'slug': $('[name="slug"]').val()
-  , 'vendor': $('[name="vendor"]').val()
-  , 'vendor_order': $('[name="vendor_order"]').val()
-  , 'shipment': $('[name="shipment"]').val()
-  , 'shipment_status': $('[name="shipment_status"]').val()
-  , 'support_status': $('[name="support_status"]').val()
-  , 'notes': $('[name="notes"]').val()
+    'first_name': $('#search-modal [name="first_name"]').val()
+  , 'last_name': $('#search-modal [name="last_name"]').val()
+  , 'email': $('#search-modal [name="email"]').val()
+  , 'promo_code': $('#search-modal [name="promo_code"]').val()
+  , 'product': $('#search-modal [name="product"]').val()
+  , 'slug': $('#search-modal [name="slug"]').val()
+  , 'vendor': $('#search-modal [name="vendor"]').val()
+  , 'vendor_order': $('#search-modal [name="vendor_order"]').val()
+  , 'shipment': $('#search-modal [name="shipment"]').val()
+  , 'shipment_status': $('#search-modal [name="shipment_status"]').val()
+  , 'support_status': $('#search-modal [name="support_status"]').val()
+  , 'transaction': $('#search-modal [name="transaction"]').val()
+  , 'notes': $('#search-modal [name="notes"]').val()
   });
 
   var query = {};
@@ -276,6 +277,11 @@ $(document).ready(function(){
 });
 
 $(document).on('click', '#search-modal [name="search"]', function(e){
+  e.preventDefault();
+  SearchOrders();
+});
+
+$(document).on('submit', '#search-modal form', function(e){
   e.preventDefault();
   SearchOrders();
 });
