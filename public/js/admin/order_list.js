@@ -112,7 +112,16 @@ var SearchOrders = function(options, callback){
   }
 
   if (a.o.vendor_order){
-    query['products.source.order.order.id'] = Belt.cast(a.o.vendor_order.toLowerCase().replace(/\W/g, '.*'), 'number')
+    query['$or'] = query.$or || [];
+
+    query.$or[0] = query.$or[0] || {};
+    query.$or[0]['products.source.order.order.id'] = Belt.cast(a.o.vendor_order.toLowerCase().replace(/\W/g, '.*'), 'number');
+
+    query.$or[1] = query.$or[1] || {};
+    query.$or[1]['products.source.order.order.number'] = Belt.cast(a.o.vendor_order.toLowerCase().replace(/\W/g, '.*'), 'number');
+
+    query.$or[2] = query.$or[2] || {};
+    query.$or[2]['products.source.order.order.order_number'] = Belt.cast(a.o.vendor_order.toLowerCase().replace(/\W/g, '.*'), 'number');
   }
 
   if (a.o.shipment_status){
