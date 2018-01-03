@@ -33,11 +33,11 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'product_queries': {
-    'streetammo': {
+    /*'streetammo': {
       'vendor': '59711c3c845c040892606b1c'
-    }
-  , 'active': {
-      'vendor': '5a46c1f0cf845a091aa5fc02'
+    }*/
+    'active': {
+      //'vendor': '5a46c1f0cf845a091aa5fc02'
     }
   }
 , 'skip': 0
@@ -55,7 +55,10 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
-    Async.eachSeries(GB.product_queries, function(q, cb2){
+    Async.eachSeries(_.keys(GB.product_queries), function(q, cb2){
+
+      GB['product_lists'][q] = [];
+
       var cont;
 
       GB.skip = 0;
@@ -77,8 +80,20 @@ Async.waterfall([
           GB.skip += GB.limit;
 
           _.each(Belt.get(json, 'data') || [], function(d){
+            d = _.pick(d, [
+              'name'
+            , 'label'
+            , 'brands'
+            , 'slug'
+            , 'source'
+            ]);
 
+            GB.product_lists[q].push(d);
+
+            console.log(d);
           });
+
+          console.log(GB.product_lists[q].length);
 
           next();
         })
