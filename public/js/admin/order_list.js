@@ -274,14 +274,6 @@ $(document).ready(function(){
     }
     phtml += '</div>'
     $('[name="pagination"]').html(phtml);
-
-    if (Belt.get(res.query, '_id')){
-      $('[name="_id"] [name="filter"]').val(res.query._id);
-    }
-
-    if (Belt.get(res.query, '$or.0')){
-      $('[name="content"] [name="filter"]').val(res.query.$or[0]['label.us'].$regex.replace(/\\W\*/g, ' '));
-    }
   });
 });
 

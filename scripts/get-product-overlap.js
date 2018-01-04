@@ -14,6 +14,8 @@ var Path = require('path')
   , Request = require('request')
   , CSV = require('fast-csv')
   , Natural = require('natural')
+  , Diacritics = require('diacritics')
+  , Stopwords = require('stopwords')
 ;
 
 var O = new Optionall({
@@ -33,15 +35,15 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'product_queries': {
-    /*'streetammo': {
+    'streetammo': {
       'vendor': '59711c3c845c040892606b1c'
-    }*/
-    'active': {
-      //'vendor': '5a46c1f0cf845a091aa5fc02'
+    }
+  , 'active': {
+      'vendor': '5a46c1f0cf845a091aa5fc02'
     }
   }
 , 'skip': 0
-, 'limit': 100
+, 'limit': 1000
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
@@ -49,6 +51,11 @@ var GB = _.defaults(O.argv, {
 , 'product_lists': {
 
   }
+, 'products': [
+
+  ]
+, 'active_csv_path': '/home/ben/Downloads/active_products.csv'
+, 'streetammo_csv_path': '/home/ben/Downloads/streetammo_products.csv'
 });
 
 Spin.start();
@@ -62,7 +69,7 @@ Async.waterfall([
       var cont;
 
       GB.skip = 0;
-      GB.limit = 100;
+      GB.limit = 1000;
 
       Async.doWhilst(function(next){
         Request({
@@ -86,11 +93,19 @@ Async.waterfall([
             , 'brands'
             , 'slug'
             , 'source'
+            , '_id'
             ]);
+
+            d.label = _.reject(Diacritics.remove([
+              Belt.get(d, 'source.record.brand') || Belt.get(d, 'source.record.vendor')
+            , Belt.get(d, 'source.record.title')
+            ].join('').toLowerCase()).replace(/\W+/g, ' ').split(/\s/), function(w){
+              return _.some(Stopwords.english, function(s){ return s === w; });
+            }).join('');
 
             GB.product_lists[q].push(d);
 
-            console.log(d);
+            console.log(d.label);
           });
 
           console.log(GB.product_lists[q].length);
@@ -100,6 +115,90 @@ Async.waterfall([
       }, function(){ return cont; }, Belt.cw(cb2, 0));
 
     }, Belt.cw(cb, 0));
+  }
+, function(cb){
+    _.each(GB.product_lists.active, function(v, k){
+      var msa = _.min(GB.product_lists.streetammo, function(v2){
+        return Natural.LevenshteinDistance(v.label, v2.label);
+      });
+
+      var p = _.extend({
+        'active_id': v._id
+      , 'active_url': 'https://wanderset.com/' + v.slug
+      , 'active_title': v.source.record.title
+      , 'active_brand': v.source.record.vendor
+      , 'streetammo_id': msa._id
+      , 'streetammo_url': 'https://wanderset.com/' + msa.slug
+      , 'streetammo_title': msa.source.record.title
+      , 'streetammo_brand': msa.source.record.brand
+      , 'ld': Natural.LevenshteinDistance(v.label, msa.label)
+      });
+
+      console.log(p);
+
+      GB.products.push(p);
+    });
+
+    cb();
+  }
+, function(cb){
+    var cs = CSV.createWriteStream({
+               'headers': true
+             })
+      , fs = FS.createWriteStream(GB.active_csv_path);
+
+    fs.on('finish', Belt.cw(cb));
+
+    cs.pipe(fs);
+
+    _.each(GB.products, function(v, k){
+      cs.write(v);
+    });
+
+    cs.end();
+  }
+, function(cb){
+    GB.products = [];
+
+    _.each(GB.product_lists.streetammo, function(v, k){
+      var msa = _.min(GB.product_lists.active, function(v2){
+        return Natural.LevenshteinDistance(v.label, v2.label);
+      });
+
+      var p = _.extend({
+        'streetammo_id': v._id
+      , 'streetammo_url': 'https://wanderset.com/' + v.slug
+      , 'streetammo_title': v.source.record.title
+      , 'streetammo_brand': v.source.record.brand
+      , 'active_id': msa._id
+      , 'active_url': 'https://wanderset.com/' + msa.slug
+      , 'active_title': msa.source.record.title
+      , 'active_brand': msa.source.record.vendor
+      , 'ld': Natural.LevenshteinDistance(v.label, msa.label)
+      });
+
+      console.log(p);
+
+      GB.products.push(p);
+    });
+
+    cb();
+  }
+, function(cb){
+    var cs = CSV.createWriteStream({
+               'headers': true
+             })
+      , fs = FS.createWriteStream(GB.streetammo_csv_path);
+
+    fs.on('finish', Belt.cw(cb));
+
+    cs.pipe(fs);
+
+    _.each(GB.products, function(v, k){
+      cs.write(v);
+    });
+
+    cs.end();
   }
 ], function(err){
   Spin.stop();
