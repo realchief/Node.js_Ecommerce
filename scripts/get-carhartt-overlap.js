@@ -55,7 +55,7 @@ var GB = _.defaults(O.argv, {
 
   ]
 , 'carhartt_csv_path': '/home/ben/Downloads/carhartt_products.csv'
-, 'carhartt_feed_csv_path': '/home/ben/Downloads/streetammo_products.csv'
+//, 'carhartt_feed_csv_path': '/home/ben/Downloads/carhartt-feed.csv'
 });
 
 Spin.start();
@@ -92,16 +92,28 @@ Async.waterfall([
             , 'label'
             , 'brands'
             , 'slug'
-            , 'source'
+            //, 'source'
             , '_id'
+            , 'low_price'
             ]);
 
-            d.label = _.reject(Diacritics.remove([
+            d['url'] = 'https://wanderset.com/product/' + d.slug;
+            delete d.slug;
+
+            d.label = 'CARHARTT WIP ' + d.label.us;
+
+            d['current_price'] = d.low_price;
+            delete d.low_price;
+            delete d.brands;
+
+            d['msrp'] = '';
+
+  /*          d.label = _.reject(Diacritics.remove([
               Belt.get(d, 'source.record.brand') || Belt.get(d, 'source.record.vendor')
             , Belt.get(d, 'source.record.title')
             ].join('').toLowerCase()).replace(/\W+/g, ' ').split(/\s/), function(w){
               return _.some(Stopwords.english, function(s){ return s === w; });
-            }).join('');
+            }).join('');*/
 
             GB.product_lists[q].push(d);
 
@@ -117,25 +129,7 @@ Async.waterfall([
     }, Belt.cw(cb, 0));
   }
 , function(cb){
-    _.each(GB.product_lists.active, function(v, k){
-      var msa = _.min(GB.product_lists.streetammo, function(v2){
-        return Natural.LevenshteinDistance(v.label, v2.label);
-      });
-
-      var p = _.extend({
-        'active_id': v._id
-      , 'active_url': 'https://wanderset.com/' + v.slug
-      , 'active_title': v.source.record.title
-      , 'active_brand': v.source.record.vendor
-      , 'streetammo_id': msa._id
-      , 'streetammo_url': 'https://wanderset.com/' + msa.slug
-      , 'streetammo_title': msa.source.record.title
-      , 'streetammo_brand': msa.source.record.brand
-      , 'ld': Natural.LevenshteinDistance(v.label, msa.label)
-      });
-
-      console.log(p);
-
+    _.each(GB.product_lists.carhartt, function(p){
       GB.products.push(p);
     });
 
@@ -145,50 +139,7 @@ Async.waterfall([
     var cs = CSV.createWriteStream({
                'headers': true
              })
-      , fs = FS.createWriteStream(GB.active_csv_path);
-
-    fs.on('finish', Belt.cw(cb));
-
-    cs.pipe(fs);
-
-    _.each(GB.products, function(v, k){
-      cs.write(v);
-    });
-
-    cs.end();
-  }
-, function(cb){
-    GB.products = [];
-
-    _.each(GB.product_lists.streetammo, function(v, k){
-      var msa = _.min(GB.product_lists.active, function(v2){
-        return Natural.LevenshteinDistance(v.label, v2.label);
-      });
-
-      var p = _.extend({
-        'streetammo_id': v._id
-      , 'streetammo_url': 'https://wanderset.com/' + v.slug
-      , 'streetammo_title': v.source.record.title
-      , 'streetammo_brand': v.source.record.brand
-      , 'active_id': msa._id
-      , 'active_url': 'https://wanderset.com/' + msa.slug
-      , 'active_title': msa.source.record.title
-      , 'active_brand': msa.source.record.vendor
-      , 'ld': Natural.LevenshteinDistance(v.label, msa.label)
-      });
-
-      console.log(p);
-
-      GB.products.push(p);
-    });
-
-    cb();
-  }
-, function(cb){
-    var cs = CSV.createWriteStream({
-               'headers': true
-             })
-      , fs = FS.createWriteStream(GB.streetammo_csv_path);
+      , fs = FS.createWriteStream(GB.carhartt_csv_path);
 
     fs.on('finish', Belt.cw(cb));
 
