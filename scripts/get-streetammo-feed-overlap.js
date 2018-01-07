@@ -32,16 +32,24 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'brands': 'N/A Socks'
+    'vendor': '59711c3c845c040892606b1c'
   }
 , 'skip': 0
 , 'limit': 100
+, 'matched_count': 0
+, 'listed_count': 0
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
-    console.log(Belt.stringify(o));
+    GB.listed_count++;
+
+    var style = o.source.record.url.split('/').pop().split('-').shift();
+    console.log(GB.feed[style]);
+
+    if (GB.feed.style) GB.matched_count++;
+
     cb();
   }
 });
@@ -50,6 +58,17 @@ Spin.start();
 
 Async.waterfall([
   function(cb){
+    Request({
+      'url': O.host + '/admin/streetammo/feed.json'
+    , 'auth': GB.auth
+    , 'method': 'get'
+    , 'json': true
+    }, function(err, res, json){
+      GB['feed'] = Belt.get(json, 'data');
+      cb();
+    });
+  }
+, function(cb){
     var cont;
 
     return Async.doWhilst(function(next){
@@ -72,6 +91,15 @@ Async.waterfall([
         }, Belt.cw(next, 0));
       })
     }, function(){ return cont; }, Belt.cw(cb, 0));
+  }
+, function(cb){
+    console.log('Listed products: ' + GB.listed_count);
+    console.log('Feed products: ' + GB.feed.length);
+    console.log('Matched products: ' + GB.matched_count);
+    console.log('Listed products coverage: ' + ((GB.matched_count / GB.listed_count) * 100).toFixed(2) + '%');
+    console.log('Feed products coverage: ' + ((GB.matched_count / GB.feed.length) * 100).toFixed(2) + '%');
+
+    cb();
   }
 ], function(err){
   Spin.stop();

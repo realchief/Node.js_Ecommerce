@@ -12,6 +12,8 @@ var Path = require('path')
   , Querystring = require('querystring')
   , Request = require('request')
   , Crypto = require('crypto')
+  , XML = require('xml')
+  , XMLParser = require('xml2js')
 ;
 
 module.exports = function(options, Instance){
@@ -21,6 +23,7 @@ module.exports = function(options, Instance){
       return 'http://localhost:' + (10235 + i);
     })
   , 'crawler_concurrency': 5
+  , 'xml_feed_url': 'https://www.streetammo.dk/export/trendsales.xml'
   });
 
   var S = {};
@@ -59,6 +62,84 @@ module.exports = function(options, Instance){
   , 'other'
 //  , 'nike'
   ].join('|'), 'i');
+
+  S['LoadProductFeed'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'url': S.settings.xml_feed_url
+    });
+
+    Async.waterfall([
+      function(cb){
+        Request({
+          'url': a.o.url
+        , 'method': 'get'
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, xml){
+          if (err || !xml) return cb(err || new Error('Streetammo feed not downloaded'));
+
+          gb['xml'] = xml;
+
+          cb();
+        });
+      }
+    , function(cb){
+        XMLParser.parseString(gb.xml, Belt.cs(cb, gb, 'xml', 1, 0));
+      }
+    , function(cb){
+        if (gb.xml){
+          gb.xml = Belt.get(gb.xml, 'products.product');
+
+          gb.xml = _.object(_.map(gb.xml, function(p){
+            return Belt.get(p, 'style.0');
+          }), gb.xml);
+
+          _.each(gb.xml, function(v, k){
+            _.each([
+              'category'
+            , 'area'
+            , 'item'
+            , 'brand'
+            , 'style'
+            , 'description'
+            ], function(v2){
+              v[v2] = Belt.get(v[v2], '0'); //|| v[v2];
+            });
+
+            _.each(v.variant, function(v2, i){
+              _.each(v2, function(v3, k3){
+                v2[k3] = Belt.get(v3, '0'); //|| v3;
+              });
+            });
+
+            _.each(v.shipping, function(v2, i){
+              _.each(v2, function(v3, k3){
+                v2[k3] = Belt.get(v3, '0'); //|| v3;
+              });
+            });
+          });
+
+          Instance['streetammo_feed'] = gb.xml;
+          cb();
+        } else {
+          cb(new Error('Streetammo feed not loaded'));
+        }
+      }
+    ], function(err){
+      a.cb(err, gb.xml);
+    });
+  };
+
+  Instance.express.all('/admin/streetammo/feed.json', function(req, res){
+    S.LoadProductFeed(function(err, json){
+      res.status(200).json({
+        'error': Belt.get(err, 'message')
+      , 'data': json
+      });
+    });
+  });
 
   S['UpdateProduct'] = function(options, callback){
     var a = Belt.argulint(arguments)
