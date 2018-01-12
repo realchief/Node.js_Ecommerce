@@ -263,6 +263,12 @@ module.exports = function(options, Instance){
           gb['price'] = a.o.product.price;
           gb.price = Belt.cast(gb.price, 'number') || 0;
           gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
+
+          if (a.o.product.compare_to_price){
+            gb['compare_to_price'] = a.o.product.compare_to_price;
+            gb.compare_to_price = Belt.cast(gb.compare_to_price, 'number') || 0;
+            gb.compare_to_price = Math.ceil(a.o.dkk_to_usd * gb.compare_to_price);
+          }
         }
 
         gb.doc.set({
@@ -337,6 +343,7 @@ module.exports = function(options, Instance){
               , 'options': gb2.options
               , 'price': gb.price
               , 'list_price': gb.price
+              , 'compare_to_price': gb.compare_to_price || null
               , 'available_quantity': a.o.base_quantity
               });
 
