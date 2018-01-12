@@ -343,7 +343,7 @@ module.exports = function(options, Instance){
               , 'options': gb2.options
               , 'price': gb.price
               , 'list_price': gb.price
-              , 'compare_to_price': gb.compare_at_price || null
+              , 'compare_at_price': gb.compare_at_price || null
               , 'available_quantity': a.o.base_quantity
               });
 
