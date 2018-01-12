@@ -28,7 +28,7 @@
         <p class="goods__info-name"><%= doc.label.us %></p>
       <% } %>
       <% if (Belt.get(doc, 'low_price')){ %>
-        <p class="goods__info-price"><del style="color:#d3d3d3;"><%= doc.compare_at_price && doc.compare_at_price > doc.low_price ? '$' + Instance.priceString(doc.compare_at_price) : '' %></del> $<%= Instance.priceString(doc.low_price) %></p>
+        <p class="goods__info-price"><del class="text-danger"><%= doc.compare_at_price && doc.compare_at_price > doc.low_price ? '$' + Instance.priceString(doc.compare_at_price) : '' %></del> $<%= Instance.priceString(doc.low_price) %></p>
       <% } else { %>
         <p class="goods__info-price">Sold out</p>
       <% } %>
