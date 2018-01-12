@@ -195,6 +195,7 @@
                   <h3 class="mb15 text-center-sm l-n goods-subtitle"><%= doc.label.us %></h3>
                 <% } %>
 
+                <h2 name="compare_at_price" class="mb-0 text-center-sm l-n goods-price hidden-xs-up" style="color:#d3d3d3;"></h2>
                 <h2 data-set="price" data-set-method="html" class="text-center-sm l-n goods-price"></h2>
               </div>
 
@@ -207,6 +208,7 @@
                       }).join(', ') %>
                     </h1>
                   <% } %>
+                  <h2 name="compare_at_price" class="mb-0 text-center-sm l-n goods-price hidden-xs-up" style="color:#d3d3d3;"></h2>
                   <h2 data-set="price" data-set-method="html" class="mb-0 text-center-sm l-n goods-price"></h2>
                 </div>
                 <% if (Belt.get(doc, 'label.us')){ %>

@@ -57,7 +57,7 @@ var ProductView = function(options, callback){
         //if (_.size(a.o.options) !== _.size((GB.product || GB.doc).options)) return cb();
 
         $.post('/product/' + self._id + '/availability.json', a.o
-        , Belt.cs(cb, gb, 'price', 0, 'data.price'));
+        , Belt.cs(cb, gb, 'data', 0, 'data'));
       }
     , function(cb){
         if (FSEnabled()){
@@ -65,6 +65,8 @@ var ProductView = function(options, callback){
             'checkAvailability_bool': true
           });
         }
+
+        gb['price'] = Belt.get(gb, 'data.price');
 
         if (gb.price){
           self.price = gb.price;
@@ -100,6 +102,19 @@ var ProductView = function(options, callback){
         self.set({
           'price': gb.price
         });
+
+        if (
+             gb.price
+          && Belt.get(gb, 'data.source.record.compare_at_price')
+          && Belt.cast(gb.data.source.record.compare_at_price, 'number') > Belt.cast(gb.data.price, 'number')
+        ){
+          self.$el.find('[name="compare_at_price"]')
+                  .removeClass('hidden-xs-up')
+                  .html('<del>$' + Instance.priceString(gb.data.source.record.compare_at_price) + '</del>');
+        } else {
+          self.$el.find('[name="compare_at_price"]')
+                  .addClass('hidden-xs-up');
+        }
 
         cb();
       }
