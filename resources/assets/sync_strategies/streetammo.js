@@ -265,9 +265,9 @@ module.exports = function(options, Instance){
           gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
 
           if (a.o.product.compare_to_price){
-            gb['compare_to_price'] = a.o.product.compare_to_price;
-            gb.compare_to_price = Belt.cast(gb.compare_to_price, 'number') || 0;
-            gb.compare_to_price = Math.ceil(a.o.dkk_to_usd * gb.compare_to_price);
+            gb['compare_at_price'] = a.o.product.compare_to_price;
+            gb.compare_at_price = Belt.cast(gb.compare_at_price, 'number') || 0;
+            gb.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb.compare_at_price);
           }
         }
 
