@@ -1,34 +1,32 @@
 {
   "name": "wanderset",
   "dependencies": {
-    "underscore": "*"
-  , "underscore.string": "*"
-  , "jsbelt": "*"
-  , "moment": "*"
-  , "moment-timezone": "*"
-  , "jquery": "*"
-  , "async": "*"
-  , "backbone": "*"
-  , "bootbox": "*"
-  , "fontawesome": "*"
-  , "bootheel": "git+ssh://git@github.com/sackio/bootheel.git#master"
-  , "query-object": "2.*"
-  , "pleasejs": "*"
-  , "Sortable": "*"
-  , "tether": "*"
-  , "bootstrap": "v4.0.0-alpha.6"
-  , "tether": "*"
-  , "bootstrap-select": "^1.12.1"
-  , "parallax.js": "^1.4.2"
-  , "aos": "^2.1.1"
-  , "slick-carousel": "^1.6.0"
-  , "isotope": "^3.0.4"
-  , "jquery": "jQuery#1.11.0"
-  , "sticky-kit": "^1.1.2"
-  , "lightslider": "^1.1.6"
-  , "imagesloaded": "*"
-  , "simple-scrollTo": "*"
-  , "in-viewport": "*"
+    "underscore": "1.8.3",
+    "underscore.string": "3.3.4",
+    "jsbelt": "0.8.12",
+    "moment": "2.20.1",
+    "moment-timezone": "0.5.14",
+    "jquery": "3.1.1",
+    "async": "2.6.0",
+    "backbone": "1.3.3",
+    "bootbox": "4.4.0",
+    "fontawesome": "4.7.0",
+    "bootheel": "git+ssh://git@github.com/sackio/bootheel.git#f8af7a946d",
+    "query-object": "2.0.3",
+    "pleasejs": "0.4.2",
+    "Sortable": "1.6.0",
+    "tether": "1.4.0",
+    "bootstrap": "v4.0.0-alpha.6",
+    "bootstrap-select": "1.12.4",
+    "parallax.js": "1.4.2",
+    "aos": "2.2.0",
+    "slick-carousel": "1.7.1",
+    "isotope": "3.0.4",
+    "sticky-kit": "1.1.2",
+    "lightslider": "1.1.6",
+    "imagesloaded": "4.1.3",
+    "simple-scrollTo": "1.0.3",
+    "in-viewport": "3.5.0"
   },
   "ignore": [
     "test",
@@ -37,5 +35,8 @@
     "Gruntfile.js",
     "package.json",
     "grunt"
-  ]
+  ],
+  "resolutions": {
+    "jquery": "3.1.1"
+  }
 }
