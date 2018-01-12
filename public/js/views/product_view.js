@@ -67,6 +67,7 @@ var ProductView = function(options, callback){
         }
 
         gb['price'] = Belt.get(gb, 'data.price');
+        gb['compare_at_price'] = Belt.get(gb, 'data.compare_at_price') || Belt.get(gb, 'data.source.record.compare_at_price');
 
         if (gb.price){
           self.price = gb.price;
@@ -99,22 +100,17 @@ var ProductView = function(options, callback){
           }
         }
 
+        if (
+             gb.price
+          && gb.compare_at_price
+          && Belt.cast(gb.compare_at_price, 'number') > Belt.cast(gb.data.price, 'number')
+        ){
+          gb.price = '<del style="color:#d3d3d3;">$' + Instance.priceString(gb.compare_at_price) + '</del>&nbsp;' + gb.price;
+        }
+
         self.set({
           'price': gb.price
         });
-
-        if (
-             gb.price
-          && Belt.get(gb, 'data.source.record.compare_at_price')
-          && Belt.cast(gb.data.source.record.compare_at_price, 'number') > Belt.cast(gb.data.price, 'number')
-        ){
-          self.$el.find('[name="compare_at_price"]')
-                  .removeClass('hidden-xs-up')
-                  .html('<del>$' + Instance.priceString(gb.data.source.record.compare_at_price) + '</del>');
-        } else {
-          self.$el.find('[name="compare_at_price"]')
-                  .addClass('hidden-xs-up');
-        }
 
         cb();
       }
