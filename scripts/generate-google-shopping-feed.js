@@ -229,7 +229,7 @@ Async.waterfall([
             return m.url || m.remote_url;
           }).join(',')
         , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
-        , 'price': v.price.toFixed(2) + ' USD'
+        , 'price': (v.compare_at_price && v.compare_at_price > v.price ? v.compare_at_price : v.price).toFixed(2) + ' USD'
         , 'google_product_category': GB.google_categories[cat]
         , 'product_type': cat
         //, 'brand': Str.titleize(brand) || 'Wanderset'
@@ -255,6 +255,10 @@ Async.waterfall([
         , 'adwords_redirect': url + '?utm_source=google_adwords'
         , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
         };
+
+        if (v.compare_at_price && v.compare_at_price > v.price){
+          item['sale_price'] = v.price.toFixed(2) + ' USD';
+        }
 
         item['custom_label_0'] = item.__brand;
         item['custom_label_1'] = api;
