@@ -57,7 +57,7 @@ var ProductView = function(options, callback){
         //if (_.size(a.o.options) !== _.size((GB.product || GB.doc).options)) return cb();
 
         $.post('/product/' + self._id + '/availability.json', a.o
-        , Belt.cs(cb, gb, 'price', 0, 'data.price'));
+        , Belt.cs(cb, gb, 'data', 0, 'data'));
       }
     , function(cb){
         if (FSEnabled()){
@@ -65,6 +65,9 @@ var ProductView = function(options, callback){
             'checkAvailability_bool': true
           });
         }
+
+        gb['price'] = Belt.get(gb, 'data.price');
+        gb['compare_at_price'] = Belt.get(gb, 'data.compare_at_price') || Belt.get(gb, 'data.source.record.compare_at_price');
 
         if (gb.price){
           self.price = gb.price;
@@ -95,6 +98,14 @@ var ProductView = function(options, callback){
             , 'currency': 'USD'
             });
           }
+        }
+
+        if (
+             gb.price
+          && gb.compare_at_price
+          && Belt.cast(gb.compare_at_price, 'number') > Belt.cast(gb.data.price, 'number')
+        ){
+          gb.price = '<del class="text-danger">$' + Instance.priceString(gb.compare_at_price) + '</del>&nbsp;' + gb.price;
         }
 
         self.set({

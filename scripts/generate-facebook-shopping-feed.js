@@ -227,7 +227,7 @@ Async.waterfall([
         , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
         , 'title': Str.titleize(brand + p.label.us)
         , 'link': url
-        , 'price': v.price.toFixed(2) + ' USD'
+        , 'price': (v.compare_at_price && v.compare_at_price > v.price ? v.compare_at_price : v.price).toFixed(2) + ' USD'
         , 'brand': brand
         , 'additional_image_link': _.map(p.media.slice(1, 11), function(m){
             return m.url || m.remote_url;
@@ -251,6 +251,10 @@ Async.waterfall([
         , 'item_group_id': p._id
         , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
         };
+
+        if (v.compare_at_price && v.compare_at_price > v.price){
+          item['sale_price'] = v.price.toFixed(2) + ' USD';
+        }
 
         item['custom_label_0'] = item.__brand;
         item['custom_label_1'] = api;

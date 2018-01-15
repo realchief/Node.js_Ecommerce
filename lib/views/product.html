@@ -207,13 +207,13 @@
                       }).join(', ') %>
                     </h1>
                   <% } %>
+
                   <h2 data-set="price" data-set-method="html" class="mb-0 text-center-sm l-n goods-price"></h2>
                 </div>
                 <% if (Belt.get(doc, 'label.us')){ %>
                   <h3 class="l-n goods-subtitle"><%= doc.label.us %></h3>
                 <% } %>
               </div>
-
 
               <form action="" class="mb40">
                 <% _.each(doc.options, function(v, k){ %>
