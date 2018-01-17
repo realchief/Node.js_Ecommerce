@@ -43,7 +43,7 @@ var GB = _.defaults(O.argv, {
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'model': 'vendor'
-, 'order': '22153055 4377'
+, 'order': '221530554377'
 , 'transaction': {
     'amount': '37.99'
   , 'authorization': Belt.uuid()
