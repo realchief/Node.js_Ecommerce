@@ -530,6 +530,7 @@ var SetView = function(options, callback){
     , 'listing_label'
     , 'landing_label'
     ])));
+
     self.set(doc);
 
 /*
@@ -769,8 +770,8 @@ var SetView = function(options, callback){
     });
   };
 
-  gb.view['sortable_products'] = new Sortable(gb.view.$el.find('[name="products"]')[0]);
-  gb.view['sortable_media'] = new Sortable(gb.view.$el.find('[name="medias"]')[0]);
+  gb.view['sortable_products'] = {}; //new Sortable(gb.view.$el.find('[name="products"]')[0]);
+  gb.view['sortable_media'] = {}; //new Sortable(gb.view.$el.find('[name="medias"]')[0]);
 
   gb.view['method'] = a.o.method;
   gb.view['_id'] = a.o._id;

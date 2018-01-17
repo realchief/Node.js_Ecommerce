@@ -226,18 +226,6 @@
             </fieldset>
           <% } %>
           <div class="hr-line-dashed"></div>
-          <fieldset>
-            <legend>Products <button name="product_create" class="btn btn-default">Add New</button></legend>
-            <div name="products" data-get="products" data-get-method="html()" data-set="products" data-set-method="html" data-set-transformer="product_subviews"></div>
-            <div class="hr-line-dashed"></div>
-          </fieldset>
-          <div class="hr-line-dashed"></div>
-          <fieldset>
-            <legend>Media <button name="media_create" class="btn btn-default">Add New</button></legend>
-            <div name="medias" data-get="media" data-get-method="html()" data-set="media" data-set-method="html" data-set-transformer="media_subviews"></div>
-            <div class="hr-line-dashed"></div>
-          </fieldset>
-          <div class="hr-line-dashed"></div>
         </form>
         <div class="pull-right">
           <% if (data.button_title !== 'Create'){ %>
