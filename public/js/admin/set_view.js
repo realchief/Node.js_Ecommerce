@@ -532,6 +532,7 @@ var SetView = function(options, callback){
     ])));
     self.set(doc);
 
+/*
     self.$el.find('[name="product"] [name="_id"]').each(function(i, e){
       self.loadProductPreview({
         'el': e
@@ -543,6 +544,7 @@ var SetView = function(options, callback){
         'el': e
       });
     });
+*/
   };
 
   gb.view['loadProductPreview'] = function(options, callback){
@@ -552,6 +554,8 @@ var SetView = function(options, callback){
     a.o = _.defaults(a.o, {
       //el
     });
+
+    return;
 
     var $el = $(a.o.el)
       , val = $el.val();
@@ -577,6 +581,8 @@ var SetView = function(options, callback){
     a.o = _.defaults(a.o, {
       //el
     });
+
+    return;
 
     var $el = $(a.o.el)
       , val = $el.val();
