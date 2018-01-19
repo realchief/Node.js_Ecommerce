@@ -509,16 +509,16 @@ module.exports = function(options, Instance){
         '/men/apparel'
       , '/men/footwear'
       ] : [
-      /* '/streetammo'*
+       '/streetammo'
       , '/mister-tee'
-      ,*/ '/kappa'
-      /*, '/adidas'
+      , '/kappa'
+      , '/adidas'
       , '/nike_sb'
       , '/nike'
       , '/adidas_skateboarding'
       , '/reebok'
       , '/puma'
-      , '/carhartt'*/
+      , '/carhartt'
       ]
     });
 
@@ -529,12 +529,16 @@ module.exports = function(options, Instance){
             , tries = 0;
 
           self.CrawlCategoryPage({
-            'index': 1
+            'index': 0
           , 'category': c
           }, function(err, urls, indexes){
-            if (!_.any(indexes)) indexes = [
-              '0'
-            ];
+            if (!_.any(indexes)){
+              indexes = [
+                '0'
+              ];
+            } else {
+              indexes.unshift('0');
+            }
 
             _.each(indexes, function(i){
               self.CategoryQueue.push(function(cb3){
