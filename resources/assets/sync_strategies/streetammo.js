@@ -510,15 +510,15 @@ module.exports = function(options, Instance){
       , '/men/footwear'
       ] : [
         '/streetammo'
-      , '/mister-tee'
+      //, '/mister-tee'
       , '/kappa'
-      , '/adidas'
+      /*, '/adidas'
       , '/nike_sb'
       , '/nike'
       , '/adidas_skateboarding'
       , '/reebok'
       , '/puma'
-      , '/carhartt'
+      , '/carhartt'*/
       ]
     });
 
