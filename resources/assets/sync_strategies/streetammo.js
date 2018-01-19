@@ -533,7 +533,7 @@ module.exports = function(options, Instance){
           , 'category': c
           }, function(err, urls, indexes){
             if (!_.any(indexes)) indexes = [
-              '1'
+              '0'
             ];
 
             _.each(indexes, function(i){
