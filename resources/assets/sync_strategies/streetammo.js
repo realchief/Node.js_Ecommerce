@@ -524,7 +524,7 @@ module.exports = function(options, Instance){
 
     Async.waterfall([
       function(cb){
-        return Async.eachLimit(a.o.categories,  a.o.crawler_concurrency, function(c, cb2){
+        return Async.eachLimit(_.shuffle(a.o.categories),  a.o.crawler_concurrency, function(c, cb2){
           var category = c
             , tries = 0;
 
