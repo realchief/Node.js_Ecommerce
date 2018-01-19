@@ -532,6 +532,10 @@ module.exports = function(options, Instance){
             'index': 1
           , 'category': c
           }, function(err, urls, indexes){
+            if (_.any(indexes)) indexes = [
+              '1'
+            ];
+
             _.each(indexes, function(i){
               self.CategoryQueue.push(function(cb3){
                 self.SyncCategoryPage(_.extend({}, a.o, {
