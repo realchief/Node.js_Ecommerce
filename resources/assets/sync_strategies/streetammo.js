@@ -509,9 +509,9 @@ module.exports = function(options, Instance){
         '/men/apparel'
       , '/men/footwear'
       ] : [
-        '/streetammo'
-      //, '/mister-tee'
-      , '/kappa'
+      /* '/streetammo'*
+      , '/mister-tee'
+      ,*/ '/kappa'
       /*, '/adidas'
       , '/nike_sb'
       , '/nike'
