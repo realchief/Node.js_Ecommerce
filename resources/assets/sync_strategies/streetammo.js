@@ -423,13 +423,13 @@ module.exports = function(options, Instance){
 
         if (!gb.brand) return cb();
 
-        self.instance.db.model('set').findOne({
+        Instance.db.model('set').findOne({
           'brand': true
         , 'name': new RegExp('^' + self.instance.escapeRegExp(gb.brand) + '$', 'i')
         }, Belt.cs(cb, gb, 'brand_set', 1));
       }
     , function(cb){
-        gb.brand_set = gb.brand_set || S.instance.db.model('set')({
+        gb.brand_set = gb.brand_set || Instance.db.model('set')({
           'brand': true
         , 'hide': true
         , 'name': gb.brand
