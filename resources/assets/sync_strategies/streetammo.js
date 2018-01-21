@@ -425,7 +425,7 @@ module.exports = function(options, Instance){
 
         Instance.db.model('set').findOne({
           'brand': true
-        , 'name': new RegExp('^' + self.instance.escapeRegExp(gb.brand) + '$', 'i')
+        , 'name': new RegExp('^' + Instance.escapeRegExp(gb.brand) + '$', 'i')
         }, Belt.cs(cb, gb, 'brand_set', 1));
       }
     , function(cb){
