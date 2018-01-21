@@ -24,6 +24,7 @@ module.exports = function(options, Instance){
     })
   , 'crawler_concurrency': 5
   , 'xml_feed_url': 'https://www.streetammo.dk/export/trendsales.xml'
+  , 'stock_update_url': 'https://www.streetammo.dk/api/rest/stockchanges'
   });
 
   var S = {};
@@ -69,6 +70,7 @@ module.exports = function(options, Instance){
       , gb = {};
     a.o = _.defaults(a.o, {
       'url': S.settings.xml_feed_url
+    , 'update_url': S.settings.stock_update_url
     });
 
     Async.waterfall([
@@ -79,6 +81,8 @@ module.exports = function(options, Instance){
         , 'timeout': 1000 * 60 * 5
         }, function(err, res, xml){
           if (err || !xml) return cb(err || new Error('Streetammo feed not downloaded'));
+
+          gb['last_modified'] = Moment.utc(res.headers['last-modified'], 'ddd, DD MMM YYYY HH:mm:ss').toDate();
 
           gb['xml'] = xml;
 
@@ -121,13 +125,50 @@ module.exports = function(options, Instance){
             });
           });
 
-          Instance['streetammo_feed'] = gb.xml;
+          //Instance['streetammo_feed'] = gb.xml;
           cb();
         } else {
           cb(new Error('Streetammo feed not loaded'));
         }
       }
+    , function(cb){
+        gb['vendor'] = _.find(Instance.vendor_ids, function(n){
+          return (n.name || '').match(/streetammo/i);
+        });
+
+        if (!gb.vendor) return cb();
+
+        Request({
+          'url': a.o.update_url
+        , 'auth': {
+            'user': gb.vendor.custom_sync.details.auth.user
+          , 'pass': gb.vendor.custom_sync.details.auth.password
+          }
+        , 'qs': {
+            'time': Moment.utc(gb.last_modified).format('YYYY-MM-DD HH:mm:ss')
+          }
+        , 'method': 'get'
+        , 'json': true
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, json){
+          if (err || !json) return cb();
+
+          gb['updates'] = _.object(_.pluck(json, 'id'), _.pluck(json, 'quantity'));
+
+          _.each(gb.xml, function(x){
+            _.each(x.variant, function(v){
+              if (Belt.isNull(gb.updates[v.sku])) return;
+
+              v['stock'] = Belt.cast(gb.updates[v.sku], 'string');
+            });
+          });
+
+          cb();
+        });
+      }
     ], function(err){
+      if (!err && gb.xml) Instance['streetammo_feed'] = gb.xml;
+
       a.cb(err, gb.xml);
     });
   };
@@ -378,18 +419,32 @@ module.exports = function(options, Instance){
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
     , function(cb){
-        if (!a.o.product.brand) return cb();
+        gb['brand'] = Belt.get(gb, 'doc.brands.0');
 
-        Instance.db.model('set').findOne({
+        if (!gb.brand) return cb();
+
+        self.instance.db.model('set').findOne({
           'brand': true
-        , 'name': new RegExp('^' + Instance.escapeRegExp(a.o.product.brand) + '$', 'i')
-        , 'vendor': {
-            '$exists': false
-          }
-        }, Belt.cs(cb, gb, 'brand_set', 1, 0));
+        , 'name': new RegExp('^' + self.instance.escapeRegExp(gb.brand) + '$', 'i')
+        }, Belt.cs(cb, gb, 'brand_set', 1));
       }
     , function(cb){
-        if (!gb.brand_set) return cb();
+        gb.brand_set = gb.brand_set || S.instance.db.model('set')({
+          'brand': true
+        , 'hide': true
+        , 'name': gb.brand
+        , 'slug': Str.slugify(gb.brand)
+        , 'label': {
+            'us': gb.brand
+          }
+        , 'landing_label': {
+            'us': gb.brand
+          }
+        , 'listing_label': {
+            'us': gb.brand
+          }
+        , 'logo_label': gb.brand
+        });
 
         if (_.some(gb.brand_set.products, function(p){
           return p.toString() === gb.doc.get('_id').toString();
