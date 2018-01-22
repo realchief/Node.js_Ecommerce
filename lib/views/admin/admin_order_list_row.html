@@ -128,9 +128,14 @@
             <% } %>
           <% } %>
         </p>
-        <% if (v.source.order){ %>
+        <% if (Belt.get(v, 'source.order.order.id')){ %>
           <p>
             <span class="label label-success">Order <%= Belt.get(v, 'source.order.order.name') %> | ID #<%= Belt.get(v, 'source.order.order.id') %></span>
+          </p>
+        <% } %>
+        <% if (Belt.get(v, 'source.order.errors')){ %>
+          <p>
+            <span class="label label-danger"><%= Belt.stringify(v.source.order) %></span>
           </p>
         <% } %>
       <% }) %>

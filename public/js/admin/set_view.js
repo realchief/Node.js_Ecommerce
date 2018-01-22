@@ -126,6 +126,18 @@ var SetView = function(options, callback){
           });
         });
       }
+    , 'click [name="sync_from_sets_update"]': function(e){
+        e.preventDefault();
+        var self = this;
+
+        self.bulkUpdate(function(err, gb){
+          if (err) return bootbox.alert(err.message);
+
+          self.loadDoc({
+            'doc': gb.doc
+          });
+        });
+      }
     }
   , 'transformers': {
       'split_lines': function(val){
@@ -716,6 +728,15 @@ var SetView = function(options, callback){
           '_id': p.replace(/\W/g, '')
         };
       }))
+    , 'sync_from_sets': Belt.arrayDefalse(_.map(self.$el.find('[name="sync_from_sets"]').val().split(/\s*\n+\s*/), function(p){
+        if (!p) return;
+
+        //return p.replace(/\W/g, '');
+
+        return {
+          '_id': p.replace(/\W/g, '')
+        };
+      }))
     , 'products': Belt.arrayDefalse(_.map(self.$el.find('[name="products_bulk"]').val().split(/\s*\n+\s*/), function(p){
         if (!p) return;
 
@@ -729,6 +750,7 @@ var SetView = function(options, callback){
       return Belt.equal(v, self.doc[k]);
     });
 
+    if (Belt.equal(gb.update.sync_from_sets, [])) gb.update.sync_from_sets = [''];
     if (Belt.equal(gb.update.products, [])) gb.update.products = [''];
     if (Belt.equal(gb.update.media, [])) gb.update.media = [''];
 

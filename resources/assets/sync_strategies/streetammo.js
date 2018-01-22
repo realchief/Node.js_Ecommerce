@@ -23,7 +23,7 @@ module.exports = function(options, Instance){
       return 'http://localhost:' + (10235 + i);
     })
   , 'crawler_concurrency': 5
-  , 'xml_feed_url': 'https://www.streetammo.dk/export/trendsales.xml'
+  , 'xml_feed_url': 'https://www.streetammo.dk/export/googlepla.xml' //'https://www.streetammo.dk/export/trendsales.xml'
   , 'stock_update_url': 'https://www.streetammo.dk/api/rest/stockchanges'
   });
 
