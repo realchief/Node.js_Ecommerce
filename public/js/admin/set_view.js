@@ -200,6 +200,9 @@ var SetView = function(options, callback){
     , 'bulk_items': function(val){
         return _.pluck(val, '_id').join('\n');
       }
+    , 'array_to_text': function(val){
+        return (val || []).join('\n');
+      }
     , 'get:media': function(val, $el){
         var vals = [];
         $el.find('[name="_id"]').each(function(i, e){
@@ -731,11 +734,7 @@ var SetView = function(options, callback){
     , 'sync_from_sets': Belt.arrayDefalse(_.map(self.$el.find('[name="sync_from_sets"]').val().split(/\s*\n+\s*/), function(p){
         if (!p) return;
 
-        //return p.replace(/\W/g, '');
-
-        return {
-          '_id': p.replace(/\W/g, '')
-        };
+        return p.replace(/\W/g, '');
       }))
     , 'products': Belt.arrayDefalse(_.map(self.$el.find('[name="products_bulk"]').val().split(/\s*\n+\s*/), function(p){
         if (!p) return;

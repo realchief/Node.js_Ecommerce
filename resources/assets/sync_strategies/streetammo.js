@@ -23,7 +23,8 @@ module.exports = function(options, Instance){
       return 'http://localhost:' + (10235 + i);
     })
   , 'crawler_concurrency': 5
-  , 'xml_feed_url': 'https://www.streetammo.dk/export/googlepla.xml' //'https://www.streetammo.dk/export/trendsales.xml'
+  , 'google_shopping_feed_url': 'https://www.streetammo.dk/export/googlepla.xml'
+  , 'xml_feed_url': 'https://www.streetammo.dk/export/trendsales.xml'
   , 'stock_update_url': 'https://www.streetammo.dk/api/rest/stockchanges'
   });
 
@@ -63,6 +64,113 @@ module.exports = function(options, Instance){
   , 'other'
 //  , 'nike'
   ].join('|'), 'i');
+
+  S['LoadGoogleShoppingFeed'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'url': S.settings.google_shopping_feed_url
+    , 'update_url': S.settings.stock_update_url
+    });
+
+    Async.waterfall([
+      function(cb){
+        Request({
+          'url': a.o.url
+        , 'method': 'get'
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, xml){
+          if (err || !xml) return cb(err || new Error('Streetammo feed not downloaded'));
+
+          gb['last_modified'] = Moment.utc(res.headers['last-modified'], 'ddd, DD MMM YYYY HH:mm:ss').toDate();
+
+          gb['xml'] = xml;
+
+          cb();
+        });
+      }
+    , function(cb){
+        XMLParser.parseString(gb.xml, Belt.cs(cb, gb, 'xml', 1, 0));
+      }
+    , function(cb){
+        if (gb.xml){
+          gb.xml = Belt.get(gb.xml, 'rss.channel.0.item');
+
+          gb.xml = _.map(gb.xml, function(v){
+            return _.mapObject(v, function(v2){
+              return v2 ? v2[0] : v2;
+            });
+          });
+
+          gb.xml = _.map(gb.xml, function(v){
+            return _.object(_.map(v, function(v2, k2){
+              return k2.replace(/^g:/, '');
+            }), _.values(v));
+          });
+
+          _.each(gb.xml, function(v){
+            v.id = v.id.split('-').pop();
+          });
+
+          gb.xml = _.filter(gb.xml, function(v){
+            return v.gender === 'male';
+          });
+
+          gb.xml = _.groupBy(gb.xml, function(v){
+            return v['item_group_id'];
+          });
+
+          //Instance['streetammo_feed'] = gb.xml;
+          cb();
+        } else {
+          cb(new Error('Streetammo feed not loaded'));
+        }
+      }
+    , function(cb){
+        gb['vendor'] = _.find(Instance.vendor_ids, function(n){
+          return (n.name || '').match(/streetammo/i);
+        });
+
+        if (!gb.vendor) return cb();
+
+        Request({
+          'url': a.o.update_url
+        , 'auth': {
+            'user': gb.vendor.custom_sync.details.auth.user
+          , 'pass': gb.vendor.custom_sync.details.auth.password
+          }
+        , 'qs': {
+            'time': Moment.utc(gb.last_modified).format('YYYY-MM-DD HH:mm:ss')
+          }
+        , 'method': 'get'
+        , 'json': true
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, json){
+          if (err || !json) return cb();
+
+          gb['updates'] = _.object(_.pluck(json, 'id'), _.pluck(json, 'quantity'));
+
+          _.each(gb.xml, function(x){
+            _.each(x, function(v){
+              if (Belt.isNull(gb.updates[v.id])){
+                console.log(v)
+                return;
+              }
+
+              v['available_quantity'] = Belt.cast(gb.updates[v.sku], 'string');
+            });
+          });
+
+          cb();
+        });
+      }
+    ], function(err){
+      if (!err && gb.xml) Instance['streetammo_feed'] = gb.xml;
+
+      a.cb(err, gb.xml);
+    });
+  };
 
   S['LoadProductFeed'] = function(options, callback){
     var a = Belt.argulint(arguments)
@@ -172,6 +280,15 @@ module.exports = function(options, Instance){
       a.cb(err, gb.xml);
     });
   };
+
+  Instance.express.all('/admin/streetammo/google/feed.json', function(req, res){
+    S.LoadGoogleShoppingFeed(function(err, json){
+      res.status(200).json({
+        'error': Belt.get(err, 'message')
+      , 'data': json
+      });
+    });
+  });
 
   Instance.express.all('/admin/streetammo/feed.json', function(req, res){
     S.LoadProductFeed(function(err, json){
