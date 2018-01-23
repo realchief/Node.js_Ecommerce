@@ -105,7 +105,7 @@ var ProductView = function(options, callback){
           && gb.compare_at_price
           && Belt.cast(gb.compare_at_price, 'number') > Belt.cast(gb.data.price, 'number')
         ){
-          gb.price = '<del class="text-danger">$' + Instance.priceString(gb.compare_at_price) + '</del>&nbsp;' + gb.price;
+          gb.price = '<del>$' + Instance.priceString(gb.compare_at_price) + '</del>&nbsp;<span class="text-danger">' + gb.price + '</span>';
         }
 
         self.set({

@@ -154,12 +154,26 @@ module.exports = function(options, Instance){
           _.each(gb.xml, function(x){
             _.each(x, function(v){
               if (Belt.isNull(gb.updates[v.id])){
-                console.log(v)
+                v['quantity_available'] = 0;
                 return;
               }
 
-              v['available_quantity'] = Belt.cast(gb.updates[v.sku], 'string');
+              v['quantity_available'] = Belt.cast(gb.updates[v.id], 'number');
             });
+          });
+
+          _.each(gb.xml, function(x, k){
+            x = {
+              'product': _.omit(x[0], [
+                'sale_price'
+              , 'price'
+              , 'id'
+              , 'color'
+              , 'size'
+              , 'quantity_available'
+              ])
+            , 'variants': x
+            }
           });
 
           cb();
@@ -298,6 +312,281 @@ module.exports = function(options, Instance){
       });
     });
   });
+
+  S['UpdateGoogleShoppingProduct'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //product
+      //vendor
+      //last_sync
+      //synced_at
+      'dkk_to_usd': 0.16
+    });
+
+    Async.waterfall([
+      function(cb){
+        //gb['sku'] =
+        if (!gb.sku) return cb(new Error('sku is missing'));
+
+        Instance.log.warn('Syncing "' + gb.sku + '"');
+
+        Instance.db.model('product').findOne({
+          'sku': gb.sku
+        , 'vendor': a.o.vendor.get('_id')
+        }, Belt.cs(cb, gb, 'doc', 1, 0));
+      }
+    , function(cb){
+        gb.doc = gb.doc || Instance.db.model('product')({});
+
+        gb.doc.set({
+          'sku': gb.sku
+        , 'name': a.o.product.title
+        , 'label': {
+            'us': a.o.product.title
+          }
+        , 'description': {
+
+          }
+        , 'vendor': a.o.vendor.get('_id')
+        , 'brands': false && Belt.get(gb.doc, 'brands.0') ? gb.doc.brands : (a.o.product.brand ? [
+            a.o.product.brand
+          ] : [])
+        , 'last_sync': a.o.last_sync
+        , 'synced_at': a.o.synced_at
+        , 'source': {
+            'platform': a.o.vendor.get('custom_sync.strategy')
+          , 'record': a.o.product
+          }
+        , 'skip_media_processing': true
+        });
+
+        gb['options'] = {};
+
+        if (a.o.product.color) gb.options['color'] = {
+          'name': 'color'
+        , 'label': {
+            'us': 'color'
+          }
+        , 'values': {
+            'us': [
+              a.o.product.color
+            ]
+          }
+        };
+
+        if (_.any(a.o.product.sizes)) gb.options['size'] = {
+          'name': 'size'
+        , 'label': {
+            'us': 'size'
+          }
+        , 'values': {
+            'us': a.o.product.sizes
+          }
+        };
+
+        gb.doc.set({
+          'options': gb.options
+        });
+
+        gb.doc.media = _.filter(gb.doc.media, function(m){
+          return _.some(a.o.product.images, function(i){
+            return i === m.remote_url;
+          });
+        }) || [];
+
+        _.each(a.o.product.images, function(i){
+          if (_.some(gb.doc.media, function(m){
+            return i === m.remote_url;
+          })) return;
+
+          gb.doc.media.push({
+            'remote_url': i
+          , 'skip_processing': true
+          });
+        });
+
+        gb.doc.media = _.sortBy(gb.doc.media, function(m){
+          return _.indexOf(a.o.product.images, m.remote_url);
+        });
+
+        _.each(gb.doc.media, function(m){
+          m['skip_processing'] = true;
+        });
+
+        if (a.o.product.brand && a.o.product.brand.match(a.o.brand_regex)){
+          gb.doc.set({
+            'sync_hide': true
+          , 'hide_note': 'brand is blocked'
+          });
+        } else if (!a.o.product.availability){
+          gb.doc.set({
+            'sync_hide': true
+          , 'hide_note': 'product is unavailable'
+          });
+        } else {
+          gb.doc.set({
+            'sync_hide': false
+          });
+
+          gb['price'] = a.o.product.price;
+          gb.price = Belt.cast(gb.price, 'number') || 0;
+          gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
+
+          if (a.o.product.compare_to_price){
+            gb['compare_at_price'] = a.o.product.compare_to_price;
+            gb.compare_at_price = Belt.cast(gb.compare_at_price, 'number') || 0;
+            gb.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb.compare_at_price);
+          }
+        }
+
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
+      }
+    , function(cb){
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb['stocks'] = [];
+        if (!gb.price) return cb();
+
+        Async.eachSeries(gb.doc.getOptionConfigurations() || [true], function(v, cb2){
+          var gb2 = {};
+
+          if (v === true){
+            gb2['no_options'] = true;
+          } else {
+            gb2['options'] = _.mapObject(v, function(v2, k2){
+              return {
+                'value': v2
+              , 'alias': k2
+              , 'alias_value': v2
+              };
+            });
+          }
+
+          Async.waterfall([
+            function(cb3){
+              if (v === true){
+                Instance.db.model('stock').findOne({
+                  '$or': [
+                    {
+                      'options': {}
+                    }
+                  , {
+                      'options': {
+                        '$exists': false
+                      }
+                    }
+                  ]
+                , 'vendor': a.o.vendor.get('_id')
+                , 'product': gb.doc.get('_id')
+                }, Belt.cs(cb3, gb2, 'stock', 1, 0));
+              } else {
+                Instance.db.model('stock').findOne({
+                  'options': gb2.options
+                , 'vendor': a.o.vendor.get('_id')
+                , 'product': gb.doc.get('_id')
+                }, Belt.cs(cb3, gb2, 'stock', 1, 0));
+              }
+            }
+          , function(cb3){
+              gb2.stock = gb2.stock || Instance.db.model('stock')({});
+
+              gb2.stock.set({
+                'product': gb.doc.get('_id')
+              , 'vendor': a.o.vendor.get('_id')
+              , 'sku': Crypto.createHash('md5')
+                             .update(gb.doc.get('_id').toString() + (gb.no_options ? '' : JSON.stringify(v)))
+                             .digest('hex')
+              , 'source': {
+                  'platform': a.o.vendor.get('custom_sync.strategy')
+                , 'record': a.o.product
+                }
+              , 'last_sync': a.o.last_sync
+              , 'synced_at': a.o.synced_at
+              , 'options': gb2.options
+              , 'price': gb.price
+              , 'list_price': gb.price
+              , 'compare_at_price': gb.compare_at_price || null
+              , 'available_quantity': a.o.base_quantity
+              });
+
+              gb2.stock.save(Belt.cs(cb3, gb2, 'stock', 1, 0));
+            }
+          , function(cb3){
+              gb.stocks.push(gb2.stock.get('_id'));
+
+              cb3();
+            }
+          ], Belt.cw(cb2, 0));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        gb.doc.set({
+          'stocks': gb.stocks || []
+        });
+
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb.doc.populate('stocks', Belt.cs(cb, gb, 'doc', 1, 0));
+      }
+    , function(cb){
+        gb.doc.getConfigurations();
+
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
+      }
+    , function(cb){
+        gb['brand'] = Belt.get(gb, 'doc.brands.0');
+
+        if (!gb.brand) return cb();
+
+        Instance.db.model('set').findOne({
+          'brand': true
+        , 'name': new RegExp('^' + Instance.escapeRegExp(gb.brand) + '$', 'i')
+        }, Belt.cs(cb, gb, 'brand_set', 1));
+      }
+    , function(cb){
+        gb.brand_set = gb.brand_set || Instance.db.model('set')({
+          'brand': true
+        , 'hide': true
+        , 'name': gb.brand
+        , 'slug': Str.slugify(gb.brand)
+        , 'label': {
+            'us': gb.brand
+          }
+        , 'landing_label': {
+            'us': gb.brand
+          }
+        , 'listing_label': {
+            'us': gb.brand
+          }
+        , 'logo_label': gb.brand
+        });
+
+        if (_.some(gb.brand_set.products, function(p){
+          return p.toString() === gb.doc.get('_id').toString();
+        })) return cb();
+
+        gb.brand_set.products.unshift(gb.doc.get('_id'));
+
+        gb.brand_set.save(Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err, gb.doc);
+    });
+  };
 
   S['UpdateProduct'] = function(options, callback){
     var a = Belt.argulint(arguments)
