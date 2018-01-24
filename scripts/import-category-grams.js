@@ -88,7 +88,7 @@ var GB = _.defaults(O.argv, {
     });
 
     if (_.any(hgrams) && !o.show){
-      update['sync_hide'] = true;
+      update['hide'] = true;
       update['hide_note'] = 'grams check: ' + _.pluck(hgrams, 'gram').join(', ');
     }
 
