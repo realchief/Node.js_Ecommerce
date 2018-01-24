@@ -162,8 +162,8 @@ module.exports = function(options, Instance){
             });
           });
 
-          _.each(gb.xml, function(x, k){
-            x = {
+          gb.xml = _.mapObject(gb.xml, function(x, k){
+            return {
               'product': _.omit(x[0], [
                 'sale_price'
               , 'price'
@@ -173,7 +173,7 @@ module.exports = function(options, Instance){
               , 'quantity_available'
               ])
             , 'variants': x
-            }
+            };
           });
 
           cb();

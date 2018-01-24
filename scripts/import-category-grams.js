@@ -121,6 +121,8 @@ var GB = _.defaults(O.argv, {
     }, function(err, res, json){
       //console.log(Belt.stringify(json));
 
+      console.log(o.slug + ': ' + update.hide_note);
+
       cb();
     });
   }
