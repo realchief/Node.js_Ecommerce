@@ -427,45 +427,16 @@ module.exports = function(options, Instance){
         gb['stocks'] = [];
         if (!gb.price) return cb();
 
-        Async.eachSeries(gb.doc.getOptionConfigurations() || [true], function(v, cb2){
+        Async.eachSeries(a.o.product.variants, function(v, cb2){
           var gb2 = {};
-
-          if (v === true){
-            gb2['no_options'] = true;
-          } else {
-            gb2['options'] = _.mapObject(v, function(v2, k2){
-              return {
-                'value': v2
-              , 'alias': k2
-              , 'alias_value': v2
-              };
-            });
-          }
 
           Async.waterfall([
             function(cb3){
-              if (v === true){
-                Instance.db.model('stock').findOne({
-                  '$or': [
-                    {
-                      'options': {}
-                    }
-                  , {
-                      'options': {
-                        '$exists': false
-                      }
-                    }
-                  ]
-                , 'vendor': a.o.vendor.get('_id')
-                , 'product': gb.doc.get('_id')
-                }, Belt.cs(cb3, gb2, 'stock', 1, 0));
-              } else {
-                Instance.db.model('stock').findOne({
-                  'options': gb2.options
-                , 'vendor': a.o.vendor.get('_id')
-                , 'product': gb.doc.get('_id')
-                }, Belt.cs(cb3, gb2, 'stock', 1, 0));
-              }
+              Instance.db.model('stock').findOne({
+                'options': gb2.options
+              , 'vendor': a.o.vendor.get('_id')
+              , 'product': gb.doc.get('_id')
+              }, Belt.cs(cb3, gb2, 'stock', 1, 0));
             }
           , function(cb3){
               gb2.stock = gb2.stock || Instance.db.model('stock')({});
