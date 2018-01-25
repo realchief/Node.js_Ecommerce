@@ -322,7 +322,7 @@ module.exports = function(options, Instance){
       //vendor
       //last_sync
       //synced_at
-      'dkk_to_usd': 0.16
+      'dkk_to_usd': Instance.DKKtoUSD()
     });
 
     Async.waterfall([
@@ -598,7 +598,7 @@ module.exports = function(options, Instance){
       //last_sync
       //synced_at
       'base_quantity': 3
-    , 'dkk_to_usd': 0.16
+    , 'dkk_to_usd': Instance.DKKtoUSD()
     , 'brand_regex': S.brand_regex
     });
 
