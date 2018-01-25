@@ -163,17 +163,16 @@ module.exports = function(options, Instance){
           });
 
           gb.xml = _.mapObject(gb.xml, function(x, k){
-            return {
-              'product': _.omit(x[0], [
-                'sale_price'
-              , 'price'
-              , 'id'
-              , 'color'
-              , 'size'
-              , 'quantity_available'
-              ])
-            , 'variants': x
-            };
+            return _.extend({}, _.omit(x[0], [
+            //  'sale_price'
+            //, 'price'
+              'id'
+            , 'color'
+            , 'size'
+            , 'quantity_available'
+            ]), {
+              'variants': x
+            });
           });
 
           cb();
@@ -327,7 +326,7 @@ module.exports = function(options, Instance){
 
     Async.waterfall([
       function(cb){
-        //gb['sku'] =
+        gb['sku'] = a.o.product.item_group_id
         if (!gb.sku) return cb(new Error('sku is missing'));
 
         Instance.log.warn('Syncing "' + gb.sku + '"');
@@ -346,13 +345,13 @@ module.exports = function(options, Instance){
         , 'label': {
             'us': a.o.product.title
           }
-        , 'description': {
-
-          }
+        , 'description': a.o.product.description ? {
+            'us': a.o.product.description
+          } : {}
         , 'vendor': a.o.vendor.get('_id')
-        , 'brands': false && Belt.get(gb.doc, 'brands.0') ? gb.doc.brands : (a.o.product.brand ? [
+        , 'brands': [
             a.o.product.brand
-          ] : [])
+          ]
         , 'last_sync': a.o.last_sync
         , 'synced_at': a.o.synced_at
         , 'source': {
@@ -364,31 +363,9 @@ module.exports = function(options, Instance){
 
         gb['options'] = {};
 
-        if (a.o.product.color) gb.options['color'] = {
-          'name': 'color'
-        , 'label': {
-            'us': 'color'
-          }
-        , 'values': {
-            'us': [
-              a.o.product.color
-            ]
-          }
-        };
-
-        if (_.any(a.o.product.sizes)) gb.options['size'] = {
-          'name': 'size'
-        , 'label': {
-            'us': 'size'
-          }
-        , 'values': {
-            'us': a.o.product.sizes
-          }
-        };
-
-        gb.doc.set({
-          'options': gb.options
-        });
+        a.o.product.images = Belt.arrayDefalse([
+          a.o.product.image_link
+        ]);
 
         gb.doc.media = _.filter(gb.doc.media, function(m){
           return _.some(a.o.product.images, function(i){
@@ -415,12 +392,7 @@ module.exports = function(options, Instance){
           m['skip_processing'] = true;
         });
 
-        if (a.o.product.brand && a.o.product.brand.match(a.o.brand_regex)){
-          gb.doc.set({
-            'sync_hide': true
-          , 'hide_note': 'brand is blocked'
-          });
-        } else if (!a.o.product.availability){
+        if (a.o.product.availability !== 'in stock'){
           gb.doc.set({
             'sync_hide': true
           , 'hide_note': 'product is unavailable'
@@ -430,12 +402,12 @@ module.exports = function(options, Instance){
             'sync_hide': false
           });
 
-          gb['price'] = a.o.product.price;
+          gb['price'] = (a.o.product.sale_price || a.o.product.price || '').replace(/\D/g, '');
           gb.price = Belt.cast(gb.price, 'number') || 0;
           gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
 
-          if (a.o.product.compare_to_price){
-            gb['compare_at_price'] = a.o.product.compare_to_price;
+          if (a.o.product.sale_price){
+            gb['compare_at_price'] = (a.o.product.price || '').replace(/\D/g, '');
             gb.compare_at_price = Belt.cast(gb.compare_at_price, 'number') || 0;
             gb.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb.compare_at_price);
           }

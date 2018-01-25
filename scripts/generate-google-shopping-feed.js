@@ -229,7 +229,7 @@ Async.waterfall([
             return m.url || m.remote_url;
           }).join(',')
         , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
-        , 'price': (v.compare_at_price && v.compare_at_price > v.price ? v.compare_at_price : v.price).toFixed(2) + ' USD'
+        , 'price': (p.compare_at_price && p.compare_at_price > v.price ? p.compare_at_price : v.price).toFixed(2) + ' USD'
         , 'google_product_category': GB.google_categories[cat]
         , 'product_type': cat
         //, 'brand': Str.titleize(brand) || 'Wanderset'
@@ -256,7 +256,7 @@ Async.waterfall([
         , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
         };
 
-        if (v.compare_at_price && v.compare_at_price > v.price){
+        if (p.compare_at_price && p.compare_at_price > v.price){
           item['sale_price'] = v.price.toFixed(2) + ' USD';
         }
 

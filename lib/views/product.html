@@ -21,6 +21,8 @@
                    }).join(', ')
                 || cat);  %>
   <% var price = Instance.priceString(configuration.price); %>
+  <% var original_price = Instance.priceString(configuration.compare_at_price || 0); %>
+  <% var on_sale = configuration.compare_at_price && configuration.compare_at_price > configuration.price ? true : false; %>
   <% var in_stock = Belt.get(configuration, 'available_quantity') > 0 ? true : false; %>
   <% var related_configurations = Belt.arrayDefalse(_.map(doc.configurations, function(v, k){
     if (v.sku === Belt.get(configuration, 'sku')) return false;
@@ -63,8 +65,17 @@
   <meta property="product:condition" content="new" />
   <% if (configuration){ %>
     <meta property="product:upc" content="<%= configuration.sku %>" />
-    <meta property="product:price:amount" content="<%= price %>" />
-    <meta property="product:price:currency" content="USD" />
+    <% if (on_sale){ %>
+      <meta property="product:price:amount" content="<%= price %>" />
+      <meta property="product:price:currency" content="USD" />
+      <meta property="product:sale_price:amount" content="<%= price %>" />
+      <meta property="product:sale_price:currency" content="USD" />
+      <meta property="product:original_price:amount" content="<%= original_price %>" />
+      <meta property="product:sale_price:currency" content="USD" />
+    <% } else { %>
+      <meta property="product:price:amount" content="<%= price %>" />
+      <meta property="product:price:currency" content="USD" />
+    <% } %>
     <meta property="product:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
   <% } %>
   <meta property="product:is_product_shareable" content="true" />
@@ -90,8 +101,17 @@
   <meta property="og:condition" content="new" />
   <% if (configuration){ %>
     <meta property="og:upc" content="<%= configuration.sku %>" />
-    <meta property="og:price:amount" content="<%= price %>" />
-    <meta property="og:price:currency" content="USD" />
+    <% if (on_sale){ %>
+      <meta property="og:price:amount" content="<%= price %>" />
+      <meta property="og:price:currency" content="USD" />
+      <meta property="og:sale_price:amount" content="<%= price %>" />
+      <meta property="og:sale_price:currency" content="USD" />
+      <meta property="og:original_price:amount" content="<%= original_price %>" />
+      <meta property="og:sale_price:currency" content="USD" />
+    <% } else { %>
+      <meta property="og:price:amount" content="<%= price %>" />
+      <meta property="og:price:currency" content="USD" />
+    <% } %>
     <meta property="og:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
   <% } %>
   <meta property="og:is_og_shareable" content="true" />
