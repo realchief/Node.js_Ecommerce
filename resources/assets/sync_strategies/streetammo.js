@@ -335,6 +335,11 @@ module.exports = function(options, Instance){
 
         Instance.log.warn('Syncing "' + gb.sku + '"');
 
+        self.CrawlProductPage(_.extend({}, a.o, {
+          'url': a.o.product.link
+        }), Belt.cs(cb, gb, 'crawl_prod', 1, 0));
+      }
+    , function(cb){
         Instance.db.model('product').findOne({
           'sku': gb.sku
         , 'vendor': a.o.vendor.get('_id')
@@ -370,6 +375,8 @@ module.exports = function(options, Instance){
         a.o.product.images = Belt.arrayDefalse([
           a.o.product.image_link
         ]);
+
+        a.o.product.images = a.o.product.images.concat(Belt.get(gb, 'crawl_prod.images') || []);
 
         gb.doc.media = _.filter(gb.doc.media, function(m){
           return _.some(a.o.product.images, function(i){
