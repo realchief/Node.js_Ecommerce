@@ -14,6 +14,7 @@ var Path = require('path')
   , Crypto = require('crypto')
   , XML = require('xml')
   , XMLParser = require('xml2js')
+  , OS = require('os')
 ;
 
 module.exports = function(options, Instance){
@@ -312,7 +313,7 @@ module.exports = function(options, Instance){
     });
   });
 
-  S['UpdateGoogleShoppingProduct'] = function(options, callback){
+  S['UpdateProduct'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
@@ -323,6 +324,9 @@ module.exports = function(options, Instance){
       //synced_at
       'dkk_to_usd': Instance.DKKtoUSD()
     });
+
+    console.log('STREETAMMO DKK to USD: ' + a.o.dkk_to_usd);
+    console.log('[STREETAMMO] Syncing "' + a.o.product.brand + ' ' + a.o.product.title + '"...');
 
     Async.waterfall([
       function(cb){
@@ -430,12 +434,29 @@ module.exports = function(options, Instance){
         Async.eachSeries(a.o.product.variants, function(v, cb2){
           var gb2 = {};
 
+          gb2['options'] = {};
+
+          if (v.color) gb2.options['color'] = v.color;
+          if (v.size) gb2.options['size'] = v.size.replace(/,/g, '.');
+
+          console.log('[STREETAMMO] Stocking "' + a.o.product.brand + ' ' + a.o.product.title + '" [' + JSON.stringify(gb2.options) + ']...');
+
+          gb2['price'] = (v.sale_price || v.price || '').replace(/\D/g, '');
+          gb2.price = Belt.cast(gb2.price, 'number') || 0;
+          gb2.price = Math.ceil(a.o.dkk_to_usd * gb2.price);
+
+          if (v.sale_price){
+            gb2['compare_at_price'] = (v.price || '').replace(/\D/g, '');
+            gb2.compare_at_price = Belt.cast(gb2.compare_at_price, 'number') || 0;
+            gb2.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb2.compare_at_price);
+          }
+
           Async.waterfall([
             function(cb3){
               Instance.db.model('stock').findOne({
-                'options': gb2.options
+                'source.record.id': v.id
               , 'vendor': a.o.vendor.get('_id')
-              , 'product': gb.doc.get('_id')
+              , 'source.record.item_group_id': v.item_group_id
               }, Belt.cs(cb3, gb2, 'stock', 1, 0));
             }
           , function(cb3){
@@ -445,19 +466,25 @@ module.exports = function(options, Instance){
                 'product': gb.doc.get('_id')
               , 'vendor': a.o.vendor.get('_id')
               , 'sku': Crypto.createHash('md5')
-                             .update(gb.doc.get('_id').toString() + (gb.no_options ? '' : JSON.stringify(v)))
+                             .update(gb.doc.get('_id').toString() + (!_.size(gb2.options) ? '' : JSON.stringify(gb2.options)))
                              .digest('hex')
               , 'source': {
                   'platform': a.o.vendor.get('custom_sync.strategy')
-                , 'record': a.o.product
+                , 'record': v
                 }
               , 'last_sync': a.o.last_sync
               , 'synced_at': a.o.synced_at
-              , 'options': gb2.options
-              , 'price': gb.price
-              , 'list_price': gb.price
-              , 'compare_at_price': gb.compare_at_price || null
-              , 'available_quantity': a.o.base_quantity
+              , 'options': _.mapObject(gb2.options, function(v2, k2){
+                  return {
+                    'value': v2
+                  , 'alias': k2
+                  , 'alias_value': v2
+                  };
+                })
+              , 'price': gb2.price
+              , 'list_price': gb2.price
+              , 'compare_at_price': gb2.compare_at_price || null
+              , 'available_quantity': v.quantity_available || 0
               });
 
               gb2.stock.save(Belt.cs(cb3, gb2, 'stock', 1, 0));
@@ -531,7 +558,7 @@ module.exports = function(options, Instance){
     });
   };
 
-  S['UpdateProduct'] = function(options, callback){
+  S['old_UpdateProduct'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
@@ -544,6 +571,8 @@ module.exports = function(options, Instance){
     , 'dkk_to_usd': Instance.DKKtoUSD()
     , 'brand_regex': S.brand_regex
     });
+
+    console.log('STREETAMMO DKK to USD: ' + a.o.dkk_to_usd);
 
     Async.waterfall([
       function(cb){
@@ -1042,7 +1071,7 @@ module.exports = function(options, Instance){
     });
   };
 
-  S['SyncVendor'] = function(options, callback){
+  S['old_SyncVendor'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
@@ -1062,6 +1091,76 @@ module.exports = function(options, Instance){
         self.IterateProducts(a.o, Belt.cw(cb, 0));
       }
 /*    , function(cb){
+        Instance.db.model('product').find({
+          'vendor': a.o.vendor.get('_id')
+        , 'last_sync': {
+            '$ne': gb.last_sync
+          }
+        }, Belt.cs(cb, gb, 'remove_products', 1, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.remove_products || [], function(e, cb2){
+          e.set({
+            'sync_hide': true
+          , 'hide_note': 'sync - removed when not synced'
+          });
+
+          e.save(Belt.cw(cb2));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Instance.db.model('stock').find({
+          'vendor': a.o.vendor.get('_id')
+        , 'last_sync': {
+            '$ne': gb.last_sync
+          }
+        }, Belt.cs(cb, gb, 'remove_stocks', 1, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
+          e.remove(Belt.cw(cb2));
+        }, Belt.cw(cb, 0));
+      }*/
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  S['SyncVendor'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //vendor
+      //progress_cb
+      'last_sync': Belt.uuid()
+    , 'synced_at': new Date()
+    });
+
+    return Async.waterfall([
+      function(cb){
+        gb['products'] = [];
+        gb['last_sync'] = a.o.last_sync;
+        gb['synced_at'] = a.o.synced_at;
+
+        self.LoadGoogleShoppingFeed(a.o, Belt.cs(cb, gb, 'products', 1, 0));
+      }
+    , function(cb){
+        console.log('[STREETAMMO] FEED LOADED: ' + _.size(gb.products) + ' products total (' + _.filter(gb.products, function(p){
+          return _.some(p.variants, function(v){
+            return v.quantity_available;
+          });
+        }).length + ' available)');
+
+        Async.eachLimit(_.shuffle(_.values(gb.products)), OS.cpus().length, function(p, cb2){
+          a.o.progress_cb(p, function(err){
+            cb2();
+          });
+        }, function(err){
+          cb();
+        });
+      }
+    /*, function(cb){
         Instance.db.model('product').find({
           'vendor': a.o.vendor.get('_id')
         , 'last_sync': {
