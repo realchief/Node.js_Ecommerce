@@ -66,6 +66,47 @@ module.exports = function(options, Instance){
 //  , 'nike'
   ].join('|'), 'i');
 
+  S['CreateOrder'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //vendor
+      //order
+      'debug': false
+    });
+
+    if (a.o.debug){
+      console.log(Belt.stringify({
+        'url': 'https://www.streetammo.dk/api/rest/ordercreate'
+      , 'method': 'post'
+      , 'auth': {
+          'user': a.o.vendor.custom_sync.details.auth.user
+        , 'pass': a.o.vendor.custom_sync.details.auth.password
+        }
+      , 'body': a.o.order
+      , 'json': true
+      }));
+
+      return a.cb();
+    }
+
+    Request({
+      'url': 'https://www.streetammo.dk/api/rest/ordercreate'
+    , 'method': 'post'
+    , 'auth': {
+        'user': a.o.vendor.custom_sync.details.auth.user
+      , 'pass': a.o.vendor.custom_sync.details.auth.password
+      }
+    , 'body': a.o.order
+    , 'json': true
+    }, function(err, res, json){
+      console.log(Belt.stringify(json));
+
+      a.cb(err, json);
+    });
+  };
+
   S['LoadGoogleShoppingFeed'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
