@@ -378,6 +378,8 @@ module.exports = function(options, Instance){
 
         a.o.product.images = a.o.product.images.concat(Belt.get(gb, 'crawl_prod.images') || []);
 
+        a.o.product.images = _.uniq(a.o.product.images);
+
         gb.doc.media = _.filter(gb.doc.media, function(m){
           return _.some(a.o.product.images, function(i){
             return i === m.remote_url;
