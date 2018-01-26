@@ -337,7 +337,7 @@ module.exports = function(options, Instance){
 
         self.CrawlProductPage(_.extend({}, a.o, {
           'url': a.o.product.link
-        }), Belt.cs(cb, gb, 'crawl_prod', 1, 0));
+        }), Belt.cs(cb, gb, 'crawl_prod', 1));
       }
     , function(cb){
         Instance.db.model('product').findOne({
