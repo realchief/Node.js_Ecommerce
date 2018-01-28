@@ -271,6 +271,8 @@ Async.waterfall([
       });
     });
 
+    console.log(GB.items.length + ' items in feed...');
+
     GB.CreateFeed({
       'items': GB.items
     , 'domain': GB.domain
@@ -312,6 +314,8 @@ Async.waterfall([
     }, Belt.cw(cb, 0));
   }
 ], function(err){
+  console.log(GB.items.length + ' items in feed...');
+
   Spin.stop();
   if (err) Log.error(err);
   return process.exit(err ? 1 : 0);
