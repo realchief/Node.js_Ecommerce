@@ -9,7 +9,7 @@
         <div class="hr-line-dashed"></div>
         <form class="form-horizontal">
           <fieldset>
-            <legend>Tile 1</legend>
+            <legend>Hero Tile</legend>
             <div name="media_new">
               <div class="form-group">
                 <div name="featured_media_file" class="col-sm-10 col-sm-offset-1 dropzone">
@@ -21,16 +21,72 @@
               <div class="form-group">
                 <label class="col-sm-1 control-label">Image url</label>
                 <div class="col-sm-10">
-                  <input name="tile_1.image_url" type="text" class="form-control" placeholder="URL to media file" data-get="tile_1.image_url" data-get-method="val()" data-set="tile_1.image_url" data-set-method="val">
+                  <input name="hero.image_url" type="text" class="form-control" placeholder="URL to media file" data-get="hero.image_url" data-get-method="val()" data-set="hero.image_url" data-set-method="val">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-1 control-label">Destination URL</label>
                 <div class="col-sm-10">
-                  <input name="tile_1.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="tile_1.destination_url" data-get-method="val()" data-set="tile_1.destination" data-set-method="val">
+                  <input name="hero.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="hero.destination_url" data-get-method="val()" data-set="hero.destination" data-set-method="val">
                 </div>
               </div>
-              <button name="submit" class="btn btn-default btn-submit" id="tile_1">Update Tile 1</button>
+              <button name="submit" class="btn btn-default btn-submit" id="hero">Update Hero Tile</button>
+              <div class="hr-line-dashed"></div>
+            </div>
+            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Billboard Top Tile</legend>
+            <div name="media_new">
+              <div class="form-group">
+                <div name="featured_media_file" class="col-sm-10 col-sm-offset-1 dropzone">
+                  <div class="fallback">
+                    <input type="file" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Image url</label>
+                <div class="col-sm-10">
+                  <input name="billboard_top.image_url" type="text" class="form-control" placeholder="URL to media file" data-get="billboard_top.image_url" data-get-method="val()" data-set="billboard_top.image_url" data-set-method="val">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Destination URL</label>
+                <div class="col-sm-10">
+                  <input name="billboard_top.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="billboard_top.destination_url" data-get-method="val()" data-set="billboard_top.destination" data-set-method="val">
+                </div>
+              </div>
+              <button name="submit" class="btn btn-default btn-submit" id="billboard_top">Update Billboard Top Tile</button>
+              <div class="hr-line-dashed"></div>
+            </div>
+            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Billboard Bottom Tile</legend>
+            <div name="media_new">
+              <div class="form-group">
+                <div name="featured_media_file" class="col-sm-10 col-sm-offset-1 dropzone">
+                  <div class="fallback">
+                    <input type="file" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Image url</label>
+                <div class="col-sm-10">
+                  <input name="billboard_bottom.image_url" type="text" class="form-control" placeholder="URL to media file" data-get="billboard_bottom.image_url" data-get-method="val()" data-set="billboard_bottom.image_url" data-set-method="val">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Destination URL</label>
+                <div class="col-sm-10">
+                  <input name="billboard_bottom.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="billboard_bottom.destination_url" data-get-method="val()" data-set="billboard_bottom.destination" data-set-method="val">
+                </div>
+              </div>
+              <button name="submit" class="btn btn-default btn-submit" id="billboard_bottom">Update Billboard Bottom Tile</button>
               <div class="hr-line-dashed"></div>
             </div>
             <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
