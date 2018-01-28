@@ -283,7 +283,7 @@ Async.waterfall([
   }
 , function(cb){
     GB['whitelisted_items'] = _.filter(GB.items, function(i){
-      return !i.__brand.match(GB.negative_regex);
+      return !(i.__brand || '').match(GB.negative_regex);
     });
 
     GB.CreateFeed({
