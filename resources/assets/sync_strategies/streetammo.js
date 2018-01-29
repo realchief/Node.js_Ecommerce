@@ -89,6 +89,17 @@ module.exports = function(options, Instance){
       }));
 
       return a.cb();
+    } else {
+      console.log(Belt.stringify({
+        'url': 'https://www.streetammo.dk/api/rest/ordercreate'
+      , 'method': 'post'
+      , 'auth': {
+          'user': a.o.vendor.custom_sync.details.auth.user
+        , 'pass': a.o.vendor.custom_sync.details.auth.password
+        }
+      , 'body': a.o.order
+      , 'json': true
+      }));
     }
 
     Request({
