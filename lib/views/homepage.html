@@ -24,9 +24,9 @@
           <div class="box-md">
             <div class="row">
               <div class="col-md-6 mb-5 mb-md-0 d-md-flex flex-md-column">
-                <a href="<%= doc.data.hero.destination_url %>" class="mosaic-item mosaic-item--md mosaic-item--vertical-centered mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.hero.promotion %>]">
+                <a href="<%= data.hero.destination_url %>" class="mosaic-item mosaic-item--md mosaic-item--vertical-centered mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.hero.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.hero.image_small_url %>" data-src="<%= doc.data.hero.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.hero.image_small_url %>" data-src="<%= data.hero.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content mosaic-item__content--md mosaic-item__content--hover-primary text-white">
                     <p class="mosaic-item__content__text"></p>
@@ -41,9 +41,9 @@
               </div><!--col-->
 
               <div class="col-md-6 d-md-flex flex-md-column">
-                <a href="<%= doc.data.billboard_top.destination_url %>" class="mosaic-item mosaic-item--vertical-centered justify-content-lg-end mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.billboard_top.promotion %>]">
+                <a href="<%= data.billboard_top.destination_url %>" class="mosaic-item mosaic-item--vertical-centered justify-content-lg-end mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.billboard_top.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.billboard_top.image_small_url %>" data-src="<%= doc.data.billboard_top.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.billboard_top.image_small_url %>" data-src="<%= data.billboard_top.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content mosaic-item__content--md mosaic-item__content--md--extra-spacing text-white">
                     <h3 class="mosaic-item__content__name mb-2 mb-xl-1"></h3>
@@ -53,9 +53,9 @@
                   </div><!--mosaic-item__content-->
                 </a><!--box-md-->
 
-                <a href="<%= doc.data.billboard_bottom.destination_url %>" class="mosaic-item mosaic-item--vertical-centered justify-content-lg-start mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.billboard_bottom.promotion %>]">
+                <a href="<%= data.billboard_bottom.destination_url %>" class="mosaic-item mosaic-item--vertical-centered justify-content-lg-start mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.billboard_bottom.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.billboard_bottom.image_small_url %>" data-src="<%= doc.data.billboard_bottom.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.billboard_bottom.image_small_url %>" data-src="<%= data.billboard_bottom.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content mosaic-item__content--md text-white">
                     <p class="mosaic-item__content__text"></p>
@@ -74,9 +74,9 @@
                 <div class="box-md">
                   <div class="row">
                     <div class="col-md-4 mb-5 mb-md-0">
-                      <a href="<%= doc.data.tile_d.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--hover-rotate align-items-end flex-1" data-promotion="[<%= doc.data.tile_d.promotion %>]">
+                      <a href="<%= data.tile_d.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--hover-rotate align-items-end flex-1" data-promotion="[<%= data.tile_d.promotion %>]">
                         <div class="mosaic-item__rotate">
-                          <img src="<%= doc.data.tile_d.image_small_url %>" data-src="<%= doc.data.tile_d.image_full_url %>" class="mosaic-item__img lazy">
+                          <img src="<%= data.tile_d.image_small_url %>" data-src="<%= data.tile_d.image_full_url %>" class="mosaic-item__img lazy">
                         </div><!--mosaic-item__rotate-->
                         <div class="mosaic-item__content mosaic-item__content--md mosaic-item__content--top-md text-white">
                           <button type="button" class="mosaic__btn mt-4">
@@ -85,18 +85,18 @@
                       </a><!--box-md-->
                     </div><!--col-->
                     <div class="col-md-8 hidden-sm-down">
-                      <a href="<%= doc.data.tile_e.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered justify-content-lg-end mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.tile_e.promotion %>]">
+                      <a href="<%= data.tile_e.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered justify-content-lg-end mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.tile_e.promotion %>]">
                         <div class="mosaic-item__rotate">
-                          <img src="<%= doc.data.tile_e.image_small_url %>" data-src="<%= doc.data.tile_e.image_full_url %>" class="mosaic-item__img lazy">
+                          <img src="<%= data.tile_e.image_small_url %>" data-src="<%= data.tile_e.image_full_url %>" class="mosaic-item__img lazy">
                         </div><!--mosaic-item__rotate-->
                         <div class="mosaic-item__content mosaic-item__content--lg text-white">
                         </div><!--mosaic-item__content-->
                       </a><!--box-md-->
                     </div><!--col-->
                     <div class="col-md-8 hidden-md-up">
-                      <a href="<%= doc.data.tile_e.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered justify-content-lg-end mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.tile_e.promotion %>]">
+                      <a href="<%= data.tile_e.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered justify-content-lg-end mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.tile_e.promotion %>]">
                         <div class="mosaic-item__rotate">
-                          <img src="<%= doc.data.tile_e.image_small_url %>" data-src="<%= doc.data.tile_e.image_full_url %>" class="mosaic-item__img lazy">
+                          <img src="<%= data.tile_e.image_small_url %>" data-src="<%= data.tile_e.image_full_url %>" class="mosaic-item__img lazy">
                         </div><!--mosaic-item__rotate-->
                         <div class="mosaic-item__content mosaic-item__content--lg text-white">
                         </div><!--mosaic-item__content-->
@@ -106,9 +106,9 @@
                 </div><!--box-md-->
 
                 <div class="box-md">
-                  <a href="<%= doc.data.tile_g.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.tile_g.promotion %>]">
+                  <a href="<%= data.tile_g.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.tile_g.promotion %>]">
                     <div class="mosaic-item__rotate">
-                      <img src="<%= doc.data.tile_g.image_small_url %>" data-src="<%= doc.data.tile_g.image_full_url %>" class="mosaic-item__img lazy">
+                      <img src="<%= data.tile_g.image_small_url %>" data-src="<%= data.tile_g.image_full_url %>" class="mosaic-item__img lazy">
                     </div><!--mosaic-item__rotate-->
                     <div class="mosaic-item__content mosaic-item__content--md text-white">
                       <p class="mosaic-item__content__text"></p>
@@ -121,9 +121,9 @@
               </div><!--col-->
 
               <div class="col-md-3">
-                <a href="<%= doc.data.skyscraper.destination_url %>" class="mosaic-item mosaic-item--xl mosaic-item--vertical-top mosaic-item--hover-rotate flex-1" data-promotion="[<%= doc.data.skyscraper.promotion %>]">
+                <a href="<%= data.skyscraper.destination_url %>" class="mosaic-item mosaic-item--xl mosaic-item--vertical-top mosaic-item--hover-rotate flex-1" data-promotion="[<%= data.skyscraper.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.skyscraper.image_small_url %>" data-src="<%= doc.data.skyscraper.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.skyscraper.image_small_url %>" data-src="<%= data.skyscraper.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content text-white">
                     <p class="mosaic-item__content__text"></p>
@@ -140,9 +140,9 @@
             <h5 class="text-center title-medium text-primary">Shop our Gift Guides and hand-picked looks</h5>
             <div class="row row--sm-5">
               <div class="col-6 col-md-3 mb-5 mb-md-0">
-                <a href="<%= doc.data.member_tile_1.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= doc.data.member_tile_1.promotion %>]">
+                <a href="<%= data.member_tile_1.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= data.member_tile_1.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.member_tile_1.image_small_url %>" data-src="<%= doc.data.member_tile_1.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.member_tile_1.image_small_url %>" data-src="<%= data.member_tile_1.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content">
                     <div class="mosaic-item__content__inner">
@@ -153,9 +153,9 @@
               </div><!--col-->
 
               <div class="col-6 col-md-3 mb-5 mb-md-0">
-                <a href="<%= doc.data.member_tile_2.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= doc.data.member_tile_2.promotion %>]">
+                <a href="<%= data.member_tile_2.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= data.member_tile_2.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.member_tile_2.image_small_url %>" data-src="<%= doc.data.member_tile_2.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.member_tile_2.image_small_url %>" data-src="<%= data.member_tile_2.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content">
                     <div class="mosaic-item__content__inner">
@@ -166,9 +166,9 @@
               </div><!--col-->
 
               <div class="col-6 col-md-3">
-                <a href="<%= doc.data.member_tile_3.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= doc.data.member_tile_3.promotion %>]">
+                <a href="<%= data.member_tile_3.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= data.member_tile_3.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.member_tile_3.image_small_url %>" data-src="<%= doc.data.member_tile_3.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.member_tile_3.image_small_url %>" data-src="<%= data.member_tile_3.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content">
                     <div class="mosaic-item__content__inner">
@@ -179,9 +179,9 @@
               </div><!--col-->
 
               <div class="col-6 col-md-3">
-                <a href="<%= doc.data.member_tile_4.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= doc.data.member_tile_4.promotion %>]">
+                <a href="<%= data.member_tile_4.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= data.member_tile_4.promotion %>]">
                   <div class="mosaic-item__rotate">
-                    <img src="<%= doc.data.member_tile_4.image_small_url %>" data-src="<%= doc.data.member_tile_4.image_full_url %>" class="mosaic-item__img lazy">
+                    <img src="<%= data.member_tile_4.image_small_url %>" data-src="<%= data.member_tile_4.image_full_url %>" class="mosaic-item__img lazy">
                   </div><!--mosaic-item__rotate-->
                   <div class="mosaic-item__content">
                     <div class="mosaic-item__content__inner">
@@ -198,9 +198,9 @@
             <h5 class="text-center title-medium text-primary d-flex justify-content-center align-items-center">Stories from <span class="content-text-logo ml13">wander</span></h5>
             <div class="row row--flex-stretch">
               <div class="col-lg-4 col-sm-6">
-                <a href="<%= doc.data.blog_tile_1.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= doc.data.blog_tile_1.promotion %>]">
+                <a href="<%= data.blog_tile_1.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= data.blog_tile_1.promotion %>]">
                   <div class="mosaic-set__img-holder">
-                    <img src="<%= doc.data.blog_tile_1.image_small_url %>" data-src="<%= doc.data.blog_tile_1.image_full_url %>" class="w-100 lazy">
+                    <img src="<%= data.blog_tile_1.image_small_url %>" data-src="<%= data.blog_tile_1.image_full_url %>" class="w-100 lazy">
                   </div><!--mosaic-set__img-holder-->
 
                   <div class="mosaic-set__description">
@@ -212,9 +212,9 @@
               </div><!-- col -->
 
               <div class="col-lg-4 col-sm-6">
-                <a href="<%= doc.data.blog_tile_2.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= doc.data.blog_tile_2.promotion %>]">
+                <a href="<%= data.blog_tile_2.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= data.blog_tile_2.promotion %>]">
                   <div class="mosaic-set__img-holder">
-                    <img src="<%= doc.data.blog_tile_2.image_small_url %>" data-src="<%= doc.data.blog_tile_2.image_full_url %>" class="w-100 lazy">
+                    <img src="<%= data.blog_tile_2.image_small_url %>" data-src="<%= data.blog_tile_2.image_full_url %>" class="w-100 lazy">
                   </div><!--mosaic-set__img-holder-->
                   <div class="mosaic-set__description">
                     <p class="mosaic-set__description__title">featured</p>
@@ -225,9 +225,9 @@
               </div><!-- col -->
 
               <div class="col-lg-4 col-sm-6">
-                <a href="<%= doc.data.blog_tile_3.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= doc.data.blog_tile_3.promotion %>]">
+                <a href="<%= data.blog_tile_3.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= data.blog_tile_3.promotion %>]">
                   <div class="mosaic-set__img-holder">
-                    <img src="<%= doc.data.blog_tile_3.image_small_url %>" data-src="<%= doc.data.blog_tile_3.image_full_url %>" class="w-100 lazy">
+                    <img src="<%= data.blog_tile_3.image_small_url %>" data-src="<%= data.blog_tile_3.image_full_url %>" class="w-100 lazy">
                   </div><!--mosaic-set__img-holder-->
                   <div class="mosaic-set__description">
                     <p class="mosaic-set__description__title">art + design</p>
@@ -238,9 +238,9 @@
               </div><!-- col -->
 
               <div class="col-lg-4 col-sm-6">
-                <a href="<%= doc.data.blog_tile_4.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= doc.data.blog_tile_4.promotion %>]">
+                <a href="<%= data.blog_tile_4.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= data.blog_tile_4.promotion %>]">
                   <div class="mosaic-set__img-holder">
-                    <img src="<%= doc.data.blog_tile_4.image_small_url %>" data-src="<%= doc.data.blog_tile_4.image_full_url %>" class="w-100 lazy">
+                    <img src="<%= data.blog_tile_4.image_small_url %>" data-src="<%= data.blog_tile_4.image_full_url %>" class="w-100 lazy">
                   </div><!--mosaic-set__img-holder-->
                   <div class="mosaic-set__description">
                     <p class="mosaic-set__description__title">Interview</p>
@@ -251,9 +251,9 @@
               </div><!-- col -->
 
               <div class="col-lg-4 col-sm-6">
-                <a href="<%= doc.data.blog_tile_5.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= doc.data.blog_tile_5.promotion %>]">
+                <a href="<%= data.blog_tile_5.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= data.blog_tile_5.promotion %>]">
                   <div class="mosaic-set__img-holder">
-                    <img src="<%= doc.data.blog_tile_5.image_small_url %>" data-src="<%= doc.data.blog_tile_5.image_full_url %>" class="w-100 lazy">
+                    <img src="<%= data.blog_tile_5.image_small_url %>" data-src="<%= data.blog_tile_5.image_full_url %>" class="w-100 lazy">
                   </div><!--mosaic-set__img-holder-->
                   <div class="mosaic-set__description">
                     <p class="mosaic-set__description__title">art + design</p>
@@ -264,9 +264,9 @@
               </div><!-- col -->
 
               <div class="col-lg-4 col-sm-6">
-                <a href="<%= doc.data.blog_tile_6.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= doc.data.blog_tile_6.promotion %>]">
+                <a href="<%= data.blog_tile_6.destination_url %>" class="mosaic-set" target="_blank" data-blog-article="[<%= data.blog_tile_6.promotion %>]">
                   <div class="mosaic-set__img-holder">
-                    <img src="<%= doc.data.blog_tile_6.image_small_url %>" data-src="<%= doc.data.blog_tile_6.image_full_url %>" class="w-100 lazy">
+                    <img src="<%= data.blog_tile_6.image_small_url %>" data-src="<%= data.blog_tile_6.image_full_url %>" class="w-100 lazy">
                   </div><!--mosaic-set__img-holder-->
                   <div class="mosaic-set__description">
                     <p class="mosaic-set__description__title">music</p>
