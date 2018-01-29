@@ -128,9 +128,9 @@
             <% } %>
           <% } %>
         </p>
-        <% if (Belt.get(v, 'source.order.order.id')){ %>
+        <% if (Belt.get(v, 'source.order.id') || Belt.get(v, 'source.order.order.id')){ %>
           <p>
-            <span class="label label-success">Order <%= Belt.get(v, 'source.order.order.name') %> | ID #<%= Belt.get(v, 'source.order.order.id') %></span>
+            <span class="label label-success">Order <%= Belt.get(v, 'source.order.order.name') || Belt.get(v, 'source.order.id') %> | ID #<%= Belt.get(v, 'source.order.order.id') || Belt.get(v, 'source.order.id') %></span>
           </p>
         <% } %>
         <% if (Belt.get(v, 'source.order.errors')){ %>
@@ -151,10 +151,10 @@
         </p>
       <% } %>
       <% _.each(v2, function(v){ %>
-        <p>Order <%= Belt.get(v, 'order.name') %> | ID #<%= Belt.get(v, 'order.id') %></p>
-        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') %></p>
-        <% _.each(Belt.get(v, 'order.line_items'), function(i){ %>
-          <p><%= i.name %> (SKU #<%= i.sku %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price %>)</p>
+        <p>Order <%= Belt.get(v, 'order.name') || Belt.get(v, 'id') %> | ID #<%= Belt.get(v, 'order.id') || Belt.get(v, 'id') %></p>
+        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || Belt.get(v, 'request.total') %></p>
+        <% _.each(Belt.get(v, 'order.line_items') || Belt.get(v, 'request.orderlines'), function(i){ %>
+          <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price || i.totalprice %>)</p>
         <% }) %>
         <% _.each(Belt.get(v, 'order.fulfillments'), function(f){ %>
           <p>

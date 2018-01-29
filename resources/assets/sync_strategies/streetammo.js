@@ -114,6 +114,8 @@ module.exports = function(options, Instance){
     }, function(err, res, json){
       console.log(Belt.stringify(json));
 
+      if (json) json['request'] = a.o.order;
+
       a.cb(err, json);
     });
   };
