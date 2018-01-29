@@ -8,7 +8,7 @@
     data-id="<%= doc._id %>"
     data-name="<%= doc.name || Belt.get(doc, 'label.us') %>"
     data-category="<%= Belt.get(doc, 'categories.0') || doc.auto_category %>"
-    data-brand="<%= (doc.brands || []).join(', ') %>"
+    data-brand="<%= doc.manual_brand || (doc.brands || []).join(', ') %>"
     data-sku="<%= _.size(doc.configurations) ? _.values(doc.configurations).sku : '' %>"
     data-price="<%= doc.low_price %>"
   >
@@ -21,8 +21,8 @@
         class="goods__img lazy">
     <% } %>
     <div class="goods__info">
-      <% if (Belt.get(doc, 'brands.0')){ %>
-        <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
+      <% if (doc.manual_brand || Belt.get(doc, 'brands.0')){ %>
+        <p class="goods__info-description"><%= doc.manual_brand || doc.brands.join(', ') %></p>
       <% } %>
       <% if (Belt.get(doc, 'label.us')){ %>
         <p class="goods__info-name"><%= doc.label.us %></p>
