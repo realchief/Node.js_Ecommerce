@@ -13,9 +13,9 @@
       , "prefix": "dev.wanderset.sess"
       }
     , "mongodb": {
-        "host": "127.0.0.1"
+        "host": "wanderset.com"
       , "port": 27017
-      , "db": "dev_wanderset"
+      , "db": "wanderset"
       }
     , "notifications": {
         "coming_soon": "https://2po.st/oySQBPndO5PX"

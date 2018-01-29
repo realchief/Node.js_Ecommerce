@@ -112,7 +112,7 @@
         <% } %>
         <% if (Belt.get(Instance.vendor_ids[k], 'name') === 'Streetammo' && Belt.get(v, 'source.product.source.record.url')){ %>
           <p>
-            <a href="<%= Belt.get(v, 'source.product.source.record.url') %>" target="_blank">Streetammo URL</a>
+            <a href="<%= Belt.get(v, 'source.product.source.record.link') || Belt.get(v, 'source.product.source.record.url') %>" target="_blank">Streetammo URL</a>
           </p>
         <% } %>
         <p>
