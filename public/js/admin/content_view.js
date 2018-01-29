@@ -27,14 +27,6 @@ var ContentView = function(options, callback){
                 }
             }
         }
-        , 'transformers': {
-            'get:max_claims': function(val){
-                return !val ? undefined : Belt.cast(val, 'number');
-            }
-            , 'get:discount_amount': function(val){
-                return Belt.cast(val, 'number') || 0;
-            }
-        }
     });
 
     gb['view'] = new Bh.View(a.o);
@@ -88,8 +80,8 @@ var ContentView = function(options, callback){
                 $.post('/admin/content/' + self.page + '/update.json', gb.data, function(json){
                     if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
+                    if (json.message) bootbox.alert(json.message);
                     gb['doc'] = Belt.get(json, 'data');
-
                     cb();
                 });
             }
