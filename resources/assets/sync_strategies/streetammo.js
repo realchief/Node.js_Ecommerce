@@ -177,6 +177,12 @@ module.exports = function(options, Instance){
           });
 
           //Instance['streetammo_feed'] = gb.xml;
+
+          console.log('Streetammo Google Shopping Feed: ' + _.size(gb.xml) + ' items');
+          console.log('Streetammo Google Shopping Feed: ' + _.reduce(gb.xml, function(m, v){
+            return m + (Belt.get(v, 'length') || 0);
+          }, 0) + ' stocks');
+
           cb();
         } else {
           cb(new Error('Streetammo feed not loaded'));
@@ -196,13 +202,15 @@ module.exports = function(options, Instance){
           , 'pass': gb.vendor.custom_sync.details.auth.password
           }
         , 'qs': {
-            'time': Moment.utc(gb.last_modified).format('YYYY-MM-DD HH:mm:ss')
+            'time': Moment.utc(gb.last_modified).subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
           }
         , 'method': 'get'
         , 'json': true
         , 'timeout': 1000 * 60 * 5
         }, function(err, res, json){
           if (err || !json) return cb();
+
+          gb['stocked_items'] = 0;
 
           gb['updates'] = _.object(_.pluck(json, 'id'), _.pluck(json, 'quantity'));
 
@@ -214,6 +222,7 @@ module.exports = function(options, Instance){
               }
 
               v['quantity_available'] = Belt.cast(gb.updates[v.id], 'number');
+              gb.stocked_items++;
             });
           });
 
@@ -229,6 +238,8 @@ module.exports = function(options, Instance){
               'variants': x
             });
           });
+
+          console.log('Streetammo Google Stocked Items: ' + gb.stocked_items);
 
           cb();
         });
