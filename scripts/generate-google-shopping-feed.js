@@ -72,7 +72,7 @@ GB['CreateFeed'] = function(options, callback){
     //domain
   });
 
-  console.log('Creating feed "' + a.o.output_path + '"...');
+  console.log('Creating feed "' + a.o.output_path + '" with ' + (Belt.get(a.o, 'items.length') || 0) + ' SKUs...');
 
   var feed = [
     {
@@ -271,8 +271,6 @@ Async.waterfall([
       });
     });
 
-    console.log(GB.items.length + ' items in feed...');
-
     GB.CreateFeed({
       'items': GB.items
     , 'domain': GB.domain
@@ -281,7 +279,7 @@ Async.waterfall([
     , 'output_path': GB.output_path
     }, Belt.cw(cb, 0));
   }
-, function(cb){
+/*, function(cb){
     GB['whitelisted_items'] = _.filter(GB.items, function(i){
       return !(i.__brand || '').match(GB.negative_regex);
     });
@@ -312,10 +310,8 @@ Async.waterfall([
         })
       }, Belt.cw(cb2, 0));
     }, Belt.cw(cb, 0));
-  }
+  }*/
 ], function(err){
-  console.log(GB.items.length + ' items in feed...');
-
   Spin.stop();
   if (err) Log.error(err);
   return process.exit(err ? 1 : 0);
