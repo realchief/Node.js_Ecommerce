@@ -52,11 +52,11 @@ var GB = _.defaults(O.argv, {
 
     Async.eachSeries(_.keys(o2.vendor_orders) || [], function(k, cb2){
       Async.eachSeries(o2.vendor_orders[k], function(o, cb3){
-        console.log('Updating vendor order [' + Belt.get(o, 'order.id') + ']...');
+        console.log('Updating vendor order [' + (Belt.get(o, 'order.id') || Belt.get(o, 'id')) + ']...');
 
         Request({
           'url': O.host + '/admin/order/' + o2._id + '/vendor/' + k
-                 + '/order/' + Belt.get(o, 'order.id') + '/update.json'
+                 + '/order/' + (Belt.get(o, 'order.id') || Belt.get(o, 'id')) + '/update.json'
         , 'auth': GB.auth
         , 'json': true
         , 'method': 'get'
