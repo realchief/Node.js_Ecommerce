@@ -45,7 +45,7 @@
         data-id="<%= doc.product._id %>"
         data-name="<%= doc.product.name || Belt.get(doc.product, 'label.us') %>"
         data-category="<%= Belt.get(doc.product, 'categories.0') || doc.product.auto_category %>"
-        data-brand="<%= ooc.product.manual_brand || (doc.product.brands || []).join(', ') %>"
+        data-brand="<%= doc.product.manual_brand || (doc.product.brands || []).join(', ') %>"
         data-price="<%= doc.price %>"
         data-quantity="<%= doc.quantity %>"
         data-sku="<%= doc.sku %>"
