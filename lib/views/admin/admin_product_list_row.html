@@ -24,7 +24,7 @@
       <span name="description.us"><%= description.us %></span>
     <% } %>
   </td>
-  <td name="brands"><%= (brands || []).join(', ') %></td>
+  <td name="brands"><%= typedef manual_brand !== 'undefined' ? manual_brand : (brands || []).join(', ') %></td>
   <td name="categories"><%= (categories || []).join(', ') %></td>
   <td style="width:150px !important;">
     <% _.each(options, function(v, k){ %>

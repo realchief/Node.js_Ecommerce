@@ -42,7 +42,7 @@
                                     <tbody>
                                         <tr>
                                             <td style="word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:10px;padding-bottom:25px;" align="left">
-                                                <div style="cursor:auto;color:#616161;font-family:GothamBook, Helvetica, sans-serif;font-size:11px;line-height:0;letter-spacing:0.1rem;text-align:left;"><span style="font-size: 14px; color: #22252c; line-height: 10px; line-height: 19px; margin: 0 0 5px 0; display:block;"><%= (doc.source.product.brands || []).join(', ') %>
+                                                <div style="cursor:auto;color:#616161;font-family:GothamBook, Helvetica, sans-serif;font-size:11px;line-height:0;letter-spacing:0.1rem;text-align:left;"><span style="font-size: 14px; color: #22252c; line-height: 10px; line-height: 19px; margin: 0 0 5px 0; display:block;"><%= doc.source.product.manual_brand || (doc.source.product.brands || []).join(', ') %>
             </span>
                                                     <br>
                                                     <span style="font-size: 12px; line-height: 17px; font-family: 'DroidItalic'; letter-spacing: normal;"><%= Belt.get(doc, 'source.product.label.us') || '' %></span></div>

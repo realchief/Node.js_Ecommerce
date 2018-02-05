@@ -6,8 +6,8 @@
     <% } %>
     <div class="text-truncate">
       <div class="goods__info">
-        <% if (Belt.get(doc, 'product.brands.0')){ %>
-          <p class="goods__info-name"><%= doc.product.brands.join(', ') %></p>
+        <% if (Belt.get(doc, 'product.manual_brand') || Belt.get(doc, 'product.brands.0')){ %>
+          <p class="goods__info-name"><%= doc.product.manual_brand || doc.product.brands.join(', ') %></p>
         <% } %>
         <% if (Belt.get(doc, 'product.label.us')){ %>
           <p class="goods__info-description"><%= doc.product.label.us %></p>

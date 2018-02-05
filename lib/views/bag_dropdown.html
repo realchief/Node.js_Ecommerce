@@ -14,8 +14,8 @@
           <% if (Belt.get(doc, 'label.us')){ %>
             <p class="goods__info-name"><%= doc.label.us %></p>
           <% } %>
-          <% if (Belt.get(doc, 'brands.0')){ %>
-            <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
+          <% if (Belt.get(doc, 'manual_brand') || Belt.get(doc, 'brands.0')){ %>
+            <p class="goods__info-description"><%= doc.manual_brand || doc.brands.join(', ') %></p>
           <% } %>
         </div>
 
