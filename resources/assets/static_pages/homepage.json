@@ -59,7 +59,6 @@
       "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1luuzvrg.downsample.jpg",
       "description": "Kendrick Lamar’s 'DAMN' Style Guide Is On Wanderset. Shop The Looks Now.",
       "title": "music"
->>>>>>> static_pages_cms
     },
     "member_tile_1" : {
       "promotion" : "Scandinavian",
@@ -108,8 +107,6 @@
       "destination_url" : "/brand/represent",
       "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sje9-3hrf.super.downsample.jpg",
       "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sje9-3hrf.downsample.jpg"
-<<<<<<< HEAD
-=======
     },
     "mobile_hero" : {
       "promotion" : "Holiday Rush",
@@ -223,7 +220,6 @@
       "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/s1k6hp8sf.super.downsample.jpg",
       "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/s1k6hp8sf.downsample.jpg",
       "description": "Shop Represent"
->>>>>>> static_pages_cms
     }
   },
   "page" : "homepage",
