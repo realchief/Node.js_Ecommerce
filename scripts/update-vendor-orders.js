@@ -37,7 +37,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'slug': '68300765'
+
   }
 , 'skip': 0
 , 'limit': 50
