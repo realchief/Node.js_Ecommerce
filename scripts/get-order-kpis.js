@@ -12,9 +12,8 @@ var Path = require('path')
   , Spinner = require('its-thinking')
   , CP = require('child_process')
   , Request = require('request')
-  , Assert = require('assert')
+  , Moment = require('moment')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
 ;
 
 var O = new Optionall({
@@ -33,7 +32,10 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'host': 'http://wanderset.com:'
+  'host': 'http://wanderset.com:9008'
+, 'from': Moment('01/01/2018', 'MM/DD/YYYY').format('MM-DD-YYYY')
+, 'to': Moment('01/31/2018', 'MM/DD/YYYY').format('MM-DD-YYYY')
+, 'email': 'ben@wanderset.com'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
@@ -45,9 +47,11 @@ Spin.start();
 Async.waterfall([
   function(cb){
     Request({
-      'url': O.host + '/vendor/create.json'
+      'url': GB.host + '/admin/kpis/orders/from/' + GB.from + '/to/' + GB.to + '/email.json'
     , 'auth': GB.auth
-    , 'qs': GB.query
+    , 'qs': {
+        'email': GB.email
+      }
     , 'method': 'post'
     , 'json': true
     }, function(err, res, json){
