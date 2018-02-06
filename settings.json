@@ -147,4 +147,12 @@
 , "slack": {
     "kpis": "https://hooks.slack.com/services/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"
   }
+, "imap_mailboxes": {
+    "imap@wanderset.com": {
+      "user": "imap@wanderset.com"
+    , "host": "imap.gmail.com"
+    , "port": 993
+    , "tls": true
+    }
+  }
 }
