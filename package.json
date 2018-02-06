@@ -30,7 +30,7 @@
   , "aws-sdk": "2.171.0"
   , "bcrypt": "1.0.3"
   , "mime": "1.6.0"
-  , "basecmd": "git+ssh://git@github.com/sackio/basecmd.git#043275a7275a8cfe8e78f8166b9866d3dbb1b41e"
+  , "basecmd": "0.1.23"
   , "wanderset-design": "git+ssh://git@github.com/tinkerpartners/wanderset-design.git#master"
   , "fast-csv": "2.4.1"
   , "cheerio": "0.22.0"
