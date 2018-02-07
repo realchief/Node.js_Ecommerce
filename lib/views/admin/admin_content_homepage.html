@@ -229,129 +229,47 @@
           <div class="hr-line-dashed"></div>
           <div class="hr-line-dashed"></div>
           <div class="hr-line-dashed"></div>
-          <fieldset>
-            <legend>Member Tile 1</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_1.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_1.image_full_url" data-get-method="val()" data-set="member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_1.image_full_url %>">
+
+          <% _.each(Instance.content_cache.homepage.member_tiles, function(tile, i) { %>
+            <fieldset>
+              <legend>Member Tile <%= i + 1 %> Mobile</legend>
+              <div name="media_new">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Full image url</label>
+                  <div class="col-sm-10">
+                    <input name="member_tiles[<%= i %>].image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tiles[<%= i %>].image_full_url" data-get-method="val()" data-set="member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.image_full_url %>">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_1.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_1.image_small_url" data-get-method="val()" data-set="member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_1.image_small_url %>">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Downsized image url</label>
+                  <div class="col-sm-10">
+                    <input name="member_tiles[<%= i %>].image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tiles[<%= i %>].image_small_url" data-get-method="val()" data-set="member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.image_small_url %>">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_1.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="member_tile_1.destination_url" data-get-method="val()" data-set="member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_1.destination_url %>">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Destination URL</label>
+                  <div class="col-sm-10">
+                    <input name="member_tiles[<%= i %>].destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="member_tiles[<%= i %>].destination_url" data-get-method="val()" data-set="member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.destination_url %>">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_1.promotion" type="text" class="form-control" placeholder="Promotion" data-get="member_tile_1.promotion" data-get-method="val()" data-set="member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_1.promotion %>">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Promotion Title</label>
+                  <div class="col-sm-10">
+                    <input name="member_tiles[<%= i %>].promotion" type="text" class="form-control" placeholder="Promotion" data-get="member_tiles[<%= i %>].promotion" data-get-method="val()" data-set="member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.promotion %>">
+                  </div>
                 </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 2</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_2.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_2.image_full_url" data-get-method="val()" data-set="member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_2.image_full_url %>">
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <div>
+                      <label> <input type="checkbox" class="i-checks" data-get="member_tiles[<%= i %>].show" data-get-method="isChecked()" data-set="member_tiles[<%= i %>].show" data-set-method="makeChecked" <% if(Belt.cast(tile.show, 'boolean')) { %>checked<% } %>> Show?</label>
+                    </div>
+                  </div>
                 </div>
+                <div class="hr-line-dashed"></div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_2.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_2.image_small_url" data-get-method="val()" data-set="member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_2.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_2.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="member_tile_2.destination_url" data-get-method="val()" data-set="member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_2.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_2.promotion" type="text" class="form-control" placeholder="Promotion" data-get="member_tile_2.promotion" data-get-method="val()" data-set="member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_2.promotion %>">
-                </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 3</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_3.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_3.image_full_url" data-get-method="val()" data-set="member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_3.image_full_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_3.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_3.image_small_url" data-get-method="val()" data-set="member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_3.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_3.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="member_tile_3.destination_url" data-get-method="val()" data-set="member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_3.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_3.promotion" type="text" class="form-control" placeholder="Promotion" data-get="member_tile_3.promotion" data-get-method="val()" data-set="member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_3.promotion %>">
-                </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 4</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_4.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_4.image_full_url" data-get-method="val()" data-set="member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_4.image_full_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_4.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="member_tile_4.image_small_url" data-get-method="val()" data-set="member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_4.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_4.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="member_tile_4.destination_url" data-get-method="val()" data-set="member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_4.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="member_tile_4.promotion" type="text" class="form-control" placeholder="Promotion" data-get="member_tile_4.promotion" data-get-method="val()" data-set="member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.member_tile_4.promotion %>">
-                </div>
-              </div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
+              <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
+            </fieldset>
+          <% }); %>
           <div class="hr-line-dashed"></div>
           <div class="hr-line-dashed"></div>
           <div class="hr-line-dashed"></div>
@@ -800,160 +718,46 @@
           <div class="hr-line-dashed"></div>
           <div class="hr-line-dashed"></div>
           <div class="hr-line-dashed"></div>
-          <fieldset>
-            <legend>Member Tile 1 Mobile</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_1.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_1.image_full_url" data-get-method="val()" data-set="mobile_member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_1.image_full_url %>">
+          <% _.each(Instance.content_cache.homepage.mobile_member_tiles, function(tile, i) { %>
+            <fieldset>
+              <legend>Member Tile <%= i + 1 %> Mobile</legend>
+              <div name="media_new">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Full image url</label>
+                  <div class="col-sm-10">
+                    <input name="mobile_member_tiles[<%= i %>].image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tiles[<%= i %>].image_full_url" data-get-method="val()" data-set="mobile_member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.image_full_url %>">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_1.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_1.image_small_url" data-get-method="val()" data-set="mobile_member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_1.image_small_url %>">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Downsized image url</label>
+                  <div class="col-sm-10">
+                    <input name="mobile_member_tiles[<%= i %>].image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tiles[<%= i %>].image_small_url" data-get-method="val()" data-set="mobile_member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.image_small_url %>">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_1.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="mobile_member_tile_1.destination_url" data-get-method="val()" data-set="mobile_member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_1.destination_url %>">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Destination URL</label>
+                  <div class="col-sm-10">
+                    <input name="mobile_member_tiles[<%= i %>].destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="mobile_member_tiles[<%= i %>].destination_url" data-get-method="val()" data-set="mobile_member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.destination_url %>">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_1.promotion" type="text" class="form-control" placeholder="Promotion" data-get="mobile_member_tile_1.promotion" data-get-method="val()" data-set="mobile_member_tile_1.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_1.promotion %>">
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">Promotion Title</label>
+                  <div class="col-sm-10">
+                    <input name="mobile_member_tiles[<%= i %>].promotion" type="text" class="form-control" placeholder="Promotion" data-get="mobile_member_tiles[<%= i %>].promotion" data-get-method="val()" data-set="mobile_member_tiles[<%= i %>].image_full_url" data-set-method="val" value="<%= tile.promotion %>">
+                  </div>
                 </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 2 Mobile</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_2.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_2.image_full_url" data-get-method="val()" data-set="mobile_member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_2.image_full_url %>">
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <div>
+                      <label> <input type="checkbox" class="i-checks" data-get="mobile_member_tiles[<%= i %>].show" data-get-method="isChecked()" data-set="mobile_member_tiles[<%= i %>].show" data-set-method="makeChecked" <% if(Belt.cast(tile.show, 'boolean')) { %>checked<% } %>> Show?</label>
+                    </div>
+                  </div>
                 </div>
+                <div class="hr-line-dashed"></div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_2.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_2.image_small_url" data-get-method="val()" data-set="mobile_member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_2.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_2.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="mobile_member_tile_2.destination_url" data-get-method="val()" data-set="mobile_member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_2.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_2.promotion" type="text" class="form-control" placeholder="Promotion" data-get="mobile_member_tile_2.promotion" data-get-method="val()" data-set="mobile_member_tile_2.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_2.promotion %>">
-                </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 3 Mobile</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_3.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_3.image_full_url" data-get-method="val()" data-set="mobile_member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_3.image_full_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_3.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_3.image_small_url" data-get-method="val()" data-set="mobile_member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_3.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_3.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="mobile_member_tile_3.destination_url" data-get-method="val()" data-set="mobile_member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_3.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_3.promotion" type="text" class="form-control" placeholder="Promotion" data-get="mobile_member_tile_3.promotion" data-get-method="val()" data-set="mobile_member_tile_3.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_3.promotion %>">
-                </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 4 Mobile</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_4.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_4.image_full_url" data-get-method="val()" data-set="mobile_member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_4.image_full_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_4.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_4.image_small_url" data-get-method="val()" data-set="mobile_member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_4.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_4.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="mobile_member_tile_4.destination_url" data-get-method="val()" data-set="mobile_member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_4.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_4.promotion" type="text" class="form-control" placeholder="Promotion" data-get="mobile_member_tile_4.promotion" data-get-method="val()" data-set="mobile_member_tile_4.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_4.promotion %>">
-                </div>
-              </div>
-              <div class="hr-line-dashed"></div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
-          <fieldset>
-            <legend>Member Tile 5 Mobile</legend>
-            <div name="media_new">
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Full image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_5.image_full_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_5.image_full_url" data-get-method="val()" data-set="mobile_member_tile_5.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_5.image_full_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Downsized image url</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_5.image_small_url" type="text" class="form-control" placeholder="URL to media file" data-get="mobile_member_tile_5.image_small_url" data-get-method="val()" data-set="mobile_member_tile_5.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_5.image_small_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Destination URL</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_5.destination_url" type="text" class="form-control" placeholder="Destination URL" data-get="mobile_member_tile_5.destination_url" data-get-method="val()" data-set="mobile_member_tile_5.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_5.destination_url %>">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1 control-label">Promotion Title</label>
-                <div class="col-sm-10">
-                  <input name="mobile_member_tile_5.promotion" type="text" class="form-control" placeholder="Promotion" data-get="mobile_member_tile_5.promotion" data-get-method="val()" data-set="mobile_member_tile_5.image_full_url" data-set-method="val" value="<%= Instance.content_cache.homepage.mobile_member_tile_5.promotion %>">
-                </div>
-              </div>
-            </div>
-            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
-          </fieldset>
+              <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
+            </fieldset>
+          <% }); %>
         </form>
       </div>
     </div>

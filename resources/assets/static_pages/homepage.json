@@ -60,30 +60,50 @@
       "description": "Kendrick Lamar’s 'DAMN' Style Guide Is On Wanderset. Shop The Looks Now.",
       "title": "music"
     },
-    "member_tile_1" : {
-      "promotion" : "Scandinavian",
-      "destination_url" : "/set/5a67c3b0104e4c0c213e09c2",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1lyrwdbz.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1lyrwdbz.downsample.jpg"
-    },
-    "member_tile_2" : {
-      "promotion" : "SmokePurpp",
-      "destination_url" : "/set/5a67c149104e4c0c213e0963",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1fmh-vbf.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1fmh-vbf.downsample.jpg"
-    },
-    "member_tile_3" : {
-      "promotion" : "Oversized",
-      "destination_url" : "/set/5a67d96a104e4c0c213e0bff",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sk1irzdbf.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sk1irzdbf.downsample.jpg"
-    },
-    "member_tile_4" : {
-      "promotion" : "Eric DLUX",
-      "destination_url" : "/set/5a67c5ef104e4c0c213e0a1d",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1byhbprg.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1byhbprg.downsample.jpg"
-    },
+    "member_tiles" : [
+      {
+        "promotion" : "Scandinavian",
+        "destination_url" : "/set/5a67c3b0104e4c0c213e09c2",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1lyrwdbz.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1lyrwdbz.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "SmokePurpp",
+        "destination_url" : "/set/5a67c149104e4c0c213e0963",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1fmh-vbf.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1fmh-vbf.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "Oversized",
+        "destination_url" : "/set/5a67d96a104e4c0c213e0bff",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sk1irzdbf.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sk1irzdbf.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "Eric DLUX",
+        "destination_url" : "/set/5a67c5ef104e4c0c213e0a1d",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1byhbprg.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1byhbprg.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "",
+        "destination_url" : "",
+        "image_small_url" : "",
+        "image_full_url" : "",
+        "show": false
+      },
+      {
+        "promotion" : "",
+        "destination_url" : "",
+        "image_small_url" : "",
+        "image_full_url" : "",
+        "show": false
+      }
+    ],
     "skyscraper" : {
       "promotion" : "Crooks Castles",
       "destination_url" : "/brand/herschel",
@@ -128,36 +148,50 @@
       "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sjwh52hsm.downsample.jpg",
       "description": "Shop Carhartt WIP"
     },
-    "mobile_member_tile_1" : {
-      "promotion" : "Dressed Tens",
-      "destination_url" : "/set/5a7384c97fd723c2cfe5113b",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1t1g0z8z.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1t1g0z8z.downsample.jpg"
-    },
-    "mobile_member_tile_2" : {
-      "promotion" : "Martavis Bryant",
-      "destination_url" : "/set/5a67c3b0104e4c0c213e09c2",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/byvnfbdhm.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/byvnfbdhm.downsample.jpg"
-    },
-    "mobile_member_tile_3" : {
-      "promotion" : "Miguel Garcia",
-      "destination_url" : "/set/5a67d96a104e4c0c213e0bff",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1tyczwbf.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1tyczwbf.downsample.jpg"
-    },
-    "mobile_member_tile_4" : {
-      "promotion" : "Standard Issue",
-      "destination_url" : "/set/5a67c149104e4c0c213e0963",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1okozwrz.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1okozwrz.downsample.jpg"
-    },
-    "mobile_member_tile_5" : {
-      "promotion" : "The Coat",
-      "destination_url" : "/set/5a67c5ef104e4c0c213e0a1d",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hjgiiwpbz.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hjgiiwpbz.downsample.jpg"
-    },
+    "mobile_member_tiles": [
+      {
+        "promotion" : "Dressed Tens",
+        "destination_url" : "/set/5a7384c97fd723c2cfe5113b",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1t1g0z8z.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/r1t1g0z8z.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "Martavis Bryant",
+        "destination_url" : "/set/5a67c3b0104e4c0c213e09c2",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/byvnfbdhm.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/byvnfbdhm.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "Miguel Garcia",
+        "destination_url" : "/set/5a67d96a104e4c0c213e0bff",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1tyczwbf.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1tyczwbf.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "Standard Issue",
+        "destination_url" : "/set/5a67c149104e4c0c213e0963",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1okozwrz.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/h1okozwrz.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "The Coat",
+        "destination_url" : "/set/5a67c5ef104e4c0c213e0a1d",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hjgiiwpbz.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hjgiiwpbz.downsample.jpg",
+        "show": true
+      },
+      {
+        "promotion" : "",
+        "destination_url" : "",
+        "image_small_url" : "",
+        "image_full_url" : "",
+        "show": false
+      }
+    ],
     "mobile_tile_e" : {
       "promotion" : "Shop Herschel",
       "destination_url" : "/brand/herschel",
