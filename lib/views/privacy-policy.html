@@ -4,7 +4,7 @@
     <%= Render('head', Locals) %>
     <title>Privacy Policy | Wanderset</title>
   </head>
-  <body>
+  <body<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %> class="has-promotion-bar"<% } %>>
     <%= Render('header', Locals) %>
 
     <main class="main">

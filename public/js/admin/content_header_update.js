@@ -1,7 +1,7 @@
 $(document).ready(function(){
     GB['view'] = ContentView({
         'method': 'update'
-        , 'page': 'homepage'
+        , 'page': 'header'
     });
 
     $('[name="code"]').val(_.times(8, function(){
