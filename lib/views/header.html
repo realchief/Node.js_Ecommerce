@@ -1,9 +1,11 @@
-<nav class="navbar navbar-toggleable-md fixed-top">
-  <% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %>
-      <div class="navbar-bar">
-        <p class="text-uppercase"><%= Instance.content_cache.header.top_notification_bar.main_text %>&nbsp;<span class="text-primary"><%= Instance.content_cache.header.top_notification_bar.bold_text %></span></p>
-      </div>
-  <% } %>
+<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %>
+  <nav class="navbar navbar-toggleable-md fixed-top" style="min-height: unset;">
+    <div class="navbar-bar">
+      <p class="text-uppercase"><%= Instance.content_cache.header.top_notification_bar.main_text %>&nbsp;<span class="text-primary"><%= Instance.content_cache.header.top_notification_bar.bold_text %></span></p>
+    </div>
+<% } else { %>
+  <nav class="navbar navbar-toggleable-md fixed-top" style="min-height: unset;">
+<% } %>
   <div class="container">
     <div class="navbar-toggle hidden-lg-up" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
       <div class="navbar-toggle-line navbar-toggle-line--half navbar-toggle-line--start"></div>
