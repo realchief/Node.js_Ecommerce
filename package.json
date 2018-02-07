@@ -51,5 +51,6 @@
   , "stopwords": "0.0.9"
   , "forex-quotes": "2.0.9"
   , "imap": "0.8.19"
+  , "express-http-proxy": "1.1.0"
   }
 }
