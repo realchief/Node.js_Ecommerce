@@ -6,6 +6,7 @@ var SearchInventoryRules = function(options, callback){
     'term': $('#search-modal [name="term"]').val()
     , 'product_category': $('#search-modal [name="product_category"]').val()
     , 'brand': $('#search-modal [name="brand"]').val()
+    , 'product_brand': $('#search-modal [name="product_brand"]').val()
     , 'active': ($('#search-modal [name="active_true"]:checked').val() ? true : undefined) ||
       ($('#search-modal [name="active_false"]:checked').val() ? false : undefined)
     , 'product_hide': ($('#search-modal [name="product_hide_true"]:checked').val() ? true : undefined) ||
@@ -27,6 +28,12 @@ var SearchInventoryRules = function(options, callback){
   if (a.o.product_category){
     query['product_category'] = {
       '$regex': a.o.product_category.toLowerCase().replace(/\W/g, '.*')
+    };
+  }
+
+  if (a.o.product_brand){
+    query['product_brand'] = {
+      '$regex': a.o.product_brand.toLowerCase().replace(/\W/g, '.*')
     };
   }
 
@@ -76,6 +83,18 @@ var LoadDocs = function(options, callback){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['docs'] = Belt.get(json, 'data');
+        cb();
+      });
+    }
+  , function(cb){
+      $.get('/cache/product/categories/list.json', function(json){
+        if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+        gb['product_categories'] = Belt.get(json);
+        gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
+        _.each(gb.product_categories, function (category) {
+          $("#product_category_dropdown ul").append('<li><a href="changeSearchCategory"><span class="tab">' + category + '</span></a></li>');
+        });
         cb();
       });
     }
@@ -140,4 +159,12 @@ $(document).on('click', '#search-modal [name="search"]', function(e){
 $(document).on('submit', '#search-modal form', function(e){
   e.preventDefault();
   SearchInventoryRules();
+});
+
+$(document).on('click', '#product_category_dropdown a', function(e){
+  e.preventDefault();
+  var category = $(this).find('span').html();
+
+  $('#search-modal [name="product_category"]').val(category.indexOf('No Product Category') !== -1 ? undefined : category);
+  $('#product_category_dropdown button').html(category)
 });

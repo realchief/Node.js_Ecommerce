@@ -7,7 +7,7 @@
   </td>
   <td style="width:200px !important;">
     <p>
-      <span <% if (typeof product_category !== 'undefined' && product_category){ %>><%= product_category %><% } else { %>class="label label-info">UNDEFINED<% } %></span>
+      <span <% if (typeof product_category !== 'undefined'){ %>><%= product_category %><% } else { %>class="label label-info">UNDEFINED<% } %></span>
     </p>
   </td>
   <td style="width:200px !important;">
@@ -28,6 +28,11 @@
   <td style="width:200px !important;">
     <p>
       <span <% if (typeof brand !== 'undefined' && brand){ %>>brand<% } else { %>class="label label-info">UNDEFINED<% } %></span>
+    </p>
+  </td>
+  <td style="width:200px !important;">
+    <p>
+      <span <% if (typeof product_brand !== 'undefined'){ %>>product_brand<% } else { %>class="label label-info">UNDEFINED<% } %></span>
     </p>
   </td>
   <td data-set="actions" data-set-method="html">
