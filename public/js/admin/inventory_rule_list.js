@@ -18,6 +18,7 @@ var SearchInventoryRules = function(options, callback){
   });
 
   var query = {};
+  var searchNullProductCategory = $('#search-modal [name="search_null_product_category"]:checked').val();
 
   if (a.o.term){
     query['term'] = {
@@ -25,8 +26,8 @@ var SearchInventoryRules = function(options, callback){
     };
   }
 
-  if (a.o.product_category){
-    query['product_category'] = {
+  if (a.o.product_category || searchNullProductCategory){
+    query['product_category'] = searchNullProductCategory ? '' :{
       '$regex': a.o.product_category.toLowerCase().replace(/\W/g, '.*')
     };
   }
