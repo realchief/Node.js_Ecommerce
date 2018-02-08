@@ -93,7 +93,7 @@ var LoadDocs = function(options, callback){
         gb['product_categories'] = Belt.get(json);
         gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
         _.each(gb.product_categories, function (category) {
-          $("#product_category_dropdown ul").append('<li><a href="changeSearchCategory"><span class="tab">' + category + '</span></a></li>');
+          $("#product_category_dropdown ul").append('<li><a href="#">' + category + '</a></li>');
         });
         cb();
       });
@@ -163,7 +163,7 @@ $(document).on('submit', '#search-modal form', function(e){
 
 $(document).on('click', '#product_category_dropdown a', function(e){
   e.preventDefault();
-  var category = $(this).find('span').html();
+  var category = $(this).html();
 
   $('#search-modal [name="product_category"]').val(category.indexOf('No Product Category') !== -1 ? undefined : category);
   $('#product_category_dropdown button').html(category)
