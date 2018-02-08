@@ -117,7 +117,7 @@ $(document).ready(function(){
     'limit': 50
   , 'skip': 0
   , 'query': '{}'
-  , 'sort': '{"_id": 1}'
+  , 'sort': '{"created_at": -1}'
   }, GB.data || {}));
 
   if (_.isString(GB.criteria.query)) GB.criteria.query = JSON.parse(GB.criteria.query);
