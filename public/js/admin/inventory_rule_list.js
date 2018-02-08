@@ -123,6 +123,28 @@ $(document).ready(function(){
   GB.criteria.skip = Belt.cast(GB.criteria.skip, 'number');
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
 
+  $(document).on('click', '.' + GB.model + ' [name="delete"]', function(e){
+    e.preventDefault();
+
+    var $doc = $(this).parents('.' + GB.model)
+        , id = $doc.attr('data-id');
+
+    bootbox.confirm('Are you sure you want to delete this ' + GB.model + '?', function(yes){
+      if (!yes) return;
+
+      $.ajax({
+        'url': '/admin/' + GB.model + '/' + id + '/delete.json'
+        , 'type': 'DELETE'
+        , 'dataType': 'json'
+        , 'success': function(json){
+          if (Belt.get(json, 'error')) return bootbox.alert(json.error);
+
+          $doc.remove();
+        }
+      })
+    });
+  });
+
   LoadDocs(GB.criteria, function(err, res){
     if (err) return bootbox.alert(err.message);
 
