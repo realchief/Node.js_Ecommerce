@@ -1,7 +1,11 @@
-<nav class="navbar navbar-toggleable-md fixed-top">
-  <div class="navbar-bar">
-    <p class="text-uppercase">20% off + free shipping (US only) orders over $75&nbsp;<span class="text-primary">Use code: lover20</span></p>
-  </div>
+<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %>
+  <nav class="navbar navbar-toggleable-md fixed-top navbar--has-promotion-bar">
+    <div class="navbar-bar">
+      <p class="text-uppercase"><%= Instance.content_cache.header.top_notification_bar.main_text %>&nbsp;<span class="text-primary"><%= Instance.content_cache.header.top_notification_bar.bold_text %></span></p>
+    </div>
+<% } else { %>
+  <nav class="navbar navbar-toggleable-md fixed-top">
+<% } %>
   <div class="container">
     <div class="navbar-toggle hidden-lg-up" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
       <div class="navbar-toggle-line navbar-toggle-line--half navbar-toggle-line--start"></div>
@@ -233,9 +237,11 @@
   </div>
 </div>
 
-<div class="alert alert-primary alert--lg text-center visible-sm-down hidden-lg-up mb-0 text-center">
-  <p class="font-montserrat-semibold text-uppercase fs9">20% off + free shipping (US only) orders over $75&nbsp;<span class="text-primary">Use code: lover20</span></p>
-</div><!--alert-->
+<% if (Belt.cast(Instance.content_cache.header.mobile_top_notification_bar.show, 'boolean')) { %>
+    <div class="alert alert-primary alert--lg text-center visible-sm-down hidden-lg-up mb-0 text-center">
+      <p class="font-montserrat-semibold text-uppercase fs9"><%= Instance.content_cache.header.mobile_top_notification_bar.main_text %>&nbsp;<span class="text-primary"><%= Instance.content_cache.header.mobile_top_notification_bar.bold_text %></span></p>
+    </div><!--alert-->
+<% } %>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-sign-up" tabindex="-1" role="dialog" aria-hidden="true">

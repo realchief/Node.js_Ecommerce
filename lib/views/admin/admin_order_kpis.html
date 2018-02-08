@@ -312,6 +312,84 @@
                 </div>
               </div>
 
+              <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                  <h5>BY ORDER</h5>
+                </div>
+                <div class="ibox-content">
+                  <input type="text" class="form-control input-sm m-b-xs" id="orders-filter" placeholder="Search in table">
+                  <div class="table-responsive">
+                    <table class="footable table table-stripped" data-filter=#orders-filter data-page-size="10000">
+                      <thead>
+                        <tr>
+                          <td><strong>status</strong></td>
+                          <% _.each(_.values(data.orders)[0], function(v, k){ %>
+                            <% if (k.match(/^(revenue|refunded\_revenue)$/)) return; %>
+                            <td><%= k %></td>
+                          <% }) %>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% _.each(data.orders, function(d, k2){ %>
+                          <tr>
+                            <td><strong><%= k2 %></strong></td>
+                            <% _.each(d, function(v, k){ %>
+                              <% if (k.match(/^(revenue|refunded\_revenue)$/)) return; %>
+                              <% if (k.match(/revenue|payments|discounts|tax|shipping|aov/)){ %>
+                                <% v = Instance.priceString(v); %>
+                              <% } %>
+                              <% if (k.match(/aou/)){ %>
+                                <% v = v; %>
+                              <% } %>
+                              <td><%= v %></td>
+                            <% }) %>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                  <h5>BY ORDER ITEM</h5>
+                </div>
+                <div class="ibox-content">
+                  <input type="text" class="form-control input-sm m-b-xs" id="order_items-filter" placeholder="Search in table">
+                  <div class="table-responsive">
+                    <table class="footable table table-stripped" data-filter=#order_items-filter data-page-size="10000">
+                      <thead>
+                        <tr>
+                          <td><strong>status</strong></td>
+                          <% _.each(_.values(data.order_items)[0], function(v, k){ %>
+                            <% if (k.match(/^(revenue|refunded\_revenue)$/)) return; %>
+                            <td><%= k %></td>
+                          <% }) %>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% _.each(data.order_items, function(d, k2){ %>
+                          <tr>
+                            <td><strong><%= k2 %></strong></td>
+                            <% _.each(d, function(v, k){ %>
+                              <% if (k.match(/^(revenue|refunded\_revenue)$/)) return; %>
+                              <% if (k.match(/revenue|payments|discounts|tax|shipping|aov/)){ %>
+                                <% v = Instance.priceString(v); %>
+                              <% } %>
+                              <% if (k.match(/aou/)){ %>
+                                <% v = v; %>
+                              <% } %>
+                              <td><%= v %></td>
+                            <% }) %>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
