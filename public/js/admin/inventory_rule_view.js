@@ -77,21 +77,6 @@ var InventoryRuleView = function(options, callback){
     }
 
     self['doc'] = a.o.doc;
-
-    Async.waterfall([
-      function(cb){
-        $.get('/cache/product/categories/list.json', function(json){
-          if (Belt.get(json, 'error')) return cb(new Error(json.error));
-
-          gb['product_categories'] = Belt.get(json);
-          gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
-          _.each(gb.product_categories, function (category) {
-            $("#product_category_dropdown ul").append('<li><a href="#">' + category + '</a></li>');
-          });
-          cb();
-        });
-      }
-    ])
   };
 
   gb.view['create'] = function(options, callback){
@@ -179,6 +164,21 @@ var InventoryRuleView = function(options, callback){
   gb.view['_id'] = a.o._id;
 
   gb.view.emit('load');
+
+  Async.waterfall([
+    function(cb){
+      $.get('/cache/product/categories/list.json', function(json){
+        if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+        gb['product_categories'] = Belt.get(json);
+        gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
+        _.each(gb.product_categories, function (category) {
+          $("#product_category_dropdown ul").append('<li><a href="#">' + category + '</a></li>');
+        });
+        cb();
+      });
+    }
+  ]);
 
   return gb.view;
 };
