@@ -32,8 +32,8 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'host': 'http://wanderset.com:9008'
-, 'from': Moment('01/01/2018', 'MM/DD/YYYY').format('MM-DD-YYYY')
+  'host': 'http://wanderset.com:9006'
+, 'from': Moment('01/30/2018', 'MM/DD/YYYY').format('MM-DD-YYYY')
 , 'to': Moment('01/31/2018', 'MM/DD/YYYY').format('MM-DD-YYYY')
 , 'email': 'ben@wanderset.com'
 , 'auth': {
