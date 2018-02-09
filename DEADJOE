@@ -1,0 +1,17 @@
+
+*** These modified files were found in JOE when it aborted on Thu Feb  8 20:06:51 2018
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+category-grams.csv
+/mnt/H/backup/documents/code/wanderset/.git/MERGE_MSG
+/mnt/H/backup/documents/code/wanderset/.git/MERGE_MSG
+/mnt/H/backup/documents/code/wanderset/.git/MERGE_MSG
+resources/assets/category-grams.csv
+resources/assets/category-grams.csv
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
