@@ -363,6 +363,7 @@ var CheckoutView = function(options, callback){
       }
     , 'set:line_items': function(val, $el, view){
         GB.doc.line_items = val;
+        GB.doc.total_price = Belt.get(gb.view, 'data.total_price');
 
         return Render('checkout_line_items', {
           'line_items': val
@@ -603,7 +604,7 @@ var CheckoutView = function(options, callback){
         });
       }
     , function(cb){
-        if (a.o.payment_method === 'paypal') return cb();
+        if (['paypal', 'apple_pay'].includes(a.o.payment_method)) return cb();
 
         self.ValidatePayment({
           'check_address': true
@@ -627,6 +628,8 @@ var CheckoutView = function(options, callback){
     , function(cb){
         if (a.o.payment_method === 'paypal'){
           self.CreatePayPalAuthorization(Belt.cw(cb, 0));
+        } else if (a.o.payment_method === 'apple_pay'){
+          self.CreateApplePayAuthorization(Belt.cw(cb, 0));
         } else {
           self.CreateOrder(Belt.cw(cb, 0));
         }
@@ -821,6 +824,153 @@ var CheckoutView = function(options, callback){
         $.post('/order/paypal/authorize.json', a.o.data, function(res){
           res_callback(res);
         });
+      }
+    ], function(err){
+      if (err){
+        self.ToggleStep({
+          'show': true
+        , 'active': true
+        });
+
+        self.ToggleStep({
+          'step': 'shipping'
+        , 'show': true
+        , 'active': true
+        , 'error': err.message
+        });
+
+        self.$el.find('aside .alert').html(err.message).removeClass('d-none');
+
+        if ($('.hidden-sm-down:visible').length) simple.scrollTo({
+          'target': 'body'
+        , 'animation': true
+        , 'duration': 300
+        , 'offset': {
+            'y': 0
+          }
+        });
+      }
+
+      a.cb(err);
+    });
+  };
+
+    // todo promjeniti na copyima da se accepta i apple pay
+  gb.view['CreateApplePayAuthorization'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+
+    });
+
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'total_price': GB.doc.total_price
+      , 'data': _.extend({}, self.get(), {
+        'line_items': GB.doc.line_items
+        , 'products': _.map(GB.doc.products, function(p){
+          return _.pick(p, [
+            'product'
+          , 'options'
+          , 'quantity'
+          , 'sku'
+          , 'referring_list'
+          , 'referring_media'
+          ]);
+        })
+      })
+    });
+
+    Async.waterfall([
+      function(cb){
+        var res_callback = function(res){
+          if (Belt.get(res, 'error')){
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'order error', res.error);
+            }
+
+            if (FSEnabled()){
+              FS.setUserVars({
+                  'orderError_str': res.error
+              });
+            }
+
+            if (FBEnabled()){
+              fbq('trackCustom', 'order error', {
+                  'status': res.error
+              });
+            }
+
+            return cb(new Error(res.error));
+          } else {
+
+            if (GAEnabled()) {
+              ga('send', 'event', 'Checkout', 'order success');
+            }
+
+            if (FSEnabled()){
+              FS.setUserVars({
+                  'orderSuccess_bool': true
+              });
+            }
+
+            if (FBEnabled()){
+              fbq('trackCustom', 'order success', {
+
+              });
+            }
+
+            document.location = '/checkout/complete';
+          }
+        };
+
+        var paymentRequest = {
+          'countryCode': 'US'
+          , 'currencyCode': 'USD'
+          , 'total': {
+            'label': 'Wanderset, Inc.',
+            'amount': Belt.cast(a.o.total_price, 'string')
+          }
+          , 'lineItems': _.map(a.o.data.line_items, function(o){
+            return {
+              'label': o.label
+              , 'type': 'final'
+              , 'amount': Belt.cast(o.amount, 'string')
+            }
+          })
+        };
+
+
+        var session = Stripe.applePay.buildSession(paymentRequest,
+          function(result, completion) {
+
+            a.o.data['token'] = result.token.id;
+
+            $.post('/order/create.json', a.o.data, function(res){
+              var err = Belt.get(res, 'error') ? Belt.get(res, 'error') : undefined;
+              if (err){
+                completion(ApplePaySession.STATUS_FAILURE);
+              } else {
+                completion(ApplePaySession.STATUS_SUCCESS);
+              }
+              return res_callback(res);
+            });
+          }, function (err) {
+            res_callback({
+                'error': err
+            });
+          });
+
+        session.oncancel = function() {
+          res_callback({
+              'error': 'Apple pay was canceled by user'
+          });
+        };
+
+        session.begin();
       }
     ], function(err){
       if (err){
@@ -1499,6 +1649,11 @@ var CheckoutView = function(options, callback){
 };
 
 $(document).ready(function(){
+    Stripe.applePay.checkAvailability(function(available) {
+        if (!available) {
+            $('#apple-pay-checkbox').hide();
+        }
+    });
   GB['view'] = new CheckoutView({
 
   });
