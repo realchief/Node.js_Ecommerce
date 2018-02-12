@@ -55,8 +55,7 @@
             </div>
             <div name="mobile_featured_media" data-set="mobile_featured_media" data-set-method="html"></div>
           </fieldset>
-          <div class="hr-line-dashed"></div>
-          <fieldset>
+          <fieldset class="hidden-xs-up">
             <legend>Dropdown Image</legend>
             <div name="logo_media_new">
               <div class="form-group">
@@ -223,20 +222,15 @@
                   <button name="media_bulk_update" class="btn btn-default" style="margin-top:5px;" type="submit">Save Media</button>
                 </div>
               </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Sync From Sets</label>
+                <div class="col-sm-11">
+                  <textarea name="sync_from_sets" type="text" class="form-control" placeholder="sets to sync from (one per line)" data-set="sync_from_sets" data-set-method="val" data-set-transformer="array_to_text" rows="5"></textarea>
+                  <button name="sync_from_sets_update" class="btn btn-default" style="margin-top:5px;" type="submit">Save Sync From Sets</button>
+                </div>
+              </div>
             </fieldset>
           <% } %>
-          <div class="hr-line-dashed"></div>
-          <fieldset>
-            <legend>Products <button name="product_create" class="btn btn-default">Add New</button></legend>
-            <div name="products" data-get="products" data-get-method="html()" data-set="products" data-set-method="html" data-set-transformer="product_subviews"></div>
-            <div class="hr-line-dashed"></div>
-          </fieldset>
-          <div class="hr-line-dashed"></div>
-          <fieldset>
-            <legend>Media <button name="media_create" class="btn btn-default">Add New</button></legend>
-            <div name="medias" data-get="media" data-get-method="html()" data-set="media" data-set-method="html" data-set-transformer="media_subviews"></div>
-            <div class="hr-line-dashed"></div>
-          </fieldset>
           <div class="hr-line-dashed"></div>
         </form>
         <div class="pull-right">

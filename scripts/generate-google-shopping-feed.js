@@ -72,7 +72,7 @@ GB['CreateFeed'] = function(options, callback){
     //domain
   });
 
-  console.log('Creating feed "' + a.o.output_path + '"...');
+  console.log('Creating feed "' + a.o.output_path + '" with ' + (Belt.get(a.o, 'items.length') || 0) + ' SKUs...');
 
   var feed = [
     {
@@ -229,7 +229,7 @@ Async.waterfall([
             return m.url || m.remote_url;
           }).join(',')
         , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
-        , 'price': v.price.toFixed(2) + ' USD'
+        , 'price': (p.compare_at_price && p.compare_at_price > v.price ? p.compare_at_price : v.price).toFixed(2) + ' USD'
         , 'google_product_category': GB.google_categories[cat]
         , 'product_type': cat
         //, 'brand': Str.titleize(brand) || 'Wanderset'
@@ -256,6 +256,10 @@ Async.waterfall([
         , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
         };
 
+        if (p.compare_at_price && p.compare_at_price > v.price){
+          item['sale_price'] = v.price.toFixed(2) + ' USD';
+        }
+
         item['custom_label_0'] = item.__brand;
         item['custom_label_1'] = api;
         item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
@@ -275,9 +279,9 @@ Async.waterfall([
     , 'output_path': GB.output_path
     }, Belt.cw(cb, 0));
   }
-, function(cb){
+/*, function(cb){
     GB['whitelisted_items'] = _.filter(GB.items, function(i){
-      return !i.__brand.match(GB.negative_regex);
+      return !(i.__brand || '').match(GB.negative_regex);
     });
 
     GB.CreateFeed({
@@ -306,7 +310,7 @@ Async.waterfall([
         })
       }, Belt.cw(cb2, 0));
     }, Belt.cw(cb, 0));
-  }
+  }*/
 ], function(err){
   Spin.stop();
   if (err) Log.error(err);

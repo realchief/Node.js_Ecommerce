@@ -20,7 +20,11 @@
     <% }) %>
   </div>
 
-  <% if (Belt.get(doc, 'brands.0')){ %>
+  <% if (Belt.get(doc, 'manual_brand')){ %>
+    <h1 class="mb5 text-center-sm l-n"><%= _.map([doc.manual_brand], function(b){
+      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular link-dark">' + b + '</a>' : b;
+    }).join(', ') %></h1>
+  <% } else if (Belt.get(doc, 'brands.0')){ %>
     <h1 class="mb5 text-center-sm l-n"><%= _.map(doc.brands, function(b){
       return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="text-regular link-dark">' + b + '</a>' : b;
     }).join(', ') %></h1>
@@ -124,7 +128,7 @@
           </a>
         </li>
         <li class="list-icons__item">
-          <a href="http://twitter.com/share?text=<%= encodeURIComponent(Belt.get(doc, 'label.us')) %>&url=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&hashtags=WANDERSET<%= doc.brands[0] ? (',' + doc.brands[0]) : '' %>" target="_blank" class="list-icons__link">
+          <a href="http://twitter.com/share?text=<%= encodeURIComponent(Belt.get(doc, 'label.us')) %>&url=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&hashtags=WANDERSET<%= doc.manual_brand || (doc.brands[0] ? (',' + doc.brands[0]) : '') %>" target="_blank" class="list-icons__link">
             <i class="wanderset-icon-twitter list-icons__icon"></i>
           </a>
         </li>

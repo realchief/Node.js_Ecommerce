@@ -14,6 +14,7 @@ var Path = require('path')
   , Crypto = require('crypto')
   , XML = require('xml')
   , XMLParser = require('xml2js')
+  , OS = require('os')
 ;
 
 module.exports = function(options, Instance){
@@ -23,7 +24,9 @@ module.exports = function(options, Instance){
       return 'http://localhost:' + (10235 + i);
     })
   , 'crawler_concurrency': 5
+  , 'google_shopping_feed_url': 'https://www.streetammo.dk/export/googlepla.xml'
   , 'xml_feed_url': 'https://www.streetammo.dk/export/trendsales.xml'
+  , 'stock_update_url': 'https://www.streetammo.dk/api/rest/stockchanges'
   });
 
   var S = {};
@@ -63,12 +66,67 @@ module.exports = function(options, Instance){
 //  , 'nike'
   ].join('|'), 'i');
 
-  S['LoadProductFeed'] = function(options, callback){
+  S['CreateOrder'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-      'url': S.settings.xml_feed_url
+      //vendor
+      //order
+      'debug': false
+    });
+
+    if (a.o.debug){
+      console.log(Belt.stringify({
+        'url': 'https://www.streetammo.dk/api/rest/ordercreate'
+      , 'method': 'post'
+      , 'auth': {
+          'user': a.o.vendor.custom_sync.details.auth.user
+        , 'pass': a.o.vendor.custom_sync.details.auth.password
+        }
+      , 'body': a.o.order
+      , 'json': true
+      }));
+
+      return a.cb();
+    } else {
+      console.log(Belt.stringify({
+        'url': 'https://www.streetammo.dk/api/rest/ordercreate'
+      , 'method': 'post'
+      , 'auth': {
+          'user': a.o.vendor.custom_sync.details.auth.user
+        , 'pass': a.o.vendor.custom_sync.details.auth.password
+        }
+      , 'body': a.o.order
+      , 'json': true
+      }));
+    }
+
+    Request({
+      'url': 'https://www.streetammo.dk/api/rest/ordercreate'
+    , 'method': 'post'
+    , 'auth': {
+        'user': a.o.vendor.custom_sync.details.auth.user
+      , 'pass': a.o.vendor.custom_sync.details.auth.password
+      }
+    , 'body': a.o.order
+    , 'json': true
+    }, function(err, res, json){
+      console.log(Belt.stringify(json));
+
+      if (json) json['request'] = a.o.order;
+
+      a.cb(err, json);
+    });
+  };
+
+  S['LoadGoogleShoppingFeed'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'url': S.settings.google_shopping_feed_url
+    , 'update_url': S.settings.stock_update_url
     });
 
     Async.waterfall([
@@ -79,6 +137,139 @@ module.exports = function(options, Instance){
         , 'timeout': 1000 * 60 * 5
         }, function(err, res, xml){
           if (err || !xml) return cb(err || new Error('Streetammo feed not downloaded'));
+
+          gb['last_modified'] = Moment.utc(res.headers['last-modified'], 'ddd, DD MMM YYYY HH:mm:ss').toDate();
+
+          gb['xml'] = xml;
+
+          cb();
+        });
+      }
+    , function(cb){
+        XMLParser.parseString(gb.xml, Belt.cs(cb, gb, 'xml', 1, 0));
+      }
+    , function(cb){
+        if (gb.xml){
+          gb.xml = Belt.get(gb.xml, 'rss.channel.0.item');
+
+          gb.xml = _.map(gb.xml, function(v){
+            return _.mapObject(v, function(v2){
+              return v2 ? v2[0] : v2;
+            });
+          });
+
+          gb.xml = _.map(gb.xml, function(v){
+            return _.object(_.map(v, function(v2, k2){
+              return k2.replace(/^g:/, '');
+            }), _.values(v));
+          });
+
+          _.each(gb.xml, function(v){
+            v.id = v.id.split('-').pop();
+          });
+
+          gb.xml = _.filter(gb.xml, function(v){
+            return v.gender === 'male';
+          });
+
+          gb.xml = _.groupBy(gb.xml, function(v){
+            return v['item_group_id'];
+          });
+
+          //Instance['streetammo_feed'] = gb.xml;
+
+          console.log('Streetammo Google Shopping Feed: ' + _.size(gb.xml) + ' items');
+          console.log('Streetammo Google Shopping Feed: ' + _.reduce(gb.xml, function(m, v){
+            return m + (Belt.get(v, 'length') || 0);
+          }, 0) + ' stocks');
+
+          cb();
+        } else {
+          cb(new Error('Streetammo feed not loaded'));
+        }
+      }
+    , function(cb){
+        gb['vendor'] = _.find(Instance.vendor_ids, function(n){
+          return (n.name || '').match(/streetammo/i);
+        });
+
+        if (!gb.vendor) return cb();
+
+        Request({
+          'url': a.o.update_url
+        , 'auth': {
+            'user': gb.vendor.custom_sync.details.auth.user
+          , 'pass': gb.vendor.custom_sync.details.auth.password
+          }
+        , 'qs': {
+            'time': Moment.utc(gb.last_modified).subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
+          }
+        , 'method': 'get'
+        , 'json': true
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, json){
+          if (err || !json) return cb();
+
+          gb['stocked_items'] = 0;
+
+          gb['updates'] = _.object(_.pluck(json, 'id'), _.pluck(json, 'quantity'));
+
+          _.each(gb.xml, function(x){
+            _.each(x, function(v){
+              if (Belt.isNull(gb.updates[v.id])){
+                v['quantity_available'] = 0;
+                return;
+              }
+
+              v['quantity_available'] = Belt.cast(gb.updates[v.id], 'number');
+              gb.stocked_items++;
+            });
+          });
+
+          gb.xml = _.mapObject(gb.xml, function(x, k){
+            return _.extend({}, _.omit(x[0], [
+            //  'sale_price'
+            //, 'price'
+              'id'
+            , 'color'
+            , 'size'
+            , 'quantity_available'
+            ]), {
+              'variants': x
+            });
+          });
+
+          console.log('Streetammo Google Stocked Items: ' + gb.stocked_items);
+
+          cb();
+        });
+      }
+    ], function(err){
+      if (!err && gb.xml) Instance['streetammo_feed'] = gb.xml;
+
+      a.cb(err, gb.xml);
+    });
+  };
+
+  S['LoadProductFeed'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      'url': S.settings.xml_feed_url
+    , 'update_url': S.settings.stock_update_url
+    });
+
+    Async.waterfall([
+      function(cb){
+        Request({
+          'url': a.o.url
+        , 'method': 'get'
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, xml){
+          if (err || !xml) return cb(err || new Error('Streetammo feed not downloaded'));
+
+          gb['last_modified'] = Moment.utc(res.headers['last-modified'], 'ddd, DD MMM YYYY HH:mm:ss').toDate();
 
           gb['xml'] = xml;
 
@@ -121,16 +312,62 @@ module.exports = function(options, Instance){
             });
           });
 
-          Instance['streetammo_feed'] = gb.xml;
+          //Instance['streetammo_feed'] = gb.xml;
           cb();
         } else {
           cb(new Error('Streetammo feed not loaded'));
         }
       }
+    , function(cb){
+        gb['vendor'] = _.find(Instance.vendor_ids, function(n){
+          return (n.name || '').match(/streetammo/i);
+        });
+
+        if (!gb.vendor) return cb();
+
+        Request({
+          'url': a.o.update_url
+        , 'auth': {
+            'user': gb.vendor.custom_sync.details.auth.user
+          , 'pass': gb.vendor.custom_sync.details.auth.password
+          }
+        , 'qs': {
+            'time': Moment.utc(gb.last_modified).format('YYYY-MM-DD HH:mm:ss')
+          }
+        , 'method': 'get'
+        , 'json': true
+        , 'timeout': 1000 * 60 * 5
+        }, function(err, res, json){
+          if (err || !json) return cb();
+
+          gb['updates'] = _.object(_.pluck(json, 'id'), _.pluck(json, 'quantity'));
+
+          _.each(gb.xml, function(x){
+            _.each(x.variant, function(v){
+              if (Belt.isNull(gb.updates[v.sku])) return;
+
+              v['stock'] = Belt.cast(gb.updates[v.sku], 'string');
+            });
+          });
+
+          cb();
+        });
+      }
     ], function(err){
+      if (!err && gb.xml) Instance['streetammo_feed'] = gb.xml;
+
       a.cb(err, gb.xml);
     });
   };
+
+  Instance.express.all('/admin/streetammo/google/feed.json', function(req, res){
+    S.LoadGoogleShoppingFeed(function(err, json){
+      res.status(200).json({
+        'error': Belt.get(err, 'message')
+      , 'data': json
+      });
+    });
+  });
 
   Instance.express.all('/admin/streetammo/feed.json', function(req, res){
     S.LoadProductFeed(function(err, json){
@@ -150,10 +387,266 @@ module.exports = function(options, Instance){
       //vendor
       //last_sync
       //synced_at
+      'dkk_to_usd': Instance.DKKtoUSD()
+    });
+
+    console.log('STREETAMMO DKK to USD: ' + a.o.dkk_to_usd);
+    console.log('[STREETAMMO] Syncing "' + a.o.product.brand + ' ' + a.o.product.title + '"...');
+
+    Async.waterfall([
+      function(cb){
+        gb['sku'] = a.o.product.item_group_id
+        if (!gb.sku) return cb(new Error('sku is missing'));
+
+        Instance.log.warn('Syncing "' + gb.sku + '"');
+
+        self.CrawlProductPage(_.extend({}, a.o, {
+          'url': a.o.product.link
+        }), Belt.cs(cb, gb, 'crawl_prod', 1));
+      }
+    , function(cb){
+        Instance.db.model('product').findOne({
+          'sku': gb.sku
+        , 'vendor': a.o.vendor.get('_id')
+        }, Belt.cs(cb, gb, 'doc', 1, 0));
+      }
+    , function(cb){
+        gb.doc = gb.doc || Instance.db.model('product')({});
+
+        gb.doc.set({
+          'sku': gb.sku
+        , 'name': a.o.product.title
+        , 'label': {
+            'us': a.o.product.title
+          }
+        , 'description': a.o.product.description ? {
+            'us': a.o.product.description
+          } : {}
+        , 'vendor': a.o.vendor.get('_id')
+        , 'brands': [
+            a.o.product.brand
+          ]
+        , 'last_sync': a.o.last_sync
+        , 'synced_at': a.o.synced_at
+        , 'source': {
+            'platform': a.o.vendor.get('custom_sync.strategy')
+          , 'record': a.o.product
+          }
+        , 'skip_media_processing': true
+        });
+
+        gb['options'] = {};
+
+        a.o.product.images = Belt.arrayDefalse([
+          a.o.product.image_link
+        ]);
+
+        a.o.product.images = a.o.product.images.concat(Belt.get(gb, 'crawl_prod.images') || []);
+
+        a.o.product.images = _.uniq(a.o.product.images);
+
+        gb.doc.media = _.filter(gb.doc.media, function(m){
+          return _.some(a.o.product.images, function(i){
+            return i === m.remote_url;
+          });
+        }) || [];
+
+        _.each(a.o.product.images, function(i){
+          if (_.some(gb.doc.media, function(m){
+            return i === m.remote_url;
+          })) return;
+
+          gb.doc.media.push({
+            'remote_url': i
+          , 'skip_processing': true
+          });
+        });
+
+        gb.doc.media = _.sortBy(gb.doc.media, function(m){
+          return _.indexOf(a.o.product.images, m.remote_url);
+        });
+
+        _.each(gb.doc.media, function(m){
+          m['skip_processing'] = true;
+        });
+
+        if (a.o.product.availability !== 'in stock'){
+          gb.doc.set({
+            'sync_hide': true
+          , 'hide_note': 'product is unavailable'
+          });
+        } else {
+          gb.doc.set({
+            'sync_hide': false
+          });
+
+          gb['price'] = (a.o.product.sale_price || a.o.product.price || '').replace(/\D/g, '');
+          gb.price = Belt.cast(gb.price, 'number') || 0;
+          gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
+
+          if (a.o.product.sale_price){
+            gb['compare_at_price'] = (a.o.product.price || '').replace(/\D/g, '');
+            gb.compare_at_price = Belt.cast(gb.compare_at_price, 'number') || 0;
+            gb.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb.compare_at_price);
+          }
+        }
+
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
+      }
+    , function(cb){
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb['stocks'] = [];
+        if (!gb.price) return cb();
+
+        Async.eachSeries(a.o.product.variants, function(v, cb2){
+          var gb2 = {};
+
+          gb2['options'] = {};
+
+          if (v.color) gb2.options['color'] = v.color;
+          if (v.size) gb2.options['size'] = v.size.replace(/,/g, '.');
+
+          console.log('[STREETAMMO] Stocking "' + a.o.product.brand + ' ' + a.o.product.title + '" [' + JSON.stringify(gb2.options) + ']...');
+
+          gb2['price'] = (v.sale_price || v.price || '').replace(/\D/g, '');
+          gb2.price = Belt.cast(gb2.price, 'number') || 0;
+          gb2.price = Math.ceil(a.o.dkk_to_usd * gb2.price);
+
+          if (v.sale_price){
+            gb2['compare_at_price'] = (v.price || '').replace(/\D/g, '');
+            gb2.compare_at_price = Belt.cast(gb2.compare_at_price, 'number') || 0;
+            gb2.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb2.compare_at_price);
+          }
+
+          Async.waterfall([
+            function(cb3){
+              Instance.db.model('stock').findOne({
+                'source.record.id': v.id
+              , 'vendor': a.o.vendor.get('_id')
+              , 'source.record.item_group_id': v.item_group_id
+              }, Belt.cs(cb3, gb2, 'stock', 1, 0));
+            }
+          , function(cb3){
+              gb2.stock = gb2.stock || Instance.db.model('stock')({});
+
+              gb2.stock.set({
+                'product': gb.doc.get('_id')
+              , 'vendor': a.o.vendor.get('_id')
+              , 'sku': Crypto.createHash('md5')
+                             .update(gb.doc.get('_id').toString() + (!_.size(gb2.options) ? '' : JSON.stringify(gb2.options)))
+                             .digest('hex')
+              , 'source': {
+                  'platform': a.o.vendor.get('custom_sync.strategy')
+                , 'record': v
+                }
+              , 'last_sync': a.o.last_sync
+              , 'synced_at': a.o.synced_at
+              , 'options': _.mapObject(gb2.options, function(v2, k2){
+                  return {
+                    'value': v2
+                  , 'alias': k2
+                  , 'alias_value': v2
+                  };
+                })
+              , 'price': gb2.price
+              , 'list_price': gb2.price
+              , 'compare_at_price': gb2.compare_at_price || null
+              , 'available_quantity': v.quantity_available || 0
+              });
+
+              gb2.stock.save(Belt.cs(cb3, gb2, 'stock', 1, 0));
+            }
+          , function(cb3){
+              gb.stocks.push(gb2.stock.get('_id'));
+
+              cb3();
+            }
+          ], Belt.cw(cb2, 0));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        gb.doc.set({
+          'stocks': gb.stocks || []
+        });
+
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb.doc.populate('stocks', Belt.cs(cb, gb, 'doc', 1, 0));
+      }
+    , function(cb){
+        gb.doc.getConfigurations();
+
+        gb.doc.set({
+          'skip_media_processing': true
+        });
+
+        gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
+      }
+    , function(cb){
+        gb['brand'] = Belt.get(gb, 'doc.brands.0');
+
+        if (!gb.brand) return cb();
+
+        Instance.db.model('set').findOne({
+          'brand': true
+        , 'name': new RegExp('^' + Instance.escapeRegExp(gb.brand) + '$', 'i')
+        }, Belt.cs(cb, gb, 'brand_set', 1));
+      }
+    , function(cb){
+        gb.brand_set = gb.brand_set || Instance.db.model('set')({
+          'brand': true
+        , 'hide': true
+        , 'name': gb.brand
+        , 'slug': Str.slugify(gb.brand)
+        , 'label': {
+            'us': gb.brand
+          }
+        , 'landing_label': {
+            'us': gb.brand
+          }
+        , 'listing_label': {
+            'us': gb.brand
+          }
+        , 'logo_label': gb.brand
+        });
+
+        if (_.some(gb.brand_set.products, function(p){
+          return p.toString() === gb.doc.get('_id').toString();
+        })) return cb();
+
+        gb.brand_set.products.unshift(gb.doc.get('_id'));
+
+        gb.brand_set.save(Belt.cw(cb, 0));
+      }
+    ], function(err){
+      a.cb(err, gb.doc);
+    });
+  };
+
+  S['old_UpdateProduct'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //product
+      //vendor
+      //last_sync
+      //synced_at
       'base_quantity': 3
-    , 'dkk_to_usd': 0.16
+    , 'dkk_to_usd': Instance.DKKtoUSD()
     , 'brand_regex': S.brand_regex
     });
+
+    console.log('STREETAMMO DKK to USD: ' + a.o.dkk_to_usd);
 
     Async.waterfall([
       function(cb){
@@ -263,6 +756,12 @@ module.exports = function(options, Instance){
           gb['price'] = a.o.product.price;
           gb.price = Belt.cast(gb.price, 'number') || 0;
           gb.price = Math.ceil(a.o.dkk_to_usd * gb.price);
+
+          if (a.o.product.compare_to_price){
+            gb['compare_at_price'] = a.o.product.compare_to_price;
+            gb.compare_at_price = Belt.cast(gb.compare_at_price, 'number') || 0;
+            gb.compare_at_price = Math.ceil(a.o.dkk_to_usd * gb.compare_at_price);
+          }
         }
 
         gb.doc.set({
@@ -337,6 +836,7 @@ module.exports = function(options, Instance){
               , 'options': gb2.options
               , 'price': gb.price
               , 'list_price': gb.price
+              , 'compare_at_price': gb.compare_at_price || null
               , 'available_quantity': a.o.base_quantity
               });
 
@@ -371,18 +871,32 @@ module.exports = function(options, Instance){
         gb.doc.save(Belt.cs(cb, gb, 'doc', 1, 0))
       }
     , function(cb){
-        if (!a.o.product.brand) return cb();
+        gb['brand'] = Belt.get(gb, 'doc.brands.0');
+
+        if (!gb.brand) return cb();
 
         Instance.db.model('set').findOne({
           'brand': true
-        , 'name': new RegExp('^' + Instance.escapeRegExp(a.o.product.brand) + '$', 'i')
-        , 'vendor': {
-            '$exists': false
-          }
-        }, Belt.cs(cb, gb, 'brand_set', 1, 0));
+        , 'name': new RegExp('^' + Instance.escapeRegExp(gb.brand) + '$', 'i')
+        }, Belt.cs(cb, gb, 'brand_set', 1));
       }
     , function(cb){
-        if (!gb.brand_set) return cb();
+        gb.brand_set = gb.brand_set || Instance.db.model('set')({
+          'brand': true
+        , 'hide': true
+        , 'name': gb.brand
+        , 'slug': Str.slugify(gb.brand)
+        , 'label': {
+            'us': gb.brand
+          }
+        , 'landing_label': {
+            'us': gb.brand
+          }
+        , 'listing_label': {
+            'us': gb.brand
+          }
+        , 'logo_label': gb.brand
+        });
 
         if (_.some(gb.brand_set.products, function(p){
           return p.toString() === gb.doc.get('_id').toString();
@@ -502,7 +1016,7 @@ module.exports = function(options, Instance){
         '/men/apparel'
       , '/men/footwear'
       ] : [
-        '/streetammo'
+       '/streetammo'
       , '/mister-tee'
       , '/kappa'
       , '/adidas'
@@ -517,14 +1031,22 @@ module.exports = function(options, Instance){
 
     Async.waterfall([
       function(cb){
-        return Async.eachLimit(a.o.categories,  a.o.crawler_concurrency, function(c, cb2){
+        return Async.eachLimit(_.shuffle(a.o.categories),  a.o.crawler_concurrency, function(c, cb2){
           var category = c
             , tries = 0;
 
           self.CrawlCategoryPage({
-            'index': 1
+            'index': 0
           , 'category': c
           }, function(err, urls, indexes){
+            if (!_.any(indexes)){
+              indexes = [
+                '0'
+              ];
+            } else {
+              indexes.unshift('0');
+            }
+
             _.each(indexes, function(i){
               self.CategoryQueue.push(function(cb3){
                 self.SyncCategoryPage(_.extend({}, a.o, {
@@ -623,7 +1145,7 @@ module.exports = function(options, Instance){
     });
   };
 
-  S['SyncVendor'] = function(options, callback){
+  S['old_SyncVendor'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
       , gb = {};
@@ -643,6 +1165,76 @@ module.exports = function(options, Instance){
         self.IterateProducts(a.o, Belt.cw(cb, 0));
       }
 /*    , function(cb){
+        Instance.db.model('product').find({
+          'vendor': a.o.vendor.get('_id')
+        , 'last_sync': {
+            '$ne': gb.last_sync
+          }
+        }, Belt.cs(cb, gb, 'remove_products', 1, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.remove_products || [], function(e, cb2){
+          e.set({
+            'sync_hide': true
+          , 'hide_note': 'sync - removed when not synced'
+          });
+
+          e.save(Belt.cw(cb2));
+        }, Belt.cw(cb, 0));
+      }
+    , function(cb){
+        Instance.db.model('stock').find({
+          'vendor': a.o.vendor.get('_id')
+        , 'last_sync': {
+            '$ne': gb.last_sync
+          }
+        }, Belt.cs(cb, gb, 'remove_stocks', 1, 0));
+      }
+    , function(cb){
+        Async.eachSeries(gb.remove_stocks || [], function(e, cb2){
+          e.remove(Belt.cw(cb2));
+        }, Belt.cw(cb, 0));
+      }*/
+    ], function(err){
+      a.cb(err);
+    });
+  };
+
+  S['SyncVendor'] = function(options, callback){
+    var a = Belt.argulint(arguments)
+      , self = this
+      , gb = {};
+    a.o = _.defaults(a.o, {
+      //vendor
+      //progress_cb
+      'last_sync': Belt.uuid()
+    , 'synced_at': new Date()
+    });
+
+    return Async.waterfall([
+      function(cb){
+        gb['products'] = [];
+        gb['last_sync'] = a.o.last_sync;
+        gb['synced_at'] = a.o.synced_at;
+
+        self.LoadGoogleShoppingFeed(a.o, Belt.cs(cb, gb, 'products', 1, 0));
+      }
+    , function(cb){
+        console.log('[STREETAMMO] FEED LOADED: ' + _.size(gb.products) + ' products total (' + _.filter(gb.products, function(p){
+          return _.some(p.variants, function(v){
+            return v.quantity_available;
+          });
+        }).length + ' available)');
+
+        Async.eachLimit(_.shuffle(_.values(gb.products)), OS.cpus().length, function(p, cb2){
+          a.o.progress_cb(p, function(err){
+            cb2();
+          });
+        }, function(err){
+          cb();
+        });
+      }
+    /*, function(cb){
         Instance.db.model('product').find({
           'vendor': a.o.vendor.get('_id')
         , 'last_sync': {

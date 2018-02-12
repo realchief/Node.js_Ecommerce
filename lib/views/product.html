@@ -13,7 +13,7 @@
     return k.match(/size/i);
   }); %>
   <% var cat = Belt.get(doc, 'categories.0') || Belt.get(doc, 'auto_category'); %>
-  <% var brand = (doc.brands || []).join(', '); %>
+  <% var brand = doc.manual_brand || (doc.brands || []).join(', '); %>
   <% var title =  Belt.get(doc, 'label.us') || doc.name; %>
   <% var desc = Str.stripTags(Belt.get(doc, 'description.us')
                 || _.map(Belt.get(configuration, 'options'), function(v, k){
@@ -21,6 +21,8 @@
                    }).join(', ')
                 || cat);  %>
   <% var price = Instance.priceString(configuration.price); %>
+  <% var original_price = Instance.priceString(configuration.compare_at_price || 0); %>
+  <% var on_sale = configuration.compare_at_price && configuration.compare_at_price > configuration.price ? true : false; %>
   <% var in_stock = Belt.get(configuration, 'available_quantity') > 0 ? true : false; %>
   <% var related_configurations = Belt.arrayDefalse(_.map(doc.configurations, function(v, k){
     if (v.sku === Belt.get(configuration, 'sku')) return false;
@@ -63,8 +65,17 @@
   <meta property="product:condition" content="new" />
   <% if (configuration){ %>
     <meta property="product:upc" content="<%= configuration.sku %>" />
-    <meta property="product:price:amount" content="<%= price %>" />
-    <meta property="product:price:currency" content="USD" />
+    <% if (on_sale){ %>
+      <meta property="product:price:amount" content="<%= price %>" />
+      <meta property="product:price:currency" content="USD" />
+      <meta property="product:sale_price:amount" content="<%= price %>" />
+      <meta property="product:sale_price:currency" content="USD" />
+      <meta property="product:original_price:amount" content="<%= original_price %>" />
+      <meta property="product:original_price:currency" content="USD" />
+    <% } else { %>
+      <meta property="product:price:amount" content="<%= price %>" />
+      <meta property="product:price:currency" content="USD" />
+    <% } %>
     <meta property="product:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
   <% } %>
   <meta property="product:is_product_shareable" content="true" />
@@ -90,8 +101,17 @@
   <meta property="og:condition" content="new" />
   <% if (configuration){ %>
     <meta property="og:upc" content="<%= configuration.sku %>" />
-    <meta property="og:price:amount" content="<%= price %>" />
-    <meta property="og:price:currency" content="USD" />
+    <% if (on_sale){ %>
+      <meta property="og:price:amount" content="<%= price %>" />
+      <meta property="og:price:currency" content="USD" />
+      <meta property="og:sale_price:amount" content="<%= price %>" />
+      <meta property="og:sale_price:currency" content="USD" />
+      <meta property="og:original_price:amount" content="<%= original_price %>" />
+      <meta property="og:original_price:currency" content="USD" />
+    <% } else { %>
+      <meta property="og:price:amount" content="<%= price %>" />
+      <meta property="og:price:currency" content="USD" />
+    <% } %>
     <meta property="og:availability" content="<%= in_stock ? 'instock' : 'oos' %>" />
   <% } %>
   <meta property="og:is_og_shareable" content="true" />
@@ -151,7 +171,7 @@
     var DOC = <%= Belt.stringify(doc) %>;
   </script>
 </head>
-  <body>
+  <body<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %> class="has-promotion-bar"<% } %>>
     <%= Render('header', Locals) %>
     <main class="main" data-view="ProductView" data-id="<%= doc._id %>">
       <section class="section">
@@ -183,7 +203,13 @@
 
             <div class="col-lg-6 col-md-7">
               <div class="mb15 hidden-sm-down">
-                <% if (Belt.get(doc, 'brands.0')){ %>
+                <% if (Belt.get(doc, 'manual_brand')){ %>
+                  <h1 class="mb5 text-center-sm l-n goods-title">
+                    <%= _.map([doc.manual_brand], function(b){
+                      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
+                    }).join(', ') %>
+                  </h1>
+                <% } else if (Belt.get(doc, 'brands.0')){ %>
                   <h1 class="mb5 text-center-sm l-n goods-title">
                     <%= _.map(doc.brands, function(b){
                       return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
@@ -200,20 +226,26 @@
 
               <div class="mb15 hidden-md-up">
                 <div class="d-flex justify-content-between align-items-center mb5">
-                  <% if (Belt.get(doc, 'brands.0')){ %>
+                  <% if (Belt.get(doc, 'manual_brand')){ %>
+                    <h1 class="mb-0 text-center-sm l-n goods-title">
+                      <%= _.map([doc.manual_brand], function(b){
+                        return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
+                      }).join(', ') %>
+                    </h1>
+                  <% } else if (Belt.get(doc, 'brands.0')){ %>
                     <h1 class="mb-0 text-center-sm l-n goods-title">
                       <%= _.map(doc.brands, function(b){
                         return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
                       }).join(', ') %>
                     </h1>
                   <% } %>
+
                   <h2 data-set="price" data-set-method="html" class="mb-0 text-center-sm l-n goods-price"></h2>
                 </div>
                 <% if (Belt.get(doc, 'label.us')){ %>
                   <h3 class="l-n goods-subtitle"><%= doc.label.us %></h3>
                 <% } %>
               </div>
-
 
               <form action="" class="mb40">
                 <% _.each(doc.options, function(v, k){ %>
@@ -306,7 +338,7 @@
                             </a>
                           </li>
                           <li class="list-icons__item">
-                            <a href="http://twitter.com/share?text=<%= encodeURIComponent(Belt.get(doc, 'label.us')) %>&url=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&hashtags=WANDERSET<%= doc.brands[0] ? (',' + doc.brands[0]) : '' %>" target="_blank" class="list-icons__link">
+                            <a href="http://twitter.com/share?text=<%= encodeURIComponent(Belt.get(doc, 'label.us')) %>&url=<%= encodeURIComponent(Settings.host + '/product/' + (doc.slug || doc._id)) %>&hashtags=WANDERSET<%= doc.manual_brand || (doc.brands[0] ? (',' + doc.brands[0]) : '') %>" target="_blank" class="list-icons__link">
                               <i class="wanderset-icon-twitter list-icons__icon"></i>
                             </a>
                           </li>

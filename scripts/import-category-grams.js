@@ -40,7 +40,7 @@ var GB = _.defaults(O.argv, {
   })
 , 'skip': 0
 , 'limit': 500
-, 'sort': '-updated_at'
+, 'sort': '-created_at'
 , 'cat_count': 0
 , 'hide_count': 0
 , 'auth': {
@@ -88,7 +88,7 @@ var GB = _.defaults(O.argv, {
     });
 
     if (_.any(hgrams) && !o.show){
-      update['sync_hide'] = true;
+      update['hide'] = true;
       update['hide_note'] = 'grams check: ' + _.pluck(hgrams, 'gram').join(', ');
     }
 
@@ -120,6 +120,8 @@ var GB = _.defaults(O.argv, {
     , 'method': 'post'
     }, function(err, res, json){
       //console.log(Belt.stringify(json));
+
+      console.log(o.slug + ': ' + update.hide_note);
 
       cb();
     });

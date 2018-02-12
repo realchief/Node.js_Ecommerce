@@ -445,6 +445,7 @@ var ProductView = function(options, callback){
         , 'sizing_guide'
         , 'brands'
         , 'categories'
+        , 'manual_brand'
         , 'vendor'
         ]);
 
@@ -569,6 +570,7 @@ var ProductView = function(options, callback){
     , 'vendor'
     , 'brands'
     , 'categories'
+    , 'manual_brand'
     ].concat(self.update_media ? [
       'media'
     ] : []));

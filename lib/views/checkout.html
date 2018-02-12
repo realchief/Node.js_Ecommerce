@@ -8,7 +8,7 @@
       Stripe.setPublishableKey(STRIPE_KEY);
     </script>
   </head>
-  <body>
+  <body<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %> class="has-promotion-bar"<% } %>>
     <%= Render('header', _.extend({}, Locals, {
       'show_loader': true
     })) %>

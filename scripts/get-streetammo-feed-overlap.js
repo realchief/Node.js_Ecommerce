@@ -48,7 +48,7 @@ var GB = _.defaults(O.argv, {
     var style = o.source.record.url.split('/').pop().split('-').shift();
     console.log(GB.feed[style]);
 
-    if (GB.feed.style) GB.matched_count++;
+    if (GB.feed[style]) GB.matched_count++;
 
     cb();
   }
@@ -94,10 +94,10 @@ Async.waterfall([
   }
 , function(cb){
     console.log('Listed products: ' + GB.listed_count);
-    console.log('Feed products: ' + GB.feed.length);
+    console.log('Feed products: ' +  _.size(GB.feed));
     console.log('Matched products: ' + GB.matched_count);
     console.log('Listed products coverage: ' + ((GB.matched_count / GB.listed_count) * 100).toFixed(2) + '%');
-    console.log('Feed products coverage: ' + ((GB.matched_count / GB.feed.length) * 100).toFixed(2) + '%');
+    console.log('Feed products coverage: ' + ((GB.matched_count / _.size(GB.feed)) * 100).toFixed(2) + '%');
 
     cb();
   }

@@ -1,0 +1,72 @@
+<div id="container" class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="pull-right">
+          <button name="submit" class="btn btn-primary" type="submit">Update all</button>
+        </div>
+        <h1><%= title %></h1>
+        <div class="hr-line-dashed"></div>
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Top notification</legend>
+            <div name="media_new">
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Main text</label>
+                <div class="col-sm-10">
+                  <input name="top_notification_bar.main_text" type="text" class="form-control" placeholder="Main text" data-get="top_notification_bar.main_text" data-get-method="val()" data-set="top_notification_bar.main_text" data-set-method="val" value="<%= Instance.content_cache.header.top_notification_bar.main_text %>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Bold text</label>
+                <div class="col-sm-10">
+                  <input name="top_notification_bar.bold_text" type="text" class="form-control" placeholder="Bold text" data-get="top_notification_bar.bold_text" data-get-method="val()" data-set="top_notification_bar.bold_text" data-set-method="val" value="<%= Instance.content_cache.header.top_notification_bar.bold_text %>">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div>
+                    <label> <input type="checkbox" class="i-checks" data-get="top_notification_bar.show" data-get-method="isChecked()" data-set="top_notification_bar.show" data-set-method="makeChecked" <% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %>checked<% } %>> Show?</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
+          </fieldset>
+          <div class="hr-line-dashed"></div>
+          <div class="hr-line-dashed"></div>
+          <div class="hr-line-dashed"></div>
+          <fieldset>
+            <legend>Top Notification Mobile</legend>
+            <div name="media_new">
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Main text</label>
+                <div class="col-sm-10">
+                  <input name="mobile_top_notification_bar.main_text" type="text" class="form-control" placeholder="Main text" data-get="mobile_top_notification_bar.main_text" data-get-method="val()" data-set="mobile_top_notification_bar.main_text" data-set-method="val" value="<%= Instance.content_cache.header.mobile_top_notification_bar.main_text %>">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Bold text</label>
+                <div class="col-sm-10">
+                  <input name="mobile_top_notification_bar.bold_text" type="text" class="form-control" placeholder="Bold text" data-get="mobile_top_notification_bar.bold_text" data-get-method="val()" data-set="mobile_top_notification_bar.bold_text" data-set-method="val" value="<%= Instance.content_cache.header.mobile_top_notification_bar.bold_text %>">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div>
+                    <label> <input type="checkbox" class="i-checks" data-get="mobile_top_notification_bar.show" data-get-method="isChecked()" data-set="mobile_top_notification_bar.show" data-set-method="makeChecked" <% if (Belt.cast(Instance.content_cache.header.mobile_top_notification_bar.show, 'boolean')) { %>checked<% } %>> Show?</label>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+            <div name="featured_media" data-set="featured_media" data-set-method="html"></div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

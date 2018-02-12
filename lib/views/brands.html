@@ -4,7 +4,7 @@
   <%= Render('head', Locals) %>
 </head>
 
-<body>
+<body<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %> class="has-promotion-bar"<% } %>>
   <%= Render('header', Locals) %>
 
   <main class="main">
@@ -14,16 +14,25 @@
           <% _.each(docs, function(d){ %>
             <div class="col-md-3 col-6">
               <a href="/brand/<%= encodeURIComponent(Belt.get(d, 'slug') || Belt.get(d, 'label.us') || d.name) %>" class="brands__item">
-                 <img data-src="<%=
-                    Belt.get(d, 'landing_media.downsample_url')
-                 || Belt.get(d, 'logo_media.downsample_url')
-                 || Belt.get(d, 'landing_media.url')
-                 || Belt.get(d, 'logo_media.url')
-                 || Belt.get(d, 'mobile_featured_media.url')
-                 || Belt.get(d, 'featured_media.url')
-                 %>"
-                 class="brands__item__img lazy"
-                 >
+                <% if (Belt.get(d, 'landing_media.downsample_url')
+                   || Belt.get(d, 'logo_media.downsample_url')
+                   || Belt.get(d, 'landing_media.url')
+                   || Belt.get(d, 'logo_media.url')
+                   || Belt.get(d, 'mobile_featured_media.url')
+                   || Belt.get(d, 'featured_media.url')){ %>
+                       <img data-src="<%=
+                          Belt.get(d, 'landing_media.downsample_url')
+                       || Belt.get(d, 'logo_media.downsample_url')
+                       || Belt.get(d, 'landing_media.url')
+                       || Belt.get(d, 'logo_media.url')
+                       || Belt.get(d, 'mobile_featured_media.url')
+                       || Belt.get(d, 'featured_media.url')
+                       %>"
+                       class="brands__item__img lazy"
+                       >
+                <% } else { %>
+                  <%= Belt.get(d, 'label.us') || d.name || d.slug %>
+                <% } %>
               </a>
             </div>
           <% }) %>

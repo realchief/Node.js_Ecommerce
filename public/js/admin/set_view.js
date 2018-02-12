@@ -126,6 +126,18 @@ var SetView = function(options, callback){
           });
         });
       }
+    , 'click [name="sync_from_sets_update"]': function(e){
+        e.preventDefault();
+        var self = this;
+
+        self.bulkUpdate(function(err, gb){
+          if (err) return bootbox.alert(err.message);
+
+          self.loadDoc({
+            'doc': gb.doc
+          });
+        });
+      }
     }
   , 'transformers': {
       'split_lines': function(val){
@@ -187,6 +199,9 @@ var SetView = function(options, callback){
       }
     , 'bulk_items': function(val){
         return _.pluck(val, '_id').join('\n');
+      }
+    , 'array_to_text': function(val){
+        return (val || []).join('\n');
       }
     , 'get:media': function(val, $el){
         var vals = [];
@@ -530,8 +545,10 @@ var SetView = function(options, callback){
     , 'listing_label'
     , 'landing_label'
     ])));
+
     self.set(doc);
 
+/*
     self.$el.find('[name="product"] [name="_id"]').each(function(i, e){
       self.loadProductPreview({
         'el': e
@@ -543,6 +560,7 @@ var SetView = function(options, callback){
         'el': e
       });
     });
+*/
   };
 
   gb.view['loadProductPreview'] = function(options, callback){
@@ -552,6 +570,8 @@ var SetView = function(options, callback){
     a.o = _.defaults(a.o, {
       //el
     });
+
+    return;
 
     var $el = $(a.o.el)
       , val = $el.val();
@@ -577,6 +597,8 @@ var SetView = function(options, callback){
     a.o = _.defaults(a.o, {
       //el
     });
+
+    return;
 
     var $el = $(a.o.el)
       , val = $el.val();
@@ -709,6 +731,11 @@ var SetView = function(options, callback){
           '_id': p.replace(/\W/g, '')
         };
       }))
+    , 'sync_from_sets': Belt.arrayDefalse(_.map(self.$el.find('[name="sync_from_sets"]').val().split(/\s*\n+\s*/), function(p){
+        if (!p) return;
+
+        return p.replace(/\W/g, '');
+      }))
     , 'products': Belt.arrayDefalse(_.map(self.$el.find('[name="products_bulk"]').val().split(/\s*\n+\s*/), function(p){
         if (!p) return;
 
@@ -722,6 +749,7 @@ var SetView = function(options, callback){
       return Belt.equal(v, self.doc[k]);
     });
 
+    if (Belt.equal(gb.update.sync_from_sets, [])) gb.update.sync_from_sets = [''];
     if (Belt.equal(gb.update.products, [])) gb.update.products = [''];
     if (Belt.equal(gb.update.media, [])) gb.update.media = [''];
 
@@ -763,8 +791,8 @@ var SetView = function(options, callback){
     });
   };
 
-  gb.view['sortable_products'] = new Sortable(gb.view.$el.find('[name="products"]')[0]);
-  gb.view['sortable_media'] = new Sortable(gb.view.$el.find('[name="medias"]')[0]);
+  gb.view['sortable_products'] = {}; //new Sortable(gb.view.$el.find('[name="products"]')[0]);
+  gb.view['sortable_media'] = {}; //new Sortable(gb.view.$el.find('[name="medias"]')[0]);
 
   gb.view['method'] = a.o.method;
   gb.view['_id'] = a.o._id;

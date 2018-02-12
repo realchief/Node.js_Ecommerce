@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/print.css">
 </head>
 
-<body>
+<body<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %> class="has-promotion-bar"<% } %>>
   <section class="section section--xs">
     <div class="container">
       <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/<%= _.size(doc.vendor_orders) || 1 %></p>

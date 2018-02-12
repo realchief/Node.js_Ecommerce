@@ -8,7 +8,7 @@
     data-id="<%= doc._id %>"
     data-name="<%= doc.name || Belt.get(doc, 'label.us') %>"
     data-category="<%= Belt.get(doc, 'categories.0') || doc.auto_category %>"
-    data-brand="<%= (doc.brands || []).join(', ') %>"
+    data-brand="<%= doc.manual_brand || (doc.brands || []).join(', ') %>"
     data-sku="<%= _.size(doc.configurations) ? _.values(doc.configurations).sku : '' %>"
     data-price="<%= doc.low_price %>"
   >
@@ -21,14 +21,14 @@
         class="goods__img lazy">
     <% } %>
     <div class="goods__info">
-      <% if (Belt.get(doc, 'brands.0')){ %>
-        <p class="goods__info-description"><%= doc.brands.join(', ') %></p>
+      <% if (doc.manual_brand || Belt.get(doc, 'brands.0')){ %>
+        <p class="goods__info-description"><%= doc.manual_brand || doc.brands.join(', ') %></p>
       <% } %>
       <% if (Belt.get(doc, 'label.us')){ %>
         <p class="goods__info-name"><%= doc.label.us %></p>
       <% } %>
       <% if (Belt.get(doc, 'low_price')){ %>
-        <p class="goods__info-price">$<%= Instance.priceString(doc.low_price) %></p>
+        <p class="goods__info-price"><del><%= doc.compare_at_price && doc.compare_at_price > doc.low_price ? '$' + Instance.priceString(doc.compare_at_price) : '' %></del> <span class="<%= doc.compare_at_price && doc.compare_at_price > doc.low_price ? 'text-danger' : '' %>">$<%= Instance.priceString(doc.low_price) %></span></p>
       <% } else { %>
         <p class="goods__info-price">Sold out</p>
       <% } %>

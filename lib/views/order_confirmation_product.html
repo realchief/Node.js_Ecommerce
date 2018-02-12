@@ -13,8 +13,8 @@
           <p class="goods__info-name"><%= doc.source.product.label.us %></p>
         </a>
       <% } %>
-      <% if (Belt.get(doc, 'source.product.brands.0')){ %>
-        <p class="goods__info-description"><%= doc.source.product.brands.join(', ') %></p>
+      <% if (Belt.get(doc, 'source.product.manual_brand') || Belt.get(doc, 'source.product.brands.0')){ %>
+        <p class="goods__info-description"><%= Belt.get(doc, 'source.product.manual_brand') || doc.source.product.brands.join(', ') %></p>
       <% } %>
     </div>
     <ul class="table__goods__details goods__details">
