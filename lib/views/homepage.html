@@ -140,9 +140,9 @@
             <h5 class="text-center title-medium text-primary">Shop our Gift Guides and hand-picked looks</h5>
             <div class="row row--sm-5">
 
-              <% var visible_tiles = _.filter(Instance.content_cache.homepage.member_tiles, function(t) { return Belt.cast(t.show, 'boolean') }); %>
-              <% _.each(visible_tiles, function(tile, i) { %>
-                <div class="col-<% if (i === 1) { %>12<% } else { %>6<% } %> col-md-<%= 12/visible_tiles.length %> <% if (i < 2) { %>mb-5 mb-md-0<% } %>">
+              <% var visible_member_tiles = _.filter(Instance.content_cache.homepage.member_tiles, function(t) { return Belt.cast(t.show, 'boolean') }); %>
+              <% _.each(visible_member_tiles, function(tile, i) { %>
+                <div class="col-<% if (i === 1) { %>12<% } else { %>6<% } %> col-md-<%= 12/visible_member_tiles.length %> <% if (i < 2) { %>mb-5 mb-md-0<% } %>">
                   <a href="<%= tile.destination_url %>" class="mosaic-item mosaic-item--xs mosaic-item--vertical-centered mosaic-item--animation mosaic-item--animation--fadeIn" data-promotion="[<%= tile.promotion %>]">
                     <div class="mosaic-item__rotate">
                       <img src="<%= tile.image_small_url %>" data-src="<%= tile.image_full_url %>" class="mosaic-item__img lazy">
