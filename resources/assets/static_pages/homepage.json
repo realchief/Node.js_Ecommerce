@@ -18,48 +18,56 @@
       "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/bjn8ynhhf.super.downsample.jpg",
       "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/bjn8ynhhf.downsample.jpg"
     },
-    "blog_tile_1" : {
-      "destination_url" : "http://blog.wanderset.com/2017/09/21/the-future-of-commerce-is-narrative/",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hkdypmhbm.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hkdypmhbm.downsample.jpg",
-      "description": "The Future Of Commerce Is Narrative : Welcome To Wanderset",
-      "title": "Editorial"
-    },
-    "blog_tile_2" : {
-      "destination_url" : "http://blog.wanderset.com/2017/07/31/top-20-need-to-know-brands-on-wanderset/",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b119uwwsm.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b119uwwsm.downsample.jpg",
-      "description": "20 Brands You Need To Know On Wanderset",
-      "title": "featured"
-    },
-    "blog_tile_3" : {
-      "destination_url" : "http://blog.wanderset.com/2017/12/06/god-save-represent-the-george-heaton-interview/",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sykfpwdhz.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sykfpwdhz.downsample.jpg",
-      "description": "God Save REPRESENT. The George Heaton Interview",
-      "title": "art + design"
-    },
-    "blog_tile_4" : {
-      "destination_url" : "http://blog.wanderset.com/2017/12/07/martavis-bryant-designs-his-own-play-action-routes-and-clothes/",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/ryicwbpbf.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/ryicwbpbf.downsample.jpg",
-      "description": "Martavis Bryant Designs His Own Play Action Routes. And Clothes.",
-      "title": "Interview"
-    },
-    "blog_tile_5" : {
-      "destination_url" : "http://blog.wanderset.com/2018/01/13/this-was-sneakercon-nyc-we-invaded-this-is-the-official-recap/",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sjbzowvsm.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sjbzowvsm.downsample.jpg",
-      "description": "Custom Supreme. Rare Yeezys, & Rabid Hypebeasts. This Was SneakerCon NYC.",
-      "title": "art + design"
-    },
-    "blog_tile_6" : {
-      "destination_url" : "http://blog.wanderset.com/2017/10/09/kendrick-lamars-damn-style-guide-is-on-wanderset-shop-the-looks-now/",
-      "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1luuzvrg.super.downsample.jpg",
-      "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1luuzvrg.downsample.jpg",
-      "description": "Kendrick Lamar’s 'DAMN' Style Guide Is On Wanderset. Shop The Looks Now.",
-      "title": "music"
-    },
+    "blog_tiles": [
+      {
+        "destination_url" : "http://blog.wanderset.com/2017/09/21/the-future-of-commerce-is-narrative/",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hkdypmhbm.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/hkdypmhbm.downsample.jpg",
+        "description": "The Future Of Commerce Is Narrative : Welcome To Wanderset",
+        "title": "Editorial",
+        "show": true
+      },
+      {
+        "destination_url" : "http://blog.wanderset.com/2017/07/31/top-20-need-to-know-brands-on-wanderset/",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b119uwwsm.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b119uwwsm.downsample.jpg",
+        "description": "20 Brands You Need To Know On Wanderset",
+        "title": "featured",
+        "show": true
+      },
+      {
+        "destination_url" : "http://blog.wanderset.com/2017/12/06/god-save-represent-the-george-heaton-interview/",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sykfpwdhz.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sykfpwdhz.downsample.jpg",
+        "description": "God Save REPRESENT. The George Heaton Interview",
+        "title": "art + design",
+        "show": true
+      },
+      {
+        "destination_url" : "http://blog.wanderset.com/2017/12/07/martavis-bryant-designs-his-own-play-action-routes-and-clothes/",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/ryicwbpbf.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/ryicwbpbf.downsample.jpg",
+        "description": "Martavis Bryant Designs His Own Play Action Routes. And Clothes.",
+        "title": "Interview",
+        "show": true
+      },
+      {
+        "destination_url" : "http://blog.wanderset.com/2018/01/13/this-was-sneakercon-nyc-we-invaded-this-is-the-official-recap/",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sjbzowvsm.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/sjbzowvsm.downsample.jpg",
+        "description": "Custom Supreme. Rare Yeezys, & Rabid Hypebeasts. This Was SneakerCon NYC.",
+        "title": "art + design",
+        "show": true
+      },
+      {
+        "destination_url" : "http://blog.wanderset.com/2017/10/09/kendrick-lamars-damn-style-guide-is-on-wanderset-shop-the-looks-now/",
+        "image_small_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1luuzvrg.super.downsample.jpg",
+        "image_full_url" : "https://d1iycu4aypjr2v.cloudfront.net/media/b1luuzvrg.downsample.jpg",
+        "description": "Kendrick Lamar’s 'DAMN' Style Guide Is On Wanderset. Shop The Looks Now.",
+        "title": "music",
+        "show": true
+      }
+    ],
     "member_tiles" : [
       {
         "promotion" : "Scandinavian",
