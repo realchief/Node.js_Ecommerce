@@ -855,7 +855,6 @@ var CheckoutView = function(options, callback){
     });
   };
 
-    // todo promjeniti na copyima da se accepta i apple pay
   gb.view['CreateApplePayAuthorization'] = function(options, callback){
     var a = Belt.argulint(arguments)
       , self = this
@@ -941,6 +940,7 @@ var CheckoutView = function(options, callback){
               , 'amount': Belt.cast(o.amount, 'string')
             }
           })
+          , 'supportedCountries': _.map(_.values(GB.localities), function(c) {return c.countryShortCode})
         };
 
 
