@@ -152,9 +152,9 @@
       <% } %>
       <% _.each(v2, function(v){ %>
         <p>Order <%= Belt.get(v, 'order.name') || Belt.get(v, 'id') %> | ID #<%= Belt.get(v, 'order.id') || Belt.get(v, 'id') %></p>
-        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || Belt.get(v, 'request.total') %></p>
+        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || (Belt.get(v, 'request.total') ? Belt.cast(v.request.total, 'number') * Instance.DKKtoUSD() + ' (' + v.request.total + ' DKK)' : '') %></p>
         <% _.each(Belt.get(v, 'order.line_items') || Belt.get(v, 'request.orderlines'), function(i){ %>
-          <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price || i.totalprice %>)</p>
+          <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price || (i.totalprice ? Belt.cast(i.totalprice, 'number') * Instance.DKKtoUSD() + ' (' + i.totalprice + ' DKK)' : '')  %>)</p>
         <% }) %>
         <% _.each(Belt.get(v, 'order.fulfillments'), function(f){ %>
           <p>
