@@ -69,14 +69,14 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <% _.each(data[i], function(v, k){ %>
+                          <% _.each(data[i], function(v, k){ %>
+                            <tr>
                               <td><%= k %></td>
                               <% _.each(v, function(v2){ %>
                                 <td><%= v2 %></td>
                               <% }) %>
-                            <% }) %>
-                          </tr>
+                            </tr>
+                          <% }) %>
                         </tbody>
                       </table>
                     </div>
