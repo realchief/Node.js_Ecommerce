@@ -13,7 +13,36 @@
             <div class="col-lg-12">
               <% _.each([
                 'total'
-              , 'vendors'
+              ], function(i){ %>
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                    <h5><%= i.toUpperCase() %></h5>
+                  </div>
+                  <div class="ibox-content">
+                    <div class="table-responsive">
+                      <table class="footable table table-stripped" data-page-size="1" data-filter="#<%= i %>-filter">
+                        <thead>
+                          <tr>
+                            <% _.each(data[i], function(v, k){ %>
+                              <td><%= k %></td>
+                            <% }) %>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <% _.each(data[i], function(v, k){ %>
+                              <td><%= v %></td>
+                            <% }) %>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+
+              <% _.each([
+                'vendors'
               , 'brands'
               , 'categories'
               , 'sizes'
@@ -30,10 +59,11 @@
                   <div class="ibox-content">
                     <input type="text" class="form-control input-sm m-b-xs" id="<%= i %>-filter" placeholder="Search in table">
                     <div class="table-responsive">
-                      <table class="footable table table-stripped" data-page-size="1" data-filter="#<%= i %>-filter" data-page-size="10000">
+                      <table class="footable table table-stripped" data-filter="#<%= i %>-filter" data-page-size="10000">
                         <thead>
                           <tr>
-                            <% _.each(data[i], function(v, k){ %>
+                            <td><%= i %></td>
+                            <% _.each(Belt.get(_.values(data[i])[0], function(v, k){ %>
                               <td><%= k %></td>
                             <% }) %>
                           </tr>
@@ -41,7 +71,10 @@
                         <tbody>
                           <tr>
                             <% _.each(data[i], function(v, k){ %>
-                              <td><%= v %></td>
+                              <td><%= k %></td>
+                              <% _.each(v, function(v2){ %>
+                                <td><%= v2 %></td>
+                              <% }) %>
                             <% }) %>
                           </tr>
                         </tbody>
