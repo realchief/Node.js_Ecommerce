@@ -63,7 +63,7 @@
                         <thead>
                           <tr>
                             <td><%= i %></td>
-                            <% _.each(Belt.get(_.values(data[i])[0], function(v, k){ %>
+                            <% _.each(Belt.get(_.values(data[i]), '0'), function(v, k){ %>
                               <td><%= k %></td>
                             <% }) %>
                           </tr>
