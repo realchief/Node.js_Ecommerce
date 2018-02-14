@@ -31,6 +31,8 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 
 var Spin = new Spinner(4);
 
+O.host = 'http://wanderset.com:9006';
+
 var GB = _.defaults(O.argv, {
   'query': Belt.stringify({
     'brands': 'Active'
@@ -83,7 +85,7 @@ Async.waterfall([
         GB.skip += GB.limit;
         console.log(GB.skip);
 
-        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
+        Async.eachLimit(Belt.get(json, 'data') || [], 1, function(d, cb2){
           GB.iterator(d, cb2);
         }, Belt.cw(next, 0));
       })
