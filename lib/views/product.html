@@ -214,7 +214,7 @@
                           return Belt.get(v, 'vendor.toString()') === doc.vendor.toString();
                         }), 'slug');
                       }
-                      return bs ? '<a href="/brand/' + bs + '" class="goods-title__link">' + b + '</a>' : '';
+                      return bs ? '<a href="/brand/' + bs + '" class="goods-title__link">' + b + '</a>' : b;
                     }).join(', ') %>
                   </h1>
                 <% } else if (Belt.get(doc, 'brands.0')){ %>
@@ -228,7 +228,7 @@
                           return Belt.get(v, 'vendor.toString()') === doc.vendor.toString();
                         }), 'slug');
                       }
-                      return bs ? '<a href="/brand/' + bs + '" class="goods-title__link">' + b + '</a>' : '';
+                      return bs ? '<a href="/brand/' + bs + '" class="goods-title__link">' + b + '</a>' : b;
                     }).join(', ') %>
                   </h1>
                 <% } %>
