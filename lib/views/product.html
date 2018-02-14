@@ -206,13 +206,29 @@
                 <% if (Belt.get(doc, 'manual_brand')){ %>
                   <h1 class="mb5 text-center-sm l-n goods-title">
                     <%= _.map([doc.manual_brand], function(b){
-                      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
+                      var bs;
+                      if (Instance.brand_slugs[b.toLowerCase()]){
+                        bs = Instance.brand_slugs[b.toLowerCase()].slug;
+                      } else if (doc.vendor) {
+                        bs = Belt.get(_.find(Instance.brands, function(v){
+                          return Belt.get(v, 'vendor.toString()') === doc.vendor.toString();
+                        }), 'slug');
+                      }
+                      return bs ? '<a href="/brand/' + bs + '" class="goods-title__link">' + b + '</a>' : '';
                     }).join(', ') %>
                   </h1>
                 <% } else if (Belt.get(doc, 'brands.0')){ %>
                   <h1 class="mb5 text-center-sm l-n goods-title">
                     <%= _.map(doc.brands, function(b){
-                      return Instance.brand_slugs[b.toLowerCase()] ? '<a href="/brand/' + Instance.brand_slugs[b.toLowerCase()].slug + '" class="goods-title__link">' + b + '</a>' : b;
+                      var bs;
+                      if (Instance.brand_slugs[b.toLowerCase()]){
+                        bs = Instance.brand_slugs[b.toLowerCase()].slug;
+                      } else if (doc.vendor) {
+                        bs = Belt.get(_.find(Instance.brands, function(v){
+                          return Belt.get(v, 'vendor.toString()') === doc.vendor.toString();
+                        }), 'slug');
+                      }
+                      return bs ? '<a href="/brand/' + bs + '" class="goods-title__link">' + b + '</a>' : '';
                     }).join(', ') %>
                   </h1>
                 <% } %>
