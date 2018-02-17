@@ -6,6 +6,9 @@
     <% if (typeof woocommerce !== 'undefined' && woocommerce.consumer_key){ %>
       <span class="label label-warning">WOOCOMMERCE</span>
     <% } %>
+    <% if (typeof magento !== 'undefined' && magento.consumer_key){ %>
+      <span class="label label-success">MAGENTO</span>
+    <% } %>
   </td>
   <td style="width:500px !important;">
     <p><%= name %></p>
@@ -14,7 +17,8 @@
     <a href="/admin/product/list?query=<%= encodeURIComponent('{"vendor": "' + _id + '"}') %>" class="btn btn-default">Products</a>
     <a href="/admin/vendor/<%= _id %>/read" class="btn btn-default">Edit</a>
     <% if (typeof shopify !== 'undefined' && shopify.access_token
-        || typeof woocommerce !== 'undefined' && woocommerce.consumer_key){ %>
+        || typeof woocommerce !== 'undefined' && woocommerce.consumer_key
+        || typeof magento !== 'undefined' && magento.consumer_key){ %>
       <a href="/admin/vendor/<%= _id %>/sync.json" target="_blank" class="btn btn-default">Sync</a>
     <% } %>
     <button name="delete" class="btn btn-danger">Delete</a>
