@@ -89,8 +89,10 @@
               title="Shopify vendor: no manual handling needed."
             <% } else if (Belt.get(Instance.vendor_ids[k], 'woocommerce.consumer_key')){ %>
               title="Woocommerce vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
+            <% } else if (Belt.get(Instance.vendor_ids[k], 'magento.consumer_key')){ %>
+              title="Magento vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
             <% } else { %>
-              title="Manaul vendor: order must be placed manually and shipping notifications must be manually entered."
+              title="Manual vendor: order must be placed manually and shipping notifications must be manually entered."
             <% } %>
           ><%= Instance.vendor_ids[k].name %></span>
         </p>
@@ -152,9 +154,9 @@
       <% } %>
       <% _.each(v2, function(v){ %>
         <p>Order <%= Belt.get(v, 'order.name') || Belt.get(v, 'id') %> | ID #<%= Belt.get(v, 'order.id') || Belt.get(v, 'id') %></p>
-        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || Belt.get(v, 'request.total') %></p>
+        <p>Total Price $<%= Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || (Belt.get(v, 'request.total') ? Belt.cast(v.request.total, 'number') * Instance.DKKtoUSD() + ' (' + v.request.total + ' DKK)' : '') %></p>
         <% _.each(Belt.get(v, 'order.line_items') || Belt.get(v, 'request.orderlines'), function(i){ %>
-          <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price || i.totalprice %>)</p>
+          <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= i.price || (i.totalprice ? Belt.cast(i.totalprice, 'number') * Instance.DKKtoUSD() + ' (' + i.totalprice + ' DKK)' : '')  %>)</p>
         <% }) %>
         <% _.each(Belt.get(v, 'order.fulfillments'), function(f){ %>
           <p>

@@ -1,0 +1,16 @@
+{
+  "data" : {
+    "top_notification_bar" : {
+      "main_text" : "20% off + free shipping (US only) orders over $75",
+      "bold_text" : "Use code: lover20",
+      "show" : true
+    },
+    "mobile_top_notification_bar" : {
+      "main_text" : "20% off + free shipping (US only) orders over $75",
+      "bold_text" : "Use code: lover20",
+      "show" : true
+    }
+  },
+  "page" : "header",
+  "__v" : 0
+}

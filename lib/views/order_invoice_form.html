@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <title>Wanderset Invoice</title>
+    <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/main.css">
+    <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/print.css">
+</head>
+
+<body>
+
+
+<section class="section section--xs">
+    <div class="container">
+        <% var number_of_invoices = _.uniq(_.map(order.products, function(p) { return p.source.product.vendor; })).length || 0 %>
+        <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/<%= number_of_invoices %></p>
+        <p class="print-logo mb-5">wanderset</p>
+
+        <p>
+            <big>
+                <b>Order Number:</b> <span class="print-gray-thin"><%= order.slug %></span><br>
+                <b>Date Ordered:</b> <span class="print-gray-thin"><%= Moment(order.created_at).format('MM/DD/YYYY') %></span><br>
+                <b>Shipping Address:</b>
+            </big>
+        </p>
+
+        <address class="print-gray-thin print-font-base mb-5">
+            <%= order.recipient.first_name + ' ' + order.recipient.last_name %><br>
+            <%= order.recipient.street %><br>
+            <% if (order.recipient.street_b){ %>
+                <%= order.recipient.street_b %><br>
+            <% } %>
+            <%= order.recipient.city + ', ' + order.recipient.region + ' ' + order.recipient.postal_code %><br>
+            <%= order.recipient.country %><br>
+            <%= order.recipient.phone %>
+        </address>
+
+
+        <h2 class="print-title">Order Summary:</h2>
+
+        <table class="table mb-5 v-align-top">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Item Details</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <% var products_price = 0, line_items_price = 0; %>
+                <% _.each(order.products, function(p) { %>
+                    <% products_price += Belt.cast(p.price, 'number'); %>
+                    <tr>
+                        <td>
+                            <img src="<%= p.source.product.media[0].downsample_url ||
+                             p.source.product.media[0].remote_url ||
+                             p.source.product.media[0].url %>" class="img-fluid" alt="asd" style="max-width: 200px;">
+                        </td>
+                        <td>
+                            <p class="print-gray-thin mb-3">
+                                <b><%= p.source.product.brands[0] %></b>
+                                <%= p.source.product.label.us %>
+                                <br>
+                                <% _.each(p.options, function(v, k) { %>
+                                    <br>
+                                    <b><%= k %></b> <%= v %>
+                                <% }) %>
+                            </p>
+                            <% if (p.source.product.vendor != vendor_id) { %>
+                                <h3 class="print-title--sm print-black">This item is shipped separately</h3>
+                            <% } %>
+                        </td>
+                        <td>
+                            <b><%= p.quantity %></b>
+                        </td>
+                        <td>
+                            <b>$<%= p.price %></b>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <td class="cell-without-border"></td>
+                <td class="cell-without-border"></td>
+                <td>
+                    <h3 class="print-gray-thin lh-lg text-right pr-5">
+                        Subtotal:<br>
+                        <% _.each(order.line_items, function(li) { %>
+                            <%= Belt.capitalize(li.type) %>:<br>
+                        <% }); %>
+                    </h3>
+                </td>
+                <td>
+                    <h3 class="print-gray-thin lh-lg">
+                        <b>$<%= products_price %></b><br>
+                        <% _.each(order.line_items, function(li) { %>
+                            <% line_items_price += li.amount %>
+                            <b>$<%= li.amount %></b>
+                        <% }); %>
+                    </h3>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="cell-without-border"></td>
+                <td class="cell-without-border"></td>
+                <td>
+                    <h3 class="print-gray-thin lh-lg text-right pr-5">
+                        Total:
+                    </h3>
+                </td>
+                <td>
+                    <h3 class="print-gray-thin lh-lg">
+                        <b>$<%= products_price + line_items_price %></b>
+                    </h3>
+                </td>
+            </tr>
+            </tfoot>
+        </table><!--table-->
+
+        <p class="mb-5">If you have any questions, please contact <b>orders@wanderset.com</b></p>
+
+        <p class="mb-4 text-right text-uppercase print-font-medium print-gray-thin print-letter-space">wanderset invoice 1/<%= number_of_invoices %></p>
+
+    </div><!--container-->
+</section><!--section-->
+
+
+
+</body>
+</html>

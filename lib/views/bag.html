@@ -4,7 +4,7 @@
   <%= Render('head', Locals) %>
 </head>
 
-<body>
+<body<% if (Belt.cast(Instance.content_cache.header.top_notification_bar.show, 'boolean')) { %> class="has-promotion-bar"<% } %>>
   <%= Render('header', Locals) %>
 
   <main class="main">
@@ -58,22 +58,25 @@
                 <a href="/checkout" class="btn btn-primary btn-lg btn-block <%= !doc.total_price ? 'disabled' : '' %>">checkout</a>
               </div>
             </aside>
-            <p style="font-size:9px;font-weight:normal;font-family:GothamLight;" class="text-uppercase mt-2">We accept VISA, Mastercard, American Express, Discover, &amp; PayPal. All prices are in USD.</p>
-            <ul class="list-credit-cards text-center">
+            <p style="font-size:9px;font-weight:normal;font-family:GothamLight;" class="text-uppercase mt-2">We accept VISA, Mastercard, American Express, Discover, Apple Pay, &amp; PayPal. All prices are in USD.</p>
+            <ul class="list-credit-cards text-center d-flex flex-row justify-content-center">
               <li class="list-credit-cards__item">
                 <img src="/public/assets/images/elements/master-card.svg" alt="" class="list-credit-cards__img">
               </li>
               <li class="list-credit-cards__item">
-                <img src="/public/assets/images/elements/visa-card.svg" alt="" class="list-credit-cards__img">
+                <img src="/public/assets/images/elements/visa.svg" alt="" class="list-credit-cards__img">
               </li>
               <li class="list-credit-cards__item">
-                <img src="/public/assets/images/elements/discover-card.svg" alt="" class="list-credit-cards__img">
+                <img src="/public/assets/images/elements/discover.svg" alt="" class="list-credit-cards__img">
               </li>
               <li class="list-credit-cards__item">
-                <img src="/public/assets/images/elements/amex-card.svg" alt="" class="list-credit-cards__img">
+                <img src="/public/assets/images/elements/american-express.svg" alt="" class="list-credit-cards__img">
               </li>
               <li class="list-credit-cards__item">
-                <img src="/public/assets/images/elements/paypal-card.svg" alt="" class="list-credit-cards__img">
+                <img src="/public/assets/images/elements/Paypal-light.svg" alt="" class="list-credit-cards__img">
+              </li>
+              <li class="list-credit-cards__item">
+                <img src="/public/assets/images/elements/apple-pay.svg" alt="" class="list-credit-cards__img">
               </li>
             </ul>
           </div>

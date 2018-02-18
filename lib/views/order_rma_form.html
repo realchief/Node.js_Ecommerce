@@ -7,9 +7,9 @@
   <meta name="format-detection" content="telephone=no">
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-  <title>Wanderset-Form page</title>
-  <link rel="stylesheet" href="assets/stylesheets/main.css">
-  <link rel="stylesheet" href="assets/stylesheets/print.css">
+  <title>Wanderset RMA form</title>
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/main.css">
+  <link rel="stylesheet" href="<%= Settings.asset_prefix %>/public/assets/stylesheets/print.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
   <section class="section section--xs">
     <div class="container">
       <p class="print-logo mb-0">wanderset</p>
-      <h3 class="title-bold text-center mb-2">Order Number: 124857</h3>
+      <h3 class="title-bold text-center mb-2">Order Number: <%= order.slug %></h3>
 
       <h2 class="print-title"><span class="print-subtitle">Returns</span></h2>
       <p class="print-gray"><b>We want you to be 100% satisfied with your gear. If you need to send back an item from your purchase, please:</b></p>

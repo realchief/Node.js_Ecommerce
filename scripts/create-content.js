@@ -30,7 +30,7 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'json': require(Path.join(O.__dirname, './resources/assets/static_pages/homepage.json'))
+  'json': require(Path.join(O.__dirname, './resources/assets/static_pages/header.json'))
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]

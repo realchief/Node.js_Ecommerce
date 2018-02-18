@@ -49,6 +49,12 @@
 <script src="/public/admin/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/bower_components/bootbox/bootbox.js" type="text/javascript" charset="utf-8"></script>
 <script src="/public/js/util.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  Instance['DKKtoUSD'] = function(){
+    return <%= Instance.DKKtoUSD() %>;
+  };
+</script>
+
 <script src="/templates.js" type="text/javascript" charset="utf-8"></script>
 <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
   <script src="<%= e %>" type="text/javascript" charset="utf-8"></script>
