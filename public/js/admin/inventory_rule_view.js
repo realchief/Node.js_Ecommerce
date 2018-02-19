@@ -28,12 +28,11 @@ var InventoryRuleView = function(options, callback){
           });
         }
       }
-      , 'click #product_category_dropdown a': function (e) {
+      , 'change #product_category_dropdown select': function (e) {
         e.preventDefault();
-        var category = $(e.target).html();
+        var category = $('#product_category_dropdown select option:selected').text();
 
         $('#product_category_dropdown input').val(category.indexOf('No Product Category') !== -1 ? undefined : category);
-        $('#product_category_dropdown button').html(category);
       }
     }
   , 'transformers': {
@@ -73,7 +72,6 @@ var InventoryRuleView = function(options, callback){
     self.set(Belt.objFlatten(a.o.doc));
     if (a.o.doc.product_category && a.o.product_category !== '') {
       $('#product_category_dropdown input').val(a.o.doc.product_category);
-      $('#product_category_dropdown button').html(a.o.doc.product_category);
     }
 
     self['doc'] = a.o.doc;
@@ -173,7 +171,7 @@ var InventoryRuleView = function(options, callback){
         gb['product_categories'] = Belt.get(json);
         gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
         _.each(gb.product_categories, function (category) {
-          $("#product_category_dropdown ul").append('<li><a href="#">' + category + '</a></li>');
+          $("#product_category_dropdown select").append('<option>' + category + '</option>');
         });
         cb();
       });
