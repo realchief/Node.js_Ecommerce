@@ -3,14 +3,14 @@
   <div class="collapse" id="product-filter-inner">
     <div id="accordion" role="tablist" aria-multiselectable="true">
       <% var cats = typeof doc !== 'undefined' && doc._id && Instance.set_categories[doc._id] ? Instance.set_categories[doc._id] : Instance.categories; %>
-      <% _.each(cats, function(v, k){ %>
+      <% _.each(_.keys(cats), function(k, i){ %>
         <div class="card product-filter-item">
           <div class="card-header product-filter-item__header" role="tab" id="headingOne">
             <h5 class="mb-0">
-              <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" data-category="<%= k %>"><%= k %></a>
+              <a class="product-filter-item__toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne-<%= i %>" aria-expanded="true" aria-controls="collapseOne-<%= i %>" data-category="<%= k %>"><%= k %></a>
             </h5>
           </div>
-          <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div id="collapseOne-<%= i %>" class="collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="card-block product-filter-item__body">
               <ul class="product-filter-list list-unstyled">
                 <li class="product-filter-list__item">
@@ -20,7 +20,7 @@
                     <a href="/products/category/<%= encodeURIComponent(k) %>" data-category="<%= k %>" class="product-filter-list__link">All <%= k %></a>
                   <% } %>
                 </li>
-                <% _.each(v, function(v2, k2){ %>
+                <% _.each(cats[k], function(v2, k2){ %>
                   <li class="product-filter-list__item">
                     <% if (typeof search_query !== 'undefined'){ %>
                       <a href="/products/search?q=<%= encodeURIComponent(search_query) %>&category=<%= encodeURIComponent(k + ' > ' + k2) %>" data-category="<%= k + ' > ' + k2 %>" class="product-filter-list__link"><%= k2 %></a>
