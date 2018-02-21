@@ -1,7 +1,7 @@
 {
   "env": {
     "development": {
-      "host": "http://localhost:8849"
+      "host": "https://wanderset.pushbuild.com"
     , "domain": "wanderset.pushbuild.com"
     , "asset_prefix": ""
     , "express": {
