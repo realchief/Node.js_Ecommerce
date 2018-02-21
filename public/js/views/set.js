@@ -437,6 +437,13 @@ $(document).ready(function(){
 
     var cat = $(this).attr('data-category');
 
+    if (cat.indexOf('>') != -1) {
+      $(this).closest('.card.product-filter-item').find('.product-filter-item__toggle').addClass('collapsed');
+      $(this).closest('.collapse.show').removeClass('show');
+    } else if ($(this).attr('class').indexOf('collapsed') !== -1) {
+      return;
+    }
+
     Belt.set(GB.product_filter, 'query.$or', [
       {
         'categories': {
