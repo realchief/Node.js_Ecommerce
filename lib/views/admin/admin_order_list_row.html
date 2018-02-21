@@ -150,13 +150,17 @@
     <% _.each(vendor_orders, function(v2, k){ %>
       <% if (Instance.vendor_ids[k]){ %>
         <p>
-          <span class="label label-success"><%= Instance.vendor_ids[k].name %></span><br>
+          <span class="label label-success"><%= Instance.vendor_ids[k].name %></span>
+        </p>
+        <p>
           <a href="/order/<%= slug %>/vendor/<%= k %>/invoice.html" target="_blank">Print Invoice</a>
         </p>
       <% } %>
       <% _.each(v2, function(v){ %>
         <% if (!Belt.get(v, 'id') && !Belt.get(v, 'order.id')){ %>
-
+          <p>
+            <span class="label label-danger"><%= Belt.stringify(v) %></span>
+          </p>
         <% } else { %>
           <p>Order <%= Belt.get(v, 'order.name') || Belt.get(v, 'id') %> | ID #<%= Belt.get(v, 'order.id') || Belt.get(v, 'id') %></p>
           <p>Total Price $<%= Instance.priceString(Belt.cast(Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || (Belt.get(v, 'request.total') ? Belt.cast(v.request.total, 'number') * Instance.DKKtoUSD() + ' (' + v.request.total + ' DKK)' : ''), 'number')) %></p>
