@@ -34,6 +34,12 @@ var InventoryRuleView = function(options, callback){
 
         $('#product_category_dropdown input').val(category.indexOf('No Product Category') !== -1 ? undefined : category);
       }
+      , 'change [name="vendor"]': function (e) {
+        e.preventDefault();
+        var vendor = $('[name="vendor"] option:selected').val();
+
+        $('#vendor_dropdown input').val(vendor.indexOf('No vendor') !== -1 ? undefined : vendor);
+      }
     }
   , 'transformers': {
       'get:max_claims': function(val){
@@ -70,8 +76,14 @@ var InventoryRuleView = function(options, callback){
     });
 
     self.set(Belt.objFlatten(a.o.doc));
+
     if (a.o.doc.product_category && a.o.product_category !== '') {
-      $('#product_category_dropdown input').val(a.o.doc.product_category);
+      $('#product_category_dropdown [name="product_category"]').val(a.o.doc.product_category);
+      $('#product_category_dropdown [value="' + a.o.doc.product_category + '"]').prop('selected', true);
+    }
+    if (a.o.doc.vendor) {
+      $('#vendor_dropdown [name="vendor"]').val(a.o.doc.vendor);
+      $('#vendor_dropdown [value="' + a.o.doc.vendor + '"]').prop('selected', true);
     }
 
     self['doc'] = a.o.doc;
@@ -86,6 +98,7 @@ var InventoryRuleView = function(options, callback){
     });
 
     gb['data'] = self.getSelf();
+    if (gb.data.vendor == '') delete gb.data.vendor;
 
     gb['update'] = _.pick(gb.data, [
       'term'
@@ -96,6 +109,7 @@ var InventoryRuleView = function(options, callback){
     , 'product_show'
     , 'whitelist'
     , 'product_brand'
+    , 'vendor'
     ]);
 
 
@@ -128,6 +142,7 @@ var InventoryRuleView = function(options, callback){
 
     gb['data'] = self.getSelf();
 
+    if (gb.data.vendor == '') delete gb.data.vendor;
     gb['update'] = _.pick(gb.data, [
       'term'
       , 'active'
@@ -137,6 +152,7 @@ var InventoryRuleView = function(options, callback){
       , 'product_show'
       , 'whitelist'
       , 'product_brand'
+      , 'vendor'
     ]);
 
     gb.update = {
@@ -171,7 +187,7 @@ var InventoryRuleView = function(options, callback){
         gb['product_categories'] = Belt.get(json);
         gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
         _.each(gb.product_categories, function (category) {
-          $("#product_category_dropdown select").append('<option>' + category + '</option>');
+          $("#product_category_dropdown select").append('<option value="' + category + '">' + category + '</option>');
         });
         cb();
       });
