@@ -10,8 +10,13 @@
       <span class="label label-success">MAGENTO</span>
     <% } %>
   </td>
-  <td style="width:500px !important;">
+  <td style="width:250px !important;">
     <p><%= name %></p>
+  </td>
+  <td style="width:250px !important;">
+    <% _.each(typeof contact_emails !== 'undefined' ? contact_emails : [], function(e){ %>
+      <p><a href="mailto:<%= e %>"><%= e %></a></p>
+    <% }) %>
   </td>
   <td data-set="actions" data-set-method="html">
     <a href="/admin/product/list?query=<%= encodeURIComponent('{"vendor": "' + _id + '"}') %>" class="btn btn-default">Products</a>

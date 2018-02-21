@@ -24,7 +24,12 @@ var VendorView = function(options, callback){
       }
     }
   , 'transformers': {
-
+      'get:contact_emails': function(val){
+        return Belt.arrayDefalse((val || '').split(/\n|,|;|\s/));
+      }
+    , 'set:contact_emails': function(val){
+        return (val || []).join('\n');
+      }
     }
   });
 
@@ -69,6 +74,7 @@ var VendorView = function(options, callback){
 
     gb['update'] = _.pick(gb.data, [
       'name'
+    , 'contact_emails'
     ]);
 
     Async.waterfall([
