@@ -41,7 +41,8 @@
           <div class="dropdown-menu dropdown-menu--large">
             <div class="container">
               <div class="row">
-                <% _.each(Belt.splitArray(Instance.brand_sets, Math.ceil(Instance.brand_sets.length / 4)), function(s){ %>
+                <% var bs = _.filter(Instance.brand_sets, function(b){ return Belt.get(b, 'filtered_products.length') >= 4; }); %>
+                <% _.each(Belt.splitArray(bs, Math.ceil(bs.length / 4)), function(s){ %>
                   <div class="col-sm-3">
                     <ul class="list-dropdown-menu">
                       <% _.each(s, function(s2){ %>
