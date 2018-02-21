@@ -26,13 +26,10 @@
           <div class="hr-line-dashed"></div>
 
           <div class="form-group">
-            <label class="col-sm-4 control-label">Product Category</label>
-            <div id="product_category_dropdown" class="col-sm-8">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">< No Product Category >
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu"></ul>
-              <input type="hidden" class="form-control" placeholder="Product Category" data-get="product_category" data-get-method="val()" data-set="label" data-set-method="val">
+            <label class="col-sm-1 control-label">Product Category</label>
+            <div id="product_category_dropdown" class="col-sm-11">
+              <select type="text" class="form-control" name="product_category"></select>
+              <input type="hidden" class="form-control" placeholder="Product Category" data-get="product_category" data-get-method="val()" data-set="product_category" data-set-method="val">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -71,6 +68,21 @@
             <label class="col-sm-1 control-label">Brand</label>
             <div class="col-sm-11">
               <input name="error_label" type="text" class="form-control" placeholder="Brand" data-get="brand" data-get-method="val()" data-set="brand" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Vendor</label>
+            <div id="vendor_dropdown" class="col-sm-11">
+              <select name="vendor" type="text" class="form-control">
+                <option value="">< No vendor ></option>
+                <% _.each(_.sortBy(Instance.vendor_ids, function(v){
+                  return v.name;
+                }), function(v, k){ %>
+                  <option value="<%= v._id %>"><%= v.name %></option>
+                <% }) %>
+              </select>
+              <input type="hidden" class="form-control" placeholder="Vendor" data-get="vendor" data-get-method="val()" data-set="vendor" data-set-method="val">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
