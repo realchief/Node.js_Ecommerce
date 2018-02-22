@@ -35,10 +35,10 @@
         "kpis": "https://hooks.slack.com/services/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"
       }
     , "email": {
-        "from": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
-      , "order": "DEVELOPMENT Wanderset <ben+orders@wanderset.com>"
-      , "fulfillment": "DEVELOPMENT Wanderset <ben+fulfillment@wanderset.com>"
-      , "order_inactivity": "DEVELOPMENT Wanderset <ben+order-inactivity@wanderset.com>"
+        "from": "DEVELOPMENT Wanderset <tech+orders@wanderset.com>"
+      , "order": "DEVELOPMENT Wanderset <tech+orders@wanderset.com>"
+      , "fulfillment": "DEVELOPMENT Wanderset <tech+fulfillment@wanderset.com>"
+      , "order_inactivity": "DEVELOPMENT Wanderset <tech+order-inactivity@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -75,10 +75,10 @@
       , "development_slack.bak": "https://hooks.slack.com/services/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"
       }
     , "email": {
-        "from": "STAGING Wanderset <ben+orders@wanderset.com>"
-      , "order": "STAGING Wanderset <ben+orders@wanderset.com>"
-      , "fulfillment": "STAGING Wanderset <ben+fulfillment@wanderset.com>"
-      , "order_inactivity": "STAGING Wanderset <ben+orders-inactivity@wanderset.com>"
+        "from": "STAGING Wanderset <tech+orders@wanderset.com>"
+      , "order": "STAGING Wanderset <tech+orders@wanderset.com>"
+      , "fulfillment": "STAGING Wanderset <tech+fulfillment@wanderset.com>"
+      , "order_inactivity": "STAGING Wanderset <tech+orders-inactivity@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
@@ -121,10 +121,10 @@
       , "development_slack.bak": "https://hooks.slack.com/services/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"
       }
     , "email": {
-        "from": "STAGING Wanderset <ben+orders@wanderset.com>"
-      , "order": "STAGING Wanderset <ben+orders@wanderset.com>"
-      , "fulfillment": "STAGING Wanderset <ben+fulfillment@wanderset.com>"
-      , "order_inactivity": "STAGING Wanderset <ben+orders-inactivity@wanderset.com>"
+        "from": "STAGING Wanderset <tech+orders@wanderset.com>"
+      , "order": "STAGING Wanderset <tech+orders@wanderset.com>"
+      , "fulfillment": "STAGING Wanderset <tech+fulfillment@wanderset.com>"
+      , "order_inactivity": "STAGING Wanderset <tech+orders-inactivity@wanderset.com>"
       }
     , "s3": {
         "bucket": "staging.assets.wanderset.com"
