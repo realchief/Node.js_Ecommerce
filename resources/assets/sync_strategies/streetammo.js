@@ -114,6 +114,13 @@ module.exports = function(options, Instance){
     }, function(err, res, json){
       console.log(Belt.stringify(json));
 
+      _.each(a.o.order.orderlines, function(o){
+        o['totalprice_usd'] = o.totalprice * Instance.DKKtoUSD();
+        o['productprice_usd'] = o.productprice * Instance.DKKtoUSD();
+      });
+
+      a.o.order['total_usd'] = a.o.order.total * Instance.DKKtoUSD();
+
       if (json) json['request'] = a.o.order;
 
       a.cb(err, json);

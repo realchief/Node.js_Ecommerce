@@ -162,10 +162,35 @@
             <span class="label label-danger"><%= Belt.stringify(v) %></span>
           </p>
         <% } else { %>
+          <% var price, pstring;
+            if (Belt.get(v, 'order.total_price')){
+              price = Belt.cast(v.order.total_price, 'number');
+              pstring = Instance.priceString(price);
+            } else if (Belt.get(v, 'order.total')){
+              price = Belt.cast(v.order.total, 'number');
+              pstring = Instance.priceString(price);
+            } else if (Belt.get(v, 'request.total_usd')){
+              price = Belt.cast(v.request.total_usd, 'number');
+              pstring = Instance.priceString(price) + ' (' + v.request.total + ' DKK)';
+            } else if (Belt.get(v, 'request.total')){
+              price = Belt.cast(v.request.total, 'number') * Instance.DKKtoUSD();
+              pstring = Instance.priceString(price) + ' (' + v.request.total + ' DKK)';
+            }
+          %>
+
           <p>Order <%= Belt.get(v, 'order.name') || Belt.get(v, 'id') %> | ID #<%= Belt.get(v, 'order.id') || Belt.get(v, 'id') %></p>
-          <p>Total Price $<%= Instance.priceString(Belt.cast(Belt.get(v, 'order.total_price') || Belt.get(v, 'order.total') || (Belt.get(v, 'request.total') ? Belt.cast(v.request.total, 'number') * Instance.DKKtoUSD() + ' (' + v.request.total + ' DKK)' : ''), 'number')) %></p>
+          <p>Total Price $<%= pstring %></p>
           <% _.each(Belt.get(v, 'order.line_items') || Belt.get(v, 'request.orderlines'), function(i){ %>
-            <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= Instance.priceString(i.price) || (i.totalprice ? Instance.priceString(Belt.cast(i.totalprice, 'number') * Instance.DKKtoUSD()) + ' (' + i.totalprice + ' DKK)' : '')  %>)</p>
+            <%
+              if (i.price){
+                pstring = Instance.priceString(i.price);
+              } else if (i.totalprice_usd){
+                pstring = Instance.priceString(i.totalprice_usd) + ' (' + i.totalprice + ' DKK)';
+              } else if (i.totalprice){
+                pstring = Instance.priceString(i.totalprice * Instance.DKKtoUSD()) + ' (' + i.totalprice + ' DKK)';
+              }
+            %>
+            <p><%= i.name || i.title %> (SKU #<%= i.sku || i.item_id %>, QTY: <%= i.quantity %>, PRICE: $<%= pstring %>)</p>
           <% }) %>
           <% _.each(Belt.get(v, 'order.fulfillments'), function(f){ %>
             <p>
