@@ -46,17 +46,8 @@
                 </div>
               <% }) %>
 
-              <% _.each([
-                'vendors'
-              , 'brands'
-              , 'categories'
-              , 'sizes'
-              , 'statuses'
-              , 'promo_codes'
-              , 'products'
-              , 'orders'
-              , 'order_items'
-              ], function(i){ %>
+              <% _.each(_.keys(data), function(i){ %>
+                <% if (i === 'total') return %>
                 <div class="ibox float-e-margins">
                   <div class="ibox-title">
                     <h5><%= i.toUpperCase() %></h5>
