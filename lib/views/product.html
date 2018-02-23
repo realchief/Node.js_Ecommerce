@@ -210,7 +210,7 @@
                       if (Instance.brand_slugs[b.toLowerCase()]){
                         bs = Instance.brand_slugs[b.toLowerCase()].slug;
                       } else if (doc.vendor) {
-                        bs = Belt.get(_.find(Instance.brands, function(v){
+                        bs = Belt.get(_.find(Instance.brand_sets, function(v){
                           return Belt.get(v, 'vendor.toString()') === doc.vendor.toString();
                         }), 'slug');
                       }
@@ -224,7 +224,7 @@
                       if (Instance.brand_slugs[b.toLowerCase()]){
                         bs = Instance.brand_slugs[b.toLowerCase()].slug;
                       } else if (doc.vendor) {
-                        bs = Belt.get(_.find(Instance.brands, function(v){
+                        bs = Belt.get(_.find(Instance.brand_sets, function(v){
                           return Belt.get(v, 'vendor.toString()') === doc.vendor.toString();
                         }), 'slug');
                       }
