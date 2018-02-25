@@ -4,6 +4,7 @@
       <div class="ibox-content">
         <div class="pull-right">
           <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+          <a href="/admin/vendor/<%= Request.data()._id %>/sync.json" target="_blank" class="btn btn-default">Sync</a>
           <a href="/vendor/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
         </div>
         <h1><%= title %></h1>
@@ -25,6 +26,8 @@
         </form>
         <div class="pull-right">
           <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+          <a href="/admin/kpis/product/vendor-<%= Request.data()._id %>" target="_blank" class="btn btn-default">KPIs</a>
+          <a href="/admin/vendor/<%= Request.data()._id %>/sync.json" target="_blank" class="btn btn-default">Sync</a>
         </div>
       </div>
     </div>
