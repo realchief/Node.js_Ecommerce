@@ -23,6 +23,7 @@
   <td data-set="actions" data-set-method="html">
     <a href="/set/<%= typeof slug !== 'undefined' ? slug : _id %>" class="btn btn-default">Preview</a>
     <a href="/admin/set/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <a href="/admin/kpi/product/set-<%= _id %>" class="btn btn-default" target="_blank">KPIs</a>
     <button name="delete" class="btn btn-danger">Delete</a>
   </td>
 </tr>

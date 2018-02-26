@@ -34,35 +34,39 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'code': {
-    'code': 'wskjqrxns3'
-  , 'label': 'Up to $300 Credit'
-  , 'error_label': "Thanks for playing Kartsloaded! Someone already won $300 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!"
+    'label': '$100 Karts Loaded Credit'
+  , 'error_label': "Thanks for playing Kartsloaded! Someone already won $100 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!"
   , 'active': true
   , 'max_claims': 1
   , 'discount_type': 'fixed'
-  , 'discount_amount': 300
+  , 'discount_amount': 100
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
+, 'times': 5
 });
 
 Spin.start();
 
 Async.waterfall([
   function(cb){
-    Request({
-      'url': O.host + '/admin/promo_code/create.json'
-    , 'auth': GB.auth
-    , 'body': GB.code
-    , 'method': 'post'
-    , 'json': true
-    }, function(err, res, json){
-      console.log(Belt.stringify(json));
+    Async.times(GB.times, function(i, next){
+      GB.code['code'] = Belt.random_string(8).toLowerCase();
 
-      cb();
-    });
+      Request({
+        'url': O.host + '/admin/promo_code/create.json'
+      , 'auth': GB.auth
+      , 'body': GB.code
+      , 'method': 'post'
+      , 'json': true
+      }, function(err, res, json){
+        console.log(Belt.get(json, 'data.code'));
+
+        next();
+      });
+    }, Belt.cw(cb, 0))
   }
 ], function(err){
   Spin.stop();
