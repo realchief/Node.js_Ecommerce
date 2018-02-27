@@ -1,42 +1,45 @@
 <tr class="inventory_rule" data-id="<%= _id %>">
-  <td><%= term %></td>
-  <td style="width:500px !important;">
-    <p>
-      <span class="label label-<% if (typeof active !== 'undefined' && active){ %>info">ACTIVE<% } else { %>danger">INACTIVE<% } %></span>
-    </p>
+  <td>
+    <% if (typeof term !== 'undefined'){ %>
+      <p>TERM: <strong><%= term %></strong><p>
+    <% } %>
+    <% if (typeof brand !== 'undefined'){ %>
+      <p>BRAND: <strong><%= brand %></strong><p>
+    <% } %>
+    <% if (typeof vendor !== 'undefined'){ %>
+      <p>VENDOR: <strong><%= vendor %></strong><p>
+    <% } %>
+    <% if (typeof active !== 'undefined' && active){ %>
+      <p><span class="label label-success">ACTIVE</span><p>
+    <% } %>
+    <% if (typeof active !== 'undefined' && !active){ %>
+      <p><span class="label">INACTIVE</span><p>
+    <% } %>
   </td>
-  <td style="width:200px !important;">
-    <p>
-      <span <% if (typeof product_category !== 'undefined'){ %>><%= product_category %><% } else { %>class="label label-info">UNDEFINED<% } %></span>
-    </p>
+  <td>
+    <% if (typeof product_category !== 'undefined'){ %>
+      <p><%= product_category %><p>
+    <% } %>
   </td>
-  <td style="width:200px !important;">
-    <p>
-      <span class="label label-<% if (typeof product_hide !== 'undefined' && product_hide){ %>warning">TRUE<% } else { %>info">FALSE<% } %></span>
-    </p>
+  <td>
+    <% if (typeof product_hide !== 'undefined' && product_hide){ %>
+      <p><i class="fa fa-check-circle"></i><p>
+    <% } %>
   </td>
-  <td style="width:200px !important;">
-    <p>
-      <span class="label label-<% if (typeof product_show !== 'undefined' && product_show){ %>success">TRUE<% } else { %>warning">FALSE<% } %></span>
-    </p>
+  <td>
+    <% if (typeof product_show !== 'undefined' && product_show){ %>
+      <p><i class="fa fa-check-circle"></i><p>
+    <% } %>
   </td>
-  <td style="width:200px !important;">
-    <p>
-      <span class="label label-<% if (typeof whitelist !== 'undefined' && whitelist){ %>success">TRUE<% } else { %>warning">FALSE<% } %></span>
-    </p>
-  </td>
-  <td style="width:200px !important;">
-    <p>
-      <span <% if (typeof brand !== 'undefined' && brand){ %>>brand<% } else { %>class="label label-info">UNDEFINED<% } %></span>
-    </p>
-  </td>
-  <td style="width:200px !important;">
-    <p>
-      <span <% if (typeof product_brand !== 'undefined'){ %>>product_brand<% } else { %>class="label label-info">UNDEFINED<% } %></span>
-    </p>
+  <td>
+    <% if (typeof product_brand !== 'undefined'){ %>
+      <p><%= product_brand %><p>
+    <% } %>
   </td>
   <td data-set="actions" data-set-method="html">
     <a href="/admin/inventory_rule/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <a href="/admin/product/list?query=<%= encodeURIComponent(query) %>" target="_blank" class="btn btn-default">Products</a>
+    <a href="/admin/inventory_rule/<%= _id %>/process.json" target="_blank" class="btn btn-info">Process Rule</a>
     <button name="delete" class="btn btn-danger">Delete</button>
   </td>
 </tr>

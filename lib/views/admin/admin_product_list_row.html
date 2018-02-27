@@ -11,9 +11,10 @@
       <p>
         <span class="label label-warning">AUTO-HIDDEN</span>
       </p>
-      <% if (typeof hide_note !== 'undefined' && hide_note){ %>
-        <p>Hide note: <%= hide_note %></p>
-      <% } %>
+    <% } %>
+    <% if (typeof hide_note !== 'undefined' && hide_note){ %>
+      <hr>
+      <p>Hide note: <%= hide_note %></p>
     <% } %>
   </td>
   <td style="width:200px !important;">
@@ -25,7 +26,7 @@
     <% } %>
   </td>
   <td name="brands"><%= typeof manual_brand !== 'undefined' ? manual_brand : (brands || []).join(', ') %></td>
-  <td name="categories"><%= (categories || []).join(', ') %></td>
+  <td name="categories"><%= (categories || []).join(', ') || (typeof auto_category !== 'undefined' ? auto_category : '') %></td>
   <td style="width:150px !important;">
     <% _.each(options, function(v, k){ %>
       <p><strong><%= k %></strong> - <%= (Belt.get(v, 'values.us') || []).join(', ') %>
