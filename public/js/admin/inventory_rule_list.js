@@ -4,21 +4,21 @@ var SearchInventoryRules = function(options, callback){
     , gb = {};
   a.o = _.defaults(a.o, {
     'term': $('#search-modal [name="term"]').val()
-    , 'product_category': $('#search-modal [name="product_category"]').val()
-    , 'brand': $('#search-modal [name="brand"]').val()
-    , 'product_brand': $('#search-modal [name="product_brand"]').val()
-    , 'active': ($('#search-modal [name="active_true"]:checked').val() ? true : undefined) ||
-      ($('#search-modal [name="active_false"]:checked').val() ? false : undefined)
-    , 'product_hide': ($('#search-modal [name="product_hide_true"]:checked').val() ? true : undefined) ||
-      ($('#search-modal [name="product_hide_false"]:checked').val() ? false : undefined)
-    , 'product_show': ($('#search-modal [name="product_show_true"]:checked').val() ? true : undefined) ||
-      ($('#search-modal [name="product_show_false"]:checked').val() ? false : undefined)
-    , 'whitelist': ($('#search-modal [name="whitelist_true"]:checked').val() ? true : undefined) ||
-      ($('#search-modal [name="whitelist_false"]:checked').val() ? false : undefined)
+  , 'product_category': $('#search-modal [name="product_category"]').val()
+  , 'vendor': $('#search-modal [name="vendor"]').attr('data-id')
+  , 'brand': $('#search-modal [name="brand"]').val()
+  , 'product_brand': $('#search-modal [name="product_brand"]').val()
+  , 'active': ($('#search-modal [name="active_true"]:checked').val() ? true : undefined) ||
+    ($('#search-modal [name="active_false"]:checked').val() ? false : undefined)
+  , 'product_hide': ($('#search-modal [name="product_hide_true"]:checked').val() ? true : undefined) ||
+    ($('#search-modal [name="product_hide_false"]:checked').val() ? false : undefined)
+  , 'product_show': ($('#search-modal [name="product_show_true"]:checked').val() ? true : undefined) ||
+    ($('#search-modal [name="product_show_false"]:checked').val() ? false : undefined)
   });
 
   var query = {};
   var searchNullProductCategory = $('#search-modal [name="search_null_product_category"]:checked').val();
+  var searchNullVendor = $('#search-modal [name="search_null_vendor"]:checked').val();
 
   if (a.o.term){
     query['term'] = {
@@ -27,9 +27,17 @@ var SearchInventoryRules = function(options, callback){
   }
 
   if (a.o.product_category || searchNullProductCategory){
-    query['product_category'] = searchNullProductCategory ? '' :{
+    query['product_category'] = searchNullProductCategory ? {
+      '$exists': false
+    } :{
       '$regex': a.o.product_category.toLowerCase().replace(/\W/g, '.*')
     };
+  }
+
+  if (a.o.vendor || searchNullVendor){
+    query['vendor'] = searchNullVendor ? {
+      '$exists': false
+    } : a.o.vendor;
   }
 
   if (a.o.product_brand){
@@ -48,10 +56,6 @@ var SearchInventoryRules = function(options, callback){
 
   if (typeof a.o.product_hide !== 'undefined'){
     query['product_hide'] = a.o.product_hide;
-  }
-
-  if (typeof a.o.whitelist !== 'undefined'){
-    query['whitelist'] = a.o.whitelist;
   }
 
   if (typeof a.o.product_show !== 'undefined'){
@@ -96,6 +100,19 @@ var LoadDocs = function(options, callback){
         _.each(gb.product_categories, function (category) {
           $("#product_category_dropdown ul").append('<li><a href="#">' + category + '</a></li>');
         });
+        cb();
+      });
+    }
+  , function(cb){
+      $.get('/admin/cache/vendor/list.json', function(json){
+        if (Belt.get(json, 'error')) return cb(new Error(json.error));
+
+        gb['vendors'] = Belt.get(json);
+        _.each(gb.vendors, function (v) {
+          $("#vendor_dropdown ul").append('<li><a href="#" data-id="' + v._id + '">' + v.name + '</a></li>');
+        });
+        gb.vendors = ['<li><a href="#">< No Vendor ></a></li>'].concat(gb.vendors);
+
         cb();
       });
     }
@@ -190,4 +207,13 @@ $(document).on('click', '#product_category_dropdown a', function(e){
 
   $('#search-modal [name="product_category"]').val(category.indexOf('No Product Category') !== -1 ? undefined : category);
   $('#product_category_dropdown button').html(category)
+});
+
+$(document).on('click', '#vendor_dropdown a', function(e){
+  e.preventDefault();
+  var vendor = $(this).html()
+    , vendor_id = $(this).attr('data-id');
+
+  $('#search-modal [name="vendor"]').val(vendor.indexOf('No Vendor') !== -1 ? undefined : vendor_id);
+  $('#vendor_dropdown button').html(vendor).attr('data-id', vendor_id);
 });

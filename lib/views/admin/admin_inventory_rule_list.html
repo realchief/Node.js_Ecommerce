@@ -62,28 +62,23 @@
             <div class="col-sm-8"><input name="term" type="text" class="form-control"></div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">Product Category</label>
-            <div class="col-sm-8">
-              <div id="product_category_dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">< No Product Category >
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu"></ul>
-              </div>
-              <span>Search terms with no product category</span>
-              <input name="search_null_product_category" type="checkbox" class="i-checks">
-              <input name="product_category" type="hidden" class="form-control">
-            </div>
-          </div>
-          <div class="form-group">
             <label class="col-sm-4 control-label">Brand</label>
             <div class="col-sm-8"><input name="brand" type="text" class="form-control"></div>
           </div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">Product Brand</label>
-            <div class="col-sm-8"><input name="product_brand" type="text" class="form-control"></div>
+            <label class="col-sm-4 control-label">Vendor</label>
+            <div class="col-sm-8">
+              <div id="vendor_dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">< No Vendor >
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"></ul>
+              </div>
+              <span>Search terms with no vendor</span>
+              <input name="search_null_vendor" type="checkbox" class="i-checks">
+              <input name="vemdpr" type="hidden" class="form-control">
+            </div>
           </div>
-          <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-4 control-label">Active</label>
             <div class="col-sm-8">
@@ -96,7 +91,25 @@
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">Product Hide</label>
+            <label class="col-sm-4 control-label">Categorize Product</label>
+            <div class="col-sm-8">
+              <div id="product_category_dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">< No Product Category >
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"></ul>
+              </div>
+              <span>Search terms with no product category</span>
+              <input name="search_null_product_category" type="checkbox" class="i-checks">
+              <input name="product_category" type="hidden" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Rebrand Product</label>
+            <div class="col-sm-8"><input name="product_brand" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Hide Product</label>
             <div class="col-sm-8">
               <span>True</span>
               <input name="product_hide_true" type="checkbox" class="i-checks">
@@ -105,26 +118,14 @@
               <input name="product_hide_false" type="checkbox" class="i-checks">
             </div>
           </div>
-          <div class="hr-line-dashed"></div>
           <div class="form-group">
-            <label class="col-sm-4 control-label">Product Show</label>
+            <label class="col-sm-4 control-label">Show Product</label>
             <div class="col-sm-8">
               <span>True</span>
               <input name="product_show_true" type="checkbox" class="i-checks">
               <br>
               <span>False</span>
               <input name="product_show_false" type="checkbox" class="i-checks">
-            </div>
-          </div>
-          <div class="hr-line-dashed"></div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">Whitelist</label>
-            <div class="col-sm-8">
-              <span>True</span>
-              <input name="whitelist_true" type="checkbox" class="i-checks">
-              <br>
-              <span>False</span>
-              <input name="whitelist_false" type="checkbox" class="i-checks">
             </div>
           </div>
         </form>
