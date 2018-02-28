@@ -1,7 +1,7 @@
 {
   "basecmd": {
-    "server": "./node_modules/basecmd/lib/server.js"
-  , "daemon": "./node_modules/basecmd/scripts/daemon.js"
+    "server": "./lib/server.js"
+  , "daemon": "./scripts/daemon.js"
   , "views": [
       "./node_modules/wanderset-design/html"
     , "./lib/views"
