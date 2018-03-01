@@ -112,6 +112,7 @@ var InventoryRuleView = function(options, callback){
     , 'vendor'
     ]);
 
+    if (!gb.update.term) delete gb.update.term;
 
     gb.update = {
       'json': JSON.stringify(gb.update)

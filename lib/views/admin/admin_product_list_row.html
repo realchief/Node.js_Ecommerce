@@ -25,8 +25,18 @@
       <span name="description.us"><%= description.us %></span>
     <% } %>
   </td>
-  <td name="brands"><%= typeof manual_brand !== 'undefined' ? manual_brand : (brands || []).join(', ') %></td>
-  <td name="categories"><%= (categories || []).join(', ') || (typeof auto_category !== 'undefined' ? auto_category : '') %></td>
+  <td name="brands">
+    <% if (typeof manual_brand !== 'undefined'){ %>
+      <p>Renamed: <strong><%= manual_brand %></strong></p>
+    <% } %>
+    <p>Original: <strong>(brands || []).join(', ')</strong></p>
+  </td>
+  <td name="categories">
+    <p>Manual: <strong>(categories || []).join(', ')</strong></p>
+    <% if (typeof auto_category !== 'undefined'){ %>
+      <p>Auto: <strong><%= auto_category %></strong></p>
+    <% } %>
+  </td>
   <td style="width:150px !important;">
     <% _.each(options, function(v, k){ %>
       <p><strong><%= k %></strong> - <%= (Belt.get(v, 'values.us') || []).join(', ') %>
