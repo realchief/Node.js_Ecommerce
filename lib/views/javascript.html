@@ -1,4 +1,5 @@
 <script data-main="<%= Settings.asset_prefix %>/public/js/config" src="<%= Settings.asset_prefix %>/public/js/require.js"></script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
 <script type="text/javascript">
   // TODO in future load this function with requirejs
   function scrollTo(opts) {
@@ -136,7 +137,6 @@
         , 'util-scroll': '<%= Settings.asset_prefix %>/public/js/util/util.scroll'
         , 'util-search': '<%= Settings.asset_prefix %>/public/js/util/util.search'
         , 'util-sticky': '<%= Settings.asset_prefix %>/public/js/util/util.sticky'
-        , 'google_conversion_id': '//www.googleadservices.com/pagead/conversion'
 
         <% if (typeof js_files !== 'undefined') _.each(js_files, function(e, i){ %>
           , 'custom_js_<%= i %>': '<%= e.substring(0, e.length - 3) %>'
@@ -341,9 +341,6 @@
               , 'custom_js_<%= i %>'
             <% }) %>
 
-            <% if (true || Settings.environment === 'production'){ %>
-              , 'google_conversion_id'
-            <% } %>
           ], function(
           alert
           , checkout_line_items
@@ -367,14 +364,7 @@
             , custom_js_<%= i %>
           <% }) %>
 
-          <% if (true || Settings.environment === 'production'){ %>
-            , google_conversion_id
-          <% } %>
           ) {
-
-            <% if (true || Settings.environment === 'production'){ %>
-              window['google_conversion_id'] = google_conversion_id;
-            <% } %>
 
             <% if (typeof js_files !== 'undefined') _.each(js_files, function(e, i){ %>
               window['custom_js_<%= i %>'] = custom_js_<%= i %>;
