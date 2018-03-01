@@ -29,10 +29,10 @@
     <% if (typeof manual_brand !== 'undefined'){ %>
       <p>Renamed: <strong><%= manual_brand %></strong></p>
     <% } %>
-    <p>Original: <strong>(brands || []).join(', ')</strong></p>
+    <p>Original: <strong><%= (brands || []).join(', ') %></strong></p>
   </td>
   <td name="categories">
-    <p>Manual: <strong>(categories || []).join(', ')</strong></p>
+    <p>Manual: <strong><%= (categories || []).join(', ') %></strong></p>
     <% if (typeof auto_category !== 'undefined'){ %>
       <p>Auto: <strong><%= auto_category %></strong></p>
     <% } %>
