@@ -10,7 +10,7 @@ var LoadProductFilter = function(options, callback){
   });
 
   GB['product_filter'] = {
-    'skip': a.o.skip ? Belt.cast(a.o.skip, 'number') || 0 : 0
+    'skip': typeof a.o.skip != 'undefined' ? Belt.cast(a.o.skip, 'number') || 0 : 0
   , 'limit': a.o.limit
   , 'query': _.extend({
       '_id': {
@@ -83,7 +83,7 @@ var LoadSetProducts = function(options, callback){
       //delete hash.category;
       delete hash.sort;
 
-      ExtendHash(_.extend(a.o.skip ? {
+      ExtendHash(_.extend(typeof a.o.skip != 'undefined' ? {
         'skip': a.o.skip
       } : {}, a.o.sort ? {
         'sort': a.o.sort
