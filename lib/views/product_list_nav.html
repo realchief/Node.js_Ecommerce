@@ -42,6 +42,16 @@
 
 <nav class="d-block d-sm-inline-flex flex-no-shrink ml-2 <%= max === 1 ? 'hidden-xs-up' : '' %>">
   <ul class="pagination justify-content-center justify-content-sm-end">
+    <% if (index > 2){ %>
+      <li class="page-item">
+        <a class="page-link" href="<%=
+          Instance.paginationUrl(_.extend({}, Locals, {
+            'skip': 0
+          }))
+        %>">1</a>
+      </li>
+    <% } %>
+
     <% if (index > 1){ %>
       <li class="page-item">
         <a class="page-link pagination__arrow pagination__arrow--prev" href="<%=
