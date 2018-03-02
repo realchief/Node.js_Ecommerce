@@ -7,10 +7,13 @@
     <div id="wrapper">
       <div id="page-wrapper" class="gray-bg">
         <%= Render('admin_nav', Locals) %>
-
         <div class="wrapper wrapper-content">
           <div class="row">
             <div class="col-lg-12">
+              <div class="pull-right" style="margin-bottom:10px;margin-top:-20px;">
+                <a href="/admin/kpis/<%= key %>/download.zip" target="_blank" class="btn btn-default">Download</a>
+              </div>
+
               <% _.each([
                 'total'
               ], function(i){ %>

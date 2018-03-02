@@ -52,5 +52,6 @@
   , "forex-quotes": "2.0.9"
   , "imap": "0.8.19"
   , "http-proxy-middleware": "0.17.4"
+  , "adm-zip": "0.4.7"
   }
 }
