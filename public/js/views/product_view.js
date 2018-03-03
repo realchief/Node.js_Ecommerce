@@ -12,11 +12,14 @@ var ProductView = function(options, callback){
         e.preventDefault();
 
         var $el = $(e.currentTarget)
-          , val = $el.html()
+          , val = $el.contents().not($el.children()).text()
           , button = $el.parents('.form-group').find('button');
+        // TODO change css to remove/add classes
+        $el.css('color', '#616161');
         button.html(val);
+        button.data('value', val);
 
-        this.emit('options:update');
+        this.emit('options:update', $el.data('option'), $el.data('value'));
       }
     , 'click [name="add_to_bag"]:not(.disabled)': function(e){
         e.preventDefault();
@@ -30,8 +33,8 @@ var ProductView = function(options, callback){
       }
     }
   , 'events': {
-      'options:update': function(){
-        this.throttledGetAvailability();
+      'options:update': function(option, value){
+        this.throttledGetAvailability(option, value);
       }
     }
   });
@@ -45,7 +48,9 @@ var ProductView = function(options, callback){
     a.o = _.defaults(a.o, {
       'available_quantity': 1
     , 'options': self.get().options || {}
-      //record_analytics
+      // record_analytics
+      // option
+      // value
     });
 
     a.o.options = _.mapObject(a.o.options, function(v, k){
@@ -53,9 +58,60 @@ var ProductView = function(options, callback){
     });
 
     Async.waterfall([
-      function(cb){
-        //if (_.size(a.o.options) !== _.size((GB.product || GB.doc).options)) return cb();
+      function(cb) {
+        if (a.o.option && a.o.value) {
+          var stocks_with_selected_option = _.filter(DOC.stocks, function(s) {
+            return s.available_quantity > 0 &&
+              s.options[a.o.option] &&
+              (s.options[a.o.option].value == a.o.value ||
+              s.options[a.o.option].alias_value == a.o.value);
+          });
 
+          gb['data'] = _.reduce($('[data-option].form-group'), function(m, el) {
+            el = $(el);
+            var option = el.data('option');
+            if (option == a.o.option) return m;
+            var option_button = el.find('.dropdown-toggle');
+            var current_value = option_button.data('value');
+            var stocks = _.filter(m, function(s) {
+              return s.options[option].value == current_value || s.options[option].alias_value == current_value;
+            });
+
+            if (stocks.length == 0) {
+              stocks = m;
+              var new_value = stocks[1].options[option].value;
+              stocks = _.filter(m, function(s) {
+                return s.options[option].value == new_value || s.options[option].alias_value == new_value;
+              });
+
+              option_button.html(new_value);
+              option_button.data('value', new_value);
+              if (!gb.data) {
+
+              }
+            }
+
+            _.each(el.find('.dropdown-item'), function(item) {
+              var stocks_with_current_option = _.filter(m, function(s) {
+                return s.options[option].value == $(item).data('value');
+              });
+              // TODO change css to remove/add classes
+              if (stocks_with_current_option.length == 0) {
+                $(item).css('color', '#D0D0D0');
+                $(item).html($(item).data('value') + '<span> (available with other options)</span>');
+              } else {
+                $(item).css('color', '#616161');
+                $(item).html($(item).data('value'));
+              }
+            })
+
+            return stocks;
+          }, stocks_with_selected_option)[0];
+        }
+        cb();
+      }
+      , function(cb){
+        if (gb.data) return cb();
         $.post('/product/' + self._id + '/availability.json', a.o
         , Belt.cs(cb, gb, 'data', 0, 'data'));
       }
@@ -119,9 +175,11 @@ var ProductView = function(options, callback){
     });
   };
 
-  gb.view['throttledGetAvailability'] = _.throttle(function(){
+  gb.view['throttledGetAvailability'] = _.throttle(function(option, value){
     gb.view.getAvailability({
       'record_analytics': true
+      , 'option': option
+      , 'value': value
     });
   }, 100, {
     'leading': false
@@ -239,8 +297,19 @@ $(document).ready(function(){
   GB['view'] = new ProductView({
     '_id': (GB.product || GB.doc)._id
   });
+
+  var initial_stock = _.find(DOC.stocks, function(s) { return s.available_quantity > 0; });
+  var initial_option = _.keys(initial_stock.options)[0];
+  var initial_value = initial_stock.options[initial_option].value || initial_stock.options[initial_option].alias_value;
+  var option_button = $('[data-option="' + initial_option + '"]').find('.dropdown-toggle');
+  option_button.html(initial_value);
+  option_button.data('value', initial_value);
+
   setTimeout(function(){
-    GB.view.getAvailability();
+    GB.view.getAvailability({
+      'option': initial_option
+      , 'value': initial_value
+    });
   }, 0);
 });
 
