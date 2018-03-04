@@ -177,12 +177,12 @@ var InventoryRuleView = function(options, callback){
 
   Async.waterfall([
     function(cb){
-      $.get('/cache/product/categories/list.json', function(json){
+      $.get('/cache/product/whitelist/categories.json', function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
 
         gb['product_categories'] = Belt.get(json);
         gb.product_categories = ['< No Product Category >'].concat(gb.product_categories);
-        _.each(gb.product_categories, function (category) {
+        _.each(gb.product_categories, function(category){
           $("#product_category_dropdown select").append('<option value="' + category + '">' + category + '</option>');
         });
         cb();
