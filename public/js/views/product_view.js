@@ -298,9 +298,15 @@ $(document).ready(function(){
     '_id': (GB.product || GB.doc)._id
   });
 
-  var initial_stock = _.find(DOC.stocks, function(s) { return s.available_quantity > 0; });
-  var initial_option = _.keys(initial_stock.options)[0];
-  var initial_value = initial_stock.options[initial_option].value || initial_stock.options[initial_option].alias_value;
+  var initial_option, initial_value;
+  if (_.keys(GB.configuration_options).length > 0) {
+    initial_option = _.keys(GB.configuration_options)[0];
+    initial_value = GB.configuration_options[initial_option];
+  } else {
+    var initial_stock = _.find(DOC.stocks, function(s) { return s.available_quantity > 0; });
+    initial_option = _.keys(initial_stock.options)[0];
+    initial_value = initial_stock.options[initial_option].value || initial_stock.options[initial_option].alias_value;
+  }
   var option_button = $('[data-option="' + initial_option + '"]').find('.dropdown-toggle');
   option_button.html(initial_value);
   option_button.data('value', initial_value);
