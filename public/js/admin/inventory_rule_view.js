@@ -42,12 +42,7 @@ var InventoryRuleView = function(options, callback){
       }
     }
   , 'transformers': {
-      'get:max_claims': function(val){
-        return !val ? undefined : Belt.cast(val, 'number');
-      }
-    , 'get:discount_amount': function(val){
-        return Belt.cast(val, 'number') || 0;
-      }
+
     }
   });
 
