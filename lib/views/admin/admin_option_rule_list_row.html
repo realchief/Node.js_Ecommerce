@@ -1,0 +1,53 @@
+<tr class="option_rule" data-id="<%= _id %>">
+  <td>
+    <% if (typeof value !== 'undefined'){ %>
+      <p>VALUE: <strong><%= value %></strong><p>
+    <% } %>
+    <% if (typeof name !== 'undefined'){ %>
+      <p>NAME: <strong><%= name %></strong><p>
+    <% } %>
+    <% if (typeof brand !== 'undefined'){ %>
+      <p>BRAND: <strong><%= brand %></strong><p>
+    <% } %>
+    <% if (typeof vendor !== 'undefined'){ %>
+      <p>VENDOR: <strong><%= vendor %></strong><p>
+    <% } %>
+    <% if (typeof active !== 'undefined' && active){ %>
+      <p><span class="label label-success">ACTIVE</span><p>
+    <% } %>
+    <% if (typeof active !== 'undefined' && !active){ %>
+      <p><span class="label">INACTIVE</span><p>
+    <% } %>
+  </td>
+  <td>
+    <% if (typeof category !== 'undefined'){ %>
+      <p><%= category %><p>
+    <% } %>
+  </td>
+  <td>
+    <% if (typeof new_value !== 'undefined'){ %>
+      <p>NEW VALUE: <strong><%= new_value %></strong><p>
+    <% } %>
+  </td>
+  <td>
+    <% if (typeof new_name !== 'undefined'){ %>
+      <p>NEW NAME: <strong><%= new_name %></strong><p>
+    <% } %>
+  </td>
+  <td>
+    <% if (typeof option_hide !== 'undefined' && option_hide){ %>
+      <p><i class="fa fa-check-circle"></i><p>
+    <% } %>
+  </td>
+  <td>
+    <% if (typeof value_hide !== 'undefined' && value_hide){ %>
+      <p><i class="fa fa-check-circle"></i><p>
+    <% } %>
+  </td>
+  <td data-set="actions" data-set-method="html">
+    <a href="/admin/option_rule/<%= _id %>/read" class="btn btn-default">Edit</a>
+    <a href="/admin/product/list?query=<%= typeof query != 'undefined' ? encodeURIComponent(query) : '' %>" target="_blank" class="btn btn-default">Products</a>
+    <a href="/admin/option_rule/<%= _id %>/process.json" target="_blank" class="btn btn-info">Process Rule</a>
+    <button name="delete" class="btn btn-danger">Delete</button>
+  </td>
+</tr>

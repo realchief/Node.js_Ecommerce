@@ -1,0 +1,105 @@
+<div id="container" class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="pull-right">
+          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+          <a href="/admin/inventory_rule/<%= Request.data()._id %>/read.json" target="_blank" class="btn btn-default">JSON</a>
+        </div>
+        <h1><%= title %></h1>
+        <div class="hr-line-dashed"></div>
+        <form class="form-horizontal">
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Value</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="Value" data-get="value" data-get-method="val()" data-set="value" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Name</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="Name" data-get="name" data-get-method="val()" data-set="name" data-set-method="val">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Categorize As</label>
+            <div id="category_dropdown" class="col-sm-11">
+              <select type="text" class="form-control" name="category"></select>
+              <input type="hidden" class="form-control" placeholder="Product Category" data-get="category" data-get-method="val()" data-set="category" data-set-method="val">
+              <% if (data.button_title === 'Update'){ %>
+                <small class="form-text text-muted">Current Category: <strong data-set="category"></strong></small>
+              <% } %>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Brand</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="Brand" data-get="brand" data-get-method="val()" data-set="brand" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Vendor</label>
+            <div id="vendor_dropdown" class="col-sm-11">
+              <select name="vendor" type="text" class="form-control">
+                <option value="">< No vendor ></option>
+                <% _.each(_.sortBy(Instance.vendor_ids, function(v){
+                  return v.name;
+                }), function(v, k){ %>
+                  <option value="<%= v._id %>"><%= v.name %></option>
+                <% }) %>
+              </select>
+              <input type="hidden" class="form-control" placeholder="Vendor" data-get="vendor" data-get-method="val()" data-set="vendor" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div>
+                <label><input type="checkbox" class="i-checks" data-get="active" data-get-method="isChecked()" data-set="active" data-set-method="makeChecked">&nbsp;&nbsp;Is Active?</label>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">New Value</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="New value" data-get="new_value" data-get-method="val()" data-set="new_value" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">New name</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="New name" data-get="new_name" data-get-method="val()" data-set="new_name" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div>
+                <label><input type="checkbox" class="i-checks" data-get="option_hide" data-get-method="isChecked()" data-set="option_hide" data-set-method="makeChecked">&nbsp;&nbsp;Option hide</label>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <div>
+                <label><input type="checkbox" class="i-checks" data-get="value_hide" data-get-method="isChecked()" data-set="value_hide" data-set-method="makeChecked">&nbsp;&nbsp;Value hide</label>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+        </form>
+        <div class="pull-right">
+          <button name="submit" class="btn btn-primary" type="submit"><%= data.button_title %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div id="container" class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <a href="/admin/option_rule/export.csv" target="_blank" class="btn btn-default pull-right" name="export-button" style="margin-left:10px;">Export</a>
+        <button class="btn btn-default pull-right" data-toggle="modal" data-target="#search-modal" style="margin-left:10px;">Search</button>
+        <div name="pagination" class="pull-right"></div>
+        <h1>Option rules</h1>
+        <p name="count"></p>
+        <div class="hr-line-dashed"></div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>
+                  <strong>Value</strong>
+                </td>
+                <td>
+                  <strong>Category</strong>
+                </td>
+                <td>
+                  <strong>New value</strong>
+                </td>
+                <td>
+                  <strong>New name</strong>
+                </td>
+                <td>
+                  <strong>Option hide</strong>
+                </td>
+                <td>
+                  <strong>Value hide</strong>
+                </td>
+                <td>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:15px;margin-bottom:15px;">
+          <a href="/admin/option_rule/export.csv" target="_blank" class="btn btn-default pull-right" name="export-button" style="margin-left:10px;">Export</a>
+          <button class="btn btn-default pull-right" data-toggle="modal" data-target="#search-modal" style="margin-left:10px;">Search</button>
+          <div name="pagination" class="pull-right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="search-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Search Option Rules</h3>
+        <button name="search" type="button" class="btn btn-primary">Search</button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="get" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Value</label>
+            <div class="col-sm-8"><input name="value" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-8"><input name="name" type="text" class="form-control"></div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Categorize Product</label>
+            <div class="col-sm-8">
+              <div id="category_dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">< No Product Category >
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"></ul>
+              </div>
+              <span>Search terms with no product category</span>
+              <input name="search_null_category" type="checkbox" class="i-checks">
+              <input name="category" type="hidden" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Brand</label>
+            <div class="col-sm-8"><input name="brand" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Vendor</label>
+            <div class="col-sm-8">
+              <div id="vendor_dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">< No Vendor >
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu"></ul>
+              </div>
+              <span>Search terms with no vendor</span>
+              <input name="search_null_vendor" type="checkbox" class="i-checks">
+              <input name="vemdpr" type="hidden" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Active</label>
+            <div class="col-sm-8">
+              <span>True</span>
+              <input name="active_true" type="checkbox" class="i-checks">
+              <br>
+              <span>False</span>
+              <input name="active_false" type="checkbox" class="i-checks">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">New Value</label>
+            <div class="col-sm-8"><input name="new_value" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">New Name</label>
+            <div class="col-sm-8"><input name="new_name" type="text" class="form-control"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Option Hide</label>
+            <div class="col-sm-8">
+              <span>True</span>
+              <input name="option_hide_true" type="checkbox" class="i-checks">
+              <br>
+              <span>False</span>
+              <input name="option_hide_false" type="checkbox" class="i-checks">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Value Hide</label>
+            <div class="col-sm-8">
+              <span>True</span>
+              <input name="value_hide_true" type="checkbox" class="i-checks">
+              <br>
+              <span>False</span>
+              <input name="value_hide_false" type="checkbox" class="i-checks">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button name="search" type="button" class="btn btn-primary">Search</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
