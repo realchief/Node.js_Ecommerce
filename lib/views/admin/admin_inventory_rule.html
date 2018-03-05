@@ -52,6 +52,9 @@
             <div id="product_category_dropdown" class="col-sm-11">
               <select type="text" class="form-control" name="product_category"></select>
               <input type="hidden" class="form-control" placeholder="Product Category" data-get="product_category" data-get-method="val()" data-set="product_category" data-set-method="val">
+              <% if (data.button_title === 'Update'){ %>
+                <small class="form-text text-muted">Current Category: <strong data-set="product_category"></strong></small>
+              <% } %>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
