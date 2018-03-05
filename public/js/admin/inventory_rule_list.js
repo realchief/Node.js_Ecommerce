@@ -135,7 +135,7 @@ $(document).ready(function(){
   , 'sort': '{"created_at": -1}'
   });
 
-  if (_.isString(GB.criteria.query)) GB.criteria.query = JSON.parse(GB.criteria.query);
+  //if (_.isString(GB.criteria.query)) GB.criteria.query = JSON.parse(GB.criteria.query);
   if (_.isString(GB.criteria.sort)) GB.criteria.sort = JSON.parse(GB.criteria.sort);
   GB.criteria.skip = Belt.cast(GB.criteria.skip, 'number');
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
