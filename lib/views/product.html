@@ -187,7 +187,7 @@
               <div class="gallery" data-slick='{"asNavFor": ".gallery__thumbnail"}'>
                 <% _.each(doc.media, function(m){ %>
                   <div>
-                    <img data-lazy="<%= m.url || m.remote_url %>" class="w-100">
+                    <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg" data-lazy="<%= m.url || m.remote_url %>" class="w-100">
                   </div>
                 <% }) %>
               </div>
@@ -195,7 +195,7 @@
               <div class="gallery__thumbnail hidden-sm-down mt10" data-slick='{"asNavFor": ".gallery"}'>
                 <% _.each(doc.media, function(m, i){ %>
                   <div data-slick-index="<%= i %>" class="gallery__thumbnail-item">
-                    <img data-lazy="<%= m.url || m.remote_url %>" class="w-100">
+                    <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg" data-lazy="<%= m.url || m.remote_url %>" class="w-100">
                   </div>
                 <% }) %>
               </div>
