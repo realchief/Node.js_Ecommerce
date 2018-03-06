@@ -11,27 +11,22 @@
         <form class="form-horizontal">
           <div class="hr-line-dashed"></div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">Value</label>
-            <div class="col-sm-11">
-              <input name="error_label" type="text" class="form-control" placeholder="Value" data-get="value" data-get-method="val()" data-set="value" data-set-method="val">
-            </div>
-          </div>
-          <div class="hr-line-dashed"></div>
-          <div class="form-group">
-            <label class="col-sm-1 control-label">Name</label>
+            <label class="col-sm-1 control-label">Option Name</label>
             <div class="col-sm-11">
               <input name="error_label" type="text" class="form-control" placeholder="Name" data-get="name" data-get-method="val()" data-set="name" data-set-method="val">
             </div>
           </div>
-
           <div class="form-group">
-            <label class="col-sm-1 control-label">Categorize As</label>
+            <label class="col-sm-1 control-label">Option Value</label>
+            <div class="col-sm-11">
+              <input name="error_label" type="text" class="form-control" placeholder="Value" data-get="value" data-get-method="val()" data-set="value" data-set-method="val">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Category</label>
             <div id="category_dropdown" class="col-sm-11">
               <select type="text" class="form-control" name="category"></select>
-              <input type="hidden" class="form-control" placeholder="Product Category" data-get="category" data-get-method="val()" data-set="category" data-set-method="val">
-              <% if (data.button_title === 'Update'){ %>
-                <small class="form-text text-muted">Current Category: <strong data-set="category"></strong></small>
-              <% } %>
+              <input type="hidden" class="form-control" placeholder="product category to trigger rule" data-get="category" data-get-method="val()" data-set="category" data-set-method="val">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -66,23 +61,23 @@
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">New Value</label>
+            <label class="col-sm-1 control-label">Change Name To</label>
             <div class="col-sm-11">
-              <input name="error_label" type="text" class="form-control" placeholder="New value" data-get="new_value" data-get-method="val()" data-set="new_value" data-set-method="val">
+              <input name="error_label" type="text" class="form-control" placeholder="new option name (i.e. &quot;size&quot;)" data-get="new_name" data-get-method="val()" data-set="new_name" data-set-method="val">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">New name</label>
+            <label class="col-sm-1 control-label">Change Value To</label>
             <div class="col-sm-11">
-              <input name="error_label" type="text" class="form-control" placeholder="New name" data-get="new_name" data-get-method="val()" data-set="new_name" data-set-method="val">
+              <input name="error_label" type="text" class="form-control" placeholder="new option value (i.e. &quot;small&quot;)" data-get="new_value" data-get-method="val()" data-set="new_value" data-set-method="val">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <div class="col-sm-12">
               <div>
-                <label><input type="checkbox" class="i-checks" data-get="option_hide" data-get-method="isChecked()" data-set="option_hide" data-set-method="makeChecked">&nbsp;&nbsp;Option hide</label>
+                <label><input type="checkbox" class="i-checks" data-get="option_hide" data-get-method="isChecked()" data-set="option_hide" data-set-method="makeChecked">&nbsp;&nbsp;Hide Option</label>
               </div>
             </div>
           </div>
@@ -90,7 +85,7 @@
           <div class="form-group">
             <div class="col-sm-12">
               <div>
-                <label><input type="checkbox" class="i-checks" data-get="value_hide" data-get-method="isChecked()" data-set="value_hide" data-set-method="makeChecked">&nbsp;&nbsp;Value hide</label>
+                <label><input type="checkbox" class="i-checks" data-get="value_hide" data-get-method="isChecked()" data-set="value_hide" data-set-method="makeChecked">&nbsp;&nbsp;Hide Value</label>
               </div>
             </div>
           </div>
