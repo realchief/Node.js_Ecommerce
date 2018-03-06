@@ -31,7 +31,7 @@
   , "bcrypt": "1.0.3"
   , "mime": "1.6.0"
   , "basecmd": "0.1.23"
-  , "wanderset-design": "git+ssh://git@github.com/tinkerpartners/wanderset-design.git#master"
+  , "wanderset-design": "git+ssh://git@github.com/wanderset/wanderset-design.git#master"
   , "fast-csv": "2.4.1"
   , "cheerio": "0.22.0"
   , "stripe": "5.4.0"
