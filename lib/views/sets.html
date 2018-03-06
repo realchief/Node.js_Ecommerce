@@ -16,13 +16,14 @@
                 <div class="col-md-3 col-6">
                   <a href="/set/<%= encodeURIComponent(s.slug || s.name) %>" class="set__item">
                     <div class="set__item__holder">
-                      <img data-src="<%=
-                         Belt.get(s, 'landing_media.downsample_url')
-                      || Belt.get(s, 'landing_media.url')
-                      || Belt.get(s, 'logo_media.url')
-                      || Belt.get(s, 'mobile_featured_media.url')
-                      || Belt.get(s, 'featured_media.url')
-                      || '' %>"
+                      <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg" data-src="<%=
+                          Belt.get(s, 'landing_media.downsample_url')
+                       || Belt.get(s, 'logo_media.downsample_url')
+                       || Belt.get(s, 'landing_media.url')
+                       || Belt.get(s, 'logo_media.url')
+                       || Belt.get(s, 'mobile_featured_media.url')
+                       || Belt.get(s, 'featured_media.url')
+                       || '' %>"
                       alt="<%=
                          Belt.get(s, 'landing_label.us')
                       || Instance.sanitizeLabel(Belt.get(s, 'label.us')
