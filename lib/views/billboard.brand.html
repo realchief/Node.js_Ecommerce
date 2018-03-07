@@ -1,7 +1,7 @@
 <div class="billboard billboard--dark billboard--small has-bg hidden-sm-down">
-  <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg" data-src="<%= Belt.get(doc, 'featured_media.url') || '' %>" alt="" class="billboard__img lazy">
+  <img src="<%= Belt.get(doc, 'featured_media.url') || '' %>" alt="" class="billboard__img lazy">
 </div>
 
 <div class="billboard billboard--dark billboard--small hidden-md-up">
-  <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg" data-src="<%= Belt.get(doc, 'mobile_featured_media.downsample_url') || Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>" alt="" class="billboard__img lazy">
+  <img src="<%= Belt.get(doc, 'mobile_featured_media.downsample_url') || Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>" alt="" class="billboard__img lazy">
 </div>
