@@ -48,6 +48,7 @@ Async.waterfall([
     var fs = FS.createReadStream(O.argv.infile);
 
     GB['categories'] = {};
+    GB['flat_categories'] = [];
 
     CSV.fromStream(fs, {
           'headers': true
@@ -56,11 +57,13 @@ Async.waterfall([
           if (d.category){
             GB['cur_cat'] = Str.trim(d.category.toLowerCase());
             GB.categories[GB.cur_cat] = {};
+            GB.flat_categories.push(GB.cur_cat);
           }
 
           if (d.subcategory){
             GB['sub_cat'] = Str.trim(d.subcategory.toLowerCase());
             GB.categories[GB.cur_cat][GB.sub_cat] = {};
+            GB.flat_categories.push([GB.cur_cat, GB.sub_cat].join(' > '));
           }
 
           if (d.sub_subcategory){
@@ -69,17 +72,19 @@ Async.waterfall([
             _.each(d.sub_subcategory, function(s){
               s = Str.trim(s.toLowerCase());
               GB.categories[GB.cur_cat][GB.sub_cat][s] = {};
+              GB.flat_categories.push(GB.cur_cat, GB.sub_cat + ' > ' + s);
             });
           }
         })
        .on('end', Belt.cw(cb));
   }
 , function(cb){
-    GB['flat_categories'] = _.sortBy(_.map(Belt.objFlatten(GB.categories), function(v, k){
+/*    GB['flat_categories'] = _.map(Belt.objFlatten(GB.categories), function(v, k){
       return k.replace(/\./g, ' > ');
     }), function(s){
       return s;
     });
+*/
 
     console.log(Belt.stringify(GB.flat_categories));
 
