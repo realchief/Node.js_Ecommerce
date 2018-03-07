@@ -72,7 +72,7 @@ Async.waterfall([
             _.each(d.sub_subcategory, function(s){
               s = Str.trim(s.toLowerCase());
               GB.categories[GB.cur_cat][GB.sub_cat][s] = {};
-              GB.flat_categories.push(GB.cur_cat, GB.sub_cat + ' > ' + s);
+              GB.flat_categories.push([GB.cur_cat, GB.sub_cat, s].join(' > '));
             });
           }
         })

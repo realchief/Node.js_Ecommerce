@@ -33,7 +33,7 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'product_category': 'accessories > eyewear > glasses'
+    'product_category': 'clothing > shirts > polos'
   }
 , 'skip': 0
 , 'limit': 100
@@ -51,7 +51,7 @@ var GB = _.defaults(O.argv, {
       'url': O.host + '/admin/' + GB.model + '/' + o._id + '/update.json'
     , 'auth': GB.auth
     , 'body': {
-        'product_category': 'accessories > bags > totes'
+        'product_category': 'clothing > polos'
       }
     , 'json': true
     , 'method': 'post'
