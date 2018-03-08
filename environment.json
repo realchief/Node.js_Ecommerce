@@ -88,6 +88,49 @@
       }
     , "create_rest_routes": false
     }
+  , "staging-development": {
+      "host": "https://development.staging.wanderset.com"
+    , "domain": "development.staging.wanderset.com"
+    , "asset_prefix": ""
+    , "express": {
+        "port": 10002
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "development.staging.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "dev_staging_wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "order": "https://2po.st/hwU18Eioy4Ti"
+      , "email_subscription_slack": "https://hooks.slack.com/services/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"
+      , "new_product_slack": "https://hooks.slack.com/services/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"
+      , "new_order_slack": "https://hooks.slack.com/services/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"
+      , "order_shipment_slack": "https://hooks.slack.com/services/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"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
+      , "platform_errors_slack": "https://hooks.slack.com/services/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"
+      , "development_slack": "https://hooks.slack.com/services/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"
+      , "development_slack.bak": "https://hooks.slack.com/services/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"
+      }
+    , "email": {
+        "from": "DEVELOPMENT STAGING Wanderset <tech+orders@wanderset.com>"
+      , "order": "DEVELOPMENT STAGING Wanderset <tech+orders@wanderset.com>"
+      , "fulfillment": "DEVELOPMENT STAGING Wanderset <tech+fulfillment@wanderset.com>"
+      , "order_inactivity": "DEVELOPMENT STAGING Wanderset <tech+orders-inactivity@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "slack": {
+        "kpis": "https://hooks.slack.com/services/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"
+      }
+    , "create_rest_routes": false
+    }
   , "staging-worker": {
       "host": "http://staging.wanderset.com:8852"
     , "domain": "staging.wanderset.com:8852"
