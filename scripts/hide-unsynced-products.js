@@ -48,13 +48,15 @@ var GB = _.defaults(O.argv, {
 , 'skip': 0
 , 'limit': 500
 , 'count': 0
+, 'time_ago': 12
+, 'time_interval': 'hours'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
 , 'iterator': function(o, cb){
-    if (!(Belt.get(o, 'source.record.url') || '').match(/streetammo/i)) return cb();
-    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(12, 'hours'))) return cb();
+    //if (!(Belt.get(o, 'source.record.url') || '').match(/streetammo/i)) return cb();
+    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(GB.time_ago, GB.time_interval))) return cb();
 
     console.log('Hiding product [' + o._id + ']...' + ++GB.count);
 
@@ -65,7 +67,7 @@ var GB = _.defaults(O.argv, {
     , 'auth': GB.auth
     , 'body': {
         'sync_hide': true
-      , 'hide_note': 'Not synced in over 12 hours'
+      , 'hide_note': 'Not synced in over ' + GB.time_ago + ' ' + GB.time_interval
       }
     , 'json': true
     , 'method': 'post'
