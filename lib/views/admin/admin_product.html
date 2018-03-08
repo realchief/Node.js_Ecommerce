@@ -150,6 +150,12 @@
             <div class="col-sm-11">
               <textarea name="categories" type="text" class="form-control" placeholder="categories" data-get="categories" data-get-method="val()" data-get-transformer="split_lines" rows="5" data-set="categories" data-set-method="val" data-set-transformer="join_lines"></textarea>
               <span class="help-block m-b-none">One category per line</span>
+              <% if (typeof categories !== 'undefined' && categories[0]){ %>
+                <span class="help-block m-b-none">Current category: <strong data-set="categories.0"></strong></span>
+              <% } %>
+              <% if (typeof auto_category !== 'undefined'){ %>
+                <span class="help-block m-b-none">Current auto category: <strong data-set="auto_category"></strong></span>
+              <% } %>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
