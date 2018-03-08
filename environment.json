@@ -177,6 +177,52 @@
       }
     , "create_rest_routes": false
     }
+  , "staging-development-worker": {
+      "host": "http://development.staging.wanderset.com:8852"
+    , "domain": "development.staging.wanderset.com:8862"
+    , "asset_prefix": ""
+    , "express": {
+        "port": 8862
+      }
+    , "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "staging-development-worker.wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "127.0.0.1"
+      , "port": 27017
+      , "db": "dev_staging_wanderset"
+      }
+    , "notifications": {
+        "coming_soon": "https://2po.st/oySQBPndO5PX"
+      , "order": "https://2po.st/hwU18Eioy4Ti"
+      , "email_subscription_slack": "https://hooks.slack.com/services/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"
+      , "new_product_slack": "https://hooks.slack.com/services/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"
+      , "new_order_slack": "https://hooks.slack.com/services/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"
+      , "order_shipment_slack": "https://hooks.slack.com/services/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"
+      , "order_error": "https://2po.st/0RQCVLRISL4z"
+      , "platform_new_products_slack": "https://hooks.slack.com/services/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"
+      , "platform_products_slack": "https://hooks.slack.com/services/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"
+      , "platform_vendors_slack": "https://hooks.slack.com/services/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"
+      , "platform_errors_slack": "https://hooks.slack.com/services/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"
+      , "development_slack": "https://hooks.slack.com/services/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"
+      , "development_slack.bak": "https://hooks.slack.com/services/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"
+      }
+    , "email": {
+        "from": "STAGING Wanderset <tech+orders@wanderset.com>"
+      , "order": "STAGING Wanderset <tech+orders@wanderset.com>"
+      , "fulfillment": "STAGING Wanderset <tech+fulfillment@wanderset.com>"
+      , "order_inactivity": "STAGING Wanderset <tech+orders-inactivity@wanderset.com>"
+      }
+    , "s3": {
+        "bucket": "staging.assets.wanderset.com"
+      }
+    , "slack": {
+        "kpis": "https://hooks.slack.com/services/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"
+      }
+    , "create_rest_routes": false
+    }
   , "production": {
       "host": "https://wanderset.com"
     , "domain": ".wanderset.com"
