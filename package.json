@@ -53,6 +53,7 @@
     "webworker-threads": "^0.7.13",
     "winston": "2.4.0",
     "woocommerce": "2.4.0",
-    "xml": "1.0.1"
+    "xml": "1.0.1",
+    "soap": "0.23.0"
   }
 }
