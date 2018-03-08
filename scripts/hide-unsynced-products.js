@@ -56,9 +56,13 @@ var GB = _.defaults(O.argv, {
   }
 , 'iterator': function(o, cb){
     //if (!(Belt.get(o, 'source.record.url') || '').match(/streetammo/i)) return cb();
-    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(GB.time_ago, GB.time_interval))) return cb();
+    if (!o.synced_at || Moment(o.synced_at).isAfter(Moment().subtract(GB.time_ago, GB.time_interval))){
+      console.log('Product [' + (o.slug || o._id) + '] is up to date...');
 
-    console.log('Hiding product [' + o._id + ']...' + ++GB.count);
+      return cb();
+    }
+
+    console.log('Hiding product [' + (o.slug || o._id) + ']...' + (++GB.count));
 
     GB.skip--;
 
