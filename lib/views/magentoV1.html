@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%= Render('head', Locals) %>
+    <title>Wanderset + Magento</title>
+</head>
+<body>
+<%= Render('header', Locals) %>
+
+<main class="main">
+    <section class="section section--pt-40">
+
+        <div class="container">
+
+            <div class="d-flex align-items-center justify-content-center mb30">
+                <img src="/public/assets/images/elements/logo.svg" alt="" class="img-fluid shopify-logo">
+                <p class="fs13 mx-4 mb-0">x</p>
+                <img src="/public/static/magento-tutorial/Magento-Logo.jpg" alt="" class="img-fluid shopify-logo">
+            </div><!--d-flex-->
+
+            <p class="text-center fs16 font-base-book text-muted l-n">If you sell through Magento, you can start selling on Wanderset in seconds.<br>We make connecting your Magento store to Wanderset a snap.</p>
+
+            <div class="divider divider--content--sm mb45 mt45"></div>
+
+            <h2 class="text-center title-bold">how it works</h2>
+
+            <ul class="list-counter text-muted fs16 font-base-book l-n box-wrapper  box-wrapper--xs">
+                <li class="list-counter__item">We automatically load your Magento product inventory into Wanderset and keep it updated in realtime. </li>
+                <li class="list-counter__item">When customers order your products on Wanderset, orders appear in your Magento account.</li>
+                <li class="list-counter__item">Ship your orders directly to the customer and collect payment from Wanderset.</li>
+            </ul>
+
+            <div class="divider divider--content--sm mb45 mt45"></div>
+
+            <p class="text-center">By using our application, you agree to all terms and conditions set forth in Wanderset's Vendor Agreement.</p>
+
+            <div class="divider divider--content--sm mb45 mt45"></div>
+
+            <h2 class="text-center title-bold">how to connect your store with wanderset</h2>
+
+            <ul class="list-counter text-muted fs16 font-base-book l-n box-wrapper">
+                <li class="list-counter__item">
+                    <div>
+                        To get started, go to your Magento store, log in as an admin and hover over "System" tab in the navbar.
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-1.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        Then hover over "Web Services" and click on "SOAP/XML-RPC - Roles".
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-2.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        When the page opens, click on "Add New Role".
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-3.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        Enter role name. For example, "Wanderset" and click on "Role Resources"
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-4.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        Choose "All" from "Resource Access" dropdown and click on "Save Role" button.
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-5.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        After that hover again over "System" tab in the navbar and over "Web Services" and click on "SOAP/XML-RPC - Users" button.
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-6.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        Click on "Add New User" button.
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-7.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        In the new user form, fill in the following data and click on "User Role" button in the sidebar:
+                        <br>
+                        <b>User Name</b>: Desired name for the user (e.g. Wanderset)
+                        <br>
+                        <b>First Name</b>: Desired first name for the user (e.g. Wanderset)
+                        <br>
+                        <b>Last Name</b>: Desired last name for the user (e.g. Store)
+                        <br>
+                        <b>Email</b>: support@wanderset.com
+                        <br>
+                        <b>API Key</b>: Any combination of letters and numbers
+                        <br>
+                        <b>API Key Confirmation</b>: repeat API Key
+                        <br>
+                        <b>This account is</b>: ACTIVE
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-8.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        Select the user role created in previous steps and click on "Save User" button.
+                        <img src="/public/static/magento-1-tutorial/magento-tutorial-9.jpg" alt="" class="img-fluid" style="margin-top: 10px">
+                    </div>
+                </li>
+                <li class="list-counter__item">
+                    <div>
+                        Copy user name and API key entered in the form in the previous step and paste it in the form below. Click on Submit and the integration is complete.
+                    </div>
+                </li>
+            </ul>
+
+            <form action="/magento/v1/authorize" method="post" class="box-wrapper box-wrapper--sm">
+                <div class="form-group mb-md-3 mr-md-3 w-100">
+                    <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="Your store name" name="name" required>
+                </div>
+                <div class="form-group mb-md-3 mr-md-3 w-100">
+                    <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="Your store domain (begins with http:// or https:// - just include the domain, i.e. https://google.com)" name="url" required>
+                </div>
+                <div class="form-group mb-md-3 mr-md-3 w-100">
+                    <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="User Name" name="username" required>
+                </div>
+                <div class="form-group mb-md-3 mr-md-3 w-100">
+                    <input type="text" class="form-control form-control--placeholder-gray form-control--placeholder-medium text-center" placeholder="API key" name="api_key" required>
+                </div>
+                <button type="submit" class="btn btn-blueberry btn-narrow--md btn-block-sm w-100" name="submit">submit</button>
+            </form>
+
+        </div><!-- container -->
+
+
+    </section><!-- section -->
+</main>
+
+<a href="#" class="btn-scroll-top">
+    <i class="wanderset-icon-up-open btn-scroll-top__icon"></i>
+</a>
+
+<%= Render('footer', Locals) %>
+<%= Render('javascript', Locals) %>
+</body>
+</html>
