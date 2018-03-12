@@ -34,18 +34,19 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'code': {
-    'label': '$100 Karts Loaded Credit'
-  , 'error_label': "Thanks for playing Kartsloaded! Someone already won $100 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!"
+    'label': '$700 Gift Certificate'
+  //, 'error_label': "Thanks for playing Kartsloaded! Someone already won $700 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!"
   , 'active': true
-  , 'max_claims': 1
+  , 'credit_balance': true
+  //, 'max_claims': 1
   , 'discount_type': 'fixed'
-  , 'discount_amount': 100
+  , 'discount_amount': 700
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'times': 5
+, 'times': 2
 });
 
 Spin.start();
