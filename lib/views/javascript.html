@@ -1,97 +1,6 @@
 <script data-main="<%= Settings.asset_prefix %>/public/js/config" src="<%= Settings.asset_prefix %>/public/js/require.js"></script>
 <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
 <script type="text/javascript">
-  // TODO in future load this function with requirejs
-  function scrollTo(opts) {
-    var $container, $doc, $target, $win, containerOffset, defaultOpts, fakeCallBack, hasCalled, offset, options, scrollLeft, scrollTop, targetOffset, viewpartHeight, viewpartWidth;
-    defaultOpts = {
-      target: null,
-      container: null,
-      axis: 'y',
-      offset: null,
-      duration: 500,
-      animation: true,
-      cancelIfVisible: true,
-      callback: $.noop
-    };
-    opts = $.extend(defaultOpts, opts);
-    if (opts.target) {
-      $target = $(opts.target);
-    }
-    if (!$target && opts.offset === null) {
-      throw new Error("simple-scrollTo: target or offset option is invalid");
-    }
-    $container = opts.container ? $(opts.container) : $('body, html');
-    if (!opts.offset) {
-      opts.offset = 0;
-    }
-    if (typeof opts.offset === 'object') {
-      offset = $.extend({}, opts.offset);
-    } else {
-      offset = {
-        x: opts.offset,
-        y: opts.offset
-      };
-    }
-    if ($target) {
-      targetOffset = $target.offset();
-      if (opts.container) {
-        containerOffset = $container.offset();
-        targetOffset = {
-          top: targetOffset.top - containerOffset.top + $container.scrollTop(),
-          left: targetOffset.left - containerOffset.left + $container.scrollLeft()
-        };
-      }
-      offset = {
-        y: targetOffset.top - offset.y,
-        x: targetOffset.left - offset.x
-      };
-    }
-    if (opts.cancelIfVisible) {
-      if (!opts.container) {
-        viewpartHeight = ($win = $(window)).height();
-        viewpartWidth = $win.width();
-        scrollTop = ($doc = $(document)).scrollTop();
-        scrollLeft = $doc.scrollLeft();
-      } else {
-        viewpartHeight = $container.height();
-        viewpartWidth = $container.width();
-        scrollTop = $container.scrollTop();
-        scrollLeft = $container.scrollLeft();
-      }
-      if ((offset.y >= scrollTop && offset.y < scrollTop + viewpartHeight) && (offset.x >= scrollLeft && offset.x < scrollLeft + viewpartWidth)) {
-        return;
-      }
-    }
-    if (opts.animation) {
-      options = {
-        scrollTop: opts.axis !== 'x' ? offset.y : void 0,
-        scrollLeft: opts.axis !== 'y' ? offset.x : void 0
-      };
-      hasCalled = false;
-      fakeCallBack = function() {
-        if (hasCalled) {
-          return;
-        }
-        hasCalled = true;
-        return opts.callback();
-      };
-      $container.animate(options, opts.duration, fakeCallBack);
-      return null;
-    } else {
-      if (opts.axis !== 'x') {
-        $container.scrollTop(offset.y);
-      }
-      if (opts.axis !== 'y') {
-        $container.scrollLeft(offset.x);
-      }
-      opts.callback();
-      return null;
-    }
-  };
-  window['simple'] = {
-    'scrollTo': scrollTo
-  }
   require(['config'], function() {
     requirejs.config({
       'baseUrl': ''
@@ -103,6 +12,7 @@
         , 'moment': '<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min'
         , 'jquery-object': '<%= Settings.asset_prefix %>/bower_components/query-object/query-object'
         , 'jquery': '<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min'
+        , 'scroll-to': '<%= Settings.asset_prefix %>/bower_components/simple-scrollTo/lib/scrollTo'
         , 'sticky-kit': '<%= Settings.asset_prefix %>/bower_components/sticky-kit/jquery.sticky-kit.min'
         , 'aos': '<%= Settings.asset_prefix %>/bower_components/aos/dist/aos'
         , 'tether': '<%= Settings.asset_prefix %>/bower_components/tether/dist/js/tether.min'
@@ -204,21 +114,23 @@
       window['AOS'] = Aos;
 
       require([
-        'jquery-bridget'
+        'scroll-to'
+        , 'jquery-bridget'
         , 'util'
-        <% if (typeof View !== 'undefined'){ %>
-          <% if (View === 'product' || View === 'outfit'){ %>
+        <% console.log('provjera');if (typeof View !== 'undefined'){ console.log('nije undefined'); %>
+          <% if (View === 'product' || View === 'outfit'){console.log('prvi'); %>
             , 'slick'
             , 'cloudzoom'
           <% } %>
 
-          <% if (View === 'set' || View === 'media_list'){ %>
+          <% if (View === 'set' || View === 'media_list'){console.log('drugi'); %>
             , 'isotope'
             , 'imagesloaded'
           <% } %>
         <% } %>
         ], function(
-          jquery_bridget
+          Scroll_to
+          , jquery_bridget
           , Util
           <% if (typeof View !== 'undefined'){ %>
             <% if (View === 'product' || View === 'outfit'){ %>
