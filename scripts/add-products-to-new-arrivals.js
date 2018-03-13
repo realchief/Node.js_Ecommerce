@@ -12,9 +12,7 @@ var Path = require('path')
   , Spinner = require('its-thinking')
   , CP = require('child_process')
   , Request = require('request')
-  , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
 ;
 
 var O = new Optionall({
@@ -34,45 +32,64 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-"name": "BOY London",
-"locked": false,
-"shipping_options": [],
-"magento": {
-"url": "http://magento-22497-48619-205988.cloudwaysapps.com/",
-"consumer_key": "b1vih6ptednb02cw55c6tjor3udm763l",
-"consumer_secret": "s7svm35fj28bb98qnbidc3eb6ng7t55c",
-"verifier": "c69krn30sjckv4pxpxs0etiluq176sul",
-"access_token": "ioxlaoun6xclovnw3d54m9ic3xaa6cqb",
-"access_secret": "57435tufxkjb3qnb52ow0s9d9jg9bwl0",
-"version": 2
-},
-"contact_emails": [],
-"setmembers": []
+
   }
+, 'set': 'new-arrivals'
+, 'skip': 0
+, 'limit': 500
+, 'sort': '-created_at'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-});
+, 'iterator': function(o, cb){
+    //console.log('Adding "' + o.slug + '"...');
 
-Spin.start();
+    process.stdout.write(o._id + '\n');
 
-Async.waterfall([
-  function(cb){
     Request({
-      'url': O.host + '/vendor/create.json'
+      'url': O.host + '/set/' + GB.set + '/product/' + o._id + '/add.json'
     , 'auth': GB.auth
-    , 'qs': GB.query
     , 'method': 'post'
     , 'json': true
     }, function(err, res, json){
-      console.log(Belt.stringify(json));
-
       cb();
     });
   }
+});
+
+//Spin.start();
+
+O.host = 'http://wanderset.com:8852';
+
+Async.waterfall([
+  function(cb){
+    var cont;
+
+    return Async.doWhilst(function(next){
+      Request({
+        'url': O.host + '/product/list.json'
+      , 'auth': GB.auth
+      , 'qs': {
+          'query': GB.query
+        , 'skip': GB.skip
+        , 'limit': GB.limit
+        , 'sort': GB.sort
+        }
+      , 'method': 'get'
+      , 'json': true
+      }, function(err, res, json){
+        cont = _.any(Belt.get(json, 'data')) ? true : false;
+        GB.skip += GB.limit;
+
+        Async.eachSeries(Belt.get(json, 'data') || [], function(d, cb2){
+          GB.iterator(d, cb2);
+        }, Belt.cw(next, 0));
+      })
+    }, function(){ return false && cont; }, Belt.cw(cb, 0));
+  }
 ], function(err){
-  Spin.stop();
+  //Spin.stop();
   if (err) Log.error(err);
   return process.exit(err ? 1 : 0);
 });
