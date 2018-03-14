@@ -34,12 +34,20 @@ var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
   'query': {
-    'name': 'Pair of Thieves'
-  , 'woocommerce': {
-      'url': 'https://pairofthieves.com'
-    , 'consumer_key': 'ck_3d8668cfb507ed9d0f962a009a2674e44c8989f3'
-    , 'secret': 'cs_94ebee422771635a1edee5a08a5d58bf6127240d'
-    }
+"name": "BOY London",
+"locked": false,
+"shipping_options": [],
+"magento": {
+"url": "http://magento-22497-48619-205988.cloudwaysapps.com/",
+"consumer_key": "b1vih6ptednb02cw55c6tjor3udm763l",
+"consumer_secret": "s7svm35fj28bb98qnbidc3eb6ng7t55c",
+"verifier": "c69krn30sjckv4pxpxs0etiluq176sul",
+"access_token": "ioxlaoun6xclovnw3d54m9ic3xaa6cqb",
+"access_secret": "57435tufxkjb3qnb52ow0s9d9jg9bwl0",
+"version": 2
+},
+"contact_emails": [],
+"setmembers": []
   }
 , 'auth': {
     'user': _.keys(O.admin_users)[0]

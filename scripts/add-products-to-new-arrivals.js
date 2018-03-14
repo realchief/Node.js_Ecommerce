@@ -12,9 +12,7 @@ var Path = require('path')
   , Spinner = require('its-thinking')
   , CP = require('child_process')
   , Request = require('request')
-  , Assert = require('assert')
   , CSV = require('fast-csv')
-  , Cheerio = require('cheerio')
 ;
 
 var O = new Optionall({
@@ -33,44 +31,65 @@ Log.add(Winston.transports.Console, {'level': 'debug', 'colorize': true, 'timest
 var Spin = new Spinner(4);
 
 var GB = _.defaults(O.argv, {
-  'code': {
-    'label': '$700 Gift Certificate'
-  //, 'error_label': "Thanks for playing Kartsloaded! Someone already won $700 in FREE WANDERSET CLOTHES. Follow us on Instagram & Twitter @shopwanderset for our next Kartsloaded drop!"
-  , 'active': true
-  , 'credit_balance': true
-  //, 'max_claims': 1
-  , 'discount_type': 'fixed'
-  , 'discount_amount': 700
+  'query': {
+
   }
+, 'set': 'new-arrivals'
+, 'skip': 0
+, 'limit': 500
+, 'sort': '-created_at'
 , 'auth': {
     'user': _.keys(O.admin_users)[0]
   , 'pass': _.values(O.admin_users)[0]
   }
-, 'times': 2
+, 'iterator': function(o, cb){
+    //console.log('Adding "' + o.slug + '"...');
+
+    process.stdout.write(o._id + '\n');
+
+    Request({
+      'url': O.host + '/set/' + GB.set + '/product/' + o._id + '/add.json'
+    , 'auth': GB.auth
+    , 'method': 'post'
+    , 'json': true
+    }, function(err, res, json){
+      cb();
+    });
+  }
 });
 
-Spin.start();
+//Spin.start();
+
+O.host = 'http://wanderset.com:8852';
 
 Async.waterfall([
   function(cb){
-    Async.times(GB.times, function(i, next){
-      GB.code['code'] = Belt.random_string(8).toLowerCase();
+    var cont;
 
+    return Async.doWhilst(function(next){
       Request({
-        'url': O.host + '/admin/promo_code/create.json'
+        'url': O.host + '/product/list.json'
       , 'auth': GB.auth
-      , 'body': GB.code
-      , 'method': 'post'
+      , 'qs': {
+          'query': GB.query
+        , 'skip': GB.skip
+        , 'limit': GB.limit
+        , 'sort': GB.sort
+        }
+      , 'method': 'get'
       , 'json': true
       }, function(err, res, json){
-        console.log(Belt.get(json, 'data.code'));
+        cont = _.any(Belt.get(json, 'data')) ? true : false;
+        GB.skip += GB.limit;
 
-        next();
-      });
-    }, Belt.cw(cb, 0))
+        Async.eachSeries(Belt.get(json, 'data') || [], function(d, cb2){
+          GB.iterator(d, cb2);
+        }, Belt.cw(next, 0));
+      })
+    }, function(){ return false && cont; }, Belt.cw(cb, 0));
   }
 ], function(err){
-  Spin.stop();
+  //Spin.stop();
   if (err) Log.error(err);
   return process.exit(err ? 1 : 0);
 });

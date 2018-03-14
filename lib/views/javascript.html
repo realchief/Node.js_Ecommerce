@@ -1,439 +1,222 @@
-<script data-main="<%= Settings.asset_prefix %>/public/js/config" src="<%= Settings.asset_prefix %>/public/js/require.js"></script>
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+ <% if (true || Settings.environment === 'production'){ %>
+  <noscript>
+    <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/835244551/?guid=ON&amp;script=0"/>
+    </div>
+  </noscript>
+<% } %>
 <script type="text/javascript">
-  // TODO in future load this function with requirejs
-  function scrollTo(opts) {
-    var $container, $doc, $target, $win, containerOffset, defaultOpts, fakeCallBack, hasCalled, offset, options, scrollLeft, scrollTop, targetOffset, viewpartHeight, viewpartWidth;
-    defaultOpts = {
-      target: null,
-      container: null,
-      axis: 'y',
-      offset: null,
-      duration: 500,
-      animation: true,
-      cancelIfVisible: true,
-      callback: $.noop
-    };
-    opts = $.extend(defaultOpts, opts);
-    if (opts.target) {
-      $target = $(opts.target);
-    }
-    if (!$target && opts.offset === null) {
-      throw new Error("simple-scrollTo: target or offset option is invalid");
-    }
-    $container = opts.container ? $(opts.container) : $('body, html');
-    if (!opts.offset) {
-      opts.offset = 0;
-    }
-    if (typeof opts.offset === 'object') {
-      offset = $.extend({}, opts.offset);
-    } else {
-      offset = {
-        x: opts.offset,
-        y: opts.offset
-      };
-    }
-    if ($target) {
-      targetOffset = $target.offset();
-      if (opts.container) {
-        containerOffset = $container.offset();
-        targetOffset = {
-          top: targetOffset.top - containerOffset.top + $container.scrollTop(),
-          left: targetOffset.left - containerOffset.left + $container.scrollLeft()
-        };
-      }
-      offset = {
-        y: targetOffset.top - offset.y,
-        x: targetOffset.left - offset.x
-      };
-    }
-    if (opts.cancelIfVisible) {
-      if (!opts.container) {
-        viewpartHeight = ($win = $(window)).height();
-        viewpartWidth = $win.width();
-        scrollTop = ($doc = $(document)).scrollTop();
-        scrollLeft = $doc.scrollLeft();
-      } else {
-        viewpartHeight = $container.height();
-        viewpartWidth = $container.width();
-        scrollTop = $container.scrollTop();
-        scrollLeft = $container.scrollLeft();
-      }
-      if ((offset.y >= scrollTop && offset.y < scrollTop + viewpartHeight) && (offset.x >= scrollLeft && offset.x < scrollLeft + viewpartWidth)) {
-        return;
-      }
-    }
-    if (opts.animation) {
-      options = {
-        scrollTop: opts.axis !== 'x' ? offset.y : void 0,
-        scrollLeft: opts.axis !== 'y' ? offset.x : void 0
-      };
-      hasCalled = false;
-      fakeCallBack = function() {
-        if (hasCalled) {
-          return;
-        }
-        hasCalled = true;
-        return opts.callback();
-      };
-      $container.animate(options, opts.duration, fakeCallBack);
-      return null;
-    } else {
-      if (opts.axis !== 'x') {
-        $container.scrollTop(offset.y);
-      }
-      if (opts.axis !== 'y') {
-        $container.scrollLeft(offset.x);
-      }
-      opts.callback();
-      return null;
-    }
+  var Async, Moment, Str, GB;
+  var loadJS = function(url, cb, location){
+      var scriptTag = document.createElement('script');
+      scriptTag.src = url;
+      scriptTag.onload = cb;
+      scriptTag.onreadystatechange = cb;
+      location.appendChild(scriptTag);
   };
-  window['simple'] = {
-    'scrollTo': scrollTo
+
+  function requireAsync() {
+    loadJS("<%= Settings.asset_prefix %>/bower_components/async/dist/async.min.js", function() { return requireEverythingElse(); }, document.body);
   }
-  require(['config'], function() {
-    requirejs.config({
-      'baseUrl': ''
-      , 'paths': {
-        'belt': '<%= Settings.asset_prefix %>/bower_components/jsbelt/lib/belt'
-        , 'underscore': '<%= Settings.asset_prefix %>/bower_components/underscore/underscore-min'
-        , 'underscore-string': '<%= Settings.asset_prefix %>/bower_components/underscore.string/dist/underscore.string.min'
-        , 'async': '<%= Settings.asset_prefix %>/bower_components/async/dist/async.min'
-        , 'moment': '<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min'
-        , 'jquery-object': '<%= Settings.asset_prefix %>/bower_components/query-object/query-object'
-        , 'jquery': '<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min'
-        , 'sticky-kit': '<%= Settings.asset_prefix %>/bower_components/sticky-kit/jquery.sticky-kit.min'
-        , 'aos': '<%= Settings.asset_prefix %>/bower_components/aos/dist/aos'
-        , 'tether': '<%= Settings.asset_prefix %>/bower_components/tether/dist/js/tether.min'
-        , 'backbone': '<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min'
-        , 'bootheel': '<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel'
-        , 'bootstrap': '<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min'
-        , 'jquery-bridget': '<%= Settings.asset_prefix %>/bower_components/jquery-bridget/jquery-bridget'
-        , 'jquery-lazy': '<%= Settings.asset_prefix %>/public/js/jquery-lazy'
-        , 'slick': '<%= Settings.asset_prefix %>/bower_components/slick-carousel/slick/slick.min'
-        , 'util-slick': '<%= Settings.asset_prefix %>/public/js/util/util.slick'
-        , 'cloudzoom': '<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom'
-        , 'util-cloudzoom': '<%= Settings.asset_prefix %>/public/js/util/util.cloudzoom'
-        , 'isotope': '<%= Settings.asset_prefix %>/bower_components/isotope/dist/isotope.pkgd.min'
-        , 'imagesloaded': 'https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min'
-        , 'util-isotope': '<%= Settings.asset_prefix %>/public/js/util/util.isotope'
 
-        , 'alert': '/templates/alert'
-        , 'checkout_line_items': '/templates/checkout_line_items'
-        , 'checkout_product': '/templates/checkout_product'
-        , 'media_item': '/templates/media_item'
-        , 'product_item': '/templates/product_item'
-        , 'product_list_nav': '/templates/product_list_nav'
-        , 'bag_dropdown': '/templates/bag_dropdown'
-        , 'set_product_nav': '/templates/set_product_nav'
+  function requireEverythingElse() {
+    async.waterfall([
+      function(cb) {
+        async.eachSeries([
+          "<%= Settings.asset_prefix %>/bower_components/jsbelt/lib/belt.js"
+          , "<%= Settings.asset_prefix %>/bower_components/underscore/underscore-min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/underscore.string/dist/underscore.string.min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/query-object/query-object.js"
+          , "<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/simple-scrollTo/lib/scrollTo.js"
+          , "<%= Settings.asset_prefix %>/bower_components/sticky-kit/jquery.sticky-kit.min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/aos/dist/aos.js"
+          , "<%= Settings.asset_prefix %>/bower_components/tether/dist/js/tether.min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min.js"
+          , "<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel.js"
+          , "<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min.js"
 
-        , 'util': '<%= Settings.asset_prefix %>/public/js/util'
-        , 'util-cart': '<%= Settings.asset_prefix %>/public/js/util/util.cart'
-        , 'util-email': '<%= Settings.asset_prefix %>/public/js/util/util.email'
-        , 'util-navbar': '<%= Settings.asset_prefix %>/public/js/util/util.navbar'
-        , 'util-tabs': '<%= Settings.asset_prefix %>/public/js/util/util.tabs'
-        , 'util-pagination': '<%= Settings.asset_prefix %>/public/js/util/util.pagination'
-        , 'util-scroll': '<%= Settings.asset_prefix %>/public/js/util/util.scroll'
-        , 'util-search': '<%= Settings.asset_prefix %>/public/js/util/util.search'
-        , 'util-sticky': '<%= Settings.asset_prefix %>/public/js/util/util.sticky'
+          <% if (typeof View !== 'undefined'){ %>
+            <% if (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands'){ %>
+              , "https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"
+            <% } %>
 
-        <% if (typeof js_files !== 'undefined') _.each(js_files, function(e, i){ %>
-          , 'custom_js_<%= i %>': '<%= e.substring(0, e.length - 3) %>'
-        <% }) %>
+            <% if (View === 'product' || View === 'outfit'){ %>
+              , "<%= Settings.asset_prefix %>/bower_components/slick-carousel/slick/slick.min.js"
+              , "<%= Settings.asset_prefix %>/public/js/util/util.slick.js"
 
-      }
-      , 'shim': {
-        'bootheel': ['backbone']
-        , 'bootstrap': ['jquery', 'tether']
-        , 'jquery-lazy': ['jquery']
-        , 'sticky-kit': ['jquery']
-        , 'isotope': ['jquery']
-        , 'util': ['jquery', 'jquery-object', 'async', 'underscore']
-        , 'util-cart': ['util']
-        , 'util-email': ['util']
-        , 'util-navbar': ['util']
-        , 'util-tabs': ['util']
-        , 'util-pagination': ['util']
-        , 'util-scroll': ['util']
-        , 'util-search': ['util']
-        , 'util-sticky': ['util']
-        , 'util-isotope': ['util', 'isotope']
-      }
-    });
+              , "<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom.js"
+              , "<%= Settings.asset_prefix %>/public/js/util/util.cloudzoom.js"
+            <% } %>
 
-    require([
-      'jquery'
-      <% if (typeof View !== 'undefined' && (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands')){ %>
-        , 'jquery-lazy'
-      <% } %>
-      ], function(
-        $
-        <% if (typeof View !== 'undefined' && (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands')){ %>
-          , jquery_lazy
-        <% } %>) {
-      window['$'] = $;
-    // TODO indent if jquery-lazy starts working
-    require([
-      'belt'
-      , 'underscore'
-      , 'underscore-string'
-      , 'async'
-      , 'moment'
-      , 'jquery-object'
-      , 'sticky-kit'
-      , 'aos'
-      , 'tether'
-      ], function(
-        Belt
-        , _
-        , _string
-        , Async
-        , Moment
-        , jquery_object
-        , Sticky_kit
-        , Aos
-        , Tether){
+            <% if (View === 'set' || View === 'media_list'){ %>
+              , "<%= Settings.asset_prefix %>/bower_components/isotope/dist/isotope.pkgd.min.js"
+              , "https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"
+              , "<%= Settings.asset_prefix %>/public/js/util/util.isotope.js"
+            <% } %>
 
-      window['GB'] = window['GB'] || {};
-      window['Moment'] = Moment;
-      window['moment'] = Moment;
-      window['s'] = _string;
-      window['Str'] = _string;
-      window['Async'] = Async;
-      window['async'] = Async;
-      window['Tether'] = Tether;
-      window['queryObject'] = jquery_object;
-      window['AOS'] = Aos;
-
-      require([
-        'jquery-bridget'
-        , 'util'
-        <% if (typeof View !== 'undefined'){ %>
-          <% if (View === 'product' || View === 'outfit'){ %>
-            , 'slick'
-            , 'cloudzoom'
+            <% if (View === 'set'){ %>
+              , "<%= Settings.asset_prefix %>/public/js/util/util.tabs.js"
+            <% } %>
           <% } %>
+          ], function(script, cb2) {
+            console.log('LOADING: ', script);
+            loadJS(script, function(){ return cb2(); }, document.body);
+        }, function() { return cb(); });
+      }
+      , function(cb) {
+        Async = async
+          , Moment = moment
+          , Str = s
+          , GB = GB || {};
 
-          <% if (View === 'set' || View === 'media_list'){ %>
-            , 'isotope'
-            , 'imagesloaded'
+        <% if (typeof doc !== 'undefined'){ %>
+          GB['doc'] = <%= Belt.stringify(doc) %>;
+        <% } %>
+        <% if (typeof docs !== 'undefined'){ %>
+          GB['docs'] = <%= Belt.stringify(docs) %>;
+        <% } %>
+        <% if (typeof count !== 'undefined'){ %>
+          GB['count'] = <%= count %>;
+        <% } %>
+        <% if (typeof skip !== 'undefined'){ %>
+          GB['skip'] = <%= skip %>;
+        <% } %>
+        <% if (typeof limit !== 'undefined'){ %>
+          GB['limit'] = <%= limit %>;
+        <% } %>
+        <% if (typeof query !== 'undefined'){ %>
+          GB['query'] = <%= Belt.stringify(query) %>;
+        <% } %>
+        <% if (typeof search_query !== 'undefined'){ %>
+          GB['search_query'] = "<%= search_query %>";
+        <% } %>
+        <% if (typeof category !== 'undefined'){ %>
+          GB['category'] = "<%= category %>";
+        <% } %>
+        <% if (typeof configuration !== 'undefined'){ %>
+          GB['configuration'] = <%= Belt.stringify(configuration) %>;
+        <% } %>
+        <% if (typeof configuration_options !== 'undefined'){ %>
+          GB['configuration_options'] = <%= Belt.stringify(configuration_options) %>;
+        <% } %>
+        <% if (typeof sort !== 'undefined'){ %>
+          <% if (_.isObject(sort)){ %>
+            GB['sort'] = <%= Belt.stringify(sort) %>;
+          <% } else { %>
+            GB['sort'] = "<%= sort %>";
           <% } %>
         <% } %>
-        ], function(
-          jquery_bridget
-          , Util
-          <% if (typeof View !== 'undefined'){ %>
-            <% if (View === 'product' || View === 'outfit'){ %>
-              , Slick
-              , Cloudzoom
-            <% } %>
+        <% if (typeof Settings.localities !== 'undefined'){ %>
+          GB['localities'] = <%= Belt.stringify(Settings.localities) %>;
+        <% } else { %>
+          GB['localities'] = {};
+        <% } %>
+        <% if (typeof error !== 'undefined'){ %>
+          GB['error'] = "<%= error %>";
+        <% } %>
+        <% if (typeof View !== 'undefined'){ %>
+          GB['view_name'] = '<%= View %>';
+        <% } %>
 
-            <% if (View === 'set' || View === 'media_list'){ %>
-              , Isotope
-              , Imagesloaded
-            <% } %>
-          <% } %>
-          ){
+        async.eachSeries([
+          "/templates/alert.js"
+          , "/templates/checkout_line_items.js"
+          , "/templates/checkout_product.js"
+          , "/templates/media_item.js"
+          , "/templates/product_item.js"
+          , "/templates/product_list_nav.js"
+          , "/templates/bag_dropdown.js"
+          , "/templates/set_product_nav.js"
 
-        if (typeof Isotope != 'undefined') $.bridget('isotope', Isotope);
-        if (typeof Imagesloaded != 'undefined') $.bridget('imagesloaded', Imagesloaded);
-        if (typeof Slick != 'undefined') $.bridget('slick', Slick);
-        if (typeof Cloudzoom != 'undefined') $.bridget('cloudzoom', Cloudzoom);
+          , "<%= Settings.asset_prefix %>/public/js/util.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.cart.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.email.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.navbar.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.tabs.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.pagination.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.scroll.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.search.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.sticky.js"
 
-        require([
-          'backbone'
-          , 'bootheel'
-          , 'bootstrap'
-          <% if (typeof View !== 'undefined'){ %>
-            <% if (View === 'product' || View === 'outfit'){ %>
-              , 'util-slick'
-              , 'util-cloudzoom'
-            <% } %>
-
-            <% if (View === 'set' || View === 'media_list'){ %>
-              , 'util-isotope'
-            <% } %>
-          <% } %>
-        ], function (
-          Backbone
-          , Bootheel
-          , Bootstrap
-          <% if (typeof View !== 'undefined'){ %>
-            <% if (View === 'product' || View === 'outfit'){ %>
-              , Util_slick
-              , Util_cloudzoom
-            <% } %>
-
-            <% if (View === 'set' || View === 'media_list'){ %>
-              , Util_isotope
-            <% } %>
-          <% } %>
-
-        ) {
-
-          <% if (typeof doc !== 'undefined'){ %>
-            GB['doc'] = <%= Belt.stringify(doc) %>;
-          <% } %>
-          <% if (typeof docs !== 'undefined'){ %>
-            GB['docs'] = <%= Belt.stringify(docs) %>;
-          <% } %>
-          <% if (typeof count !== 'undefined'){ %>
-            GB['count'] = <%= count %>;
-          <% } %>
-          <% if (typeof skip !== 'undefined'){ %>
-            GB['skip'] = <%= skip %>;
-          <% } %>
-          <% if (typeof limit !== 'undefined'){ %>
-            GB['limit'] = <%= limit %>;
-          <% } %>
-          <% if (typeof query !== 'undefined'){ %>
-            GB['query'] = <%= Belt.stringify(query) %>;
-          <% } %>
-          <% if (typeof search_query !== 'undefined'){ %>
-            GB['search_query'] = "<%= search_query %>";
-          <% } %>
-          <% if (typeof category !== 'undefined'){ %>
-            GB['category'] = "<%= category %>";
-          <% } %>
-          <% if (typeof configuration !== 'undefined'){ %>
-            GB['configuration'] = <%= Belt.stringify(configuration) %>;
-          <% } %>
-          <% if (typeof configuration_options !== 'undefined'){ %>
-            GB['configuration_options'] = <%= Belt.stringify(configuration_options) %>;
-          <% } %>
-          <% if (typeof sort !== 'undefined'){ %>
-            <% if (_.isObject(sort)){ %>
-              GB['sort'] = <%= Belt.stringify(sort) %>;
-            <% } else { %>
-              GB['sort'] = "<%= sort %>";
-            <% } %>
-          <% } %>
-          <% if (typeof Settings.localities !== 'undefined'){ %>
-            GB['localities'] = <%= Belt.stringify(Settings.localities) %>;
-          <% } else { %>
-            GB['localities'] = {};
-          <% } %>
-          <% if (typeof error !== 'undefined'){ %>
-            GB['error'] = "<%= error %>";
-          <% } %>
-          <% if (typeof View !== 'undefined'){ %>
-            GB['view_name'] = '<%= View %>';
-          <% } %>
-
-          require([
-            'alert'
-            , 'checkout_line_items'
-            , 'checkout_product'
-            , 'media_item'
-            , 'product_item'
-            , 'product_list_nav'
-            , 'bag_dropdown'
-            , 'set_product_nav'
-
-            , 'util-cart'
-            , 'util-email'
-            , 'util-navbar'
-            , 'util-tabs'
-            , 'util-pagination'
-            , 'util-scroll'
-            , 'util-search'
-            , 'util-sticky'
-
-            <% if (typeof js_files !== 'undefined') _.each(js_files, function(e, i){ %>
-              , 'custom_js_<%= i %>'
-            <% }) %>
-
-          ], function(
-          alert
-          , checkout_line_items
-          , checkout_product
-          , media_item
-          , product_item
-          , product_list_nav
-          , bag_dropdown
-          , set_product_nav
-
-          , util_cart
-          , util_email
-          , util_navbar
-          , util_tabs
-          , util_pagination
-          , util_scroll
-          , util_search
-          , util_sticky
-
-          <% if (typeof js_files !== 'undefined') _.each(js_files, function(e, i){ %>
-            , custom_js_<%= i %>
+          <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
+            , "<%= e %>"
           <% }) %>
+          ], function(script, cb2) {
+            console.log('LOADING: ', script);
+            loadJS(script, Belt.cw(cb2), document.body);
+        }, Belt.cw(cb));
+      }
+      , function(cb) {
+        <% if (true || Settings.environment === 'production'){ %>
+          var google_tag_params = {};
 
-          ) {
-
-            <% if (typeof js_files !== 'undefined') _.each(js_files, function(e, i){ %>
-              window['custom_js_<%= i %>'] = custom_js_<%= i %>;
-            <% }) %>
-
-
-            <% if (true || Settings.environment === 'production'){ %>
-              var google_tag_params = {};
-
-              <% if (typeof prod_id !== 'undefined'){ %>
-                <% if (_.isString(prod_id)){ %>
-                  google_tag_params['ecomm_prodid'] = '<%= prod_id %>';
-                <% } else { %>
-                  google_tag_params['ecomm_prodid'] = <%= Belt.stringify(prod_id) %>;
-                <% } %>
-              <% } %>
-              <% if (typeof page_type !== 'undefined'){ %>
-                google_tag_params['ecomm_pagetype'] = '<%= page_type %>';
-              <% } %>
-              <% if (typeof total_value !== 'undefined'){ %>
-                google_tag_params['ecomm_totalvalue'] = <%= total_value %>;
-              <% } %>
-
-              /* <![CDATA[ */
-              var google_conversion_id = 835244551;
-              var google_custom_params = window.google_tag_params;
-              var google_remarketing_only = true;
-              /* ]]> */
+          <% if (typeof prod_id !== 'undefined'){ %>
+            <% if (_.isString(prod_id)){ %>
+              google_tag_params['ecomm_prodid'] = '<%= prod_id %>';
+            <% } else { %>
+              google_tag_params['ecomm_prodid'] = <%= Belt.stringify(prod_id) %>;
             <% } %>
+          <% } %>
+          <% if (typeof page_type !== 'undefined'){ %>
+            google_tag_params['ecomm_pagetype'] = '<%= page_type %>';
+          <% } %>
+          <% if (typeof total_value !== 'undefined'){ %>
+            google_tag_params['ecomm_totalvalue'] = <%= total_value %>;
+          <% } %>
+          /* <![CDATA[ */
+          var google_conversion_id = 835244551;
+          var google_custom_params = window.google_tag_params;
+          var google_remarketing_only = true;
+          /* ]]> */
+          loadJS("//www.googleadservices.com/pagead/conversion.js", function(){ return cb(); }, document.body);
+        <% } else { %>
+          cb();
+        <% } %>
+      }
+      , function(cb) {
+        if (GAEnabled()) ga('send', 'pageview');
 
-            if (GAEnabled()) ga('send', 'pageview');
+        if (FSEnabled() && GB.view_name){
+          FS.setUserVars(_.extend({
+            'lastView_str': GB.view_name
+          , 'routes_str': '<%= JSON.stringify(Belt.get(Request, "session.routes")) %>'
+          , 'views_str': '<%= JSON.stringify(Belt.get(Request, "session.views_viewed")) %>'
+          }, _.object([
+            Str.camelize(GB.view_name.toLowerCase()) + 'Viewed_bool'
+          , Str.camelize(GB.view_name.toLowerCase()) + 'ViewedStr_str'
+          ], [
+            true
+          , 'true'
+          ])));
+        }
 
-            if (FSEnabled() && GB.view_name){
-              FS.setUserVars(_.extend({
-                'lastView_str': GB.view_name
-              , 'routes_str': '<%= JSON.stringify(Belt.get(Request, "session.routes")) %>'
-              , 'views_str': '<%= JSON.stringify(Belt.get(Request, "session.views_viewed")) %>'
-              }, _.object([
-                Str.camelize(GB.view_name.toLowerCase()) + 'Viewed_bool'
-              , Str.camelize(GB.view_name.toLowerCase()) + 'ViewedStr_str'
-              ], [
-                true
-              , 'true'
-              ])));
-            }
+        <% if (false && !Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
+          <% Request.session['viewed_subscribe_modal'] = true; %>
+            $(document).ready(function(){
+              setTimeout(function(){
+                $('.modal').modal('show');
 
-            <% if (false && !Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
-              <% Request.session['viewed_subscribe_modal'] = true; %>
-                $(document).ready(function(){
-                  setTimeout(function(){
-                    $('.modal').modal('show');
+                $.getJSON('/email/modal/viewed.json', Belt.np);
 
-                    $.getJSON('/email/modal/viewed.json', Belt.np);
+                if (GAEnabled()) ga('send', 'event', 'ShowSubscribeModal');
 
-                    if (GAEnabled()) ga('send', 'event', 'ShowSubscribeModal');
+                if (FBEnabled()) fbq('trackCustom', 'show_email_modal', {
 
-                    if (FBEnabled()) fbq('trackCustom', 'show_email_modal', {
-
-                    });
-                  }, 2000);
                 });
-            <% } %>
-          });
-        });
-      });
+              }, 2000);
+            });
+        <% } %>
+        cb();
+      }
+    ], function(err) {
+      console.log('Scripts loading finished');
     });
-    });
-  })
+  }
+
+  var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  if (raf) raf(function() { window.setTimeout(requireAsync, 0); });
+  else window.addEventListener('load', requireAsync);
 </script>
