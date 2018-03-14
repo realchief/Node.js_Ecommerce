@@ -33,15 +33,6 @@
   <% } else { %>
     GB['localities'] = {};
   <% } %>
-
-
-  <% if (typeof Instance.vendor_ids !== 'undefined'){ %>
-    GB['vendors'] = <%= Belt.stringify(_.object(_.map(Instance.vendor_ids, function(v, k){
-      return v.name;
-    }), _.keys(Instance.vendor_ids))) %>;
-  <% } else { %>
-    GB['vendors'] = {};
-  <% } %>
 </script>
 
 <script src="/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
@@ -53,6 +44,23 @@
   Instance['DKKtoUSD'] = function(){
     return <%= Instance.DKKtoUSD() %>;
   };
+  
+  <% if (typeof Instance.vendor_ids !== 'undefined'){ %>
+    GB['vendors'] = <%= Belt.stringify(_.object(_.map(Instance.vendor_ids, function(v, k){
+      return v.name;
+    }), _.keys(Instance.vendor_ids))) %>;
+    GB['vendor_ids'] = <%= Belt.stringify(_.object(_.keys(Instance.vendor_ids), _.map(Instance.vendor_ids, function(v, k){
+      return v.name;
+    }))) %>;
+    Instance['VendorName'] = function(_id){
+      return GB.vendor_ids[_id] || _id;
+    };
+  <% } else { %>
+    GB['vendors'] = {};
+    Instance['VendorName'] = function(_id){
+      return _id;
+    };
+  <% } %>
 </script>
 
 <script src="/templates.js" type="text/javascript" charset="utf-8"></script>

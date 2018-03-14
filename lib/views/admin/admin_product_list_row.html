@@ -2,6 +2,9 @@
   <td><%= _id %></td>
   <td style="width:500px !important;">
     <%= name %>
+    <p>
+      <span class="label label-info"><%= Instance.VendorName(vendor) %></span>
+    </p>
     <% if (typeof hide !== 'undefined' && hide){ %>
       <p>
         <span class="label label-danger">HIDDEN</span>
@@ -44,7 +47,9 @@
   </td>
   <td style="width:150px !important;">
     <% _.each(stocks, function(v, k){ %>
-      <p>vendor: <strong><%= v.vendor %></strong><br>sku: <%= v.sku %><br>qty: <%= v.available_quantity %></p>
+      <p>sku: <%= v.sku %><br>qty: <%= v.available_quantity %><br><%= _.map(v.options, function(v2, k){
+        return k + ': ' + v2.value + '<br>';
+      }).join('') %></p>
     <% }) %>
   </td>
   <td name="media">

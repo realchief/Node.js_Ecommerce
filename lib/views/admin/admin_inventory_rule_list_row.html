@@ -7,7 +7,7 @@
       <p>BRAND: <strong><%= brand %></strong><p>
     <% } %>
     <% if (typeof vendor !== 'undefined'){ %>
-      <p>VENDOR: <strong><%= vendor %></strong><p>
+      <p>VENDOR: <strong><%= Instance.VendorName(vendor) %> (<%= vendor %>)</strong><p>
     <% } %>
     <% if (typeof active !== 'undefined' && active){ %>
       <p><span class="label label-success">ACTIVE</span><p>
