@@ -17,7 +17,8 @@
       <% if (false && doc.media[0].super_downsample_url){ %>
         src="<%= doc.media[0].super_downsample_url %>"
       <% } %>
-        src="<%= doc.media[0].downloaded ? doc.media[0].downsample_url : (doc.media[0].remote_url || doc.media[0].url) %>"
+        src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg"
+        data-src="<%= doc.media[0].downloaded ? doc.media[0].downsample_url : (doc.media[0].remote_url || doc.media[0].url) %>"
         class="goods__img lazy">
     <% } %>
     <div class="goods__info">
