@@ -163,19 +163,27 @@
     });
 
     require([
+      'jquery'
+      <% if (typeof View !== 'undefined' && (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands')){ %>
+        , 'jquery-lazy'
+      <% } %>
+      ], function(
+        $
+        <% if (typeof View !== 'undefined' && (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands')){ %>
+          , jquery_lazy
+        <% } %>) {
+      window['$'] = $;
+    // TODO indent if jquery-lazy starts working
+    require([
       'belt'
       , 'underscore'
       , 'underscore-string'
       , 'async'
       , 'moment'
       , 'jquery-object'
-      , 'jquery'
       , 'sticky-kit'
       , 'aos'
       , 'tether'
-      <% if (typeof View !== 'undefined' && (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands')){ %>
-        , 'jquery-lazy'
-      <% } %>
       ], function(
         Belt
         , _
@@ -183,20 +191,15 @@
         , Async
         , Moment
         , jquery_object
-        , $
         , Sticky_kit
         , Aos
-        , Tether
-        <% if (typeof View !== 'undefined' && (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands')){ %>
-          , jquery_lazy
-        <% } %>){
+        , Tether){
 
       window['GB'] = window['GB'] || {};
       window['Moment'] = Moment;
       window['moment'] = Moment;
       window['s'] = _string;
       window['Str'] = _string;
-      window['$'] = $;
       window['Async'] = Async;
       window['async'] = Async;
       window['Tether'] = Tether;
@@ -430,6 +433,7 @@
           });
         });
       });
+    });
     });
   })
 </script>
