@@ -70,7 +70,7 @@ GB['PushItem'] = function(options, callback){
   
   var p = a.o.product;
   
-  var brand = (p.brands || []).join(', ') || '';
+  var brand = p.manual_brand || (p.brands || []).join(', ') || '';
   brand += brand ? ' ' : '';
 
   var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
