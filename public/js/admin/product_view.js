@@ -447,6 +447,7 @@ var ProductView = function(options, callback){
         , 'categories'
         , 'manual_brand'
         , 'vendor'
+        , 'parent_id'
         ]);
 
         gb.initial_doc['options'] = self.getOptions();
@@ -571,6 +572,7 @@ var ProductView = function(options, callback){
     , 'brands'
     , 'categories'
     , 'manual_brand'
+    , 'parent_id'
     ].concat(self.update_media ? [
       'media'
     ] : []));
