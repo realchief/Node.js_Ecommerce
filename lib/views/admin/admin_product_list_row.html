@@ -1,5 +1,11 @@
 <tr class="product" data-id="<%= _id %>">
-  <td><%= _id %></td>
+  <td><%= _id %>
+    <% if (typeof source !== 'undefined' && typeof source.record != 'undefined' && typeof source.record.type_id != 'undefined' && source.record.type_id == 'configurable'){ %>
+      <p>
+        <span class="label label-warning">CONFIGURABLE</span>
+      </p>
+    <% } %>
+    </td>
   <td style="width:500px !important;">
     <%= name %>
     <% if (typeof hide !== 'undefined' && hide){ %>

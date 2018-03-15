@@ -1,222 +1,188 @@
- <% if (true || Settings.environment === 'production'){ %>
+<script src="<%= Settings.asset_prefix %>/bower_components/jsbelt/lib/belt.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/underscore/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/underscore.string/dist/underscore.string.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/async/dist/async.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/query-object/query-object.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/simple-scrollTo/lib/scrollTo.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/sticky-kit/jquery.sticky-kit.min.js"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/aos/dist/aos.js"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/tether/dist/js/tether.min.js"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<% if (typeof View !== 'undefined'){ %>
+  <% if (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands'){ %>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"></script>
+  <% } %>
+
+  <% if (View === 'product' || View === 'outfit'){ %>
+    <script src="<%= Settings.asset_prefix %>/bower_components/slick-carousel/slick/slick.min.js"></script>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.slick.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript" src="<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom.js"></script>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.cloudzoom.js" type="text/javascript" charset="utf-8"></script>
+  <% } %>
+
+  <% if (View === 'set' || View === 'media_list'){ %>
+    <script src="<%= Settings.asset_prefix %>/bower_components/isotope/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.isotope.js" type="text/javascript" charset="utf-8"></script>
+  <% } %>
+
+  <% if (View === 'set'){ %>
+    <script src="<%= Settings.asset_prefix %>/public/js/util/util.tabs.js" type="text/javascript" charset="utf-8"></script>
+  <% } %>
+<% } %>
+
+<script type="text/javascript">
+  var Async = async
+    , Moment = moment
+    , Str = s
+    , GB = GB || {};
+
+  <% if (typeof doc !== 'undefined'){ %>
+    GB['doc'] = <%= Belt.stringify(doc) %>;
+  <% } %>
+  <% if (typeof docs !== 'undefined'){ %>
+    GB['docs'] = <%= Belt.stringify(docs) %>;
+  <% } %>
+  <% if (typeof count !== 'undefined'){ %>
+    GB['count'] = <%= count %>;
+  <% } %>
+  <% if (typeof skip !== 'undefined'){ %>
+    GB['skip'] = <%= skip %>;
+  <% } %>
+  <% if (typeof limit !== 'undefined'){ %>
+    GB['limit'] = <%= limit %>;
+  <% } %>
+  <% if (typeof query !== 'undefined'){ %>
+    GB['query'] = <%= Belt.stringify(query) %>;
+  <% } %>
+  <% if (typeof search_query !== 'undefined'){ %>
+    GB['search_query'] = "<%= search_query %>";
+  <% } %>
+  <% if (typeof category !== 'undefined'){ %>
+    GB['category'] = "<%= category %>";
+  <% } %>
+  <% if (typeof configuration !== 'undefined'){ %>
+    GB['configuration'] = <%= Belt.stringify(configuration) %>;
+  <% } %>
+  <% if (typeof configuration_options !== 'undefined'){ %>
+    GB['configuration_options'] = <%= Belt.stringify(configuration_options) %>;
+  <% } %>
+  <% if (typeof sort !== 'undefined'){ %>
+    <% if (_.isObject(sort)){ %>
+      GB['sort'] = <%= Belt.stringify(sort) %>;
+    <% } else { %>
+      GB['sort'] = "<%= sort %>";
+    <% } %>
+  <% } %>
+  <% if (typeof Settings.localities !== 'undefined'){ %>
+    GB['localities'] = <%= Belt.stringify(Settings.localities) %>;
+  <% } else { %>
+    GB['localities'] = {};
+  <% } %>
+  <% if (typeof error !== 'undefined'){ %>
+    GB['error'] = "<%= error %>";
+  <% } %>
+  <% if (typeof View !== 'undefined'){ %>
+    GB['view_name'] = '<%= View %>';
+  <% } %>
+</script>
+
+<script src="/templates/alert.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/checkout_line_items.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/checkout_product.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/media_item.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/product_item.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/product_list_nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/bag_dropdown.js" type="text/javascript" charset="utf-8"></script>
+<script src="/templates/set_product_nav.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="<%= Settings.asset_prefix %>/public/js/util.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.cart.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.email.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.navbar.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.tabs.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.pagination.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.scroll.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.search.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%= Settings.asset_prefix %>/public/js/util/util.sticky.js" type="text/javascript" charset="utf-8"></script>
+
+<% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
+  <script src="<%= e %>" type="text/javascript" charset="utf-8"></script>
+<% }) %>
+
+<% if (true || Settings.environment === 'production'){ %>
+  <script type="text/javascript">
+  var google_tag_params = {};
+
+  <% if (typeof prod_id !== 'undefined'){ %>
+    <% if (_.isString(prod_id)){ %>
+      google_tag_params['ecomm_prodid'] = '<%= prod_id %>';
+    <% } else { %>
+      google_tag_params['ecomm_prodid'] = <%= Belt.stringify(prod_id) %>;
+    <% } %>
+  <% } %>
+  <% if (typeof page_type !== 'undefined'){ %>
+    google_tag_params['ecomm_pagetype'] = '<%= page_type %>';
+  <% } %>
+  <% if (typeof total_value !== 'undefined'){ %>
+    google_tag_params['ecomm_totalvalue'] = <%= total_value %>;
+  <% } %>
+  </script>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 835244551;
+  var google_custom_params = window.google_tag_params;
+  var google_remarketing_only = true;
+  /* ]]> */
+  </script>
+  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+  </script>
   <noscript>
-    <div style="display:inline;">
-      <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/835244551/?guid=ON&amp;script=0"/>
-    </div>
+  <div style="display:inline;">
+  <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/835244551/?guid=ON&amp;script=0"/>
+  </div>
   </noscript>
 <% } %>
-<script type="text/javascript">
-  var Async, Moment, Str, GB;
-  var loadJS = function(url, cb, location){
-      var scriptTag = document.createElement('script');
-      scriptTag.src = url;
-      scriptTag.onload = cb;
-      scriptTag.onreadystatechange = cb;
-      location.appendChild(scriptTag);
-  };
 
-  function requireAsync() {
-    loadJS("<%= Settings.asset_prefix %>/bower_components/async/dist/async.min.js", function() { return requireEverythingElse(); }, document.body);
+<script>
+  if (GAEnabled()) ga('send', 'pageview');
+
+  if (FSEnabled() && GB.view_name){
+    FS.setUserVars(_.extend({
+      'lastView_str': GB.view_name
+    , 'routes_str': '<%= JSON.stringify(Belt.get(Request, "session.routes")) %>'
+    , 'views_str': '<%= JSON.stringify(Belt.get(Request, "session.views_viewed")) %>'
+    }, _.object([
+      Str.camelize(GB.view_name.toLowerCase()) + 'Viewed_bool'
+    , Str.camelize(GB.view_name.toLowerCase()) + 'ViewedStr_str'
+    ], [
+      true
+    , 'true'
+    ])));
   }
-
-  function requireEverythingElse() {
-    async.waterfall([
-      function(cb) {
-        async.eachSeries([
-          "<%= Settings.asset_prefix %>/bower_components/jsbelt/lib/belt.js"
-          , "<%= Settings.asset_prefix %>/bower_components/underscore/underscore-min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/underscore.string/dist/underscore.string.min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/moment/min/moment.min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/query-object/query-object.js"
-          , "<%= Settings.asset_prefix %>/bower_components/jquery/dist/jquery.min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/simple-scrollTo/lib/scrollTo.js"
-          , "<%= Settings.asset_prefix %>/bower_components/sticky-kit/jquery.sticky-kit.min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/aos/dist/aos.js"
-          , "<%= Settings.asset_prefix %>/bower_components/tether/dist/js/tether.min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min.js"
-          , "<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel.js"
-          , "<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min.js"
-
-          <% if (typeof View !== 'undefined'){ %>
-            <% if (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands'){ %>
-              , "https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.4/jquery.lazy.min.js"
-            <% } %>
-
-            <% if (View === 'product' || View === 'outfit'){ %>
-              , "<%= Settings.asset_prefix %>/bower_components/slick-carousel/slick/slick.min.js"
-              , "<%= Settings.asset_prefix %>/public/js/util/util.slick.js"
-
-              , "<%= Settings.asset_prefix %>/public/assets/vendors/cloudzoom/cloudzoom.js"
-              , "<%= Settings.asset_prefix %>/public/js/util/util.cloudzoom.js"
-            <% } %>
-
-            <% if (View === 'set' || View === 'media_list'){ %>
-              , "<%= Settings.asset_prefix %>/bower_components/isotope/dist/isotope.pkgd.min.js"
-              , "https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"
-              , "<%= Settings.asset_prefix %>/public/js/util/util.isotope.js"
-            <% } %>
-
-            <% if (View === 'set'){ %>
-              , "<%= Settings.asset_prefix %>/public/js/util/util.tabs.js"
-            <% } %>
-          <% } %>
-          ], function(script, cb2) {
-            console.log('LOADING: ', script);
-            loadJS(script, function(){ return cb2(); }, document.body);
-        }, function() { return cb(); });
-      }
-      , function(cb) {
-        Async = async
-          , Moment = moment
-          , Str = s
-          , GB = GB || {};
-
-        <% if (typeof doc !== 'undefined'){ %>
-          GB['doc'] = <%= Belt.stringify(doc) %>;
-        <% } %>
-        <% if (typeof docs !== 'undefined'){ %>
-          GB['docs'] = <%= Belt.stringify(docs) %>;
-        <% } %>
-        <% if (typeof count !== 'undefined'){ %>
-          GB['count'] = <%= count %>;
-        <% } %>
-        <% if (typeof skip !== 'undefined'){ %>
-          GB['skip'] = <%= skip %>;
-        <% } %>
-        <% if (typeof limit !== 'undefined'){ %>
-          GB['limit'] = <%= limit %>;
-        <% } %>
-        <% if (typeof query !== 'undefined'){ %>
-          GB['query'] = <%= Belt.stringify(query) %>;
-        <% } %>
-        <% if (typeof search_query !== 'undefined'){ %>
-          GB['search_query'] = "<%= search_query %>";
-        <% } %>
-        <% if (typeof category !== 'undefined'){ %>
-          GB['category'] = "<%= category %>";
-        <% } %>
-        <% if (typeof configuration !== 'undefined'){ %>
-          GB['configuration'] = <%= Belt.stringify(configuration) %>;
-        <% } %>
-        <% if (typeof configuration_options !== 'undefined'){ %>
-          GB['configuration_options'] = <%= Belt.stringify(configuration_options) %>;
-        <% } %>
-        <% if (typeof sort !== 'undefined'){ %>
-          <% if (_.isObject(sort)){ %>
-            GB['sort'] = <%= Belt.stringify(sort) %>;
-          <% } else { %>
-            GB['sort'] = "<%= sort %>";
-          <% } %>
-        <% } %>
-        <% if (typeof Settings.localities !== 'undefined'){ %>
-          GB['localities'] = <%= Belt.stringify(Settings.localities) %>;
-        <% } else { %>
-          GB['localities'] = {};
-        <% } %>
-        <% if (typeof error !== 'undefined'){ %>
-          GB['error'] = "<%= error %>";
-        <% } %>
-        <% if (typeof View !== 'undefined'){ %>
-          GB['view_name'] = '<%= View %>';
-        <% } %>
-
-        async.eachSeries([
-          "/templates/alert.js"
-          , "/templates/checkout_line_items.js"
-          , "/templates/checkout_product.js"
-          , "/templates/media_item.js"
-          , "/templates/product_item.js"
-          , "/templates/product_list_nav.js"
-          , "/templates/bag_dropdown.js"
-          , "/templates/set_product_nav.js"
-
-          , "<%= Settings.asset_prefix %>/public/js/util.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.cart.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.email.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.navbar.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.tabs.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.pagination.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.scroll.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.search.js"
-          , "<%= Settings.asset_prefix %>/public/js/util/util.sticky.js"
-
-          <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
-            , "<%= e %>"
-          <% }) %>
-          ], function(script, cb2) {
-            console.log('LOADING: ', script);
-            loadJS(script, Belt.cw(cb2), document.body);
-        }, Belt.cw(cb));
-      }
-      , function(cb) {
-        <% if (true || Settings.environment === 'production'){ %>
-          var google_tag_params = {};
-
-          <% if (typeof prod_id !== 'undefined'){ %>
-            <% if (_.isString(prod_id)){ %>
-              google_tag_params['ecomm_prodid'] = '<%= prod_id %>';
-            <% } else { %>
-              google_tag_params['ecomm_prodid'] = <%= Belt.stringify(prod_id) %>;
-            <% } %>
-          <% } %>
-          <% if (typeof page_type !== 'undefined'){ %>
-            google_tag_params['ecomm_pagetype'] = '<%= page_type %>';
-          <% } %>
-          <% if (typeof total_value !== 'undefined'){ %>
-            google_tag_params['ecomm_totalvalue'] = <%= total_value %>;
-          <% } %>
-          /* <![CDATA[ */
-          var google_conversion_id = 835244551;
-          var google_custom_params = window.google_tag_params;
-          var google_remarketing_only = true;
-          /* ]]> */
-          loadJS("//www.googleadservices.com/pagead/conversion.js", function(){ return cb(); }, document.body);
-        <% } else { %>
-          cb();
-        <% } %>
-      }
-      , function(cb) {
-        if (GAEnabled()) ga('send', 'pageview');
-
-        if (FSEnabled() && GB.view_name){
-          FS.setUserVars(_.extend({
-            'lastView_str': GB.view_name
-          , 'routes_str': '<%= JSON.stringify(Belt.get(Request, "session.routes")) %>'
-          , 'views_str': '<%= JSON.stringify(Belt.get(Request, "session.views_viewed")) %>'
-          }, _.object([
-            Str.camelize(GB.view_name.toLowerCase()) + 'Viewed_bool'
-          , Str.camelize(GB.view_name.toLowerCase()) + 'ViewedStr_str'
-          ], [
-            true
-          , 'true'
-          ])));
-        }
-
-        <% if (false && !Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
-          <% Request.session['viewed_subscribe_modal'] = true; %>
-            $(document).ready(function(){
-              setTimeout(function(){
-                $('.modal').modal('show');
-
-                $.getJSON('/email/modal/viewed.json', Belt.np);
-
-                if (GAEnabled()) ga('send', 'event', 'ShowSubscribeModal');
-
-                if (FBEnabled()) fbq('trackCustom', 'show_email_modal', {
-
-                });
-              }, 2000);
-            });
-        <% } %>
-        cb();
-      }
-    ], function(err) {
-      console.log('Scripts loading finished');
-    });
-  }
-
-  var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-  if (raf) raf(function() { window.setTimeout(requireAsync, 0); });
-  else window.addEventListener('load', requireAsync);
 </script>
+
+<% if (false && !Belt.get(Request, 'session.viewed_subscribe_modal') && (Belt.get(Request, 'session.routes.length') || 0) <= 1){ %>
+  <% Request.session['viewed_subscribe_modal'] = true; %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      setTimeout(function(){
+        $('.modal').modal('show');
+
+        $.getJSON('/email/modal/viewed.json', Belt.np);
+
+        if (GAEnabled()) ga('send', 'event', 'ShowSubscribeModal');
+
+        if (FBEnabled()) fbq('trackCustom', 'show_email_modal', {
+
+        });
+      }, 2000);
+    });
+  </script>
+<% } %>

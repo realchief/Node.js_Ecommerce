@@ -305,17 +305,19 @@ $(document).ready(function(){
   } else {
     var initial_stock = _.find(DOC.stocks, function(s) { return s.available_quantity > 0; });
     initial_option = _.keys(initial_stock.options)[0];
-    initial_value = initial_stock.options[initial_option].value || initial_stock.options[initial_option].alias_value;
+    if (initial_option) initial_value = initial_stock.options[initial_option].value || initial_stock.options[initial_option].alias_value;
   }
   var option_button = $('[data-option="' + initial_option + '"]').find('.dropdown-toggle');
   option_button.html(initial_value);
   option_button.data('value', initial_value);
 
   setTimeout(function(){
-    GB.view.getAvailability({
-      'option': initial_option
-      , 'value': initial_value
-    });
+    if (initial_option)
+      GB.view.getAvailability({
+        'option': initial_option
+        , 'value': initial_value
+      });
+    else GB.view.getAvailability();
   }, 0);
 });
 
