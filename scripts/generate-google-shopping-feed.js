@@ -300,9 +300,9 @@ Async.waterfall([
     , 'body': {
         'from': 'admin@wanderset.com'
       , 'to': 'ben@wanderset.com, william@wanderset.com'
-      , 'subject': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs!'
-      , 'html': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs!'
-      , 'text': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs!'
+      , 'subject': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      , 'html': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      , 'text': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
       }
     }, Belt.cw(cb));
   }
