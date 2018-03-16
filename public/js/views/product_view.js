@@ -304,21 +304,25 @@ $(document).ready(function(){
     initial_value = GB.configuration_options[initial_option];
   } else {
     var initial_stock = _.find(DOC.stocks, function(s) { return s.available_quantity > 0; });
-    initial_option = _.keys(initial_stock.options)[0];
+    initial_option = initial_stock ? _.keys(initial_stock.options)[0] : undefined;
     if (initial_option) initial_value = initial_stock.options[initial_option].value || initial_stock.options[initial_option].alias_value;
   }
-  var option_button = $('[data-option="' + initial_option + '"]').find('.dropdown-toggle');
-  option_button.html(initial_value);
-  option_button.data('value', initial_value);
+  if (initial_option && initial_value) {
+    var option_button = $('[data-option="' + initial_option + '"]').find('.dropdown-toggle');
+    option_button.html(initial_value);
+    option_button.data('value', initial_value);
 
-  setTimeout(function(){
-    if (initial_option)
+    setTimeout(function(){
       GB.view.getAvailability({
         'option': initial_option
         , 'value': initial_value
       });
-    else GB.view.getAvailability();
-  }, 0);
+    }, 0);
+  } else {
+    setTimeout(function(){
+      GB.view.getAvailability();
+    }, 0);
+  }
 });
 
 GB['product'] = GB.product || GB.doc;
