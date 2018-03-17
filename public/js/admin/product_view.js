@@ -118,7 +118,7 @@ var ProductView = function(options, callback){
   , 'transformers': {
       'set:inventory_rules': function(val){
         return _.map(val, function(v, k){
-          return '<p><a href="/admin/inventory_rule/' + k + '" target="_blank">' + k + ': ' + v.description + ' (' + Moment(v.updated_at).fromNow() + ')</p>';
+          return '<p><a href="/admin/inventory_rule/' + k + '" target="_blank">' + k + '</a>: ' + v.description + ' (' + Moment(v.updated_at).fromNow() + ')</p>';
         }).join('\n');  
       }
     , 'split_lines': function(val){
