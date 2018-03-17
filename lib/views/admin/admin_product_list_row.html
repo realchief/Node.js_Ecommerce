@@ -17,9 +17,7 @@
     <% } %>
     <% if (typeof inventory_rules !== 'undefined' && inventory_rules){ %>
       <hr>
-      <%= _.map(inventory_rules, function(v, k){
-        return '<p><a href="/admin/inventory_rule/' + k + '" target="_blank">' + k + '</a>: ' + v.description + ' (' + Moment(v.updated_at).fromNow() + ')</p>';
-      }).join('\n'); %>
+      <%= _.map(inventory_rules, function(v, k){ return '<p><a href="/admin/inventory_rule/' + k + '" target="_blank">' + k + '</a>: ' + v.description + ' (' + Moment(v.updated_at).fromNow() + ')</p>'; }).join('\n') %>
     <% } %>
   </td>
   <td style="width:200px !important;">
