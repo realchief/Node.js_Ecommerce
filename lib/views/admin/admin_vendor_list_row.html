@@ -27,7 +27,7 @@
     <% if ((typeof shopify !== 'undefined' && shopify.access_token)
         || (typeof woocommerce !== 'undefined' && woocommerce.consumer_key)
         || (typeof magento !== 'undefined' && magento.consumer_key)
-        || (typeof magento !== 'undefined' && magento.username){ %>
+        || (typeof magento !== 'undefined' && magento.username)){ %>
       <a href="/admin/vendor/<%= _id %>/sync.json" target="_blank" class="btn btn-default">Sync</a>
     <% } %>
     <a href="/admin/kpi/product/vendor-<%= name %>-<%= _id.toString() %>" target="_blank" class="btn btn-default">KPIs</a>
