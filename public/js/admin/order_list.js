@@ -263,7 +263,7 @@ $(document).ready(function(){
     $('[name="count"]').html((res.skip + 1) + '-' + Belt.cast(_.min([res.skip + res.limit, res.count]), 'string') + ' of ' + res.count);
 
     $('tbody').html(_.map(res.docs, function(d){
-      if (!d || !d.options) return '';
+      if (!d) return '';
       d.options = d.options || {};
       d.Instance = Instance;
       d.GB = GB;
@@ -311,7 +311,7 @@ $(document).on('click', '[name="save"]', function(e){
     if (Belt.get(res, 'error')) return bootbox.alert(res.error);
 
     var d = Belt.get(res, 'data');
-    if (!d || !d.options) return '';
+    if (!d) return;
 
     d.options = d.options || {};
     d.Instance = Instance;
