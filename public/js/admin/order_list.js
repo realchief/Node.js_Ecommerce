@@ -309,7 +309,7 @@ $(document).on('click', '[name="save"]', function(e){
   }, function(res){
     if (Belt.get(res, 'error')) return bootbox.alert(res.error);
 
-    var d = Belt.get(res, 'data');
+    var d = Belt.get(res, 'data') || {};
     d.options = d.options || {};
     d.Instance = Instance;
     d.GB = GB;
