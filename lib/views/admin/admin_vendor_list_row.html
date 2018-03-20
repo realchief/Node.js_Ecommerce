@@ -7,7 +7,10 @@
       <span class="label label-warning">WOOCOMMERCE</span>
     <% } %>
     <% if (typeof magento !== 'undefined' && magento.consumer_key){ %>
-      <span class="label label-success">MAGENTO</span>
+      <span class="label label-success">MAGENTO 2</span>
+    <% } %>
+    <% if (typeof magento !== 'undefined' && magento.username){ %>
+      <span class="label label-success">MAGENTO 1</span>
     <% } %>
   </td>
   <td style="width:250px !important;">
@@ -21,9 +24,10 @@
   <td data-set="actions" data-set-method="html">
     <a href="/admin/product/list?query=<%= encodeURIComponent('{"vendor": "' + _id + '"}') %>" class="btn btn-default">Products</a>
     <a href="/admin/vendor/<%= _id %>/read" class="btn btn-default">Edit</a>
-    <% if (typeof shopify !== 'undefined' && shopify.access_token
-        || typeof woocommerce !== 'undefined' && woocommerce.consumer_key
-        || typeof magento !== 'undefined' && magento.consumer_key){ %>
+    <% if ((typeof shopify !== 'undefined' && shopify.access_token)
+        || (typeof woocommerce !== 'undefined' && woocommerce.consumer_key)
+        || (typeof magento !== 'undefined' && magento.consumer_key)
+        || (typeof magento !== 'undefined' && magento.username){ %>
       <a href="/admin/vendor/<%= _id %>/sync.json" target="_blank" class="btn btn-default">Sync</a>
     <% } %>
     <a href="/admin/kpi/product/vendor-<%= name %>-<%= _id.toString() %>" target="_blank" class="btn btn-default">KPIs</a>
