@@ -8,6 +8,9 @@
     </td>
   <td style="width:500px !important;">
     <%= name %>
+    <p>
+      <span class="label label-info"><%= Instance.VendorName(vendor) %></span>
+    </p>
     <% if (typeof hide !== 'undefined' && hide){ %>
       <p>
         <span class="label label-danger">HIDDEN</span>
@@ -18,9 +21,9 @@
         <span class="label label-warning">AUTO-HIDDEN</span>
       </p>
     <% } %>
-    <% if (typeof hide_note !== 'undefined' && hide_note){ %>
+    <% if (typeof inventory_rules !== 'undefined' && inventory_rules){ %>
       <hr>
-      <p>Hide note: <%= hide_note %></p>
+      <%= _.map(inventory_rules, function(v, k){ return '<p><a href="/admin/inventory_rule/' + k + '" target="_blank">' + k + '</a>: ' + v.description + ' (' + Moment(v.updated_at).fromNow() + ')</p>'; }).join('\n') %>
     <% } %>
   </td>
   <td style="width:200px !important;">
@@ -50,7 +53,9 @@
   </td>
   <td style="width:150px !important;">
     <% _.each(stocks, function(v, k){ %>
-      <p>vendor: <strong><%= v.vendor %></strong><br>sku: <%= v.sku %><br>qty: <%= v.available_quantity %></p>
+      <p>sku: <%= v.sku %><br>qty: <%= v.available_quantity %><br><%= _.map(v.options, function(v2, k){
+        return k + ': ' + v2.value + '<br>';
+      }).join('') %></p>
     <% }) %>
   </td>
   <td name="media">

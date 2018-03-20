@@ -7,7 +7,7 @@
       <p>BRAND: <strong><%= brand %></strong><p>
     <% } %>
     <% if (typeof vendor !== 'undefined'){ %>
-      <p>VENDOR: <strong><%= vendor %></strong><p>
+      <p>VENDOR: <strong><%= Instance.VendorName(vendor) %> (<%= vendor %>)</strong><p>
     <% } %>
     <% if (typeof active !== 'undefined' && active){ %>
       <p><span class="label label-success">ACTIVE</span><p>
@@ -15,6 +15,13 @@
     <% if (typeof active !== 'undefined' && !active){ %>
       <p><span class="label">INACTIVE</span><p>
     <% } %>
+    <hr>
+    <p>
+      This rule is triggered when: <strong><%= description[1] %></strong>
+    </p>
+    <p>
+      When triggered, product will be: <strong><%= description[0] %></strong>
+    </p>
   </td>
   <td>
     <% if (typeof product_category !== 'undefined'){ %>

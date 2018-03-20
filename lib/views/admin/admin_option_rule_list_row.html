@@ -1,16 +1,19 @@
 <tr class="option_rule" data-id="<%= _id %>">
   <td>
-    <% if (typeof value !== 'undefined'){ %>
-      <p>VALUE: <strong><%= value %></strong><p>
-    <% } %>
     <% if (typeof name !== 'undefined'){ %>
       <p>NAME: <strong><%= name %></strong><p>
+    <% } %>
+    <% if (typeof value !== 'undefined'){ %>
+      <p>VALUE: <strong><%= value %></strong><p>
     <% } %>
     <% if (typeof brand !== 'undefined'){ %>
       <p>BRAND: <strong><%= brand %></strong><p>
     <% } %>
     <% if (typeof vendor !== 'undefined'){ %>
-      <p>VENDOR: <strong><%= vendor %></strong><p>
+      <p>VENDOR: <strong><%= Instance.VendorName(vendor) %> (<%= vendor %>)</strong><p>
+    <% } %>
+    <% if (typeof category !== 'undefined'){ %>
+      <p>CATEGORY: <strong><%= category %></strong><p>
     <% } %>
     <% if (typeof active !== 'undefined' && active){ %>
       <p><span class="label label-success">ACTIVE</span><p>
@@ -18,20 +21,22 @@
     <% if (typeof active !== 'undefined' && !active){ %>
       <p><span class="label">INACTIVE</span><p>
     <% } %>
+    <hr>
+    <p>
+      This rule is triggered when: <strong><%= description[1] %></strong>
+    </p>
+    <p>
+      When triggered, product will be: <strong><%= description[0] %></strong>
+    </p>
   </td>
   <td>
-    <% if (typeof category !== 'undefined'){ %>
-      <p><%= category %><p>
+    <% if (typeof new_name !== 'undefined'){ %>
+      <p><strong><%= new_name %></strong><p>
     <% } %>
   </td>
   <td>
     <% if (typeof new_value !== 'undefined'){ %>
-      <p>NEW VALUE: <strong><%= new_value %></strong><p>
-    <% } %>
-  </td>
-  <td>
-    <% if (typeof new_name !== 'undefined'){ %>
-      <p>NEW NAME: <strong><%= new_name %></strong><p>
+      <p></p><strong><%= new_value %></strong><p>
     <% } %>
   </td>
   <td>

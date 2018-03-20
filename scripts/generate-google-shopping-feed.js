@@ -70,7 +70,7 @@ GB['PushItem'] = function(options, callback){
   
   var p = a.o.product;
   
-  var brand = (p.brands || []).join(', ') || '';
+  var brand = p.manual_brand || (p.brands || []).join(', ') || '';
   brand += brand ? ' ' : '';
 
   var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
@@ -291,38 +291,21 @@ Async.waterfall([
     , 'output_path': GB.output_path
     }, Belt.cw(cb, 0));
   }
-/*, function(cb){
-    GB['whitelisted_items'] = _.filter(GB.items, function(i){
-      return !(i.__brand || '').match(GB.negative_regex);
-    });
-
-    GB.CreateFeed({
-      'items': GB.whitelisted_items
-    , 'domain': GB.domain
-    , 'feed_name': 'Popular Wanderset Products'
-    , 'feed_description': 'Popular products on wanderset.com'
-    , 'output_path': GB.brand_output_path_template({
-        'brand': 'popular'
-      })
-    }, Belt.cw(cb, 0));
-  }
 , function(cb){
-    GB['grouped_items'] = _.groupBy(GB.items, function(i){
-      return i.__brand;
-    });
-
-    Async.eachSeries(_.keys(GB.grouped_items), function(g, cb2){
-      GB.CreateFeed({
-        'items': GB.grouped_items[g]
-      , 'domain': GB.domain
-      , 'feed_name': Str.titleize(g) + ' Wanderset Products'
-      , 'feed_description': Str.titleize(g) + ' products on wanderset.com'
-      , 'output_path': GB.brand_output_path_template({
-          'brand': g
-        })
-      }, Belt.cw(cb2, 0));
-    }, Belt.cw(cb, 0));
-  }*/
+    Request({
+      'url': O.host + '/admin/email/send.json'
+    , 'json': true
+    , 'auth': GB.auth
+    , 'method': 'post'
+    , 'body': {
+        'from': 'admin@wanderset.com'
+      , 'to': 'ben@wanderset.com, william@wanderset.com'
+      , 'subject': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs!'
+      , 'html': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      , 'text': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      }
+    }, Belt.cw(cb));
+  }
 ], function(err){
   Spin.stop();
   if (err) Log.error(err);

@@ -116,7 +116,12 @@ var ProductView = function(options, callback){
       }
     }
   , 'transformers': {
-      'split_lines': function(val){
+      'set:inventory_rules': function(val){
+        return _.map(val, function(v, k){
+          return '<p><a href="/admin/inventory_rule/' + k + '" target="_blank">' + k + '</a>: ' + v.description + ' (' + Moment(v.updated_at).fromNow() + ')</p>';
+        }).join('\n');  
+      }
+    , 'split_lines': function(val){
         return Belt.arrayDefalse((val || '').split(/\n+/g));
       }
     , 'join_lines': function(val){

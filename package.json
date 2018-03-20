@@ -44,6 +44,7 @@
     "sentiment": "4.1.0",
     "shopify-node-api": "1.8.0",
     "shortid": "2.2.8",
+    "soap": "0.23.0",
     "stopwords": "0.0.9",
     "stripe": "5.4.0",
     "uglify-js": "3.2.2",
@@ -53,7 +54,6 @@
     "webworker-threads": "^0.7.13",
     "winston": "2.4.0",
     "woocommerce": "2.4.0",
-    "xml": "1.0.1",
-    "soap": "0.23.0"
+    "xml": "1.0.1"
   }
 }

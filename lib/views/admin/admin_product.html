@@ -17,6 +17,7 @@
             <label class="col-sm-1 control-label">Name</label>
             <div class="col-sm-11">
               <input name="name" type="text" class="form-control" placeholder="name" data-get="name" data-get-method="val()" data-set="name" data-set-method="val">
+              <p><span class="label label-info" data-set="brand"></span></p>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -31,6 +32,14 @@
             <label class="col-sm-1 control-label">Slug</label>
             <div class="col-sm-11">
               <input name="slug" type="text" class="form-control" placeholder="slug" data-get="slug" data-get-method="val()" data-set="slug" data-set-method="val">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">vendor</label>
+            <div class="col-sm-11">
+              <input name="vendor" type="text" class="form-control" placeholder="vendor" data-set="vendor" data-set-method="val">
+              <span class="help-text"><strong data-set="vendor_name"></strong></span>
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -65,9 +74,8 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">Reason Auto-Hidden</label>
-            <div class="col-sm-11">
-              <input name="hide_note" type="text" class="form-control" data-set="hide_note" data-set-method="val" data-get="hide_note" data-get-method="val()">
+            <label class="col-sm-1 control-label">Inventory Rules</label>
+            <div class="col-sm-11" data-set="inventory_rules">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -125,13 +133,6 @@
             <legend>Options <button name="option_create" class="btn btn-default">Add New</button></legend>
             <div name="options" data-set="options" data-set-method="html"></div>
           </fieldset>
-          <div class="hr-line-dashed"></div>
-          <div class="form-group">
-            <label class="col-sm-1 control-label">vendor</label>
-            <div class="col-sm-11">
-              <input name="vendor" type="text" class="form-control" placeholder="vendor" data-set="vendor" data-set-method="val">
-            </div>
-          </div>
           <div class="hr-line-dashed"></div>
           <div class="form-group">
             <label class="col-sm-1 control-label">brands</label>

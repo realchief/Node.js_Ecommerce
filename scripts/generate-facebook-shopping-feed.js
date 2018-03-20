@@ -38,12 +38,12 @@ var GB = _.defaults(O.argv, {
   , 'sync_hide': {
       '$ne': true
     }
-  , 'label.us': {
+/*  , 'label.us': {
       '$exists': true
     }
   , 'media.0': {
       '$exists': true
-    }
+    }*/
   }
 , 'skip': 0
 , 'limit': 500
@@ -60,6 +60,100 @@ var GB = _.defaults(O.argv, {
 
 Spin.start();
 
+GB['PushItem'] = function(options, callback){
+  var a = Belt.argulint(arguments)
+    , self = this
+    , gb = {};
+  a.o = _.defaults(a.o, {
+    //product
+  });
+  
+  var p = a.o.product;
+  
+  var brand = p.manual_brand || (p.brands || []).join(', ') || '';
+  brand += brand ? ' ' : '';
+
+  var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
+
+  var slug = p.slug || p._id;
+
+  var vendor = GB.vendors[p.vendor];
+
+  var api = Belt.get(vendor, 'shopify.access_token') ? 'shopify' :
+            (Belt.get(vendor, 'woocommerce.consumer_key') ? 'woocommerce' :
+            (Belt.get(vendor, 'custom_sync.strategy') === 'streetammo' ? 'streetammo' : 'manual'));
+
+  _.each(p.configurations, function(v, k){
+    if (!v.price) return;
+
+    var url = GB.domain + '/product/' + slug
+            + (!_.size(v.options) ? ''
+              :  _.map(v.options, function(v2, k2){
+                   return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
+                 }).join('')
+              );
+
+    var item = {
+      'id': v.sku
+    , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
+    , 'condition': 'new'
+    , 'description': Belt.get(p, 'description.us')
+                   || (_.map(v.options, function(v2, k2){
+                        return k2 + ': ' + v2.value;
+                      }) || []).join(', ')
+                   || cat
+    , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
+    , 'title': Str.titleize(brand + p.label.us)
+    , 'link': url
+    , 'price': (v.compare_at_price && v.compare_at_price > v.price ? v.compare_at_price : v.price).toFixed(2) + ' USD'
+    , 'brand': brand
+    , 'additional_image_link': _.map(p.media.slice(1, 11), function(m){
+        return m.url || m.remote_url;
+      }).join(',')
+    , 'google_product_category': GB.google_categories[cat]
+    , 'product_type': cat
+    , 'age_group': 'adult'
+    , 'gender': 'male'
+    , 'color': Belt.get(_.find(v.options, function(v2, k2){
+         return k2.match(/color/i);
+       }), 'value.toLowerCase()') || 'one color'
+    , 'size': Belt.get(_.find(v.options, function(v2, k2){
+        return k2.match(/size/i);
+      }), 'value.toLowerCase()') || 'one size'
+    , 'material': Belt.get(_.find(v.options, function(v2, k2){
+        return k2.match(/material/i);
+      }), 'value.toLowerCase()')
+    , 'pattern': Belt.get(_.find(v.options, function(v2, k2){
+        return k2.match(/pattern/i);
+      }), 'value')
+    , 'item_group_id': p._id
+    , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
+    };
+
+    if (p.compare_at_price && p.compare_at_price > v.price){
+      item['sale_price'] = v.price.toFixed(2) + ' USD';
+    }
+
+    item['custom_label_0'] = item.__brand;
+    item['custom_label_1'] = api;
+    item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
+    item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
+    item['custom_label_4'] = GB.domain + '/product/' + slug;
+
+    if (item['custom_label_4'].length > 100) item['custom_label_4'] = GB.domain + '/product/' + p._id;
+
+    if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
+
+    if (item.description) item.description = item.description.split('').slice(0, 9999).join('');
+
+    item = Belt.objDefalse(item);
+
+    GB.items.push(item);
+  });
+
+  a.cb();
+};
+
 GB['CreateFeed'] = function(options, callback){
   var a = Belt.argulint(arguments)
     , self = this
@@ -72,7 +166,7 @@ GB['CreateFeed'] = function(options, callback){
     //domain
   });
 
-  console.log('Creating feed "' + a.o.output_path + '"...');
+  console.log('Creating feed "' + a.o.output_path + '" with ' + (Belt.get(a.o, 'items.length') || 0) + ' SKUs...');
 
   var feed = [
     {
@@ -128,36 +222,6 @@ Async.waterfall([
 
     var cont;
 
-    GB['products'] = [];
-
-    return Async.doWhilst(function(next){
-      Request({
-        'url': O.host + '/product/list.json'
-      , 'auth': GB.auth
-      , 'qs': {
-          'query': Belt.stringify(GB.query)
-        , 'skip': GB.skip
-        , 'limit': GB.limit
-        }
-      , 'method': 'get'
-      , 'json': true
-      }, function(err, res, json){
-        cont = _.any(Belt.get(json, 'data')) ? true : false;
-        GB.skip += GB.limit;
-        console.log(GB.skip);
-
-        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
-          GB.products.push(d);
-          cb2();
-        }, Belt.cw(next, 0));
-      })
-    }, function(){ return cont; }, Belt.cw(cb, 0));
-  }
-, function(cb){
-    if (GB.products.length < 1000) return cb(new Error('Fewer than 1000 products'));
-
-    var cont;
-
     GB['vendors'] = [];
 
     GB.skip = 0;
@@ -187,93 +251,40 @@ Async.waterfall([
 , function(cb){
     GB['vendors'] = _.object(_.pluck(GB.vendors, '_id'), GB.vendors);
 
+    var cont;
+
+    GB['products'] = [];
+
     GB.time = Moment().format('YYYY-MM-DDTHH:mm:ss.SZ');
 
     GB.items = [];
-
-    _.each(GB.products, function(p){
-      var brand = (p.brands || []).join(', ') || '';
-      brand += brand ? ' ' : '';
-
-      var cat = Belt.get(p, 'categories.0') || Belt.get(p, 'auto_category') || 'clothing';
-
-      var slug = p.slug || p._id;
-
-      var vendor = GB.vendors[p.vendor];
-
-      var api = Belt.get(vendor, 'shopify.access_token') ? 'shopify' :
-                (Belt.get(vendor, 'woocommerce.consumer_key') ? 'woocommerce' :
-                (Belt.get(vendor, 'custom_sync.strategy') === 'streetammo' ? 'streetammo' : 'manual'));
-
-      _.each(p.configurations, function(v, k){
-        if (!v.price) return;
-
-        var url = GB.domain + '/product/' + slug
-                + (!_.size(v.options) ? ''
-                   :  _.map(v.options, function(v2, k2){
-                        return '/' + encodeURIComponent(k2) + '/' + encodeURIComponent(v2.value);
-                      }).join('')
-                  );
-
-        var item = {
-          'id': v.sku
-        , 'availability': v.available_quantity > 0 ? 'in stock' : 'out of stock'
-        , 'condition': 'new'
-        , 'description': Belt.get(p, 'description.us')
-                      || (_.map(v.options, function(v2, k2){
-                           return k2 + ': ' + v2.value;
-                         }) || []).join(', ')
-                      || cat
-        , 'image_link': Belt.get(p, 'media.0.url') || Belt.get(p, 'media.0.remote_url')
-        , 'title': Str.titleize(brand + p.label.us)
-        , 'link': url
-        , 'price': (v.compare_at_price && v.compare_at_price > v.price ? v.compare_at_price : v.price).toFixed(2) + ' USD'
-        , 'brand': brand
-        , 'additional_image_link': _.map(p.media.slice(1, 11), function(m){
-            return m.url || m.remote_url;
-          }).join(',')
-        , 'google_product_category': GB.google_categories[cat]
-        , 'product_type': cat
-        , 'age_group': 'adult'
-        , 'gender': 'male'
-        , 'color': Belt.get(_.find(v.options, function(v2, k2){
-                    return k2.match(/color/i);
-                  }), 'value.toLowerCase()') || 'one color'
-        , 'size': Belt.get(_.find(v.options, function(v2, k2){
-                    return k2.match(/size/i);
-                  }), 'value.toLowerCase()') || 'one size'
-        , 'material': Belt.get(_.find(v.options, function(v2, k2){
-                    return k2.match(/material/i);
-                  }), 'value.toLowerCase()')
-        , 'pattern': Belt.get(_.find(v.options, function(v2, k2){
-                    return k2.match(/pattern/i);
-                  }), 'value')
-        , 'item_group_id': p._id
-        , '__brand': Str.trim(Str.slugify(brand.toLowerCase()))
-        };
-
-        if (v.compare_at_price && v.compare_at_price > v.price){
-          item['sale_price'] = v.price.toFixed(2) + ' USD';
+    
+    return Async.doWhilst(function(next){
+      Request({
+        'url': O.host + '/product/list.json'
+      , 'auth': GB.auth
+      , 'qs': {
+          'query': Belt.stringify(GB.query)
+        , 'skip': GB.skip
+        , 'limit': GB.limit
         }
+      , 'method': 'get'
+      , 'json': true
+      }, function(err, res, json){
+        cont = _.any(Belt.get(json, 'data')) ? true : false;
+        GB.skip += GB.limit;
+        console.log(GB.skip);
 
-        item['custom_label_0'] = item.__brand;
-        item['custom_label_1'] = api;
-        item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
-        item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
-        item['custom_label_4'] = GB.domain + '/product/' + slug;
-
-        if (item['custom_label_4'].length > 100) item['custom_label_4'] = GB.domain + '/product/' + p._id;
-
-
-        if (item.description && item.description === item.description.toUpperCase()) item.description = Str.titleize(item.description);
-
-        if (item.description) item.description = item.description.split('').slice(0, 9999).join('');
-
-        item = Belt.objDefalse(item);
-
-        GB.items.push(item);
-      });
-    });
+        Async.eachLimit(Belt.get(json, 'data') || [], 6, function(d, cb2){
+          GB.PushItem({
+            'product': d
+          }, cb2);
+        }, Belt.cw(next, 0));
+      })
+    }, function(){ return cont; }, Belt.cw(cb, 0));
+  }
+, function(cb){
+    //if (GB.products.length < 1000) return cb(new Error('Fewer than 1000 products'));
 
     GB.CreateFeed({
       'items': GB.items
@@ -284,36 +295,19 @@ Async.waterfall([
     }, Belt.cw(cb, 0));
   }
 , function(cb){
-    GB['whitelisted_items'] = _.filter(GB.items, function(i){
-      return !i.__brand.match(GB.negative_regex);
-    });
-
-    GB.CreateFeed({
-      'items': GB.whitelisted_items
-    , 'domain': GB.domain
-    , 'feed_name': 'Popular Wanderset Products'
-    , 'feed_description': 'Popular products on wanderset.com'
-    , 'output_path': GB.brand_output_path_template({
-        'brand': 'popular'
-      })
-    }, Belt.cw(cb, 0));
-  }
-, function(cb){
-    GB['grouped_items'] = _.groupBy(GB.items, function(i){
-      return i.__brand;
-    });
-
-    Async.eachSeries(_.keys(GB.grouped_items), function(g, cb2){
-      GB.CreateFeed({
-        'items': GB.grouped_items[g]
-      , 'domain': GB.domain
-      , 'feed_name': Str.titleize(g) + ' Wanderset Products'
-      , 'feed_description': Str.titleize(g) + ' products on wanderset.com'
-      , 'output_path': GB.brand_output_path_template({
-          'brand': g
-        })
-      }, Belt.cw(cb2, 0));
-    }, Belt.cw(cb, 0));
+    Request({
+      'url': O.host + '/admin/email/send.json'
+    , 'json': true
+    , 'auth': GB.auth
+    , 'method': 'post'
+    , 'body': {
+        'from': 'admin@wanderset.com'
+      , 'to': 'ben@wanderset.com, william@wanderset.com'
+      , 'subject': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs!'
+      , 'html': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      , 'text': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      }
+    }, Belt.cw(cb));
   }
 ], function(err){
   Spin.stop();
