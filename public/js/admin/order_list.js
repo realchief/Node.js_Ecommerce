@@ -263,6 +263,7 @@ $(document).ready(function(){
     $('[name="count"]').html((res.skip + 1) + '-' + Belt.cast(_.min([res.skip + res.limit, res.count]), 'string') + ' of ' + res.count);
 
     $('tbody').html(_.map(res.docs, function(d){
+      d = d || {};
       d.options = d.options || {};
       d.Instance = Instance;
       d.GB = GB;
