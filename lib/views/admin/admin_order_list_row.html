@@ -90,7 +90,7 @@
               title="Shopify vendor: no manual handling needed."
             <% } else if (Belt.get(Instance.vendor_ids[k], 'woocommerce.consumer_key')){ %>
               title="Woocommerce vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
-            <% } else if (Belt.get(Instance.vendor_ids[k], 'magento.consumer_key')){ %>
+            <% } else if (Belt.get(Instance.vendor_ids[k], 'magento.url')){ %>
               title="Magento vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
             <% } else { %>
               title="Manual vendor: order must be placed manually and shipping notifications must be manually entered."
