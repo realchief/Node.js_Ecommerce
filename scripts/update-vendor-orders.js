@@ -48,6 +48,8 @@ var GB = _.defaults(O.argv, {
   }
 , 'model': 'order'
 , 'iterator': function(o2, cb){
+    if (!o2 || !o2.slug) return cb();
+
     console.log('Updating ' + GB.model + ' [' + o2.slug + ']...');
 
     Async.eachSeries(_.keys(o2.vendor_orders) || [], function(k, cb2){
