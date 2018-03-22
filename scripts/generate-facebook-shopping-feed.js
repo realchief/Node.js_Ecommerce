@@ -315,7 +315,7 @@ Async.waterfall([
     , 'body': {
         'text': '*Facebook Shopping Feed Generated* - ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
       , 'username': 'INVENTORY-BOT'
-      , 'icon_emoji': ':bookmark_tabs:'
+      , 'icon_emoji': ':bookmark:'
       }
     }, Belt.cw(cb));
   }

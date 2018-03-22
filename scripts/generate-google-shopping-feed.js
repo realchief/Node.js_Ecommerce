@@ -312,7 +312,7 @@ Async.waterfall([
     , 'body': {
         'text': '*Google Shopping Feed Generated* - ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
       , 'username': 'INVENTORY-BOT'
-      , 'icon_emoji': ':bookmark_tabs:'
+      , 'icon_emoji': ':bookmark:'
       }
     }, Belt.cw(cb));
   }
