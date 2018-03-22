@@ -289,7 +289,7 @@ Async.waterfall([
     , 'output_path': GB.output_path
     }, Belt.cw(cb, 0));
   }
-, function(cb){
+/*, function(cb){
     Request({
       'url': O.host + '/admin/email/send.json'
     , 'json': true
@@ -303,7 +303,7 @@ Async.waterfall([
       , 'text': 'Google Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
       }
     }, Belt.cw(cb));
-  }
+  }*/
 , function(cb){
     Request({
       'url': O.slack.kpis
