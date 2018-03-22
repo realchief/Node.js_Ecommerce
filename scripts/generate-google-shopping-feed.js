@@ -304,6 +304,18 @@ Async.waterfall([
       }
     }, Belt.cw(cb));
   }
+, function(cb){
+    Request({
+      'url': O.slack.kpis
+    , 'method': 'post'
+    , 'json': true
+    , 'body': {
+        'text': '*Google Shopping Feed Generated* - ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      , 'username': 'INVENTORY-BOT'
+      , 'icon_emoji': ':bookmark_tabs:'
+      }
+    }, Belt.cw(cb));
+  }
 ], function(err){
   Spin.stop();
   if (err) Log.error(err);

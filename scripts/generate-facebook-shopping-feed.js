@@ -302,8 +302,20 @@ Async.waterfall([
         'from': 'admin@wanderset.com'
       , 'to': 'ben@wanderset.com, william@wanderset.com'
       , 'subject': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs!'
-      , 'html': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
-      , 'text': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+      , 'html': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
+      , 'text': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
+      }
+    }, Belt.cw(cb));
+  }
+, function(cb){
+    Request({
+      'url': O.slack.kpis
+    , 'method': 'post'
+    , 'json': true
+    , 'body': {
+        'text': '*Facebook Shopping Feed Generated* - ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
+      , 'username': 'INVENTORY-BOT'
+      , 'icon_emoji': ':bookmark_tabs:'
       }
     }, Belt.cw(cb));
   }
