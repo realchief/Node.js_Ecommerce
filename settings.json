@@ -58,8 +58,17 @@
     }
   }
 , "regex_env": {
-    "production": {
-
+    "^production": {
+      "redis": {
+        "host": "127.0.0.1"
+      , "port": "6379"
+      , "prefix": "wanderset.sess"
+      }
+    , "mongodb": {
+        "host": "localhost"
+      , "port": 27017
+      , "db": "wanderset"
+      }
     }
   }
 }
