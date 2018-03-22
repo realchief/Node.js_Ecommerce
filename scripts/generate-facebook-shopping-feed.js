@@ -300,7 +300,7 @@ Async.waterfall([
     , 'method': 'post'
     , 'body': {
         'from': 'admin@wanderset.com'
-      , 'to': 'ben@wanderset.com, william@wanderset.com'
+      , 'to': 'william@wanderset.com'
       , 'subject': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs!'
       , 'html': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
       , 'text': 'Facebook Shopping Feed generated with ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
