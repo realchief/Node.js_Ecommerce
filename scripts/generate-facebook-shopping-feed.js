@@ -55,7 +55,6 @@ var GB = _.defaults(O.argv, {
 , 'output_path': Path.join(O.__dirname, '/tmp/wanderset-facebook-shopping-feed.xml')
 , 'brand_output_path_template': _.template(Path.join(O.__dirname, '/tmp/wanderset-facebook-shopping-feed.<%= brand %>.xml'))
 , 'domain': 'https://wanderset.com'
-, 'negative_regex': new RegExp('(' + O.brand_blacklist.join('|') + ')', 'i')
 });
 
 Spin.start();
@@ -67,9 +66,9 @@ GB['PushItem'] = function(options, callback){
   a.o = _.defaults(a.o, {
     //product
   });
-  
+
   var p = a.o.product;
-  
+
   var brand = p.manual_brand || (p.brands || []).join(', ') || '';
   brand += brand ? ' ' : '';
 
@@ -137,7 +136,6 @@ GB['PushItem'] = function(options, callback){
     item['custom_label_0'] = item.__brand;
     item['custom_label_1'] = api;
     item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
-    item['custom_label_3'] = !item.__brand.match(GB.negative_regex) ? 'whitelist' : 'blacklist';
     item['custom_label_4'] = GB.domain + '/product/' + slug;
 
     if (item['custom_label_4'].length > 100) item['custom_label_4'] = GB.domain + '/product/' + p._id;
@@ -258,7 +256,7 @@ Async.waterfall([
     GB.time = Moment().format('YYYY-MM-DDTHH:mm:ss.SZ');
 
     GB.items = [];
-    
+
     return Async.doWhilst(function(next){
       Request({
         'url': O.host + '/product/list.json'
