@@ -136,6 +136,7 @@ GB['PushItem'] = function(options, callback){
     item['custom_label_0'] = item.__brand;
     item['custom_label_1'] = api;
     item['custom_label_2'] = api.match(/shopify|woocommerce/i) ? 'api' : 'manual';
+    item['custom_label_3'] = Belt.cast(item.price.replace(/ USD/, ''), 'number') <= 150 ? '$0 - $150' : '$150+';
     item['custom_label_4'] = GB.domain + '/product/' + slug;
 
     if (item['custom_label_4'].length > 100) item['custom_label_4'] = GB.domain + '/product/' + p._id;
