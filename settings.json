@@ -30,7 +30,16 @@
   }
 , "mongodb": {
     "collections": [
-      "config"
+      "categories"
+    , "localities"
+    , "media"
+    , "orders"
+    , "products"
+    , "sets"
+    , "setmembers"
+    , "stocks"
+    , "users"
+    , "vendors"
     ]
   }
 , "target_colors": {
@@ -40,12 +49,103 @@
   , "footwear": "purple"
   , "tops": "sky"
   }
+, "sync_sets": [
+    {
+      "old_set_id": "591605202bdad6346ba32c81"
+    , "old_set_slug": "night-shift-hkz6diswqw"
+    , "new_set_id": "595d0e40dcd6e62284391304"
+    , "new_set_slug": "rich_marshall_%26_eddie_horowitz"
+    }
+  , {
+      "old_set_id": "5a274509abb182aade85c1c7"
+    , "old_set_slug": "nfler-old"
+    , "new_set_id": "5a1d9410635ed108f03f8b7b"
+    , "new_set_slug": "nfler"
+    }
+  , {
+      "old_set_id": "5910d186e6817c1958ac3481"
+    , "old_set_slug": "pair-of-thieves-rkmjvirdmb"
+    , "new_set_id": "5910a7fcc13d1d13050f95b2"
+    , "new_set_slug": "cash-warren"
+    }
+  , {
+      "old_set_id": "59121a6b0a391b2dc565c83f"
+    , "old_set_slug": "en-noir-r19xnwisdqb"
+    , "new_set_id": "592f2acccf07632617ba473d"
+    , "new_set_slug": "rob-garcia"
+    }
+  , {
+      "old_set_id": "5911ed5897c57525ec102624"
+    , "old_set_slug": "android-homme-h1wenvjrw7b"
+    , "new_set_id": "5910ab076d0e24139a8ae593"
+    , "new_set_slug": "javier-laval"
+    }
+  , {
+      "old_set_id": "591605202bdad6346ba32c81"
+    , "old_set_slug": "night-shift-hkz6diswqw"
+    , "new_set_id": "595d0e40dcd6e62284391304"
+    , "new_set_slug": "rich_marshall_%26_eddie_horowitz"
+    }
+  , {
+      "old_set_id": "598e0ac32fcd415654d1402b"
+    , "old_set_slug": "slkrs"
+    , "new_set_id": "5988dd10ff97e747aeaab4e4"
+    , "new_set_slug": "ty-lawson"
+    }
+  , {
+      "old_set_id": "591219d10a391b2dc565c835"
+    , "old_set_slug": "guccighost"
+    , "new_set_id": "5910bc61214e4818cf1abbcf"
+    , "new_set_slug": "trevor-andrew"
+    }
+  , {
+      "old_set_id": "5a04e783e8b656093781698e"
+    , "old_set_slug": "complexcon"
+    , "new_set_id": "5a05fbabb0341fba411f04ec"
+    , "new_set_slug": "complex-con"
+    }
+  , {
+      "old_set_id": "5a12069a9ee3cc7bd015a293"
+    , "old_set_slug": "carhartt-wip-sa"
+    , "new_set_id": "5a1207659ee3cc7bd015a2be"
+    , "new_set_slug": "carhartt-wip"
+    }
+  , {
+      "old_set_id": "591111e48319b521a1217f2b"
+    , "old_set_slug": "carhartt-wip-shopify"
+    , "new_set_id": "5a1207659ee3cc7bd015a2be"
+    , "new_set_slug": "carhartt-wip"
+    }
+  , {
+      "old_set_id": "59a87d86caa22d660c4d7a5b"
+    , "old_set_slug": "rcnstrct"
+    , "new_set_id": "59a8a374caa22d660c4d7bc5"
+    , "new_set_slug": "miguel-garcia"
+    }
+  ]
+, "brand_blacklist": [
+    "nike"
+  , "asics"
+  , "champion"
+  , "fila"
+  , "north face"
+  , "kappa"
+  , "thrasher"
+  , "puma"
+  , "adidas"
+  , "levi"
+  , "lacoste"
+  , "reebok"
+  , "vans"
+  , "comme"
+  ]
 , "url_replacements": {
     "https://s3.amazonaws.com/staging.assets.wanderset.com": "https://d1iycu4aypjr2v.cloudfront.net"
   , "https://s3.amazonaws.com/assets.wanderset.com": "https://d3gnpp7wzoydnz.cloudfront.net"
   }
 , "loader_svg": "https://d3gnpp7wzoydnz.cloudfront.net/public/static/loader.svg"
 , "horz_loader_svg": "https://d3gnpp7wzoydnz.cloudfront.net/public/static/horz-loader.svg"
+, "category_grams_path": "/resources/assets/category-grams.csv"
 , "slack": {
     "kpis": "https://hooks.slack.com/services/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"
   }
@@ -55,20 +155,6 @@
     , "host": "imap.gmail.com"
     , "port": 993
     , "tls": true
-    }
-  }
-, "regex_env": {
-    "^production": {
-      "redis": {
-        "host": "127.0.0.1"
-      , "port": "6379"
-      , "prefix": "wanderset.sess"
-      }
-    , "mongodb": {
-        "host": "localhost"
-      , "port": 27017
-      , "db": "wanderset"
-      }
     }
   }
 }

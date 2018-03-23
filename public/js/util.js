@@ -136,7 +136,16 @@ var GetHashObj = function(){
 var GB = GB || {};
 GB['hash_query'] = _.extend({}, GB, queryObject.get(), GetHashObj());
 
-Belt.get($('.lazy'), 'lazy()');
+(function() {
+  var checkLoadedImages = function () {
+      var elements = $('.tab-content img.b-lazy') || $('img.b-lazy');
+      if (!_.any(elements, function (el) { return el.className.indexOf('b-loaded') !== -1; })) {
+          var bLazy = new Blazy();
+          setTimeout(checkLoadedImages, 500);
+      }
+  };
+  checkLoadedImages();
+})();
 
 var GetElementOffset = function(el){
   var top = 0

@@ -1,5 +1,5 @@
 <div class="billboard billboard--dark hidden-sm-down">
-  <img src="<%= Belt.get(doc, 'featured_media.downsample_url') || Belt.get(doc, 'featured_media.url') || Belt.get(doc, 'mobile_featured_media.url') || '' %>" alt="" class="billboard__img lazy">
+  <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/horz-loader.svg" data-src="<%= Belt.get(doc, 'featured_media.downsample_url') || Belt.get(doc, 'featured_media.url') || Belt.get(doc, 'mobile_featured_media.url') || '' %>" alt="" class="billboard__img b-lazy">
   <div class="container">
     <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">
       <%= Belt.get(doc, 'label.us') || '' %>
@@ -27,7 +27,7 @@
 <% } %>
 
 <div class="billboard billboard--mobile billboard--dark hidden-md-up">
-  <img src="<%= Belt.get(doc, 'mobile_featured_media.downsample_url') || Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>" class="billboard__img lazy" alt="">
+  <img src="https://d3gnpp7wzoydnz.cloudfront.net/public/static/horz-loader.svg" data-src="<%= Belt.get(doc, 'mobile_featured_media.downsample_url') || Belt.get(doc, 'mobile_featured_media.url') || Belt.get(doc, 'featured_media.url') || '' %>" class="billboard__img b-lazy" alt="">
   <div class="billboard-caption">
     <div class="container">
       <h1 class="billboard__title" style="<% if (doc.text_color){ %>color:<%= doc.text_color %> !important;<% } %>">

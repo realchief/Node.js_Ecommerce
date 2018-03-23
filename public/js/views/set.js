@@ -206,7 +206,14 @@ var LoadSetProducts = function(options, callback){
   ], function(err){
     ToggleFooterLoader();
 
-    $('.lazy').lazy();
+    var checkLoadedImages = function () {
+      var elements = $('.tab-content img.b-lazy') || $('img.b-lazy');
+      if (!_.any(elements, function (el) { return el.className.indexOf('b-loaded') !== -1; })) {
+        var bLazy = new Blazy();
+        setTimeout(checkLoadedImages, 500);
+      }
+    };
+    checkLoadedImages();
 
     a.cb(err, gb.data);
   });
