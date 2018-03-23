@@ -1,1 +1,13 @@
-<svg width="91px"  height="91px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-infinity" style="background: none;"><path fill="none" ng-attr-stroke="{{config.stroke}}" ng-attr-stroke-width="{{config.width}}" ng-attr-stroke-dasharray="{{config.dasharray}}" d="M24.3,30C11.4,30,5,43.3,5,50s6.4,20,19.3,20c19.3,0,32.1-40,51.4-40 C88.6,30,95,43.3,95,50s-6.4,20-19.3,20C56.4,70,43.6,30,24.3,30z" stroke="#616161" stroke-width="2" stroke-dasharray="192.4416961669922 64.14723205566406"><animate attributeName="stroke-dashoffset" calcMode="linear" values="0;256.58892822265625" keyTimes="0;1" dur="1" begin="0s" repeatCount="indefinite"></animate></path></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="5669.292px" height="5669.292px" viewBox="-2125.986 -2125.986 5669.292 5669.292"
+	 enable-background="new -2125.986 -2125.986 5669.292 5669.292" xml:space="preserve">
+<path fill="none" stroke="#959EBA" stroke-width="10" stroke-dasharray="230.93,25.6589" d="M344.409,425.196
+	c-182.834,0-273.543,188.504-273.543,283.464s90.708,283.464,273.543,283.464c273.543,0,454.96-566.928,728.502-566.928
+	c182.834,0,273.543,188.504,273.543,283.464s-90.708,283.464-273.543,283.464C799.369,992.124,617.952,425.196,344.409,425.196z">
+<animate  fill="remove" restart="always" additive="replace" accumulate="none" repeatCount="indefinite" begin="0s" dur="1.5" keyTimes="0;1" values="0;256.58892822265625" calcMode="linear" attributeName="stroke-dashoffset">
+		</animate>
+</path>
+</svg>
