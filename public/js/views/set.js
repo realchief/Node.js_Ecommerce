@@ -208,7 +208,7 @@ var LoadSetProducts = function(options, callback){
 
     var checkLoadedImages = function () {
       var elements = $('.tab-content img.b-lazy') || $('img.b-lazy');
-      if (!_.any(elements, function (el) { return el.className.indexOf('b-loaded') !== -1; })) {
+      if (elements && elements.length > 0 && !_.any(elements, function (el) { return el.className.indexOf('b-loaded') !== -1; })) {
         var bLazy = new Blazy();
         setTimeout(checkLoadedImages, 500);
       }
