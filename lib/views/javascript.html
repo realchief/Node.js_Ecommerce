@@ -36,6 +36,7 @@
           , "<%= Settings.asset_prefix %>/bower_components/backbone/backbone-min.js"
           , "<%= Settings.asset_prefix %>/bower_components/bootheel/bootheel.js"
           , "<%= Settings.asset_prefix %>/bower_components/bootstrap/dist/js/bootstrap.min.js"
+          , "<%= Settings.asset_prefix %>/public/js/util.js"
 
           <% if (typeof View !== 'undefined'){ %>
             <% if (View === 'set' || View === 'product_list' || View === 'product' || View === 'outfit' || View === 'homepage' || View === 'sets' || View === 'brands'){ %>
@@ -129,7 +130,7 @@
           , "/templates/bag_dropdown.js"
           , "/templates/set_product_nav.js"
 
-          , "<%= Settings.asset_prefix %>/public/js/util.js"
+          , "<%= Settings.asset_prefix %>/public/js/util/util.loader.js"
           , "<%= Settings.asset_prefix %>/public/js/util/util.cart.js"
           , "<%= Settings.asset_prefix %>/public/js/util/util.email.js"
           , "<%= Settings.asset_prefix %>/public/js/util/util.navbar.js"
@@ -143,7 +144,6 @@
             , "<%= e %>"
           <% }) %>
           ], function(script, cb2) {
-            console.log('LOADING: ', script);
             loadJS(script, Belt.cw(cb2), document.body);
         }, Belt.cw(cb));
       }
