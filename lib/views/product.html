@@ -306,12 +306,12 @@
                     <% if (Belt.get(doc, 'description.us')){ %>
                       <div class="card accordion__item">
                         <div class="accordion__header" role="tab" id="headingOne">
-                          <a data-toggle="collapse" class="collapsed accordion__title" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <a data-toggle="collapse" class="accordion__title" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Product Details
                             <i class="accordion__icon"></i>
                           </a>
                         </div>
-                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
                           <div class="accordion__body"><%= doc.description.us %></div>
                         </div>
                       </div>
