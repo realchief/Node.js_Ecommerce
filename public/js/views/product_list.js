@@ -25,7 +25,7 @@ var LoadProductFilter = function(options, callback){
         '$gt': 0
       }
     }, a.o.query ? a.o.query : {})
-  , 'sort': a.o.sort || undefined
+  , 'sort': ConfigureSortParameters(a.o.sort || undefined)
   };
 };
 
@@ -55,7 +55,7 @@ var LoadProducts = function(options, callback){
       CreateHash(_.extend(a.o.skip ? {
         'skip': a.o.skip
       } : {}, a.o.sort ? {
-        'sort': a.o.sort
+        'sort': ConfigureSortParameters(a.o.sort)
       } : {}, Belt.get(a.o.query, 'categories.$regex') ? {
         'category': a.o.query.categories.$regex
       } : {}));
@@ -65,7 +65,7 @@ var LoadProducts = function(options, callback){
         'limit': a.o.limit
       , 'skip': a.o.skip
       , 'q': Belt.stringify(a.o.query)
-      , 'sort': a.o.sort
+      , 'sort': ConfigureSortParameters(a.o.sort)
       }, function(res){
         gb['data'] = Belt.get(res, 'data') || {};
 

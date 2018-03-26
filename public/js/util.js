@@ -199,3 +199,19 @@ if (GAEnabled()){
 var IsMobile = function(){
   return $('#is-mobile:visible').length ? true : false;
 };
+
+var ConfigureSortParameters = function (sort) {
+    if (!sort) sort = [];
+    else if (typeof sort === 'string') sort = sort.split(',');
+    else if (sort.on_sale) return sort;
+    else {
+        sort['on_sale'] = 1;
+        return sort;
+    }
+    var sort_obj = {};
+    _.each(['on_sale'].concat(sort), function (p) {
+        if (p.indexOf('-') === 0) sort_obj[p.substring(1)] = -1;
+        else sort_obj[p] = 1;
+    });
+    return sort_obj;
+};
