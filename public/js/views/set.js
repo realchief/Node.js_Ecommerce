@@ -44,7 +44,7 @@ var LoadProductFilter = function(options, callback){
         }
       ]
     } : {})
-  , 'sort': a.o.sort || undefined
+  , 'sort': ConfigureSortParameters(a.o.sort || undefined)
   };
 };
 
@@ -86,7 +86,7 @@ var LoadSetProducts = function(options, callback){
       ExtendHash(_.extend(typeof a.o.skip != 'undefined' ? {
         'skip': a.o.skip
       } : {}, a.o.sort ? {
-        'sort': a.o.sort
+        'sort': ConfigureSortParameters(a.o.sort)
       } : {}, Belt.get(a.o.query, '$or.0.categories.$regex') ? {
         'category': a.o.query.$or[0].categories.$regex
       } : {}));
@@ -101,7 +101,7 @@ var LoadSetProducts = function(options, callback){
 
       $.post('/list/products.json', {
         'q': Belt.stringify(a.o.query)
-      , 'sort': a.o.sort
+      , 'sort': ConfigureSortParameters(a.o.sort)
       }, function(res){
         gb['data'] = Belt.get(res, 'data') || {};
         gb.data['count'] = GB.doc.products.length;
@@ -128,7 +128,7 @@ var LoadSetProducts = function(options, callback){
         'limit': a.o.limit
       , 'skip': a.o.skip
       , 'q': Belt.stringify(a.o.query)
-      , 'sort': a.o.sort
+      , 'sort': ConfigureSortParameters(a.o.sort)
       }, function(res){
         gb['data'] = Belt.get(res, 'data') || {};
 
