@@ -18,9 +18,12 @@ var O = new Optionall({
                        '__dirname': Path.resolve(module.filename + '/../..')
                      , 'file_priority': [
                          'package.json'
-                       , 'environment.json'
+                       , 'assets.json'
                        , 'settings.json'
+                       , 'environment.json'
                        , 'config.json'
+                       , 'credentials.json'
+                       , 'users.json'
                        ]
                      });
 

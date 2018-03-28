@@ -18,9 +18,12 @@ var O = new Optionall({
                        '__dirname': process.env.rootdir || process.cwd()
                      , 'file_priority': [
                          'package.json'
+                       , 'assets.json'
+                       , 'settings.json'
                        , 'environment.json'
-                       , 'credentials.json'
                        , 'config.json'
+                       , 'credentials.json'
+                       , 'users.json'
                        ]
                      });
 

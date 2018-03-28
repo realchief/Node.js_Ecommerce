@@ -17,7 +17,15 @@ var Path = require('path')
 
 var O = new Optionall({
                        '__dirname': Path.resolve(module.filename + '/../..')
-                     , 'file_priority': ['package.json', 'environment.json', 'credentials.json']
+                     , 'file_priority': [
+                         'package.json'
+                       , 'assets.json'
+                       , 'settings.json'
+                       , 'environment.json'
+                       , 'config.json'
+                       , 'credentials.json'
+                       , 'users.json'
+                       ]
                      });
 
 var Log = new Winston.Logger();

@@ -21,9 +21,12 @@ var O = new Optionall({
                        '__dirname': Path.resolve(module.filename + '/../..')
                      , 'file_priority': [
                          'package.json'
-                       , 'environment.json'
+                       , 'assets.json'
                        , 'settings.json'
+                       , 'environment.json'
                        , 'config.json'
+                       , 'credentials.json'
+                       , 'users.json'
                        ]
                      });
 
@@ -75,7 +78,7 @@ Async.waterfall([
         'option_name': k
       , 'value': ''
       });
-      
+
       _.each(v, function(v2, k2){
         cs.write({
           'option_name': ''

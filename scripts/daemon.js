@@ -14,8 +14,9 @@ var Forever = require('forever-monitor')
                        , 'assets.json'
                        , 'settings.json'
                        , 'environment.json'
-                       , 'credentials.json'
                        , 'config.json'
+                       , 'credentials.json'
+                       , 'users.json'
                        ]
                      })
   , FS = require('fs')
