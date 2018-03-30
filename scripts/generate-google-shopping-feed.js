@@ -63,6 +63,7 @@ var GB = _.defaults(O.argv, {
 , 'output_path': Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.xml')
 , 'brand_output_path_template': _.template(Path.join(O.__dirname, '/tmp/wanderset-google-shopping-feed.<%= brand %>.xml'))
 , 'domain': 'https://wanderset.com'
+, 'trigger_url': 'https://admin.wanderset.com/rpc/Bs3rV6UL4zHlvUDbFPas-generate-google-shopping-feed.json'
 });
 
 Spin.start();
@@ -320,6 +321,7 @@ Async.waterfall([
     , 'json': true
     , 'body': {
         'text': '*Google Shopping Feed Generated* - ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-google-shopping-feed.xml'
+              + '\nRegenerate Feed: ' + GB.trigger_url
       , 'username': 'INVENTORY-BOT'
       , 'icon_emoji': ':bookmark:'
       }

@@ -22,7 +22,7 @@ var Path = require('path')
 
 var O = new Optionall({
                        '__dirname': Path.resolve(module.filename + '/../..')
-                    , 'file_priority': [
+                     , 'file_priority': [
                         'package.json'
                       , 'assets.json'
                       , 'settings.json'
@@ -63,6 +63,7 @@ var GB = _.defaults(O.argv, {
 , 'output_path': Path.join(O.__dirname, '/tmp/wanderset-facebook-shopping-feed.xml')
 , 'brand_output_path_template': _.template(Path.join(O.__dirname, '/tmp/wanderset-facebook-shopping-feed.<%= brand %>.xml'))
 , 'domain': 'https://wanderset.com'
+, 'trigger_url': 'https://admin.wanderset.com/rpc/Bs3rV6UL4zHlvUDbFPas-generate-facebook-shopping-feed.json'
 });
 
 Spin.start();
@@ -323,6 +324,7 @@ Async.waterfall([
     , 'json': true
     , 'body': {
         'text': '*Facebook Shopping Feed Generated* - ' + GB.items.length + ' SKUs: https://wanderset.com/wanderset-facebook-shopping-feed.xml'
+              + '\nRegenerate Feed: ' + GB.trigger_url
       , 'username': 'INVENTORY-BOT'
       , 'icon_emoji': ':bookmark:'
       }
