@@ -48,6 +48,9 @@
         "label": "production"
       }
     }
+  , "^production-worker-(6|13)$": {
+      "connect_imap": true
+    }
   }
 , "target_colors": {
     "headwear": "yellow"
