@@ -874,6 +874,7 @@
     , "create_rest_routes": false
     , "no_caching": true
     , "no_media_processing": true
+    , "connect_imap": true
     }
   }
 }
