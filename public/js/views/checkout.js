@@ -1366,6 +1366,7 @@ var CheckoutView = function(options, callback){
         });
 
         if (GAEnabled()) {
+          ga('ec:setAction','checkout', { 'step': 1 });
           ga('send', 'event', 'Checkout', 'validate shipping success');
         }
 
@@ -1493,6 +1494,7 @@ var CheckoutView = function(options, callback){
         });
       } else {
         if (GAEnabled()) {
+          ga('ec:setAction','checkout', { 'step': 3 });
           ga('send', 'event', 'Checkout', 'validate payment success');
         }
 
@@ -1617,6 +1619,7 @@ var CheckoutView = function(options, callback){
         });
       } else {
         if (GAEnabled()) {
+          ga('ec:setAction','checkout', { 'step': 2 });
           ga('send', 'event', 'Checkout', 'validate billing success');
         }
 
@@ -1715,10 +1718,6 @@ if (GAEnabled()){
     , 'price': p.price
     , 'quantity': p.quantity
     });
-  });
-
-  ga('ec:setAction','checkout', {
-    'step': 1
   });
 }
 
