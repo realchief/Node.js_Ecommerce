@@ -143,6 +143,10 @@
           <% if (typeof js_files !== 'undefined') _.each(js_files, function(e){ %>
             , "<%= e %>"
           <% }) %>
+
+          <% if (typeof View !== 'undefined' && View === 'order_confirmation'){ %>
+            , "https://apis.google.com/js/platform.js?onload=renderOptIn"
+          <% } %>
           ], function(script, cb2) {
             loadJS(script, Belt.cw(cb2), document.body);
         }, Belt.cw(cb));

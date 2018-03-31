@@ -1,4 +1,26 @@
 if (GAEnabled()){
+
+  window.renderOptIn = function() {
+      window.gapi.load('surveyoptin', function() {
+          var date = new Date();
+          date.setDate(date.getDate() + 30);
+          var d = date.getDate();
+          var m = date.getMonth() + 1;
+          var y = date.getFullYear();
+
+          window.gapi.surveyoptin.render(
+              {
+                  "merchant_id": 118193082
+                  , "order_id": GB.doc._id
+                  , "email": GB.doc.buyer.email
+                  , "delivery_country": GB.doc.buyer.country
+                  , "estimated_delivery_date": y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d)
+              });
+      });
+  };
+  window.___gcfg = {
+      lang: 'en_US'
+  };
   _.each(GB.doc.products, function(p, i){
     var d = Belt.get(p, 'source.product');
     if (!d) return;
