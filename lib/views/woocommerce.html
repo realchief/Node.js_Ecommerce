@@ -67,6 +67,8 @@
     <%= Render('footer', Locals) %>
     <%= Render('javascript', Locals) %>
     <script>
+      document.addEventListener("scripts-loaded", function(e) {
+
       $('[name="submit"]').on('click', function(e){
         e.preventDefault();
 
@@ -93,6 +95,8 @@
           alert('Thank you! Your store has been added to Wanderset and we will be in contact shortly.');
         });
 
+      });
+      
       });
     </script>
   </body>
