@@ -215,6 +215,7 @@
       }
     ], function(err) {
       console.log('Scripts loading finished');
+      document.dispatchEvent(new CustomEvent("scripts-loaded"));
     });
   }
 

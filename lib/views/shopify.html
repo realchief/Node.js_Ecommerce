@@ -58,23 +58,25 @@
     <%= Render('footer', Locals) %>
     <%= Render('javascript', Locals) %>
     <script>
-      $(document).ready(function(){
-        if (queryObject.get('shop')) $('[name="shopify_url"]').val(queryObject.get('shop'));
-      });
+        document.addEventListener("scripts-loaded", function(e) {
+            $(document).ready(function(){
+                if (queryObject.get('shop')) $('[name="shopify_url"]').val(queryObject.get('shop'));
+            });
 
-      $('[name="install"]').on('click', function(e){
-        e.preventDefault();
+            $('[name="install"]').on('click', function(e){
+                e.preventDefault();
 
-        var url = ($('[name="shopify_url"]').val() || '')
-                                            .split(/https?:\/\//)
-                                            .pop()
-                                            .split(/\.(shopify|myshopify).*$/)
-                                            .shift();
+                var url = ($('[name="shopify_url"]').val() || '')
+                    .split(/https?:\/\//)
+                    .pop()
+                    .split(/\.(shopify|myshopify).*$/)
+                    .shift();
 
-        if (!url) return alert('Please enter your Shopify store URL');
+                if (!url) return alert('Please enter your Shopify store URL');
 
-        document.location = '/hub/shopify/' + url + '/authorize.json'
-      });
+                document.location = '/hub/shopify/' + url + '/authorize.json'
+            });
+        });
     </script>
   </body>
 </html>
