@@ -3,9 +3,6 @@
     "development": {
       "host": "https://wanderset.pushbuild.com"
     , "domain": "wanderset.pushbuild.com"
-    , "test": {
-        "dog": "sup"
-      }
     , "asset_prefix": ""
     , "express": {
         "port": 8849
