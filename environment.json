@@ -880,7 +880,7 @@
     , "domain": "wanderset.com:9014"
     , "asset_prefix": "https://d3gnpp7wzoydnz.cloudfront.net"
     , "express": {
-        "port": 9013
+        "port": 9014
       }
     , "redis": {
         "host": "127.0.0.1"
