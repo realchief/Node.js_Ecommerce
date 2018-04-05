@@ -34,7 +34,17 @@
     ]
   }
 , "env_regex": {
-    "^production": {
+    "^(development|staging)": {
+      "imap_mailboxes": {
+        "dev-imap@wanderset.com": {
+          "user": "dev-imap@wanderset.com"
+        , "host": "imap.gmail.com"
+        , "port": 993
+        , "tls": true
+        }
+      }      
+    }
+  , "^production": {
       "redis": {
         "host": "127.0.0.1"
       , "port": "6379"
@@ -46,6 +56,14 @@
       }
     , "config_query": {
         "label": "production"
+      }
+    , "imap_mailboxes": {
+        "imap@wanderset.com": {
+          "user": "imap@wanderset.com"
+        , "host": "imap.gmail.com"
+        , "port": 993
+        , "tls": true
+        }
       }
     }
   , "^production-worker-(6|13)$": {
@@ -68,13 +86,5 @@
 , "horz_loader_desktop_svg": "https://d3gnpp7wzoydnz.cloudfront.net/public/static/horz-loader-desktop.svg"
 , "slack": {
     "kpis": "https://hooks.slack.com/services/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"
-  }
-, "imap_mailboxes": {
-    "imap@wanderset.com": {
-      "user": "imap@wanderset.com"
-    , "host": "imap.gmail.com"
-    , "port": 993
-    , "tls": true
-    }
   }
 }
