@@ -91,14 +91,14 @@ $(document).ready(function(){
 
     LoadDocs(GB.criteria, function(err, res){
       if (err) return bootbox.alert(err.message);
-      console.log(res.docs);
+      // console.log(res.docs);
       $('tbody').html(_.map(res.docs, function(d){
         d.options = d.options || {};
         d.Instance = Instance;
         d.GB = GB;
-        console.log(d.products[0]);
-        console.log(d.products[0].source);
-        console.log(d.products[0].source.product);
+        // console.log(d.products[0]);
+        // console.log(d.products[0].source);
+        // console.log(d.products[0].source.product);
 
         return Templates['admin_' + GB.model + '_list_row'](d);
       }).join('\n'));
