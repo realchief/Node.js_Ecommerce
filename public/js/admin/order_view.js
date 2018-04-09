@@ -86,7 +86,7 @@ var OrderView = function(options, callback){
       , gb = {};
     a.o = _.defaults(a.o, {
 
-    });
+    });    
 
     gb['data'] = self.getSelf();
 
@@ -228,16 +228,42 @@ $(document).on('click', 'tr [name="save"]', function(e){
     , notes = $tr.find('[name="notes"]').val()
     , _id = $tr.attr('data-id');
 
-  $.post('/admin/order/' + _id + '/update.json', {
-    'support_status': support_status
-  , 'notes': notes
-  }, function(res){
-    if (Belt.get(res, 'error')) return bootbox.alert(res.error);
-
-    var d = Belt.get(res, 'data');
-    d.options = d.options || {};
-    d.Instance = Instance;
-    d.GB = GB;
-    $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
+  var vendor_products = {};
+  $.each($tr.find('.variant'), function (i) {
+    var prod_id = $(this).attr('data-prod-id');
+    var key = $(this).attr('data-variant-label');
+    if (!(prod_id in vendor_products)) {
+      vendor_products[prod_id] = {}
+    }
+    vendor_products[prod_id][key] = $(this).val();
   });
+
+
+  Async.waterfall([
+    function(cb) {
+      Async.eachSeries(vendor_products, function (prod, cb2) {
+        $.get('/admin/order/' + _id + '/product/' + prod['new'] + '/product/' + prod['old'] + '/update.json', function (res) {
+          if (Belt.get(res, 'error')) return cb2(res.error);
+          cb2();
+        });
+      }, Belt.cw(cb, 0));
+    },
+    function(cb) {
+      $.post('/admin/order/' + _id + '/update.json', {
+        'support_status': support_status
+      , 'notes': notes
+      }, function(res){
+        if (Belt.get(res, 'error')) cb(res.error);
+        cb();
+      });
+    }
+  ], function (err) {
+      if (err) return bootbox.alert(err);
+      var d = Belt.get(res, 'data');
+      d.options = d.options || {};
+      d.Instance = Instance;
+      d.GB = GB;
+      $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
+  });
+  
 });

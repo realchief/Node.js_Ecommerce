@@ -15,7 +15,7 @@
     , "mongodb": {
         "host": "localhost"
       , "port": 27017
-      , "db": "dev_wanderset"
+      , "db": "staging_wanderset"
       }
     , "notifications": {
         "coming_soon": "https://2po.st/oySQBPndO5PX"

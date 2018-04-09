@@ -98,7 +98,7 @@
           ><%= Instance.vendor_ids[k].name %></span>
         </p>
       <% } %>
-      <% _.each(v2, function(v){ %>
+      <% _.each(v2, function(v, idx){ %>
         <p>
           <a href="/product/<%= v.source.product.slug %>" target="_blank">
             <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
@@ -106,7 +106,23 @@
             <br><small>Admin URL: https://wanderset.com/admin/product/<%= v.source.product.slug %></small>
           </a>
         </p>
-        <p><%= _.map(v.options, function(v2, k2){ return k2 + ': ' + v2; }).join(', ') %></p>
+        <p>
+        <input type="hidden" value=<%= JSON.loads(v.source.product.stocks)%> class="product-stocks" id=<%= "prod_" + v.source.product._id%> />
+          <% _.map(v.options, 
+            function(v2, k2) {
+          %>
+          <label><%=k2 %></label>
+          <select data-variant-label=<%=k2%> data-prod-id=<%=k%> data-prod-idx=<%=idx%> class="variant">
+          <% _.map(v.source.product.stocks, function (v3) { %>
+            <% _.map(_.uniq(v3, function (v4) { return v4.options[k2].value; }), function(v4) {%>
+              <option <%=v4 == v2 ? 'selected' : '' %>><%= v4 %></option>
+            <%})%>
+          <%})%>
+          </select>
+          <%
+            })
+          %>
+        </p>
         <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
         <% if (Belt.get(v, 'source.stock.manual_override')){ %>
           <p>
