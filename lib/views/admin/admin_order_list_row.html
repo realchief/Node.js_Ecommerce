@@ -116,7 +116,7 @@
             var vals = _.map(stocks, function (s) { return Belt.get(s, 'options.' + k3 + '.value')});
           %>
           <label><%=k3 %></label>
-          <select data-variant-label=<%=k3%> data-prod-id=<%=k%> data-prod-idx=<%=idx%> class="variant">
+          <select data-variant-label=<%=k3%> data-prod-id=<%=v.product%> class="variant">
           <% _.map(_.uniq(vals), function (v4) { %>
               <option <%=v4 == v3 ? 'selected' : '' %>><%= v4 %></option>
           <%})%>

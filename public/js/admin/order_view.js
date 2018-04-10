@@ -223,13 +223,14 @@ var OrderView = function(options, callback){
 
 $(document).on('click', 'tr [name="save"]', function(e){
   e.preventDefault();
+  console.log('hehehe');
   var $tr = $(this).parents('tr')
     , support_status = $tr.find('[name="support_status"]').val()
     , notes = $tr.find('[name="notes"]').val()
     , _id = $tr.attr('data-id');
 
   var vendor_products = {};
-  $.each($tr.find('.variant'), function (i) {
+  _.each($tr.find('.variant'), function (i) {
     var prod_id = $(this).attr('data-prod-id');
     var key = $(this).attr('data-variant-label');
     if (!(prod_id in vendor_products)) {
@@ -237,12 +238,13 @@ $(document).on('click', 'tr [name="save"]', function(e){
     }
     vendor_products[prod_id][key] = $(this).val();
   });
-
+  console.log(vendor_products);
 
   Async.waterfall([
     function(cb) {
-      Async.eachSeries(vendor_products, function (prod, cb2) {
-        $.get('/admin/order/' + _id + '/product/' + prod['new'] + '/product/' + prod['old'] + '/update.json', function (res) {
+      Async.forEachOf(vendor_products, function (prod, prod_id, cb2) {
+
+        $.post('/admin/order/' + _id + '/product/' + prod_id + '/stock/update.json', prod, function (res) {
           if (Belt.get(res, 'error')) return cb2(res.error);
           cb2();
         });
