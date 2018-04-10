@@ -96,9 +96,9 @@ $(document).ready(function(){
         d.options = d.options || {};
         d.Instance = Instance;
         d.GB = GB;
-        // console.log(d.products[0]);
-        // console.log(d.products[0].source);
-        // console.log(d.products[0].source.product);
+        console.log(d);
+        console.log(d.products[0].source);
+        console.log(d.products[0].source.product);
 
         return Templates['admin_' + GB.model + '_list_row'](d);
       }).join('\n'));

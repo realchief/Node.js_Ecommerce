@@ -107,16 +107,18 @@
           </a>
         </p>
         <p>
-        <!-- <input type="hidden" value=<%= JSON.loads(v.source.product.stocks)%> class="product-stocks" id=<%= "prod_" + v.source.product._id%> /> -->
-          <% _.map(v.options, 
-            function(v2, k2) {
+          <% _.each(v.options, 
+            function(v3, k3) {
           %>
-          <label><%=k2 %></label>
-          <select data-variant-label=<%=k2%> data-prod-id=<%=k%> data-prod-idx=<%=idx%> class="variant">
-          <% _.map(v.source.product.stocks, function (v3) { %>
-            <% _.map(_.uniq(v3, function (v4) { return v4.options[k2].value; }), function(v4) {%>
-              <option <%=v4 == v2 ? 'selected' : '' %>><%= v4 %></option>
-            <%})%>
+          <% var stocks = _.filter(Belt.get(v, 'source.product.stocks'), function(s){
+            return s.available_quantity > 0;
+          });
+            var vals = _.map(stocks, function (s) { return Belt.get(s, 'options.' + k3 + '.value')});
+          %>
+          <label><%=k3 %></label>
+          <select data-variant-label=<%=k3%> data-prod-id=<%=k%> data-prod-idx=<%=idx%> class="variant">
+          <% _.map(_.uniq(vals), function (v4) { %>
+              <option <%=v4 == v3 ? 'selected' : '' %>><%= v4 %></option>
           <%})%>
           </select>
           <%
