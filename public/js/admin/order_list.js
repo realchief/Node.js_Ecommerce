@@ -312,8 +312,7 @@ $(document).on('click', '[name="save"]', function(e){
       vendor_products[prod_id] = {}
     }
     vendor_products[prod_id][key] = $(this).val();
-  });
-  console.log(vendor_products);
+  });  
 
   Async.waterfall([
     function(cb) {

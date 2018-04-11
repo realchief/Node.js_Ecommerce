@@ -237,8 +237,7 @@ $(document).on('click', 'tr [name="save"]', function(e){
     }
     vendor_products[prod_id][key] = $(this).val();
   });
-  console.log(vendor_products);
-
+  
   Async.waterfall([
     function(cb) {
       Async.forEachOf(vendor_products, function (prod, prod_id, cb2) {
