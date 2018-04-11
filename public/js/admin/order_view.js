@@ -223,14 +223,13 @@ var OrderView = function(options, callback){
 
 $(document).on('click', 'tr [name="save"]', function(e){
   e.preventDefault();
-  console.log('hehehe');
   var $tr = $(this).parents('tr')
     , support_status = $tr.find('[name="support_status"]').val()
     , notes = $tr.find('[name="notes"]').val()
     , _id = $tr.attr('data-id');
 
   var vendor_products = {};
-  _.each($tr.find('.variant'), function (i) {
+  $.each($tr.find('.variant'), function (i) {
     var prod_id = $(this).attr('data-prod-id');
     var key = $(this).attr('data-variant-label');
     if (!(prod_id in vendor_products)) {
@@ -243,7 +242,6 @@ $(document).on('click', 'tr [name="save"]', function(e){
   Async.waterfall([
     function(cb) {
       Async.forEachOf(vendor_products, function (prod, prod_id, cb2) {
-
         $.post('/admin/order/' + _id + '/product/' + prod_id + '/stock/update.json', prod, function (res) {
           if (Belt.get(res, 'error')) return cb2(res.error);
           cb2();
@@ -256,16 +254,16 @@ $(document).on('click', 'tr [name="save"]', function(e){
       , 'notes': notes
       }, function(res){
         if (Belt.get(res, 'error')) cb(res.error);
-        cb();
-      });
+        var d = Belt.get(res, 'data');
+        d.options = d.options || {};
+        d.Instance = Instance;
+        d.GB = GB;
+        $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
+          cb();
+        });
     }
   ], function (err) {
       if (err) return bootbox.alert(err);
-      var d = Belt.get(res, 'data');
-      d.options = d.options || {};
-      d.Instance = Instance;
-      d.GB = GB;
-      $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
-  });
+  }); 
   
 });
