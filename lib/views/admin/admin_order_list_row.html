@@ -82,86 +82,100 @@
     </div>
   </td>
   <td>
-    <% _.each(vendor_products, function(v2, k){ %>
-      <% if (Instance.vendor_ids[k]){ %>
-        <p>
-          <span class="label label-info"
-            <% if (Belt.get(Instance.vendor_ids[k], 'shopify.access_token')){ %>
-              title="Shopify vendor: no manual handling needed."
-            <% } else if (Belt.get(Instance.vendor_ids[k], 'woocommerce.consumer_key')){ %>
-              title="Woocommerce vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
-            <% } else if (Belt.get(Instance.vendor_ids[k], 'magento.url')){ %>
-              title="Magento vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
-            <% } else { %>
-              title="Manual vendor: order must be placed manually and shipping notifications must be manually entered."
-            <% } %>
-          ><%= Instance.vendor_ids[k].name %></span>
-        </p>
-      <% } %>
-      <% _.each(v2, function(v, idx){ %>
-        <p>
-          <a href="/product/<%= v.source.product.slug %>" target="_blank">
-            <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
-            <br><%= v.product %>
-            <br><small>Admin URL: https://wanderset.com/admin/product/<%= v.source.product.slug %></small>
-          </a>
-        </p>
-        <p>
-          <% _.each(v.options, 
-            function(v3, k3) {
-          %>
-          <% var stocks = _.filter(Belt.get(v, 'source.product.stocks'), function(s){
-            return s.available_quantity > 0;
-          });
-            var vals = _.map(stocks, function (s) { return Belt.get(s, 'options.' + k3 + '.value')});
-          %>
-          <label><%=k3 %></label>
-          <select data-variant-label=<%=k3%> data-prod-id=<%=v.product%> class="variant">
-          <% _.map(_.uniq(vals), function (v4) { %>
-              <option <%=v4 == v3 ? 'selected' : '' %>><%= v4 %></option>
-          <%})%>
-          </select>
-          <%
-            })
-          %>
-        </p>
-        <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
-        <% if (Belt.get(v, 'source.stock.manual_override')){ %>
-          <p>
-            <span class="label label-info">MANUAL SOURCING</span>
-          </p>
-        <% } %>
-        <% if (Belt.get(Instance.vendor_ids[k], 'name') === 'Streetammo' && Belt.get(v, 'source.product.source.record.url')){ %>
-          <p>
-            <a href="<%= Belt.get(v, 'source.product.source.record.link') || Belt.get(v, 'source.product.source.record.url') %>" target="_blank">Streetammo URL</a>
-          </p>
-        <% } %>
-        <p>
-          <% if (_.some(shipped_products, function(p){
-            return p.toString() === v._id.toString();
-          })){ %>
-            <span class="label label-success">SHIPPED</span>
-          <% } else { %>
-            <% if (Moment().subtract(48, 'hours').isAfter(created_at)){ %>
-              <span class="label label-danger">NOT SHIPPED FOR OVER 48 HOURS! CONTACT VENDOR!</span>
-            <% } else { %>
-              <span class="label label-danger">NOT SHIPPED</span>
-            <% } %>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-info btn-prod-add" name="prod-add">Add</button>
+        <button type="button" class="btn btn-default btn-prod-del" disabled="disabled" name="prod-del">Delete</button>
+      </div>
+      <div class="form-group input-add-product">
+        <input type="text" class="form-control" placeholder="Add Product ..." />
+        <p class="hidden error">This field is required*</p>
+      </div>
+      <% _.each(vendor_products, function(v2, k){ %>
+          <% if (Instance.vendor_ids[k]){ %>
+            <p>
+              <span class="label label-info"
+                <% if (Belt.get(Instance.vendor_ids[k], 'shopify.access_token')){ %>
+                  title="Shopify vendor: no manual handling needed."
+                <% } else if (Belt.get(Instance.vendor_ids[k], 'woocommerce.consumer_key')){ %>
+                  title="Woocommerce vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
+                <% } else if (Belt.get(Instance.vendor_ids[k], 'magento.url')){ %>
+                  title="Magento vendor: email vendor to alert them to order. They have received it in their API, but we need to make sure they have all info needed. Shipping will need to be entered manually."
+                <% } else { %>
+                  title="Manual vendor: order must be placed manually and shipping notifications must be manually entered."
+                <% } %>
+              ><%= Instance.vendor_ids[k].name %></span>
+            </p>
           <% } %>
-        </p>
-        <% if (Belt.get(v, 'source.order.id') || Belt.get(v, 'source.order.order.id')){ %>
-          <p>
-            <span class="label label-success">Order <%= Belt.get(v, 'source.order.order.name') || Belt.get(v, 'source.order.id') %> | ID #<%= Belt.get(v, 'source.order.order.id') || Belt.get(v, 'source.order.id') %></span>
-          </p>
-        <% } %>
-        <% if (Belt.get(v, 'source.order.errors')){ %>
-          <p>
-            <span class="label label-danger"><%= Belt.stringify(v.source.order) %></span>
-          </p>
-        <% } %>
+            <% _.each(v2, function(v, idx){ %>
+              <label class="prod-container" for=<%= v.source.product.slug%>>
+                <input type="checkbox" class="ch-prod" id=<%= v.source.product.slug%> >
+                <div class="prod-info">
+                  <p>
+                    <a href="/product/<%= v.source.product.slug %>" target="_blank">
+                      <%= v.source.product.label.us %> | <%= v.source.product.brands.join(', ') %>
+                      <br><%= v.product %>
+                      <br><small>Admin URL: https://wanderset.com/admin/product/<%= v.source.product.slug %></small>
+                    </a>
+                  </p>
+                  <p>
+                    <% _.each(v.options,
+                      function(v3, k3) {
+                    %>
+                    <% var stocks = _.filter(Belt.get(v, 'source.product.stocks'), function(s){
+                      return s.available_quantity > 0;
+                    });
+                      var vals = _.map(stocks, function (s) { return Belt.get(s, 'options.' + k3 + '.value')});
+                    %>
+                    <label><%=k3 %></label>
+                    <select data-variant-label=<%=k3%> data-prod-id=<%=v.product%> class="variant">
+                    <% _.map(_.uniq(vals), function (v4) { %>
+                        <option <%=v4 == v3 ? 'selected' : '' %>><%= v4 %></option>
+                    <%})%>
+                    </select>
+                    <%
+                      })
+                    %>
+                  </p>
+                  <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
+                  <% if (Belt.get(v, 'source.stock.manual_override')){ %>
+                    <p>
+                      <span class="label label-info">MANUAL SOURCING</span>
+                    </p>
+                  <% } %>
+                  <% if (Belt.get(Instance.vendor_ids[k], 'name') === 'Streetammo' && Belt.get(v, 'source.product.source.record.url')){ %>
+                    <p>
+                      <a href="<%= Belt.get(v, 'source.product.source.record.link') || Belt.get(v, 'source.product.source.record.url') %>" target="_blank">Streetammo URL</a>
+                    </p>
+                  <% } %>
+                  <p>
+                    <% if (_.some(shipped_products, function(p){
+                      return p.toString() === v._id.toString();
+                    })){ %>
+                      <span class="label label-success">SHIPPED</span>
+                    <% } else { %>
+                      <% if (Moment().subtract(48, 'hours').isAfter(created_at)){ %>
+                        <span class="label label-danger">NOT SHIPPED FOR OVER 48 HOURS! CONTACT VENDOR!</span>
+                      <% } else { %>
+                        <span class="label label-danger">NOT SHIPPED</span>
+                      <% } %>
+                    <% } %>
+                  </p>
+                  <% if (Belt.get(v, 'source.order.id') || Belt.get(v, 'source.order.order.id')){ %>
+                    <p>
+                      <span class="label label-success">Order <%= Belt.get(v, 'source.order.order.name') || Belt.get(v, 'source.order.id') %> | ID #<%= Belt.get(v, 'source.order.order.id') || Belt.get(v, 'source.order.id') %></span>
+                    </p>
+                  <% } %>
+                  <% if (Belt.get(v, 'source.order.errors')){ %>
+                    <p>
+                      <span class="label label-danger"><%= Belt.stringify(v.source.order) %></span>
+                    </p>
+                  <% } %>
+                  <button class="btn-prod-remove" data-prod-slug=<%= v.source.product.slug %>><i class="fa fa-window-close"></i></button>
+                </div>
+              </label>
+            <% }) %>
+          <hr>
       <% }) %>
-      <hr>
-    <% }) %>
   </td>
   <td>
     <p><strong>VENDOR ORDERS</strong></p>

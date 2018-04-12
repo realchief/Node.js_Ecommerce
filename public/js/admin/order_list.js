@@ -297,6 +297,57 @@ $(document).on('submit', '#search-modal form', function(e){
   SearchOrders();
 });
 
+function delete(slugs, cb) {
+  if (!slugs.isArray()) {
+    slugs = [slugs]
+  }
+  
+}
+
+$(document).on('click', '.btn-prod-add', function(e){
+  var prod_slug = $(this).closest('td').find('.input-add-product input').val();
+  var $elem = $(this).closest('td').find('.input-add-product .error');
+  if (prod_slug && !$elem.hasClass('hidden')) {
+    $elem.addClass('hidden');
+  }
+  else if (!prod_slug )
+    if ( $elem.hasClass('hidden')) {
+      $elem.removeClass('hidden');
+    }
+    return;
+  }
+  var $tr = $(this).closest('tr');
+  var order_id = $tr.attr('data-id');
+  $.get('/admin/order/' + order_id + '/product/' + prod_slug + '/create.json', function(res) {
+    if (res.error) return bootbox.alert(err);
+    var d = Belt.get(res, 'data');
+    d.options = d.options || {};
+    d.Instance = Instance;
+    d.GB = GB;
+    $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
+  });
+  
+});
+$(document).on('click', '.ch-prod', function(e) {
+  var sel_prod_slugs = [];
+  var $btn_del = $(this).closest('td').find('.btn-prod-del');
+  $.each($('.ch-prod:checked'), function (idx) {
+    var data_prod_slug = $(this).attr('id');
+    console.log(data_prod_slug);
+    if (data_prod_slug) {
+      sel_prod_slugs.push(data_prod_slug);
+    }
+  });
+
+  if (sel_prod_slugs.length > 0) {
+    $btn_del.removeAttr('disabled');
+  }
+  else {
+    $btn_del.attr('disabled', 'disabled');
+  }
+  console.log(sel_prod_slugs);
+});
+
 $(document).on('click', '[name="save"]', function(e){
   e.preventDefault();
   var $tr = $(this).parents('tr')
@@ -340,4 +391,5 @@ $(document).on('click', '[name="save"]', function(e){
   ], function (err) {
       if (err) return bootbox.alert(err);
   });
+  
 });

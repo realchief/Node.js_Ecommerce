@@ -1115,6 +1115,7 @@ button.dim:active:before {
 .badge-info {
   background-color: #23c6c8;
   color: #FFFFFF;
+  margin-left: 30px;
 }
 .label-inverse,
 .badge-inverse {
@@ -8424,6 +8425,39 @@ body.md-skin {
   position: fixed;
   display: none;
 }
+.order .prod-container .prod-info {
+  display: inline-block;
+  padding-right: 30px;
+  position: relative;
+  vertical-align: middle;
+  width: calc(100% - 30px);
+}
+
+.order .prod-container .btn-prod-remove { 
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0px;
+}
+
+.order .prod-container .btn-prod-remove i {
+  font-size: 15px;
+}
+.order .prod-container input[type="checkbox"] {
+  display: inline-block;
+  width: 20px;
+  margin-top: 0;
+  vertical-align: middle;
+}
+
+.order .btn-group {
+  padding: 0 20px;
+}
+.order .form-group {
+  padding: 0 20px;
+}
+
 @media (min-width: 768px) {
   #page-wrapper {
     position: inherit;
