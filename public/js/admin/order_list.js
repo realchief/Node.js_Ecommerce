@@ -296,11 +296,11 @@ $(document).on('submit', '#search-modal form', function(e){
   SearchOrders();
 });
 
-// function delete(slugs, cb) {
-//   if (!slugs.isArray()) {
-//     slugs = [slugs]
-//   }  
-// }
+function del_prod(slugs, cb) {
+  if (!slugs.isArray()) {
+    slugs = [slugs]
+  }  
+}
 
 $(document).on('click', '.btn-prod-add', function(e){
   var prod_slug = $(this).closest('td').find('.input-add-product input').val();
@@ -314,6 +314,7 @@ $(document).on('click', '.btn-prod-add', function(e){
     }
     return;
   }
+  console.log(prod_slug);
   var $tr = $(this).closest('tr');
   var order_id = $tr.attr('data-id');
   $.get('/admin/order/' + order_id + '/product/' + prod_slug + '/create.json', function(res) {
