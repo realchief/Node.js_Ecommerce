@@ -204,7 +204,6 @@ var BuildQuery = function(options, callback){
     , '$options': 'i'
     };
   }
-
   return qry;
 };
 
@@ -297,12 +296,11 @@ $(document).on('submit', '#search-modal form', function(e){
   SearchOrders();
 });
 
-function delete(slugs, cb) {
-  if (!slugs.isArray()) {
-    slugs = [slugs]
-  }
-  
-}
+// function delete(slugs, cb) {
+//   if (!slugs.isArray()) {
+//     slugs = [slugs]
+//   }  
+// }
 
 $(document).on('click', '.btn-prod-add', function(e){
   var prod_slug = $(this).closest('td').find('.input-add-product input').val();
@@ -310,7 +308,7 @@ $(document).on('click', '.btn-prod-add', function(e){
   if (prod_slug && !$elem.hasClass('hidden')) {
     $elem.addClass('hidden');
   }
-  else if (!prod_slug )
+  else if (!prod_slug ){
     if ( $elem.hasClass('hidden')) {
       $elem.removeClass('hidden');
     }
