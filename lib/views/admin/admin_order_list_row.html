@@ -107,8 +107,8 @@
             </p>
           <% } %>
             <% _.each(v2, function(v, idx){ %>
-              <label class="prod-container" for=<%= v.source.product.slug%>>
-                <input type="checkbox" class="ch-prod" id=<%= v.source.product.slug%> >
+              <label class="prod-container" for=<%= v.source.product._id%>>
+                <input type="checkbox" class="ch-prod" id=<%= v.source.product._id%> >
                 <div class="prod-info">
                   <p>
                     <a href="/product/<%= v.source.product.slug %>" target="_blank">
@@ -170,7 +170,7 @@
                       <span class="label label-danger"><%= Belt.stringify(v.source.order) %></span>
                     </p>
                   <% } %>
-                  <button class="btn-prod-remove" data-prod-slug=<%= v.source.product.slug %>><i class="fa fa-window-close"></i></button>
+                  <button class="btn-prod-remove" data-prod-slug=<%= v.source.product._id %>><i class="fa fa-window-close"></i></button>
                 </div>
               </label>
             <% }) %>
