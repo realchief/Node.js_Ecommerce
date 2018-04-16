@@ -320,6 +320,8 @@ $(document).ready(function(){
           });
         });
       });
+      
+      console.log(stocks);
       d.stocks_str = JSON.stringify(stocks);
       return Templates['admin_' + GB.model + '_list_row'](d);
     }).join('\n'));
@@ -372,6 +374,28 @@ $(document).on('click', '.btn-prod-add', function(e){
     d.options = d.options || {};
     d.Instance = Instance;
     d.GB = GB;
+    var stocks = {};
+      _.each(d.products, function (p) {
+        stocks[p.product] = {};
+        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
+        var option_attrs = _.keys(p.options);
+        _.each(pr_stocks, function (stock) {
+          _.each(option_attrs, function (attr, idx) {
+            if (stock.available_quantity > 0) { 
+              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                  return stock.options[k].value.replace(/\./g, '_');
+                return '';
+              }).join('.');
+
+              Belt.set(stocks[p.product], key, stock.available_quantity);
+            }
+          });
+        });
+      });
+      
+      console.log(stocks);
+      d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
   
@@ -391,6 +415,28 @@ $(document).on('click', '.btn-prod-del', function (e) {
     d.options = d.options || {};
     d.Instance = Instance;
     d.GB = GB;
+    var stocks = {};
+      _.each(d.products, function (p) {
+        stocks[p.product] = {};
+        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
+        var option_attrs = _.keys(p.options);
+        _.each(pr_stocks, function (stock) {
+          _.each(option_attrs, function (attr, idx) {
+            if (stock.available_quantity > 0) { 
+              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                  return stock.options[k].value.replace(/\./g, '_');
+                return '';
+              }).join('.');
+
+              Belt.set(stocks[p.product], key, stock.available_quantity);
+            }
+          });
+        });
+      });
+      
+      console.log(stocks);
+      d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
 });
@@ -402,6 +448,28 @@ $(document).on('click', '.btn-prod-remove', function(e) {
     d.options = d.options || {};
     d.Instance = Instance;
     d.GB = GB;
+    var stocks = {};
+      _.each(d.products, function (p) {
+        stocks[p.product] = {};
+        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
+        var option_attrs = _.keys(p.options);
+        _.each(pr_stocks, function (stock) {
+          _.each(option_attrs, function (attr, idx) {
+            if (stock.available_quantity > 0) { 
+              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                  return stock.options[k].value.replace(/\./g, '_');
+                return '';
+              }).join('.');
+
+              Belt.set(stocks[p.product], key, stock.available_quantity);
+            }
+          });
+        });
+      });
+      
+      console.log(stocks);
+      d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
 });
