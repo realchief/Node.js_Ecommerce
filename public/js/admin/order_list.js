@@ -165,7 +165,7 @@ var LoadDocs = function(options, callback){
   , function(cb){
       $.post('/admin/' + GB.model + '/list.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
-
+        var docs = Belt.get(json, 'data');
         gb['docs'] = Belt.get(json, 'data');
         cb();
       });
@@ -211,7 +211,7 @@ var DelProd = function (order_id, ids, cb) {
   $.post('/admin/order/' + order_id + '/products/delete.json', {
     'products': ids
   }, function (res) {
-    if (res.error) return bootbox.alert(err);
+    if (res.error) return bootbox.alert(error);
     var d = Belt.get(res, 'data');
     return cb(d);
   });
@@ -231,6 +231,22 @@ $(document).ready(function(){
   if (_.isString(GB.criteria.sort)) GB.criteria.sort = JSON.parse(GB.criteria.sort);
   GB.criteria.skip = Belt.cast(GB.criteria.skip, 'number');
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
+
+  $(document).on('change', '.variant', function (e) {
+    var key = '';
+    $tr = $(this).closest('tr');
+    $.each($tr.find('.variant'), function () {
+      key += '.' + $(this).val().replace('\.', '_');
+    });
+    var stocks = JSON.parse($tr.find('.stock-str').val());
+    var product_id = $(this).attr('data-prod-id');
+    var available_quantity = Belt.get(stocks, product_id + key);
+    var html = '';
+    for (var i = 1;i <= available_quantity;i ++) {
+      html += '<option>' + i + '</option>';
+    }
+    $tr.find('.qty').html(html);
+  });
 
   $(document).on('click', '[name="apply_filter"]', function(e){
     e.preventDefault();
@@ -273,9 +289,28 @@ $(document).ready(function(){
 
     $('tbody').html(_.map(res.docs, function(d){
       if (!d) return '';
+      var options = d.options;
       d.options = d.options || {};
       d.Instance = Instance;
       d.GB = GB;
+      var stocks = {};
+      _.each(d.products, function (p) {
+        stocks[p.product] = {};
+        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
+        var option_attrs = _.keys(p.options);
+        _.each(pr_stocks, function (stock) {
+          _.each(option_attrs, function (attr, idx) {
+            if (stock.available_quantity > 0) { 
+              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                return stock.options[k].value.replace(/\./g, '_');
+              }).join('.');
+
+              Belt.set(stocks[p.product], key, stock.available_quantity);
+            }
+          });
+        });
+      });
+      d.stocks_str = JSON.stringify(stocks);
       return Templates['admin_' + GB.model + '_list_row'](d);
     }).join('\n'));
 
@@ -322,7 +357,7 @@ $(document).on('click', '.btn-prod-add', function(e){
   var $tr = $(this).closest('tr');
   var order_id = $tr.attr('data-id');
   $.get('/admin/order/' + order_id + '/product/' + prod_slug + '/create.json', function(res) {
-    if (res.error) return bootbox.alert(err);
+    if (res.error) return bootbox.alert(error);
     var d = Belt.get(res, 'data');
     d.options = d.options || {};
     d.Instance = Instance;

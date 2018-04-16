@@ -90,6 +90,7 @@
         <input type="text" class="form-control" placeholder="Add Product ..." />
         <p class="hidden error">This field is required*</p>
       </div>
+      <input type="hidden" value='<%=stocks_str%>' class="stock-str" />
       <% _.each(vendor_products, function(v2, k){ %>
           <% if (Instance.vendor_ids[k]){ %>
             <p>
@@ -136,7 +137,12 @@
                       })
                     %>
                   </p>
-                  <p>QTY: <%= v.quantity %> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
+                  <p><label>QTY:</label> 
+                    <select class="qty" data-prod-id=<%=v.product%>>
+                    <% for (var i = 0;i < Belt.get(v, 'source.stock').available_quantity; i ++ ) { %>
+                      <option><%= (i + 1) %></option>
+                    <%}%>
+                    </select> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
                   <% if (Belt.get(v, 'source.stock.manual_override')){ %>
                     <p>
                       <span class="label label-info">MANUAL SOURCING</span>
