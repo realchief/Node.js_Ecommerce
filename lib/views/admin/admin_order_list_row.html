@@ -140,7 +140,7 @@
                   <p><label>QTY:</label> 
                     <select class="qty" data-prod-id=<%=v.product%>>
                     <% for (var i = 0;i < Belt.get(v, 'source.stock').available_quantity; i ++ ) { %>
-                      <option><%= (i + 1) %></option>
+                      <option <%= i + 1 == v.quantity ? 'selected' : ''%> ><%= (i + 1) %></option>
                     <%}%>
                     </select> | UNIT: $<%= Instance.priceString(v.unit_price) %> | TOTAL: $<%= Instance.priceString(v.price) %></p>
                   <% if (Belt.get(v, 'source.stock.manual_override')){ %>
