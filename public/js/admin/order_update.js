@@ -101,7 +101,7 @@ $(document).ready(function(){
 
     LoadDocs(GB.criteria, function(err, res){
       if (err) return bootbox.alert(err.message);
-      // console.log(res.docs);
+      
       $('tbody').html(_.map(res.docs, function(d){
         d.options = d.options || {};
         d.Instance = Instance;
@@ -125,9 +125,8 @@ $(document).ready(function(){
               }
             });
           });
-        });
-      
-        console.log(stocks);
+        });      
+       
         d.stocks_str = JSON.stringify(stocks);       
 
         return Templates['admin_' + GB.model + '_list_row'](d);
@@ -150,7 +149,7 @@ $(document).on('click', '.btn-prod-add', function(e){
     }
     return;
   }
-  console.log(prod_slug);
+ 
   var $tr = $(this).closest('tr');
   var order_id = $tr.attr('data-id');
   $.get('/admin/order/' + order_id + '/product/' + prod_slug + '/create.json', function(res) {
@@ -179,7 +178,7 @@ $(document).on('click', '.btn-prod-add', function(e){
         });
       });
       
-      console.log(stocks);
+      
       d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
@@ -192,7 +191,7 @@ $(document).on('click', '.btn-prod-del', function (e) {
   var order_id = $tr.attr('data-id');
   $.each($('.ch-prod:checked'), function (idx) {
     var data_prod_slug = $(this).attr('id');
-    console.log(data_prod_slug);
+   
     if (data_prod_slug) {
       sel_prod_slugs.push(data_prod_slug);
     }
@@ -219,9 +218,8 @@ $(document).on('click', '.btn-prod-del', function (e) {
             }
           });
         });
-      });
-      
-      console.log(stocks);
+      });      
+     
       d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
@@ -252,9 +250,8 @@ $(document).on('click', '.btn-prod-remove', function(e) {
             }
           });
         });
-      });
-      
-      console.log(stocks);
+      });      
+     
       d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
@@ -264,7 +261,7 @@ $(document).on('click', '.ch-prod', function(e) {
   var $btn_del = $(this).closest('td').find('.btn-prod-del');
   $.each($('.ch-prod:checked'), function (idx) {
     var data_prod_slug = $(this).attr('id');
-    console.log(data_prod_slug);
+    
     if (data_prod_slug) {
       sel_prod_slugs.push(data_prod_slug);
     }
@@ -276,7 +273,7 @@ $(document).on('click', '.ch-prod', function(e) {
   else {
     $btn_del.attr('disabled', 'disabled');
   }
-  console.log(sel_prod_slugs);
+  
 });
 
 $(document).on('click', '[name="save"]', function(e){
