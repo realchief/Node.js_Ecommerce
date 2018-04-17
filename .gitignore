@@ -1,8 +1,8 @@
 .DS_Store
 ._.DS_Store
 node_modules
+users.developer-trial.json
 config.developer-trial.json
-environment.json
 bower_components
 *.log
 credentials.json
@@ -11,5 +11,6 @@ users.json
 tmp
 log/
 target/
+.idea/
 */._*
 ._*
