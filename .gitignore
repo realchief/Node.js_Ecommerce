@@ -1,6 +1,8 @@
 .DS_Store
 ._.DS_Store
 node_modules
+config.developer-trial.json
+environment.json
 bower_components
 *.log
 credentials.json

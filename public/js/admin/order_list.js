@@ -390,9 +390,8 @@ $(document).on('click', '.btn-prod-add', function(e){
             }
           });
         });
-      });
+      });      
       
-      console.log(stocks);
       d.stocks_str = JSON.stringify(stocks);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });

@@ -85,8 +85,7 @@ var OrderView = function(options, callback){
       , self = this
       , gb = {};
     a.o = _.defaults(a.o, {
-
-    });    
+    });  
 
     gb['data'] = self.getSelf();
 

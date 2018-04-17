@@ -100,8 +100,7 @@ $(document).ready(function(){
     GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
 
     LoadDocs(GB.criteria, function(err, res){
-      if (err) return bootbox.alert(err.message);
-      
+      if (err) return bootbox.alert(err.message);      
       $('tbody').html(_.map(res.docs, function(d){
         d.options = d.options || {};
         d.Instance = Instance;
