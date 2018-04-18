@@ -125,7 +125,6 @@ $(document).ready(function(){
                         if (!Belt.get(stocks[p.product], key))
                             Belt.set(stocks[p.product], key, stock.available_quantity);
                         if(option_attrs.length == idx + 1) {
-                            debugger;
                             available_keys[p.product].push(key);
                         }
                     }

@@ -259,7 +259,7 @@ $(document).ready(function(){
     var origin_qty = $tr.find('.qty').val();
 
     for (var i = 1;i <= available_quantity;i ++) {
-      if (i == origin_qty || (origin_qty > available_quantity && i == available_quantity)) 
+      if (i == origin_qty || (origin_qty > available_quantity && i == available_quantity))
         html += '<option selected>' + i + '</option>';
       else html += '<option>' + i + '</option>';
     }
