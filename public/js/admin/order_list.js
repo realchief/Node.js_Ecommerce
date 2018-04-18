@@ -165,7 +165,6 @@ var LoadDocs = function(options, callback){
   , function(cb){
       $.post('/admin/' + GB.model + '/list.json', a.o, function(json){
         if (Belt.get(json, 'error')) return cb(new Error(json.error));
-        var docs = Belt.get(json, 'data');
         gb['docs'] = Belt.get(json, 'data');
         cb();
       });
