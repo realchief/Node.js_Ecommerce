@@ -1,6 +1,6 @@
 <tr class="order" <% if (
   shipping_status !== 'shipped'
-  && Moment(updated_at).isBefore(Moment().subtract(1, 'days'))
+  && Moment(created_at).isBefore(Moment().subtract(1, 'days'))
   && (typeof support_status === 'undefined' || !support_status.match(/refund/i))
 ){ %>
   <% if (typeof helpscout_conversations !== 'undefined' && _.some(helpscout_conversations, function(c){
