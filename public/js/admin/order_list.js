@@ -233,14 +233,29 @@ $(document).ready(function(){
   GB.criteria.limit = Belt.cast(GB.criteria.limit, 'number');
 
   $(document).on('change', '.variant', function (e) {
-    var key = '';
-    $tr = $(this).closest('tr');
-    $.each($tr.find('.variant'), function () {
-      key += '.' + $(this).val().replace('\.', '_');
+    var $tr = $(this).closest('tr');
+    var $prod = $(this).closest('.prod-info');
+    var keys = [];
+    $.each($prod.find('.variant'), function () {
+      keys.push($(this).val().replace('\.', '_'));
     });
+    var key = keys.join('.');
     var stocks = JSON.parse($tr.find('.stock-str').val());
+    var current_variant = $(this).val();
+    var variant = $(this).attr('data-variant-label');
+    var variant_idx = $(this).attr('data-variant-idx');
+    var available_keys = JSON.parse($tr.find('.available-keys').val());
     var product_id = $(this).attr('data-prod-id');
-    var available_quantity = Belt.get(stocks, product_id + key);
+
+    if (_.indexOf(available_keys[product_id], key) < 0) {
+        key = _.find(available_keys[product_id], function (k) {
+          return k.split('.')[variant_idx] == current_variant;
+        });
+        $.each($tr.find('.variant'), function (index) {
+          $(this).val(key.split('.')[index]);
+        });
+    }
+    var available_quantity = Belt.get(stocks, [product_id, key].join('.'));
     var html = '';
     var origin_qty = $tr.find('.qty').val();
 
@@ -250,10 +265,7 @@ $(document).ready(function(){
       else html += '<option>' + i + '</option>';
     }
 
-    if (!html) {
-      html = '<option>No available</option>';
-    }
-    $tr.find('.qty').html(html);
+    $prod.find('.qty').html(html);
   });
 
   $(document).on('click', '[name="apply_filter"]', function(e){
@@ -302,26 +314,32 @@ $(document).ready(function(){
       d.Instance = Instance;
       d.GB = GB;
       var stocks = {};
-      _.each(d.products, function (p) {
-        stocks[p.product] = {};
-        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
-        var option_attrs = _.keys(p.options);
-        _.each(pr_stocks, function (stock) {
-          _.each(option_attrs, function (attr, idx) {
-            if (stock.available_quantity > 0) { 
-              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
-                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
-                  return stock.options[k].value.replace(/\./g, '_');
-                return '';
-              }).join('.');
+      var available_keys = {};
 
-              Belt.set(stocks[p.product], key, stock.available_quantity);
-            }
+      _.each(d.products, function (p) {
+          stocks[p.product] = {};
+          available_keys[p.product] = [];
+          var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
+          var option_attrs = _.keys(p.options);
+          _.each(pr_stocks, function (stock) {
+              _.each(option_attrs, function (attr, idx) {
+                  if (stock.available_quantity > 0) {
+                      var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                          if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                              return stock.options[k].value.replace(/\./g, '_');
+                          return '';
+                      }).join('.');
+                      if (!Belt.get(stocks[p.product], key))
+                          Belt.set(stocks[p.product], key, stock.available_quantity);
+                      if(option_attrs.length == idx + 1) {
+                          available_keys[p.product].push(key);
+                      }
+                  }
+              });
           });
-        });
-      });      
-      
+      });
       d.stocks_str = JSON.stringify(stocks);
+      d.available_keys = JSON.stringify(available_keys);
       return Templates['admin_' + GB.model + '_list_row'](d);
     }).join('\n'));
 
@@ -373,26 +391,30 @@ $(document).on('click', '.btn-prod-add', function(e){
     d.Instance = Instance;
     d.GB = GB;
     var stocks = {};
-      _.each(d.products, function (p) {
+    var available_keys = {};
+
+    _.each(d.products, function (p) {
         stocks[p.product] = {};
+        available_keys[p.product] = [];
         var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
         var option_attrs = _.keys(p.options);
         _.each(pr_stocks, function (stock) {
-          _.each(option_attrs, function (attr, idx) {
-            if (stock.available_quantity > 0) { 
-              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
-                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
-                  return stock.options[k].value.replace(/\./g, '_');
-                return '';
-              }).join('.');
-
-              Belt.set(stocks[p.product], key, stock.available_quantity);
-            }
-          });
+            _.each(option_attrs, function (attr, idx) {
+                if (stock.available_quantity > 0) {
+                    var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                        if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                            return stock.options[k].value.replace(/\./g, '_');
+                        return '';
+                    }).join('.');
+                    Belt.set(stocks[p.product], key, stock.available_quantity);
+                    if(option_attrs.length == idx + 1)
+                        available_keys[p.product].push(key);
+                }
+            });
         });
-      });      
-      
-      d.stocks_str = JSON.stringify(stocks);
+    });
+    d.stocks_str = JSON.stringify(stocks);
+    d.available_keys = JSON.stringify(available_keys);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
   
@@ -412,58 +434,30 @@ $(document).on('click', '.btn-prod-del', function (e) {
     d.Instance = Instance;
     d.GB = GB;
     var stocks = {};
-      _.each(d.products, function (p) {
+    var available_keys = {};
+
+    _.each(d.products, function (p) {
         stocks[p.product] = {};
+        available_keys[p.product] = [];
         var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
         var option_attrs = _.keys(p.options);
         _.each(pr_stocks, function (stock) {
-          _.each(option_attrs, function (attr, idx) {
-            if (stock.available_quantity > 0) { 
-              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
-                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
-                  return stock.options[k].value.replace(/\./g, '_');
-                return '';
-              }).join('.');
-
-              Belt.set(stocks[p.product], key, stock.available_quantity);
-            }
-          });
+            _.each(option_attrs, function (attr, idx) {
+                if (stock.available_quantity > 0) {
+                    var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                        if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                            return stock.options[k].value.replace(/\./g, '_');
+                        return '';
+                    }).join('.');
+                    Belt.set(stocks[p.product], key, stock.available_quantity);
+                    if(option_attrs.length == idx + 1)
+                        available_keys[p.product].push(key);
+                }
+            });
         });
-      });      
-      
-      d.stocks_str = JSON.stringify(stocks);
-    $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
-  });
-});
-$(document).on('click', '.btn-prod-remove', function(e) {
-  var prod_id = $(this).attr('data-prod-slug');
-  var $tr = $(this).closest('tr');
-  var order_id = $tr.attr('data-id');
-  DelProd(order_id, [prod_id], function(d) {
-    d.options = d.options || {};
-    d.Instance = Instance;
-    d.GB = GB;
-    var stocks = {};
-      _.each(d.products, function (p) {
-        stocks[p.product] = {};
-        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
-        var option_attrs = _.keys(p.options);
-        _.each(pr_stocks, function (stock) {
-          _.each(option_attrs, function (attr, idx) {
-            if (stock.available_quantity > 0) { 
-              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
-                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
-                  return stock.options[k].value.replace(/\./g, '_');
-                return '';
-              }).join('.');
-
-              Belt.set(stocks[p.product], key, stock.available_quantity);
-            }
-          });
-        });
-      });
-      
-      d.stocks_str = JSON.stringify(stocks);
+    });
+    d.stocks_str = JSON.stringify(stocks);
+    d.available_keys = JSON.stringify(available_keys);
     $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
   });
 });
@@ -531,8 +525,11 @@ $(document).on('click', '[name="save"]', function(e){
         d.Instance = Instance;
         d.GB = GB;
         var stocks = {};
+        var available_keys = {};
+
         _.each(d.products, function (p) {
           stocks[p.product] = {};
+          available_keys[p.product] = [];
           var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
           var option_attrs = _.keys(p.options);
           _.each(pr_stocks, function (stock) {
@@ -543,13 +540,15 @@ $(document).on('click', '[name="save"]', function(e){
                     return stock.options[k].value.replace(/\./g, '_');
                   return '';
                 }).join('.');
-
                 Belt.set(stocks[p.product], key, stock.available_quantity);
+                if(option_attrs.length == idx + 1)
+                  available_keys[p.product].push(key);
               }
             });
           });
         });
         d.stocks_str = JSON.stringify(stocks);
+        d.available_keys = JSON.stringify(available_keys);
         $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
           cb();
         });

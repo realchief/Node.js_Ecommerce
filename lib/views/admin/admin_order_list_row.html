@@ -91,6 +91,7 @@
         <p class="hidden error">This field is required*</p>
       </div>
       <input type="hidden" value='<%=stocks_str%>' class="stock-str" />
+      <input type="hidden" value='<%=available_keys%>' class="available-keys" />
       <% _.each(vendor_products, function(v2, k){ %>
           <% if (Instance.vendor_ids[k]){ %>
             <p>
@@ -128,9 +129,9 @@
                       var vals = _.map(stocks, function (s) { return Belt.get(s, 'options.' + k3 + '.value')});
                     %>
                     <label><%=k3 %></label>
-                    <select data-variant-label=<%=k3%> data-prod-id=<%=v.product%> class="variant">
+                    <select data-variant-label=<%=k3%> data-prod-id=<%=v.product%> class="variant" data-variant-idx=<%=_.indexOf(_.keys(v.options), k3)%>>
                     <% _.map(_.uniq(vals), function (v4) { %>
-                        <option <%=v4 == v3 ? 'selected' : '' %>><%= v4 %></option>
+                        <option <%=v4 == v3 ? 'selected' : '' %> value="<%=v4.replace('\.', '_')%>"><%= v4 %></option>
                     <%})%>
                     </select>
                     <%
@@ -176,7 +177,6 @@
                       <span class="label label-danger"><%= Belt.stringify(v.source.order) %></span>
                     </p>
                   <% } %>
-                  <button class="btn-prod-remove" data-prod-slug=<%= v.source.product._id %>><i class="fa fa-window-close"></i></button>
                 </div>
               </label>
             <% }) %>

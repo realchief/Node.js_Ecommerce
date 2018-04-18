@@ -8427,7 +8427,6 @@ body.md-skin {
 }
 .order .prod-container .prod-info {
   display: inline-block;
-  padding-right: 30px;
   position: relative;
   vertical-align: middle;
   width: calc(100% - 30px);

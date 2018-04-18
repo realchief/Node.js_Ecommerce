@@ -104,29 +104,36 @@ $(document).ready(function(){
       $('tbody').html(_.map(res.docs, function(d){
         d.options = d.options || {};
         d.Instance = Instance;
-        d.GB = GB; 
+        d.GB = GB;
 
         var stocks = {};
-        _.each(d.products, function (p) {
-          stocks[p.product] = {};
-          var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
-          var option_attrs = _.keys(p.options);
-          _.each(pr_stocks, function (stock) {
-            _.each(option_attrs, function (attr, idx) {
-              if (stock.available_quantity > 0) { 
-                var key = _.map(option_attrs.slice(0, idx+1), function (k) {
-                  if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
-                    return stock.options[k].value.replace(/\./g, '_');
-                  return '';
-                }).join('.');
+        var available_keys = {};
 
-                Belt.set(stocks[p.product], key, stock.available_quantity);
-              }
+        _.each(d.products, function (p) {
+            stocks[p.product] = {};
+            available_keys[p.product] = [];
+            var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
+            var option_attrs = _.keys(p.options);
+            _.each(pr_stocks, function (stock) {
+                _.each(option_attrs, function (attr, idx) {
+                    if (stock.available_quantity > 0) {
+                        var key = _.map(option_attrs.slice(0, idx+1), function (k) {
+                            if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
+                                return stock.options[k].value.replace(/\./g, '_');
+                            return '';
+                        }).join('.');
+                        if (!Belt.get(stocks[p.product], key))
+                            Belt.set(stocks[p.product], key, stock.available_quantity);
+                        if(option_attrs.length == idx + 1) {
+                            debugger;
+                            available_keys[p.product].push(key);
+                        }
+                    }
+                });
             });
-          });
-        });      
-       
-        d.stocks_str = JSON.stringify(stocks);       
+        });
+        d.stocks_str = JSON.stringify(stocks);
+        d.available_keys = JSON.stringify(available_keys);
 
         return Templates['admin_' + GB.model + '_list_row'](d);
       }).join('\n'));
@@ -196,38 +203,6 @@ $(document).on('click', '.btn-prod-del', function (e) {
     }
   });
   DelProd(order_id, sel_prod_slugs, function(d) {
-    d.options = d.options || {};
-    d.Instance = Instance;
-    d.GB = GB;
-    var stocks = {};
-      _.each(d.products, function (p) {
-        stocks[p.product] = {};
-        var pr_stocks = p.source.product.stocks || _.flatten(p.source.product.configuration_array);
-        var option_attrs = _.keys(p.options);
-        _.each(pr_stocks, function (stock) {
-          _.each(option_attrs, function (attr, idx) {
-            if (stock.available_quantity > 0) { 
-              var key = _.map(option_attrs.slice(0, idx+1), function (k) {
-                if (stock.options[k] && _.has(stock.options[k], 'value') && stock.options[k].value)
-                  return stock.options[k].value.replace(/\./g, '_');
-                return '';
-              }).join('.');
-
-              Belt.set(stocks[p.product], key, stock.available_quantity);
-            }
-          });
-        });
-      });      
-     
-      d.stocks_str = JSON.stringify(stocks);
-    $tr.replaceWith(Templates['admin_' + GB.model + '_list_row'](d));
-  });
-});
-$(document).on('click', '.btn-prod-remove', function(e) {
-  var prod_id = $(this).attr('data-prod-slug');
-  var $tr = $(this).closest('tr');
-  var order_id = $tr.attr('data-id');
-  DelProd(order_id, [prod_id], function(d) {
     d.options = d.options || {};
     d.Instance = Instance;
     d.GB = GB;
